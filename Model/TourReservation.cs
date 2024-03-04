@@ -8,9 +8,12 @@ namespace BookingApp.Model
 {
     public class TourReservation
     {
-        List<Tour> Tours { get; set; }
+        public int TourId { get; set; }
+        public Tour ReservedTour { get; set; }
+        public int TouristUserId {  get; set; }
 
-        public int Tourists { get; set; }
+        public List<Tourist> Tourists { get; set; }
+
 
 
     }

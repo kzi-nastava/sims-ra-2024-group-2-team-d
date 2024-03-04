@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public class Tourists
+    public class Tourist
     {
         public string Name { get; set; }
         public string LastName { get; set; }

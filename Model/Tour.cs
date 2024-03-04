@@ -24,5 +24,7 @@ namespace BookingApp.Model
         public int Duration { get; set; }
 
         public List<String> Pictures { get; set; }
+
+        public int EmptySlots { get; set; }
     }
 }

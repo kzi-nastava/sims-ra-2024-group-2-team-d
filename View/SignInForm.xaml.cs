@@ -47,15 +47,29 @@ namespace BookingApp.View
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-                if(user.Password == txtPassword.Password)
+                if(user.Password == txtPassword.Password && user.Role == Roles.OWNER)
                 {
                     CommentsOverview commentsOverview = new CommentsOverview(user);
                     commentsOverview.Show();
                     Close();
                 } 
-                else
+                else if(user.Password == txtPassword.Password && user.Role == Roles.GUEST)
                 {
-                    MessageBox.Show("Wrong password!");
+                    GuestWindow guestWindow = new GuestWindow(user);
+                    guestWindow.Show();
+                    Close();
+                }else if(user.Password == txtPassword.Password && user.Role == Roles.TOURIST)
+                {
+                    TouristWindow touristWindow = new TouristWindow(user);
+                    touristWindow.Show();
+                    Close();
+
+                }else if(user.Password == txtPassword.Password && user.Role == Roles.GUIDE)
+                {
+                    GuideWindow guideWindow = new GuideWindow(user);
+                    guideWindow.Show();
+                    Close();
+
                 }
             }
             else

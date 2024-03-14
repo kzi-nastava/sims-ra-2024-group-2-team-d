@@ -34,33 +34,32 @@
         </StackPanel>
 
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
-                    <TextBlock Text="Create" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
-                </StackPanel>
-            </Button>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="txtLocation" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+            </StackPanel>
             <Separator/>
-            <Button>
+            
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/view.png" Width="20" Height="25"/>
-                    <TextBlock Text="View" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+
+                    <TextBox x:Name="txtDuration" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
-            </Button>
+            
             <Separator/>
-            <Button>
+            
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/edit.png" Width="20" Height="25"/>
-                    <TextBlock Text="Update" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox x:Name="txtLanguage" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
-            </Button>
+            
             <Separator/>
-            <Button>
+            
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
-                    <TextBlock Name="DeleteTxtBlock" Text="Delete" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox x:Name="txtNumberOfPeople" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
-            </Button>
+            <Separator/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Pretrazi" Click="OnSearchClick" Width="50"></Button>
+            </StackPanel>
+
         </ToolBar>
 
     </Grid>

@@ -39,5 +39,23 @@ namespace BookingApp.View
             Tours = new ObservableCollection<Tour>(_repository.GetAll());
         }
 
+        private void OnSearchClick(object sender, RoutedEventArgs e)
+        {
+            bool isValidNumber = int.TryParse(txtNumberOfPeople.Text, out int numberOfPeople);
+            if (!isValidNumber) numberOfPeople = 0;
+
+            var filteredTours = _repository.GetAll()
+                .Where(t => (string.IsNullOrEmpty(txtLocation.Text) || t.Location.Contains(txtLocation.Text, StringComparison.OrdinalIgnoreCase)) &&                          
+                            (string.IsNullOrEmpty(txtDuration.Text) || t.Duration.ToString().Contains(txtDuration.Text)) &&
+                            (string.IsNullOrEmpty(txtLanguage.Text) || t.Language.Contains(txtLanguage.Text, StringComparison.OrdinalIgnoreCase)) &&
+                            t.MaxTourists >= numberOfPeople)
+                .ToList();
+
+            Tours.Clear();
+            foreach (var tour in filteredTours)
+            {
+                Tours.Add(tour);
+            }
+        }
     }
 }

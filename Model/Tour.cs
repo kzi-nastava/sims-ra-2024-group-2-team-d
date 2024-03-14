@@ -22,8 +22,9 @@ namespace BookingApp.Model
         public List<DateTime> Date {  get; set; }
         public int Duration { get; set; }
         public List<String> Pictures { get; set; }
-        public int EmptySeats { get; set; }
+        public int EmptySpots { get; set; }
         public bool Start {  get; set; }
+        
 
         public Tour() { }
 
@@ -58,6 +59,7 @@ namespace BookingApp.Model
                 Location,
                 Language,
                 MaxTourists.ToString(),
+                Duration.ToString()
                 
                 
             };
@@ -72,6 +74,7 @@ namespace BookingApp.Model
             Location = values[3];
             Language = values[4];
             MaxTourists = int.Parse(values[5]);
+            Duration = int.Parse(values[6]);
             KeyPoints = new List<KeyPoint>() {};
            
         }

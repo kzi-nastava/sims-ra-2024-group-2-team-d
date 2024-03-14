@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Owner;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -30,8 +31,8 @@ namespace BookingApp.View
 
         private void ShowCreateCommentForm(object sender, RoutedEventArgs e)
         {
-            CommentForm createCommentForm = new CommentForm(LoggedInUser);
-            createCommentForm.Show();
+            RegisterAccomodation registerAccomodation= new RegisterAccomodation();
+            registerAccomodation.Show();
         }
 
         private void ShowViewCommentForm(object sender, RoutedEventArgs e)

@@ -11,6 +11,8 @@ namespace BookingApp.Model
     public class Accommodation : ISerializable
     {
         public int Id { get; set; }
+
+        public int UserId {  get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
         public AccommodationType accommodationType { get; set; }
@@ -24,9 +26,10 @@ namespace BookingApp.Model
         {
         }
 
-        public Accommodation(string name, string city, string country, AccommodationType accommodationType, int maxGuestNumber, int minReservationDays, int daysBeforeCancelling, List<string> images, List<Reservation> reservations)
+        public Accommodation(int userId, string name, string city, string country, AccommodationType accommodationType, int maxGuestNumber, int minReservationDays, int daysBeforeCancelling, List<string> images, List<Reservation> reservations)
         {
             Id = this.Id;
+            UserId = userId;
             Name = name;
             Location = new Location(city,country);
             this.accommodationType = accommodationType;
@@ -41,6 +44,7 @@ namespace BookingApp.Model
         {
             string[] csvValues = {
                 Id.ToString(),
+                UserId.ToString(),
                 Name,
                 Location.ToString(),
                 accommodationType.ToString(),
@@ -54,12 +58,13 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Name = values[1];
-            Location = fromStringToLocation(values[2]);
-            accommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[3]);
-            MaxGuestNumber = Convert.ToInt32(values[4]);
-            MinReservationDays = Convert.ToInt32(values[5]);
-            DaysBeforeCancelling = Convert.ToInt32(values[6]);
+            UserId = Convert.ToInt32(values[1]);
+            Name = values[2];
+            Location = fromStringToLocation(values[3]);
+            accommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[4]);
+            MaxGuestNumber = Convert.ToInt32(values[5]);
+            MinReservationDays = Convert.ToInt32(values[6]);
+            DaysBeforeCancelling = Convert.ToInt32(values[7]);
             //Images = values[7].Split(";").ToList<string>();
         }
 

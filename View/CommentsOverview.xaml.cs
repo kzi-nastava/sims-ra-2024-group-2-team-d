@@ -31,7 +31,7 @@ namespace BookingApp.View
 
         private void ShowCreateCommentForm(object sender, RoutedEventArgs e)
         {
-            RegisterAccomodation registerAccomodation= new RegisterAccomodation();
+            RegisterAccomodation registerAccomodation= new RegisterAccomodation(LoggedInUser);
             registerAccomodation.Show();
         }
 

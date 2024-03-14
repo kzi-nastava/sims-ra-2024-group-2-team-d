@@ -17,21 +17,32 @@ namespace BookingApp.View.Owner
         public AccommodationDto Accommodation { get; set; }
        
 
-        public RegisterAccomodation()
+        public RegisterAccomodation(User user)
         {
             InitializeComponent();
             DataContext = this;
             _accommodationRepository = new AccommodationRepository();
 
             Accommodation = new AccommodationDto();
+            Accommodation.UserId = user.Id;
+            
 
         }
 
         private void NewAccommodationRegistration(object sender, RoutedEventArgs e)
         {
-            Accommodation newAccommodation = Accommodation.ToModel();
-            _accommodationRepository.Save(newAccommodation);
-            this.Close();
+            string isValidAccomodation = Accommodation.IsValid;
+
+            if (isValidAccomodation == string.Empty)
+            {
+                Accommodation newAccommodation = Accommodation.ToModel();
+                _accommodationRepository.Save(newAccommodation);
+                this.Close();
+            } else
+            {
+                ErrorMessage.Visibility = Visibility.Visible;
+                ErrorMessage.Content = isValidAccomodation;
+            }
 
         }
 

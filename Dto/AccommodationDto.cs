@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace BookingApp.Dto
 {
@@ -10,10 +12,12 @@ namespace BookingApp.Dto
 
         public Accommodation ToModel()
         {
-            Accommodation accommodation = new Accommodation(this.AccommodationName, this.AccommodationCity, this.AccommodationCountry, Type, this.AccommodationMaxGuests, this.AccommodationReservationMinDays, this.AccommodationCancelationDays, Images, Reservations);
+            Accommodation accommodation = new Accommodation(this.UserId, this.AccommodationName, this.AccommodationCity, this.AccommodationCountry, Type, this.AccommodationMaxGuests, this.AccommodationReservationMinDays, this.AccommodationCancelationDays, Images, Reservations);
             return accommodation;
 
         }
+
+        public int UserId;
 
         public List<Reservation> Reservations;
         public List<string> Images;
@@ -133,7 +137,65 @@ namespace BookingApp.Dto
         }
 
 
-        public string this[string columnName] => throw new NotImplementedException();
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "AccomodationName")
+                {
+                    if (string.IsNullOrEmpty(AccommodationName))
+                        return "Ime je obavezno";
+
+                }
+                else if (columnName == "AccomodationCity")
+                {
+                    if (string.IsNullOrEmpty(AccommodationCity))
+                        return "Grad je obavezan";
+
+                }
+                else if (columnName == "AccomodationCountry")
+                {
+                    if (string.IsNullOrEmpty(AccommodationCountry))
+                        return "Drzava je obavezna";
+
+                }
+                else if (columnName == "AccomodationMaxGuests")
+                {
+                    if (AccommodationCancelationDays <= 0)
+                        return "Broj gostiju mora biti veci od 0";
+
+                }
+                else if (columnName == "AccommodationReservationMinDays")
+                {
+                    if (AccommodationCancelationDays <= 0)
+                        return "Broj dana rezervacije mora biti veci od 0";
+
+                }
+                else if (columnName == "AccommodationCancelationDays")
+                {
+                    if (AccommodationCancelationDays<=0)
+                        return "Broj dana za otkazivanje mora biti veci od 0";
+
+                }
+                return String.Empty;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "AccomodationName", "AccomodationCountry", "AccomodationCity", "AccomodationMaxGuests", "AccommodationReservationMinDays", "AccommodationCancelationDays"};
+
+        public string IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != "")
+                        return this[property];
+                }
+
+                return "";
+            }
+        }
 
         public string Error => null;
 

@@ -45,47 +45,47 @@
 
 
             <StackPanel Grid.Row="0" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.Title, UpdateSourceTrigger=LostFocus}"
+                <TextBox x:Name="txtTitle" Text="{Binding Path=Tour.Title, UpdateSourceTrigger=LostFocus}"
              Height="20"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.Location, UpdateSourceTrigger=LostFocus}" 
+                <TextBox x:Name="txtLocation" Text="{Binding Path=Tour.Location, UpdateSourceTrigger=LostFocus}" 
              Height="20"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.Description, UpdateSourceTrigger=LostFocus}" 
+                <TextBox x:Name="txtDescription" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=LostFocus}" 
              Height="20"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Row="3" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.Language, UpdateSourceTrigger=LostFocus}" 
+                <TextBox x:Name="txtLanguage" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=LostFocus}" 
              Height="20"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Row="4" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.MaxTourists, UpdateSourceTrigger=LostFocus}" 
+                <TextBox x:Name="txtMaxTourists" Text="{Binding Path=Tour.MaxTourists, UpdateSourceTrigger=LostFocus}" 
         Height="20"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Row="5" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.KeyPoints, UpdateSourceTrigger=LostFocus}" 
+                <TextBox x:Name="txtKeyPoints" Text="{Binding Path=Tour.KeyPoints, UpdateSourceTrigger=LostFocus}" 
  Height="20"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Row="6" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.Date, UpdateSourceTrigger=LostFocus}" 
+                <TextBox x:Name="txtDate" Text="{Binding Path=Tour.Dates, UpdateSourceTrigger=LostFocus}" 
  Height="20"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Row="7" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.Duration, UpdateSourceTrigger=LostFocus}" 
+                <TextBox x:Name="txtDuration" Text="{Binding Path=Tour.Duration, UpdateSourceTrigger=LostFocus}" 
              Height="20"></TextBox>
             </StackPanel>
 
             <StackPanel Grid.Row="8" Grid.Column="1">
-                <TextBox Text="{Binding Path=Tour.Pictures, UpdateSourceTrigger=LostFocus}" 
+                <TextBox x:Name="txtPictures" Text="{Binding Path=Tour.Pictures, UpdateSourceTrigger=LostFocus}" 
              Height="20"></TextBox>
             </StackPanel>
 

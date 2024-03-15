@@ -19,11 +19,11 @@ namespace BookingApp.Model
         public string Language { get; set; }
         public int MaxTourists { get; set; }
         public List<KeyPoint> KeyPoints {  get; set; }
-        public List<DateTime> Date {  get; set; }
+        public List<DateTime> Dates {  get; set; }
         public int Duration { get; set; }
         public List<String> Pictures { get; set; }
-        public int EmptySpots { get; set; }
-        public bool Start {  get; set; }
+       // public int EmptySpots { get; set; }
+       // public bool Start {  get; set; }
         
 
         public Tour() { }
@@ -36,17 +36,17 @@ namespace BookingApp.Model
             Language = language; 
             MaxTourists = maxTourists;
             KeyPoints = keyPoints;
-            Date = date;
+            Dates = date;
             Duration = duration;
             Pictures = pictures;
-            Start = false;
+           // Start = false;
 
         }
 
         public override string ToString()
         {
             return $"ID: {Id,2} | Naziv: {Title,9} | Opis: {Description,9} | Mesto: {Location,10} | Jezik: {Language,5} | Maksimalan broj turista: {MaxTourists,3} | " +
-                $"Kljucne tacke: {KeyPoints,20} | Datum i vreme: {Date,15} | Trajanje: {Duration,3} | Slike: {Pictures,9} |";
+                $"Kljucne tacke: {KeyPoints,20} | Datum i vreme: {Dates,15} | Trajanje: {Duration,3} | Slike: {Pictures,9} |";
         }
 
         public string[] ToCSV()
@@ -59,7 +59,8 @@ namespace BookingApp.Model
                 Location,
                 Language,
                 MaxTourists.ToString(),
-                Duration.ToString()
+                Duration.ToString(),
+                
                 
                 
             };

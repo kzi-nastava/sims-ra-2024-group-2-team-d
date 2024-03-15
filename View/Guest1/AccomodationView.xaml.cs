@@ -3,6 +3,7 @@ using BookingApp.Repository;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
@@ -15,6 +16,9 @@ namespace BookingApp.View.Guest1
     public partial class AccomodationView : Window, INotifyPropertyChanged
     {
         private readonly AccommodationRepository _accommodationRepository;
+        private readonly ReservationRepository _reservationRepository;
+
+        private readonly User _user;
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
@@ -108,7 +112,9 @@ namespace BookingApp.View.Guest1
         {
             InitializeComponent();
             DataContext = this;
+            _user = user;
             _accommodationRepository = new AccommodationRepository();
+            _reservationRepository = new ReservationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
         }
 
@@ -144,13 +150,13 @@ namespace BookingApp.View.Guest1
         {
             if (IsAppartmentSelected && IsHouseSelected && IsShackSelected)
             {
-                return accommodation.AccommodationType == AccommodationType.Apartman||
+                return accommodation.AccommodationType == AccommodationType.Apartman ||
                     accommodation.AccommodationType == AccommodationType.Kuca ||
                     accommodation.AccommodationType == AccommodationType.Koliba;
             }
             else if (IsAppartmentSelected && IsHouseSelected)
             {
-                return accommodation.AccommodationType == AccommodationType.Apartman||
+                return accommodation.AccommodationType == AccommodationType.Apartman ||
                     accommodation.AccommodationType == AccommodationType.Kuca;
             }
             else if (IsAppartmentSelected && IsShackSelected)
@@ -199,7 +205,9 @@ namespace BookingApp.View.Guest1
 
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
-
+            SelectedAccommodation.Reservations = _reservationRepository.GetAll().Where(a => a.AccomodationId == SelectedAccommodation.Id).ToList();
+            AccomodationReservation accomodationReservation = new AccomodationReservation(_user, SelectedAccommodation);
+            accomodationReservation.Show();
         }
     }
 }

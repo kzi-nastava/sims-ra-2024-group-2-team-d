@@ -47,9 +47,9 @@ namespace BookingApp.Dto
                 if (value != _status)
                 {
                     _status = value;
-                    if (value == 0) Type = AccommodationType.Appartment;
-                    else if (value == 1) Type = AccommodationType.House;
-                    else Type = AccommodationType.Shack;
+                    if (value == 0) Type = AccommodationType.Apartman;
+                    else if (value == 1) Type = AccommodationType.Kuca;
+                    else Type = AccommodationType.Koliba;
                     OnPropertyChanged("Type");
                 }
             }

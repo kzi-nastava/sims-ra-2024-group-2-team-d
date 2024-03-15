@@ -40,9 +40,9 @@
             <Label Grid.Row="3" Grid.Column="0" Margin="0,10,0,10" >Tip smestaja:</Label>
             <ComboBox Grid.Row="3" Grid.Column="1" Name="TypeComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
             IsEditable="False"   Margin="0,10,0,10" HorizontalAlignment="Left" Width="203"  SelectedIndex="{Binding Path=Accommodation.ApartmentType, Mode=OneWayToSource}" >
-                <ComboBoxItem IsSelected="True" Content="Appartment"></ComboBoxItem>
-                <ComboBoxItem Content="House"></ComboBoxItem>
-                <ComboBoxItem Content="Shack"></ComboBoxItem>
+                <ComboBoxItem IsSelected="True" Content="Apartman"></ComboBoxItem>
+                <ComboBoxItem Content="Kuca"></ComboBoxItem>
+                <ComboBoxItem Content="Koliba"></ComboBoxItem>
             </ComboBox>
 
             <Label Grid.Row="4" Grid.Column="0" Margin="0,10,0,10" >Max broj gostiju:</Label>

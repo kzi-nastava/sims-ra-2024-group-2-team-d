@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guest1;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -55,8 +56,8 @@ namespace BookingApp.View
                 } 
                 else if(user.Password == txtPassword.Password && user.Role == Roles.GUEST)
                 {
-                    GuestWindow guestWindow = new GuestWindow(user);
-                    guestWindow.Show();
+                    AccomodationView accomodationView = new AccomodationView(user);
+                    accomodationView.Show();
                     Close();
                 }else if(user.Password == txtPassword.Password && user.Role == Roles.TOURIST)
                 {

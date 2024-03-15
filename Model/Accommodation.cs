@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public enum AccommodationType { Appartment = 0, House = 1, Shack = 2 }
+    public enum AccommodationType { Apartman = 0, Kuca= 1, Koliba= 2 }
     public class Accommodation : ISerializable
     {
         public int Id { get; set; }
@@ -15,7 +15,7 @@ namespace BookingApp.Model
         public int UserId {  get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
-        public AccommodationType accommodationType { get; set; }
+        public AccommodationType AccommodationType { get; set; }
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancelling { get; set; }
@@ -32,7 +32,7 @@ namespace BookingApp.Model
             UserId = userId;
             Name = name;
             Location = new Location(city,country);
-            this.accommodationType = accommodationType;
+            AccommodationType = accommodationType;
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
             DaysBeforeCancelling = daysBeforeCancelling;
@@ -47,7 +47,7 @@ namespace BookingApp.Model
                 UserId.ToString(),
                 Name,
                 Location.ToString(),
-                accommodationType.ToString(),
+                AccommodationType.ToString(),
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 DaysBeforeCancelling.ToString()};
@@ -61,7 +61,7 @@ namespace BookingApp.Model
             UserId = Convert.ToInt32(values[1]);
             Name = values[2];
             Location = fromStringToLocation(values[3]);
-            accommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[4]);
+            AccommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
             MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancelling = Convert.ToInt32(values[7]);

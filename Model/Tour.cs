@@ -26,7 +26,12 @@ namespace BookingApp.Model
        // public bool Start {  get; set; }
         
 
-        public Tour() { }
+        public Tour() {
+            
+            KeyPoints = new List<KeyPoint>();
+            Dates = new List<DateTime>();
+            Pictures = new List<String>(); 
+        }
 
         public Tour(string title, string description, string location, string language, int maxTourists, List<KeyPoint> keyPoints, List<DateTime> date, int duration, List<String> pictures)
         {

@@ -50,6 +50,11 @@ namespace BookingApp.Repository
             return tour;
         }
 
+        public Tour GetById(int Id)
+        {
+            return _tour.Find(x => x.Id == Id);
+        }
+
        
 
 

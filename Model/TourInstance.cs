@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BookingApp.Serializer;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace BookingApp.Model
 {
-    internal class TourInstance
+    public class TourInstance : ISerializable
     {
         public int TourId { get; set; }
+
+        public Tour BaseTour {  get; set; }
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int EmptySpots { get; set; }
@@ -17,6 +20,7 @@ namespace BookingApp.Model
 
         public TourInstance() {
             Start = false;
+            BaseTour = new Tour();
         }
 
         public string[] ToCSV()

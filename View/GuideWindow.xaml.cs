@@ -41,8 +41,8 @@ namespace BookingApp.View
 
         private void ShowCreateCommentForm(object sender, RoutedEventArgs e)
         {
-            CommentForm createCommentForm = new CommentForm(LoggedInUser);
-            createCommentForm.Show();
+            CreateTour createTour = new CreateTour(LoggedInUser);
+            createTour.Show();
         }
 
         private void ShowViewCommentForm(object sender, RoutedEventArgs e)
@@ -76,5 +76,7 @@ namespace BookingApp.View
                 }
             }
         }
+
+
     }
 }

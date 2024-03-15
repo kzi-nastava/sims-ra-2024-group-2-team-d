@@ -20,11 +20,16 @@ namespace BookingApp.Model
         public int TourId { get; set; }
         //public Tour Tour { get; set; }
         public bool Status { get; set; }
+        public int Order { get; set; }
 
-        public KeyPoint(int id, string name) {
+        public KeyPoint() { }
+
+        public KeyPoint(int id, string name, int order)
+        {
             Id = id;
             Name = name;
             Status = false;
+            Order = order;
         }
 
         public override string ToString()

@@ -22,21 +22,40 @@ namespace BookingApp.View
     /// </summary>
     public partial class TouristWindow : Window
     {
-        public static ObservableCollection<Tour> Tours { get; set; }
+        public static ObservableCollection<Tour> BaseTours { get; set; }
+
+        public static ObservableCollection<TourInstance> TourInstances { get; set; }
 
         public Tour SelectedTour { get; set; }
 
         public User LoggedInUser { get; set; }
 
-        private readonly TourRepository _repository;
+        private readonly TourRepository _tourRepository;
+
+        private readonly TourInstanceRepository _tourInstanceRepository;
 
         public TouristWindow(User user)
         {
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
-            _repository = new TourRepository();
-            Tours = new ObservableCollection<Tour>(_repository.GetAll());
+            _tourRepository = new TourRepository();
+            BaseTours = new ObservableCollection<Tour>(_tourRepository.GetAll());
+            _tourInstanceRepository = new TourInstanceRepository();
+            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
+            LinkTourInstancesWithTours();
+
+        }
+
+        public void LinkTourInstancesWithTours()
+        {
+            foreach(TourInstance tourInstance in TourInstances)
+            {
+                if(_tourRepository.GetById(tourInstance.TourId) != null)
+                {
+                    tourInstance.BaseTour = _tourRepository.GetById(tourInstance.TourId);
+                }
+            }
         }
 
         private void OnSearchClick(object sender, RoutedEventArgs e)
@@ -44,17 +63,17 @@ namespace BookingApp.View
             bool isValidNumber = int.TryParse(txtNumberOfPeople.Text, out int numberOfPeople);
             if (!isValidNumber) numberOfPeople = 0;
 
-            var filteredTours = _repository.GetAll()
+            var filteredTours = _tourRepository.GetAll()
                 .Where(t => (string.IsNullOrEmpty(txtLocation.Text) || t.Location.Contains(txtLocation.Text, StringComparison.OrdinalIgnoreCase)) &&                          
                             (string.IsNullOrEmpty(txtDuration.Text) || t.Duration.ToString().Contains(txtDuration.Text)) &&
                             (string.IsNullOrEmpty(txtLanguage.Text) || t.Language.Contains(txtLanguage.Text, StringComparison.OrdinalIgnoreCase)) &&
                             t.MaxTourists >= numberOfPeople)
                 .ToList();
 
-            Tours.Clear();
+            BaseTours.Clear();
             foreach (var tour in filteredTours)
             {
-                Tours.Add(tour);
+                BaseTours.Add(tour);
             }
         }
     }

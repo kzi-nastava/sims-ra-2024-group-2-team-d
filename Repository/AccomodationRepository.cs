@@ -27,6 +27,11 @@ namespace BookingApp.Repository
             return _serializer.FromCSV(FilePath);
         }
 
+        public Accommodation GetById(int id)
+        {
+            return _serializer.FromCSV(FilePath).Where(a => a.Id == id).FirstOrDefault();
+        }
+
         public Accommodation Save(Accommodation accommodation)
         {
             accommodation.Id = NextId();
@@ -63,6 +68,11 @@ namespace BookingApp.Repository
             _accommodations.Insert(index, accommodation);       // keep ascending order of ids in file 
             _serializer.ToCSV(FilePath, _accommodations);
             return accommodation;
+        }
+
+        public List<Accommodation> GetAllOwnerAccommodations(int userId)
+        {
+            return GetAll().Where(a => a.UserId == userId).ToList();
         }
     }
 }

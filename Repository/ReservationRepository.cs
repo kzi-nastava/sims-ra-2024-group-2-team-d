@@ -61,5 +61,19 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _Reservations);
             return Reservation;
         }
+
+        public List<Reservation> GetAllUnreviewed(List<int> accomodationId)
+        {
+            List<Reservation> list = new List<Reservation> ();
+            foreach (var id in accomodationId)
+            {
+                foreach (var review in GetAll().Where(r => r.AccomodationId == id).Where(r => r.ReservationDateRange.EndDate <= System.DateTime.Today && r.ReservationDateRange.EndDate.AddDays(5) >= System.DateTime.Today).Where(r => r.ReviewedByOwner == false).ToList())
+                {
+                    list.Add(review);
+                }
+
+            }
+            return list;
+        }
     }
 }

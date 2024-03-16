@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guest1;
+using BookingApp.View.Owner;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -49,14 +51,14 @@ namespace BookingApp.View
             {
                 if(user.Password == txtPassword.Password && user.Role == Roles.OWNER)
                 {
-                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
+                    RegisterAccomodation registerAccomodation = new RegisterAccomodation(user);
+                    registerAccomodation.Show();
                     Close();
                 } 
                 else if(user.Password == txtPassword.Password && user.Role == Roles.GUEST)
                 {
-                    GuestWindow guestWindow = new GuestWindow(user);
-                    guestWindow.Show();
+                    AccomodationView accomodationView = new AccomodationView(user);
+                    accomodationView.Show();
                     Close();
                 }else if(user.Password == txtPassword.Password && user.Role == Roles.TOURIST)
                 {

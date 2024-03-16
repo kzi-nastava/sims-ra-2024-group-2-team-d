@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.View.Tourist;
 
 namespace BookingApp.View
 {
@@ -26,7 +27,7 @@ namespace BookingApp.View
 
         public static ObservableCollection<TourInstance> TourInstances { get; set; }
 
-        public Tour SelectedTour { get; set; }
+        public TourInstance SelectedTour { get; set; }
 
         public User LoggedInUser { get; set; }
 
@@ -43,6 +44,7 @@ namespace BookingApp.View
             BaseTours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             _tourInstanceRepository = new TourInstanceRepository();
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
+            SelectedTour = new TourInstance();
             LinkTourInstancesWithTours();
 
         }
@@ -75,6 +77,13 @@ namespace BookingApp.View
             {
                 BaseTours.Add(tour);
             }
+        }
+
+        private void ReserveButton_Click(object sender, RoutedEventArgs e)
+        {
+            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour.EmptySpots, SelectedTour.BaseTour.MaxTourists);
+            numberOfTouristInsertion.Show();
+
         }
     }
 }

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.Tourist
+namespace BookingApp.View.TouristApp
 {
     /// <summary>
     /// Interaction logic for NumberOfTouristInsertion.xaml
@@ -22,12 +22,15 @@ namespace BookingApp.View.Tourist
         public int EmptySpots {  get; set; }
 
         public int MaxTourists {  get; set; }
-        public NumberOfTouristInsertion(int emptySpots, int maxTourists)
+
+        public int TourIntanceId {  get; set; }
+        public NumberOfTouristInsertion(int emptySpots, int maxTourists, int tourInstanceId)
         {
             InitializeComponent();
             DataContext = this;
             EmptySpots = emptySpots;
             MaxTourists = maxTourists;
+            TourIntanceId = tourInstanceId;
 
         }
 
@@ -42,9 +45,14 @@ namespace BookingApp.View.Tourist
             int enteredNumber = int.Parse(enteredNumberTextBox.Text);
             if (EmptySpots >= enteredNumber)
             {
-                ReserveTourWindow reserveTourWindow = new ReserveTourWindow();
+                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(enteredNumber, TourIntanceId);
                 reserveTourWindow.Show();
                 this.Close();
+            }
+            else if(EmptySpots != 0 && EmptySpots < enteredNumber)
+            {
+                textBox.Text = string.Format("There is only {0} spots left. Please enter a fewer number of tourists or choose a different tour", EmptySpots);
+                textBox.Foreground = new SolidColorBrush(Colors.Red);
             }
             else
             {

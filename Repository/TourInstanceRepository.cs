@@ -26,5 +26,39 @@ namespace BookingApp.Repository
         {
             return _serializer.FromCSV(FilePath);
         }
+
+        public TourInstance UpdateFreeSpots(TourInstance tourInstance)
+        {
+            
+                TourInstance oldTourInstance = GetById(tourInstance.Id);
+                if (oldTourInstance == null) return null;               
+                oldTourInstance.EmptySpots = tourInstance.EmptySpots;
+                _serializer.ToCSV(FilePath, _tourInstance);               
+                return oldTourInstance;         
+        }
+
+        public TourInstance GetById(int id)
+        {
+            return _tourInstance.Find(x=>x.Id==id);
+        }
+
+        public TourInstance Save(TourInstance tourInstance)
+        {
+            tourInstance.Id = NextId();
+            _tourInstance = _serializer.FromCSV(FilePath);
+            _tourInstance.Add(tourInstance);
+            _serializer.ToCSV(FilePath, _tourInstance);
+            return tourInstance;
+        }
+
+        public int NextId()
+        {
+            _tourInstance = _serializer.FromCSV(FilePath);
+            if (_tourInstance.Count < 1)
+            {
+                return 1;
+            }
+            return _tourInstance.Max(c => c.Id) + 1;
+        }
     }
 }

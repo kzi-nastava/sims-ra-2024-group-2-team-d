@@ -14,7 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookingApp.View.Tourist;
+using BookingApp.View.TouristApp;
 
 namespace BookingApp.View
 {
@@ -81,7 +81,7 @@ namespace BookingApp.View
 
         private void ReserveButton_Click(object sender, RoutedEventArgs e)
         {
-            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour.EmptySpots, SelectedTour.BaseTour.MaxTourists);
+            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour.EmptySpots, SelectedTour.BaseTour.MaxTourists, SelectedTour.Id);
             numberOfTouristInsertion.Show();
 
         }

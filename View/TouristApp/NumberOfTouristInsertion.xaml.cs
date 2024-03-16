@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BookingApp.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,19 +21,28 @@ namespace BookingApp.View.TouristApp
     /// </summary>
     public partial class NumberOfTouristInsertion : Window
     {
-        public int EmptySpots {  get; set; }
+       
+        public TourInstance SelectedTour { get; set; }
 
-        public int MaxTourists {  get; set; }
-
-        public int TourIntanceId {  get; set; }
-        public NumberOfTouristInsertion(int emptySpots, int maxTourists, int tourInstanceId)
+        public ObservableCollection<TourInstance> TourInstances {  get; set; }
+        public NumberOfTouristInsertion(TourInstance selectedTour, ObservableCollection<TourInstance> tourInstances)
         {
             InitializeComponent();
             DataContext = this;
-            EmptySpots = emptySpots;
-            MaxTourists = maxTourists;
-            TourIntanceId = tourInstanceId;
+            SelectedTour = selectedTour;
+            TourInstances = new ObservableCollection<TourInstance>();
+            FilterToursDependingOnLocation(tourInstances);
+        }
 
+        void FilterToursDependingOnLocation(ObservableCollection<TourInstance> tourInstances)
+        {
+            foreach(TourInstance tour in tourInstances)
+            {
+                if(tour.BaseTour.Location == SelectedTour.BaseTour.Location && tour.Id != SelectedTour.Id)
+                {
+                    TourInstances.Add(tour);
+                }
+            }
         }
 
 
@@ -43,20 +54,22 @@ namespace BookingApp.View.TouristApp
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             int enteredNumber = int.Parse(enteredNumberTextBox.Text);
-            if (EmptySpots >= enteredNumber)
+            if (SelectedTour.EmptySpots >= enteredNumber)
             {
-                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(enteredNumber, TourIntanceId);
+                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(enteredNumber, SelectedTour.Id);
                 reserveTourWindow.Show();
                 this.Close();
             }
-            else if(EmptySpots != 0 && EmptySpots < enteredNumber)
+            else if(SelectedTour.EmptySpots != 0 && SelectedTour.EmptySpots < enteredNumber)
             {
-                textBox.Text = string.Format("There is only {0} spots left. Please enter a fewer number of tourists or choose a different tour", EmptySpots);
+                textBox.Text = string.Format("There is only {0} spots left. Please enter a fewer number of tourists or choose a different tour", SelectedTour.EmptySpots);
                 textBox.Foreground = new SolidColorBrush(Colors.Red);
             }
             else
             {
-
+                RecommendedAlternatives recommendedAlternatives = new RecommendedAlternatives(TourInstances);
+                recommendedAlternatives.Show();
+                this.Close();
             }
         }
     }

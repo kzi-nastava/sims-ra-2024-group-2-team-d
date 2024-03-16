@@ -81,7 +81,7 @@ namespace BookingApp.View
 
         private void ReserveButton_Click(object sender, RoutedEventArgs e)
         {
-            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour.EmptySpots, SelectedTour.BaseTour.MaxTourists, SelectedTour.Id);
+            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances);
             numberOfTouristInsertion.Show();
 
         }

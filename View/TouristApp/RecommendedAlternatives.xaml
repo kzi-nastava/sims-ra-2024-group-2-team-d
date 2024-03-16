@@ -1,0 +1,45 @@
+﻿<Window x:Class="BookingApp.View.TouristApp.RecommendedAlternatives"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.TouristApp"
+        mc:Ignorable="d"
+        Title="RecommendedAlternatives" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="760"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <ListBox ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding BaseTour.Title}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding BaseTour.Location}" />
+                            <TextBlock Text="{Binding BaseTour.MaxTourists, StringFormat='Maksimalan broj turista: {0}'}" />
+                            <TextBlock Text="{Binding Date}" />
+                            <TextBlock Text="{Binding BaseTour.Description}" />
+                            <TextBlock Text="{Binding BaseTour.Duration, StringFormat='Trajanje: {0} sati'}" />
+                            <TextBlock Text="{Binding Language}" />
+                            <Button Content="Reserve tour" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ReserveButton_Click" Margin="10,0,0,0" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <TextBlock Grid.Column="1" Text="In previous tour there weren't any empty spots. Here are other tours in the same location" HorizontalAlignment="Left" Margin="175,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="482" Height="20"/>
+
+
+
+    </Grid>
+</Window>

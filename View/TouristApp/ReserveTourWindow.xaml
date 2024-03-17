@@ -1,0 +1,41 @@
+﻿<Window x:Class="BookingApp.View.TouristApp.ReserveTourWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.TouristApp"
+        mc:Ignorable="d"
+        Title="ReserveTourWindow" Height="450" Width="800">
+    <Grid>
+        <!-- Podela Grid-a na dve kolone -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- StackPanel za TextBox-eve i Button u donjem levom uglu -->
+        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
+            <TextBlock Text="Hello"/>
+            <TextBox x:Name="nameTextBox" Width="200" Margin="0,0,0,5"/>
+            <TextBox x:Name="lastNameTextBox" Width="200" Margin="0,0,0,5"/>
+            <TextBox x:Name="ageTextBox" Width="200" Margin="0,0,0,5"/>
+            <Button Content="Add" Click="AddTouristButton_Click" Width="200"/>
+        </StackPanel>
+
+        <!-- Lista sa desne strane -->
+        <ListView ItemsSource="{Binding Tourists}" x:Name="itemsList" Grid.Column="1" Margin="10">
+            <ListBox.ItemTemplate>
+    <DataTemplate>
+        <StackPanel>
+            <TextBlock Text="{Binding Name}" />
+            <TextBlock Text="{Binding LastName}" />
+            <TextBlock Text="{Binding Age}" />
+            
+            
+        </StackPanel>
+    </DataTemplate>
+</ListBox.ItemTemplate>
+        </ListView>
+        
+    </Grid>
+</Window>

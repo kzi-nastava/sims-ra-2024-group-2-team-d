@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.View.TouristApp;
 
 namespace BookingApp.View
 {
@@ -22,11 +23,10 @@ namespace BookingApp.View
     /// </summary>
     public partial class TouristWindow : Window
     {
-        public static ObservableCollection<Tour> BaseTours { get; set; }
 
         public static ObservableCollection<TourInstance> TourInstances { get; set; }
 
-        public Tour SelectedTour { get; set; }
+        public TourInstance SelectedTour { get; set; }
 
         public User LoggedInUser { get; set; }
 
@@ -34,17 +34,23 @@ namespace BookingApp.View
 
         private readonly TourInstanceRepository _tourInstanceRepository;
 
+        private readonly PictureRepository _pictureRepository;
+
+        private readonly KeyPointRepository _keyPointRepository;
         public TouristWindow(User user)
         {
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
-            _tourRepository = new TourRepository();
-            BaseTours = new ObservableCollection<Tour>(_tourRepository.GetAll());
+            _tourRepository = new TourRepository();           
             _tourInstanceRepository = new TourInstanceRepository();
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
+            SelectedTour = new TourInstance();
+            _pictureRepository = new PictureRepository();
+            _keyPointRepository = new KeyPointRepository();
             LinkTourInstancesWithTours();
-
+            LinkPicturesWithTours();
+           
         }
 
         public void LinkTourInstancesWithTours()
@@ -58,23 +64,47 @@ namespace BookingApp.View
             }
         }
 
+        public void LinkPicturesWithTours()
+        {
+            foreach(var tourInstance in TourInstances)
+            {
+                List<string> pictures = _pictureRepository.GetByTourId(tourInstance.TourId);
+                if (pictures.Count() != 0)
+                {
+                    tourInstance.BaseTour.Pictures = pictures;
+                }
+            }
+        }
+
+        public void LinkKeyPointsWithTours()
+        {
+
+        }
+
         private void OnSearchClick(object sender, RoutedEventArgs e)
         {
             bool isValidNumber = int.TryParse(txtNumberOfPeople.Text, out int numberOfPeople);
             if (!isValidNumber) numberOfPeople = 0;
 
-            var filteredTours = _tourRepository.GetAll()
-                .Where(t => (string.IsNullOrEmpty(txtLocation.Text) || t.Location.Contains(txtLocation.Text, StringComparison.OrdinalIgnoreCase)) &&                          
-                            (string.IsNullOrEmpty(txtDuration.Text) || t.Duration.ToString().Contains(txtDuration.Text)) &&
-                            (string.IsNullOrEmpty(txtLanguage.Text) || t.Language.Contains(txtLanguage.Text, StringComparison.OrdinalIgnoreCase)) &&
-                            t.MaxTourists >= numberOfPeople)
+            var filteredTours = TourInstances
+                .Where(t => (string.IsNullOrEmpty(txtLocation.Text) || t.BaseTour.Location.Contains(txtLocation.Text, StringComparison.OrdinalIgnoreCase)) &&                          
+                            (string.IsNullOrEmpty(txtDuration.Text) || t.BaseTour.Duration.ToString().Contains(txtDuration.Text)) &&
+                            (string.IsNullOrEmpty(txtLanguage.Text) || t.BaseTour.Language.Contains(txtLanguage.Text, StringComparison.OrdinalIgnoreCase)) &&
+                            t.BaseTour.MaxTourists >= numberOfPeople)
                 .ToList();
 
-            BaseTours.Clear();
+            TourInstances.Clear();
             foreach (var tour in filteredTours)
             {
-                BaseTours.Add(tour);
+                TourInstances.Add(tour);
             }
+        }
+
+        private void ReserveButton_Click(object sender, RoutedEventArgs e)
+        {
+            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances);
+            numberOfTouristInsertion.Show();
+
         }
     }
 }

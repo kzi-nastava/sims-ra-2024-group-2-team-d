@@ -16,11 +16,10 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="15"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <ListBox ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
+            <ListBox Height="200" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -30,7 +29,14 @@
                             <TextBlock Text="{Binding Date}" />
                             <TextBlock Text="{Binding BaseTour.Description}" />
                             <TextBlock Text="{Binding BaseTour.Duration, StringFormat='Trajanje: {0} sati'}" />
-                            <TextBlock Text="{Binding Language}" />
+                            <TextBlock Text="{Binding BaseTour.Language}" />
+                            <ItemsControl ItemsSource="{Binding BaseTour.Pictures}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding}" Height="100" Margin="5"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                             <Button Content="Reserve tour" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ReserveButton_Click" Margin="10,0,0,0" />
                         </StackPanel>
                     </DataTemplate>

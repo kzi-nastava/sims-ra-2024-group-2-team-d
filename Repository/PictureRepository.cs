@@ -45,5 +45,13 @@ namespace BookingApp.Repository
         {
             return _serializer.FromCSV(FilePath);
         }
+
+        public List<string> GetByTourId(int tourId)
+        {
+            return _pictures
+                .FindAll(x=>x.TourId == tourId)
+                .Select(picture => picture.Path)
+                .ToList();
+        }
     }
 }

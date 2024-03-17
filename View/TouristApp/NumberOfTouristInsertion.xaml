@@ -8,7 +8,7 @@
         Title="NumberOfTouristInsertion" Height="250" Width="200" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBlock HorizontalAlignment="Center" x:Name="textBox" Margin="0,34,0,0" TextWrapping="Wrap" Text="Enter number of tourists" VerticalAlignment="Top"/>
-        <TextBox x:Name="enteredNumberTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <TextBox x:Name="touristNumberInput" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
         <Button Content="Confirm" Click="ConfirmButton_Click" HorizontalAlignment="Left" Margin="37,178,0,0" VerticalAlignment="Top"/>
         <Button Content="Close" Click="CloseButton_Click" HorizontalAlignment="Left" Margin="130,178,0,0" VerticalAlignment="Top"/>
 

@@ -53,14 +53,14 @@ namespace BookingApp.View.TouristApp
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            int enteredNumber = int.Parse(enteredNumberTextBox.Text);
-            if (SelectedTour.EmptySpots >= enteredNumber)
+            int touristNumber = int.Parse(touristNumberInput.Text);
+            if (SelectedTour.EmptySpots >= touristNumber)
             {
-                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(enteredNumber, SelectedTour.Id);
+                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(touristNumber, SelectedTour.Id);
                 reserveTourWindow.Show();
                 this.Close();
             }
-            else if(SelectedTour.EmptySpots != 0 && SelectedTour.EmptySpots < enteredNumber)
+            else if(SelectedTour.EmptySpots != 0 && SelectedTour.EmptySpots < touristNumber)
             {
                 textBox.Text = string.Format("There is only {0} spots left. Please enter a fewer number of tourists or choose a different tour", SelectedTour.EmptySpots);
                 textBox.Foreground = new SolidColorBrush(Colors.Red);
@@ -72,5 +72,7 @@ namespace BookingApp.View.TouristApp
                 this.Close();
             }
         }
+
+        
     }
 }

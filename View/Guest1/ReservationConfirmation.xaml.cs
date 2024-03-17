@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BookingApp.View.Guest1
 {
@@ -32,7 +21,7 @@ namespace BookingApp.View.Guest1
             NumberOfGuests = Convert.ToInt32(Input1.Text);
             if (NumberOfGuests > MaxAccommodationGuestsNumber)
             {
-                MessageBox.Show("Number of guests must be bellow " + MaxAccommodationGuestsNumber.ToString());
+                MessageBox.Show("Broj gostiju mora biti manji ili jednak " + MaxAccommodationGuestsNumber.ToString());
             }
             else
             {

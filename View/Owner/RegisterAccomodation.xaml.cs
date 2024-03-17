@@ -43,7 +43,7 @@ namespace BookingApp.View.Owner
             {
                 Accommodation newAccommodation = Accommodation.ToModel();
                 _accommodationRepository.Save(newAccommodation);
-                this.Close();
+                MessageBox.Show("Uspesno ste registrovali novi smjestaj.");
             } else
             {
                 ErrorMessage.Visibility = Visibility.Visible;

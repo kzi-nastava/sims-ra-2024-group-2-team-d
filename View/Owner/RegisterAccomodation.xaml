@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:BookingApp.View.Owner"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-            Title="Register Accommodation" Height="500" Width="420">
+            Title="Register Accommodation" Height="550" Width="440">
     <Grid>
         <Grid Grid.Row="0" Grid.Column="0" Margin="21,25,21,10" >
             <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -25,18 +26,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="170"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
 
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Margin="0,10,0,10" >Naziv smestaja:</Label>
             <TextBox Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationName, UpdateSourceTrigger=LostFocus}"></TextBox>
-            
+
             <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,10" >Drzava:</Label>
             <TextBox Grid.Row="1" Grid.Column="1" Height="30"  Text="{Binding Path=Accommodation.AccommodationCountry, UpdateSourceTrigger=LostFocus}" ></TextBox>
-            
+
             <Label Grid.Row="2" Grid.Column="0" Margin="0,10,0,10" >Grad</Label>
             <TextBox Grid.Row="2" Grid.Column="1" Height="30"  Text="{Binding Path=Accommodation.AccommodationCity, UpdateSourceTrigger=LostFocus }"></TextBox>
-            
+
             <Label Grid.Row="3" Grid.Column="0" Margin="0,10,0,10" >Tip smestaja:</Label>
             <ComboBox Grid.Row="3" Grid.Column="1" Name="TypeComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
             IsEditable="False"   Margin="0,10,0,10" HorizontalAlignment="Left" Width="203"  SelectedIndex="{Binding Path=Accommodation.ApartmentType, Mode=OneWayToSource}" >
@@ -54,12 +56,21 @@
             <Label Grid.Row="6" Grid.Column="0" Margin="0,10,0,10">Broj dana za otkazivanje:</Label>
             <TextBox Grid.Row="6" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationCancelationDays, UpdateSourceTrigger=LostFocus}"></TextBox>
 
-            <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Grid.Row="7" Grid.Column="0" Margin="0,10,0,10">Slika:</Label>
+            <TextBox x:Name="ImageTextbox" Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=ImagePath, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Button x:Name="AddImage" Grid.Column="2" Grid.Row="7" Margin="0,10,0,10" Background="White" Click="AddImage_Click" >
+                <StackPanel>
+                    <Image Source="../../Resources/Images/add.png" Visibility="Visible" />
+                </StackPanel>
+            </Button>
+            
+
+            <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
                 <Label x:Name="ErrorMessage" FontSize="11" Foreground="Red" Visibility="Hidden" ></Label>
             </StackPanel>
 
-            <Button Content="Save" Click="NewAccommodationRegistration" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Width="43"/>
-            <Button Grid.Column="1" Content="Cancel" Click="CancelButton" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="43" />
+            <Button Content="Save" Click="NewAccommodationRegistration" HorizontalAlignment="Center" Grid.Row="9" VerticalAlignment="Center" Width="43"/>
+            <Button Grid.Column="1" Content="Cancel" Click="CancelButton" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="9" VerticalAlignment="Center" Width="43" />
 
         </Grid>
 

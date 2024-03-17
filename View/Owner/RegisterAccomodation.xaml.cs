@@ -1,6 +1,7 @@
 ﻿using BookingApp.Dto;
 using BookingApp.Model;
 using BookingApp.Repository;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,6 +19,7 @@ namespace BookingApp.View.Owner
         private readonly User _user;
         
         public AccommodationDto Accommodation { get; set; }
+        public string ImagePath {  get; set; }
        
 
         public RegisterAccomodation(User user)
@@ -76,6 +78,17 @@ namespace BookingApp.View.Owner
                 guestReviewForm.Show();
             }
 
+        }
+
+        private void AddImage_Click(object sender, RoutedEventArgs e)
+        {
+            if (Accommodation.Images is null)
+            {
+                Accommodation.Images = new System.Collections.Generic.List<string>();
+            }
+            Accommodation.Images.Add(ImagePath);
+            ImagePath = String.Empty;
+            OnPropertyChanged("ImagePath");
         }
     }
 }

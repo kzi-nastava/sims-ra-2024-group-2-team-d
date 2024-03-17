@@ -19,7 +19,7 @@ namespace BookingApp.Model
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancelling { get; set; }
-        public List<string> Images { get; set; }
+        public List<string>? Images { get; set; }
         public List<Reservation> Reservations { get; set; }
 
         public Accommodation()
@@ -50,7 +50,8 @@ namespace BookingApp.Model
                 AccommodationType.ToString(),
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
-                DaysBeforeCancelling.ToString()};
+                DaysBeforeCancelling.ToString(),
+                SerializeImages(Images)};
 
             //string.Join(";", Images)
             return csvValues;
@@ -65,7 +66,7 @@ namespace BookingApp.Model
             MaxGuestNumber = Convert.ToInt32(values[5]);
             MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancelling = Convert.ToInt32(values[7]);
-            //Images = values[7].Split(";").ToList<string>();
+            Images = values[7].Split(";").ToList<string>();
         }
 
         private Location fromStringToLocation(string value)
@@ -74,6 +75,17 @@ namespace BookingApp.Model
             string[] locations = new string[2];
             locations = value.Split(';');
             return new Location(locations[0], locations[1]);
+        }
+
+        private string SerializeImages(List<string> images)
+        {
+            if (images is null) return string.Empty;
+            string list = string.Empty;
+            foreach(var  image in images)
+            {
+                list = list + image + ";";
+            }
+            return list;
         }
     }
 }

@@ -44,8 +44,8 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            TourId = int.Parse(values[0]);
-            TouristReservationNumber = int.Parse(values[0]);           
+            TourId = int.Parse(values[1]);
+            TouristReservationNumber = int.Parse(values[2]);           
 
         }
     }

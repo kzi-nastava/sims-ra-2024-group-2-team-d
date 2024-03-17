@@ -28,7 +28,7 @@ namespace BookingApp.View.TouristApp
 
         public ObservableCollection<Tourist> Tourists { get; set; }
 
-        public TourInstanceRepository _tourInstanceRepository { get; set; }
+        private TourInstanceRepository _tourInstanceRepository { get; set; }
 
         public int TouristNumber {  get; set; }
 
@@ -50,24 +50,31 @@ namespace BookingApp.View.TouristApp
 
         private void AddTouristButton_Click(object sender, RoutedEventArgs e)
         {
-            string name = nameTextBox.Text;
-            string lastName = lastNameTextBox.Text;
-            int age = int.Parse(ageTextBox.Text);
+            string name = nameInput.Text;
+            string lastName = lastNameInput.Text;
+            int age = int.Parse(ageInput.Text);
             Tourist tourist = new Tourist(name, lastName, age);
-            Tourists.Add(tourist);           
-            if (--AddedTouristsCounter==0)
+            Tourists.Add(tourist); 
+            
+            if (ReduceAndCheckTouristCounter())
             {
                 ReserveTour();
             }
         }
 
+        private bool ReduceAndCheckTouristCounter()
+        {
+            return --AddedTouristsCounter == 0;
+        }
+
         private void ReserveTour()
         {
             TourReservation tourReservation = new TourReservation(TourInstanceId,TouristNumber);
-            _tourReservationRepository.Save(tourReservation);
-            foreach (var tour in Tourists)
+            tourReservation = _tourReservationRepository.Save(tourReservation);
+            foreach (var tourist in Tourists)
             {
-                _touristRepository.Save(tour);
+                tourist.ReservationId = tourReservation.Id;
+                _touristRepository.Save(tourist);
             }
             TourInstance tourInstance = _tourInstanceRepository.GetById(TourInstanceId);
             tourInstance.EmptySpots -= TouristNumber;

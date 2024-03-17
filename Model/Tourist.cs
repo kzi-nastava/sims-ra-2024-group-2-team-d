@@ -16,6 +16,8 @@ namespace BookingApp.Model
 
         public int Age { get; set; }
 
+        public int ReservationId {  get; set; }
+
         public Tourist()
         {
 
@@ -35,7 +37,8 @@ namespace BookingApp.Model
                 Id.ToString(),
                 Name,
                 LastName,
-                Age.ToString()
+                Age.ToString(),
+                ReservationId.ToString(),
 
             };
             return csvValues;
@@ -47,6 +50,7 @@ namespace BookingApp.Model
             Name = values[1];
             LastName = values[2];
             Age = int.Parse(values[3]);
+            ReservationId = int.Parse(values[4]);
 
         }
     }

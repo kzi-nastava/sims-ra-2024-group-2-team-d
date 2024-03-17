@@ -33,7 +33,7 @@
                             <ItemsControl ItemsSource="{Binding BaseTour.Pictures}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding}" Height="100" Margin="5"/>
+                                        <Image Source="{Binding}" Height="50" Margin="5" HorizontalAlignment="Right"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -46,29 +46,31 @@
 
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="txtLocation" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox x:Name="locationInput" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
             </StackPanel>
             <Separator/>
             
                 <StackPanel Orientation="Horizontal">
 
-                    <TextBox x:Name="txtDuration" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <TextBox x:Name="durationInput" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             
             <Separator/>
             
                 <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="txtLanguage" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox x:Name="languageInput" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             
             <Separator/>
             
                 <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="txtNumberOfPeople" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox x:Name="numberOfPeopleInput" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             <Separator/>
             <StackPanel Orientation="Horizontal">
-                <Button Content="Pretrazi" Click="OnSearchClick" Width="50"></Button>
+                <Button Content="Search" Click="OnSearchClick" Width="50"></Button>
+                <Separator/>
+                <Button Content="Reset" Click="OnResetClick" Width="50"/>
             </StackPanel>
 
         </ToolBar>

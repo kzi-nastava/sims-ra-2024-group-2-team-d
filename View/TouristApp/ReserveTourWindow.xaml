@@ -16,9 +16,9 @@
         <!-- StackPanel za TextBox-eve i Button u donjem levom uglu -->
         <StackPanel Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
             <TextBlock Text="Hello"/>
-            <TextBox x:Name="nameTextBox" Width="200" Margin="0,0,0,5"/>
-            <TextBox x:Name="lastNameTextBox" Width="200" Margin="0,0,0,5"/>
-            <TextBox x:Name="ageTextBox" Width="200" Margin="0,0,0,5"/>
+            <TextBox x:Name="nameInput" Width="200" Margin="0,0,0,5"/>
+            <TextBox x:Name="lastNameInput" Width="200" Margin="0,0,0,5"/>
+            <TextBox x:Name="ageInput" Width="200" Margin="0,0,0,5"/>
             <Button Content="Add" Click="AddTouristButton_Click" Width="200"/>
         </StackPanel>
 

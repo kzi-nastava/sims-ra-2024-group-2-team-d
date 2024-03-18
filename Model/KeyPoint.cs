@@ -24,20 +24,29 @@ namespace BookingApp.Model
 
         public KeyPoint() { }
 
-        public KeyPoint(int id, string name, int order)
+        public KeyPoint(int tourId, string name, int order)
+        {
+            Id = this.Id;
+            TourId = tourId;
+            Name = name;
+            Status = false;
+            Order = order;
+        }
+
+      /*  public KeyPoint(int id, string name, int order)
         {
             Id = id;
             Name = name;
             Status = false;
             Order = order;
-        }
+        }*/ ////////////////////////////////////////////////////////////ne znam za sta se koristi
 
         public override string ToString()
         {
             return $"ID: {Id,2} | Naziv: {Name,9} |";
         }
 
-        public string[] ToCSV()
+        /*public string[] ToCSV()
         {
             string[] csvValues =
             {
@@ -51,9 +60,30 @@ namespace BookingApp.Model
         {
             Id = int.Parse(values[0]);
             Name = values[1];
+        }*/ /////////////////////////////////////////////////////////mozda treba milanu
+
+        public string[] ToCSV()
+        {
+            string[] csvValues =
+            {
+                Id.ToString(),
+                TourId.ToString(),
+                Name,
+                Order.ToString()
+
+            };
+            return csvValues;
         }
 
-    
+        public void FromCSV(string[] values)
+        {
+            Id = int.Parse(values[0]);
+            TourId = int.Parse(values[1]);
+            Name = values[2];
+            Order = int.Parse(values[3]);
+        }
+
+
 
     }
 }

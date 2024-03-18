@@ -16,6 +16,13 @@ namespace BookingApp.Model
 
         public Picture() { }
 
+        public Picture(int tourId, string path) 
+        {
+            Id = this.Id;
+            TourId = tourId;
+            Path = path;
+        }
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);

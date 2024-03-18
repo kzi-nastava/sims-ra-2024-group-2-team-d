@@ -17,9 +17,21 @@ namespace BookingApp.Model
         public DateTime Date { get; set; }
         public int EmptySpots { get; set; }
         public bool Start {  get; set; }
+        public bool End { get; set; }
+
+        public TourInstance(int tourId, DateTime date, int emptySpots)
+        {
+            Id = this.Id;
+            TourId = tourId;
+            Date = date;
+            EmptySpots = emptySpots;
+            Start = false;
+            End = false;
+        }
 
         public TourInstance() {
             Start = false;
+            End = false;
             BaseTour = new Tour();
         }
 

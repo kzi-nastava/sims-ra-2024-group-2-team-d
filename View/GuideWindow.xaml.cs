@@ -24,6 +24,12 @@ namespace BookingApp.View
     {
         public static ObservableCollection<Comment> Comments { get; set; }
 
+        public static ObservableCollection<Tour> Tours { get; set; }
+        public Tour SelectedTour { get; set; }
+        private readonly TourRepository _tourRepository;
+        private readonly TourInstanceRepository _tourInstanceRepository;
+        private readonly KeyPointRepository _keyPointRepository;
+
         public Comment SelectedComment { get; set; }
 
         public User LoggedInUser { get; set; }

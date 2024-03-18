@@ -47,10 +47,35 @@ namespace BookingApp.Repository
             return keyPoint;
         }
 
+        public KeyPoint GetById(int Id)
+        {
+            return _keyPoints.Find(x => x.Id == Id);
+        }
 
+        public void Delete(KeyPoint keyPoints)
+        {
+            _keyPoints = _serializer.FromCSV(FilePath);
+            KeyPoint founded = _keyPoints.Find(c => c.Id == keyPoints.Id);
+            _keyPoints.Remove(founded);
+            _serializer.ToCSV(FilePath, _keyPoints);
+        }
 
+        public KeyPoint Update(KeyPoint keyPoints)
+        {
+            _keyPoints = _serializer.FromCSV(FilePath);
+            KeyPoint current = _keyPoints.Find(c => c.Id == keyPoints.Id);
+            int index = _keyPoints.IndexOf(current);
+            _keyPoints.Remove(current);
+            _keyPoints.Insert(index, keyPoints);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _keyPoints);
+            return keyPoints;
+        }
 
-
+        public List<KeyPoint> GetByTourId(int tourId)
+        {
+            _keyPoints = _serializer.FromCSV(FilePath);
+            return _keyPoints.FindAll(c => c.TourId == tourId);
+        }
 
     }
 }

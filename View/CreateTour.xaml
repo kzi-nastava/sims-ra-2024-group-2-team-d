@@ -5,96 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="CreateTour" Height="550" Width="600">
+        Title="Create Tour" Height="550" Width="600">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="450"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Grid.Column="0" Width="350" Height="400">
+        <Grid Grid.Row="0" Grid.Column="0" Margin="21,25,21,10" >
             <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
 
-
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="170"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Height="30"  Content="Title"></Label>
-            <Label Grid.Row="1" Grid.Column="0" Height="30"  Content="Location"></Label>
-            <Label Grid.Row="2" Grid.Column="0" Height="30"  Content="Description"></Label>
-            <Label Grid.Row="3" Grid.Column="0" Height="30"  Content="Language"></Label>
-            <Label Grid.Row="4" Grid.Column="0" Height="30"  Content="Max number of Tourists"></Label>
-            <Label Grid.Row="5" Grid.Column="0" Height="30"  Content="Key Points"></Label>
-            <Label Grid.Row="6" Grid.Column="0" Height="30"  Content="Date and Time"></Label>
-            <Label Grid.Row="7" Grid.Column="0" Height="30"  Content="Duration"></Label>
-            <Label Grid.Row="8" Grid.Column="0" Height="30"  Content="Pictures"></Label>
+
+            <Label Grid.Row="0" Grid.Column="0" Margin="0,10,0,10" >Title:</Label>
+            <TextBox Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Tour.Title, UpdateSourceTrigger=LostFocus}"></TextBox>
+
+            <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,10" >Location:</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Height="30"  Text="{Binding Path=Tour.Location, UpdateSourceTrigger=LostFocus}" ></TextBox>
+
+            <Label Grid.Row="2" Grid.Column="0" Margin="0,10,0,10" >Description</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Height="30"  Text="{Binding Path=Tour.Description, UpdateSourceTrigger=LostFocus }"></TextBox>
+
+            <Label Grid.Row="3" Grid.Column="0" Margin="0,10,0,10" >Language:</Label>
+            <TextBox Grid.Row="3" Grid.Column="1" Height="30"  Text="{Binding Path=Tour.Language, UpdateSourceTrigger=LostFocus }"></TextBox>
+
+            <Label Grid.Row="4" Grid.Column="0" Margin="0,10,0,10" >Maximum number of Tourists:</Label>
+            <TextBox Grid.Row="4" Grid.Column="1" Height="30" Text="{Binding Path=Tour.MaxTourists, UpdateSourceTrigger=LostFocus}"></TextBox>
+
+            <Label Grid.Row="5" Grid.Column="0" Margin="0,10,0,10" >Key points:</Label>
+            <TextBox Grid.Row="5" Grid.Column="1" Height="30" Text="{Binding Path=Tour.KeyPoints, UpdateSourceTrigger=LostFocus}"></TextBox>
+
+            <Label Grid.Row="6" Grid.Column="0" Margin="0,10,0,10">Date(s) and Time(s):</Label>
+            <TextBox Grid.Row="6" Grid.Column="1" Height="30" Text="{Binding Path=Tour.Dates, UpdateSourceTrigger=LostFocus}"></TextBox>
+
+            <Label Grid.Row="7" Grid.Column="0" Margin="0,10,0,10">Duration:</Label>
+            <TextBox Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=Tour.Duration, UpdateSourceTrigger=LostFocus}"></TextBox>
+
+            <Label Grid.Row="8" Grid.Column="0" Margin="0,10,0,10">Pictures:</Label>
+            <TextBox Grid.Row="8" Grid.Column="1" Height="30" Text="{Binding Path=Tour.Pictures, UpdateSourceTrigger=LostFocus}"></TextBox>
 
 
-
-            <StackPanel Grid.Row="0" Grid.Column="1">
-                <TextBox x:Name="txtTitle" Text="{Binding Path=Tour.Title, UpdateSourceTrigger=LostFocus}"
-             Height="20"></TextBox>
+            <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
+                <Label x:Name="ErrorMessage" FontSize="11" Foreground="Red" Visibility="Hidden" ></Label>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="1">
-                <TextBox x:Name="txtLocation" Text="{Binding Path=Tour.Location, UpdateSourceTrigger=LostFocus}" 
-             Height="20"></TextBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" Grid.Column="1">
-                <TextBox x:Name="txtDescription" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=LostFocus}" 
-             Height="20"></TextBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="3" Grid.Column="1">
-                <TextBox x:Name="txtLanguage" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=LostFocus}" 
-             Height="20"></TextBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="4" Grid.Column="1">
-                <TextBox x:Name="txtMaxTourists" Text="{Binding Path=Tour.MaxTourists, UpdateSourceTrigger=LostFocus}" 
-        Height="20"></TextBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="5" Grid.Column="1">
-                <TextBox x:Name="txtKeyPoints" Text="{Binding Path=Tour.KeyPoints, UpdateSourceTrigger=LostFocus}" 
- Height="20"></TextBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="6" Grid.Column="1">
-                <TextBox x:Name="txtDate" Text="{Binding Path=Tour.Dates, UpdateSourceTrigger=LostFocus}" 
- Height="20"></TextBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="7" Grid.Column="1">
-                <TextBox x:Name="txtDuration" Text="{Binding Path=Tour.Duration, UpdateSourceTrigger=LostFocus}" 
-             Height="20"></TextBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="8" Grid.Column="1">
-                <TextBox x:Name="txtPictures" Text="{Binding Path=Tour.Pictures, UpdateSourceTrigger=LostFocus}" 
-             Height="20"></TextBox>
-            </StackPanel>
-
-            <StackPanel Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2">
-                <Label x:Name="ErrorMessage" FontSize="11" Foreground="Red" Visibility="Hidden">(2-9)</Label>
-            </StackPanel>
+            <Button Content="Save" Click="CreateNewTour" HorizontalAlignment="Left" Margin="120,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43"/>
+            <Button Grid.Column="1" Content="Cancel" Click="Cancel" HorizontalAlignment="Left" Margin="230,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
 
         </Grid>
 
-        
     </Grid>
 </Window>

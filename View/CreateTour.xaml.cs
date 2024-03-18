@@ -1,7 +1,10 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Dto;
+using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Owner;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -24,256 +27,130 @@ namespace BookingApp.View
     /// </summary>
     public partial class CreateTour : Window //, INotifyPropertyChanged
     {
-        public User LoggedInUser { get; set; }
-
-        public Tour SelectedTour { get; set; }
+        // public User LoggedInUser { get; set; }
+        //public Tour SelectedTour { get; set; }
 
         private readonly TourRepository _repository;
+        private readonly TourInstanceRepository _instanceRepository;
         private readonly KeyPointRepository _keyPointRepository;
-        private readonly KeyPoint _keyPoint;
+        private readonly PictureRepository _pictureRepository;
 
-        private string _text;
-        public string Text
+
+
+        public User LoggedInUser { get; set; }
+
+        // public Tour SelectedTour { get; set; }
+
+        public KeyPoint KeyPoint { get; set; }
+        public List<KeyPoint> KeyPoints { get; set; }
+
+        public TourInstance TourInstance { get; set; }
+        public List<TourInstance> TourInstances { get; set; }
+
+        public Picture Picture { get; set; }
+        public List<Picture> Pictures { get; set; }
+
+        public static ObservableCollection<TourInstance> TourInstancesColl { get; set; }
+        public static ObservableCollection<Tour> BaseTours { get; set; }
+
+
+        public TourDto Tour { get; set; }
+
+        public CreateTour(User user)
         {
-            get => _text;
-            set
+            InitializeComponent();
+            Title = "Create Tour";
+            DataContext = this;
+            LoggedInUser = user;
+            _repository = new TourRepository();
+            _instanceRepository = new TourInstanceRepository();
+            _keyPointRepository = new KeyPointRepository();
+            _pictureRepository = new PictureRepository();
+
+
+            Tour = new TourDto();
+            Tour.UserId = user.Id;
+
+            TourInstance = new TourInstance();
+            KeyPoint = new KeyPoint();
+            Picture = new Picture();
+
+            // CheckReviewNotifications();
+
+        }
+
+        private void CreateNewTour(object sender, RoutedEventArgs e)
+        {
+            string validTour = Tour.IsValid;
+
+            if (validTour == string.Empty)
             {
-                if (value != _text)
+                Tour newTour = Tour.ToModel();
+                Tour newT = _repository.JustSave(newTour);
+                List<TourInstance> newTourInstances = new List<TourInstance>();
+                newTourInstances = newT.TourInstances;
+                foreach (TourInstance instance in newTourInstances)
                 {
-                    _text = value;
-                    OnPropertyChanged();
+                    if (_repository.GetById(instance.TourId) != null)
+                    {
+                        instance.BaseTour = _repository.GetById(instance.TourId);
+                    }
+
+                    _instanceRepository.Save(instance);
                 }
+
+                List<Picture> newPictures = new List<Picture>();
+                newPictures = newT.ClassPictures;
+                foreach (Picture picture in newPictures)
+                {
+                    _pictureRepository.Save(picture);
+                }
+
+                List<KeyPoint> newKeyPoints = new List<KeyPoint>();
+                newKeyPoints = newT.KeyPoints;
+                foreach (KeyPoint keyPoint in newKeyPoints)
+                {
+                    _keyPointRepository.Save(keyPoint);
+                }
+                /* TourInstancesColl = new ObservableCollection<TourInstance>();
+
+                 LinkTourInstancesWithTours();*/
+
+                this.Close();
+            }
+            else
+            {
+                ErrorMessage.Visibility = Visibility.Visible;
+                ErrorMessage.Content = validTour;
             }
         }
 
-        private string _title;
-        public string Title
+        /* public void LinkTourInstancesWithTours()
+         {
+             foreach (TourInstance tourInstance in TourInstances)
+             {
+                 if (_repository.GetById(tourInstance.TourId) != null)
+                 {
+                     tourInstance.BaseTour = _repository.GetById(tourInstance.TourId);
+                 }
+             }
+         }*/
+
+
+        /*  private void SaveComment(object sender, RoutedEventArgs e)
+          { 
+              Comment newComment = new Comment(DateTime.Now, Text, LoggedInUser);
+              Comment savedComment = _repository.Save(newComment);
+              CommentsOverview.Comments.Add(savedComment);
+
+              Close();
+          }*/
+
+
+        private void Cancel(object sender, RoutedEventArgs e)
         {
-            get => _title;
-            set
-            {
-                if (value != _title)
-                {
-                    _title = value;
-                    OnPropertyChanged("Title");
-                }
-            }
+            Close();
         }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                if (value != _description)
-                {
-                    _description = value;
-                    OnPropertyChanged("Description");
-                }
-            }
-        }
-
-        private string _location;
-        public string Location
-        {
-            get => _location;
-            set
-            {
-                if (value != _location)
-                {
-                    _location = value;
-                    OnPropertyChanged("Location");
-                }
-            }
-        }
-
-        private string _language;
-        public string Language
-        {
-            get => _language;
-            set
-            {
-                if (value != _language)
-                {
-                    _language = value;
-                    OnPropertyChanged("Language");
-                }
-            }
-        }
-
-        private int _maxTourists;
-        public int MaxTourists
-        {
-            get => _maxTourists;
-            set
-            {
-                if (value != _maxTourists)
-                {
-                    _maxTourists = value;
-                    OnPropertyChanged("MaxTourists");
-                }
-            }
-        }
-
-        private int _duration;
-        public int Duration
-        {
-            get => _duration;
-            set
-            {
-                if (value != _duration)
-                {
-                    _duration = value;
-                    OnPropertyChanged("Duration");
-                }
-            }
-        }
-
-        private string _keyPoints;
-        public string KeyPoints
-        {
-            get => _keyPoints;
-            set
-            {
-                if (value != _keyPoints)
-                {
-                    _keyPoints = value;
-                    OnPropertyChanged("KeyPoints");
-                }
-            }
-        }
-
-        private string _pictures;
-        public string Pictures
-        {
-            get => _pictures;
-            set
-            {
-                if (value != _pictures)
-                {
-                    _pictures = value;
-                    OnPropertyChanged("Pictures");
-                }
-            }
-        }
-
-        private DateTime date;
-        private string _dates;
-        public string Dates
-        {
-            get => _dates;
-            set
-            {
-                if (value != _dates)
-                {
-                    _dates = value;
-                    OnPropertyChanged("Dates");
-                }
-            }
-        }
-
-        public string Error => null;
-
-        private Regex _NameRegex = new Regex("[A-Za-z0-9-]+ [A-Za-z0-9-]+");
-        private Regex _LocationRegex = new Regex("([A-Za-z]+( [A-Za-z]+)*), ([A-Za-z]+( [A-Za-z]+)*)");
-        private Regex _KeyPointsRegex = new Regex("([A-Za-z]+( [A-Za-z]+)*)(, [A-Za-z]+( [A-Za-z]+)*)+");
-
-
-        public string this[string columnName]
-        {
-            get
-            {
-                if (columnName == "Title")
-                {
-                    if (string.IsNullOrEmpty(Title))
-                        return "Title is required";
-
-                }
-                else if (columnName == "Description")
-                {
-                    if (string.IsNullOrEmpty(Description))
-                        return "Description is required";
-
-                }
-                
-                else if (columnName == "Location")
-                {
-                    if (string.IsNullOrEmpty(Location))
-                        return "Location is required";
-
-                    Match match = _LocationRegex.Match(Location);
-                    if (!match.Success)
-                        return "Location format not good. Try again.";
-
-                }
-                else if (columnName == "Language")
-                {
-                    if (string.IsNullOrEmpty(Language))
-                        return "Language is required";
-
-                }
-                
-                else if (columnName == "Max number of Tourists")
-                {
-                    if (string.IsNullOrEmpty(MaxTourists.ToString()))
-                        return "MaxTourists is required";
-
-                    int i;
-                    if (!int.TryParse(MaxTourists.ToString(), out i))
-                        return "Format not good. Try again.";
-                }
-                else if (columnName == "Key Points")
-                {
-                    if (string.IsNullOrEmpty(KeyPoints))
-                        return "Key Points are required";
-
-                    Match match = _KeyPointsRegex.Match(KeyPoints);
-                    if (!match.Success)
-                        return "Key Points format not good. Try again.";
-
-                }
-                else if (columnName == "Date and Time")
-                {
-                    if (string.IsNullOrEmpty(Dates))
-                        return "Date is required";
-
-                    DateTime d;
-                    if (!DateTime.TryParse(Dates, out d))
-                        return "Invalid date format. Try again.";
-                    date = d;
-                }
-                
-                else if (columnName == "Duration")
-                {
-                    if (string.IsNullOrEmpty(Duration.ToString()))
-                        return "Duration is required";
-
-                    int i;
-                    if (!int.TryParse(Duration.ToString(), out i))
-                        return "Format not good. Try again.";
-                }
-
-                return "";
-            }
-        }
-
-        private readonly string[] _validatedProperties = { "Title", "Desription", "Location", "Language", "Max number of Tourists", "Key Points", "Date and Time", "Duration" };
-
-        public string IsValid
-        {
-            get
-            {
-                foreach (var property in _validatedProperties)
-                {
-                    if (this[property] != "")
-                        return this[property];
-                }
-
-                return "";
-            }
-        }
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -283,70 +160,18 @@ namespace BookingApp.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public CreateTour(User user)
-        {
-            InitializeComponent();
-            Title = "Create Tour";
-            DataContext = this;
-            LoggedInUser = user;
-            _repository = new TourRepository();
-        }
 
-        public CreateTour(Tour selectedTour)
-        {
-            InitializeComponent();
-            DataContext = this;
-            Title = "View tour";
-            txtTitle.IsEnabled = false;
-            txtLocation.IsEnabled = false;
-            txtDescription.IsEnabled = false;
-            txtLanguage.IsEnabled = false;
-            txtKeyPoints.IsEnabled = false;
-            txtMaxTourists.IsEnabled = false;
-            txtPictures.IsEnabled = false;
-            txtDuration.IsEnabled = false;
-            txtDate.IsEnabled = false;
-            //btnSave.Visibility = Visibility.Collapsed;
-            SelectedTour = selectedTour;
-            Title = selectedTour.Title;
-            Duration = selectedTour.Duration;
-            Location = selectedTour.Location; 
-            Description = selectedTour.Description;
-            Language = selectedTour.Language;
+        /* private void CheckReviewNotifications()
+         {
+             var list = _accommodationRepository.GetAllOwnerAccommodations(_user.Id).Select(a => a.Id).ToList();
+             foreach (var r in _reservationRepository.GetAllUnreviewed(list))
+             {
+                 GuestReviewForm guestReviewForm = new GuestReviewForm(r);
+                 guestReviewForm.Show();
+             }
 
-            
-            
-           
-            MaxTourists = selectedTour.MaxTourists;
+         }*/
 
-            //Pictures = selectedTour.Pictures;
-            _repository = new TourRepository();
-        }
 
-        public CreateTour(Tour selectedTour, User user)
-        {
-            InitializeComponent();
-            DataContext = this;
-            Title = "//";
-            LoggedInUser = user;
-            SelectedTour = selectedTour;
-            //Text = selectedTour.Text;
-            _repository = new TourRepository();
-        }
-
-      /*  private void SaveComment(object sender, RoutedEventArgs e)
-        { 
-            Comment newComment = new Comment(DateTime.Now, Text, LoggedInUser);
-            Comment savedComment = _repository.Save(newComment);
-            CommentsOverview.Comments.Add(savedComment);
-            
-            Close();
-        }*/
-
-        private void Cancel(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-       
     }
 }

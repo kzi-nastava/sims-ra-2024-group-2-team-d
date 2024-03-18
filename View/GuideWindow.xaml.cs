@@ -23,26 +23,42 @@ namespace BookingApp.View
     public partial class GuideWindow : Window
     {
         public static ObservableCollection<Comment> Comments { get; set; }
+        public static ObservableCollection<TourInstance> TourInstances { get; set; }
 
         public static ObservableCollection<Tour> Tours { get; set; }
         public Tour SelectedTour { get; set; }
         private readonly TourRepository _tourRepository;
-        private readonly TourInstanceRepository _tourInstanceRepository;
+        //private readonly TourInstanceRepository _tourInstanceRepository;
         private readonly KeyPointRepository _keyPointRepository;
 
         public Comment SelectedComment { get; set; }
+        public TourInstance SelectedTourInstance { get; set; }
 
         public User LoggedInUser { get; set; }
 
         private readonly CommentRepository _repository;
+        private readonly TourInstanceRepository _tourInstanceRepository;
 
         public GuideWindow(User user)
         {
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
-            _repository = new CommentRepository();
-            Comments = new ObservableCollection<Comment>(_repository.GetByUser(user));
+            _tourInstanceRepository = new TourInstanceRepository();
+            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetForTheDay(user));
+            LinkTourInstancesWithTours();
+        }
+
+        public void LinkTourInstancesWithTours()
+        {
+            foreach (TourInstance tourInstance in TourInstances)
+            {
+                Tour baseTour = _tourRepository.GetById(tourInstance.TourId);
+                if (baseTour != null)
+                {
+                    tourInstance.BaseTour = baseTour;
+                }
+            }
         }
 
         private void ShowCreateCommentForm(object sender, RoutedEventArgs e)
@@ -60,7 +76,7 @@ namespace BookingApp.View
             }
         }
 
-        private void ShowUpdateCommentForm(object sender, RoutedEventArgs e)
+       /* private void ShowUpdateCommentForm(object sender, RoutedEventArgs e)
         {
             if (SelectedComment != null)
             {
@@ -81,7 +97,7 @@ namespace BookingApp.View
                     Comments.Remove(SelectedComment);
                 }
             }
-        }
+        }*/
 
 
     }

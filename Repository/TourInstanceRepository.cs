@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
@@ -15,6 +16,8 @@ namespace BookingApp.Repository
         private readonly Serializer<TourInstance> _serializer;
 
         private List<TourInstance> _tourInstance;
+
+        //public DateTime TodayDate = DateTime.Today; 
 
         public TourInstanceRepository()
         {
@@ -84,6 +87,16 @@ namespace BookingApp.Repository
         {
             _tourInstance = _serializer.FromCSV(FilePath);
             return _tourInstance.FindAll(c => c.TourId == tourId);
+        }
+
+        public List<TourInstance> GetForTheDay(User user)
+        {
+            _tourInstance = _serializer.FromCSV(FilePath);
+            //List<TourInstance> _tourInstancesForUser = new List<TourInstance>();
+           
+            return _tourInstance.FindAll(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today);
+            // DateTime.Now.ToString("hh:mm dd.MM.yyyy");
+
         }
 
     }

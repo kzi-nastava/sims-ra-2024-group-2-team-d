@@ -20,13 +20,13 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <DataGrid ItemsSource="{Binding Comments}"
-      SelectedItem="{Binding Path=SelectedComment}"
+            <DataGrid ItemsSource="{Binding TourInstances}"
+      SelectedItem="{Binding Path=SelectedTourInstances}"
       IsReadOnly="True" SelectionMode="Single" 
   AutoGenerateColumns="False" Height="325" HeadersVisibility="Column" FontSize="13">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Creation time" Binding="{Binding CreationTime}" Width="200"/>
-                    <DataGridTextColumn Header="Text" Binding="{Binding Text}" Width="*"/>
+                    <DataGridTextColumn Header="Tours for the day" Binding="{Binding BaseTour.Title}" Width="400"/>
+                    <DataGridTextColumn Header="Time" Binding="{Binding Date}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -42,23 +42,11 @@
             <Button Click="ShowViewCommentForm">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/view.png" Width="20" Height="25"/>
-                    <TextBlock Text="View" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <TextBlock Text="Start tour" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
-            <Separator/>
-            <Button Click="ShowUpdateCommentForm">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/edit.png" Width="20" Height="25"/>
-                    <TextBlock Text="Update" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
-                </StackPanel>
-            </Button>
-            <Separator/>
-            <Button Click="Delete">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
-                    <TextBlock Name="DeleteTxtBlock" Text="Delete" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
-                </StackPanel>
-            </Button>
+            
+            
         </ToolBar>
 
     </Grid>

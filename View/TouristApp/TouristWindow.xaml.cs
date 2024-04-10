@@ -37,6 +37,7 @@ namespace BookingApp.View
         private readonly PictureRepository _pictureRepository;
 
         private readonly KeyPointRepository _keyPointRepository;
+
         public TouristWindow(User user)
         {
             InitializeComponent();
@@ -49,6 +50,7 @@ namespace BookingApp.View
             _pictureRepository = new PictureRepository();
             _keyPointRepository = new KeyPointRepository();
             LinkEntities();
+           
                      
         }
 
@@ -92,7 +94,7 @@ namespace BookingApp.View
             var filteredTours = TourInstances
                 .Where(t => (string.IsNullOrEmpty(locationInput.Text) || t.BaseTour.Location.Contains(locationInput.Text, StringComparison.OrdinalIgnoreCase)) &&                          
                             (string.IsNullOrEmpty(durationInput.Text) || t.BaseTour.Duration.ToString().Contains(durationInput.Text)) &&
-                            (string.IsNullOrEmpty(languageInput.Text) || t.BaseTour.Language.Contains(languageInput.Text, StringComparison.OrdinalIgnoreCase)) &&
+                            (languageInput.SelectedItem == null || t.BaseTour.Language.Contains((languageInput.SelectedItem as dynamic).BaseTour.Language, StringComparison.OrdinalIgnoreCase)) &&
                             t.BaseTour.MaxTourists >= numberOfPeople)
                 .ToList();
 
@@ -129,5 +131,7 @@ namespace BookingApp.View
             languageInput.Text = string.Empty;
             numberOfPeopleInput.Text = string.Empty;
         }
+
+       
     }
 }

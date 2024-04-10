@@ -5,7 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="Tourist" Height="450" Width="800">
+        Title="Tourist" Height="768" Width="1024">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontWeight="Bold"  FontSize="20" Text="{Binding LoggedInUser.Username, StringFormat='Hello, {0}'}" Margin="10,15,10,10"></TextBlock>
+                <Button Height="40" Width="80" Margin="10,10,10,10">My tours</Button>
+                <Button Height="40" Width="80" Margin="10,10,10,10">My requests</Button>
+                <Button Height="40" Width="80" Margin="10,10,10,10">Notifications</Button>
+                <Button Height="40" Margin="10,10,10,10">User</Button>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Left">
+            <StackPanel>
+                <GroupBox Margin="10">
+                    <GroupBox.Header>
+                        <TextBlock Text="Search" FontSize="26" FontWeight="Bold"></TextBlock>
+                    </GroupBox.Header>
+                    <StackPanel >
+                        <TextBlock FontSize="16" Text="Location" Margin="10,10,10,10" ></TextBlock>
+                        <TextBox x:Name="locationInput" Width="150" Margin="10,10,10,10"></TextBox>
+                        <TextBlock FontSize="16" Text="Duration" Margin="10,10,10,10" ></TextBlock>
+                        <TextBox x:Name="durationInput" Width="150" Margin="10,10,10,10"></TextBox>
+                        <TextBlock FontSize="16" Text="Language" Margin="10,10,10,10" ></TextBlock>
+                        <ComboBox x:Name="languageInput" ItemsSource="{Binding TourInstances}" DisplayMemberPath="BaseTour.Language" Width="150" Margin="10,10,10,10"></ComboBox>
+                        <TextBlock FontSize="16" Text="Num of people" Margin="10,10,10,10" ></TextBlock>
+                        <TextBox x:Name="numberOfPeopleInput" Width="150" Margin="10,10,10,10"></TextBox>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Height="40" Width="80" Margin="10,10,10,10" Click="OnResetClick">Reset</Button>
+                            <Button Height="40" Width="80" Margin="10,10,10,10" Click="OnSearchClick">Search</Button>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                <Button Height="40" Width="100" Margin="5,100,10,10">Create request</Button>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Right">
+            <ListBox ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding BaseTour.Title}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding BaseTour.Location}" />
+                            <TextBlock Text="{Binding BaseTour.MaxTourists, StringFormat='Maksimalan broj turista: {0}'}" />
+                            <TextBlock Text="{Binding Date}" />
+                            <TextBlock Text="{Binding BaseTour.Description}" />
+                            <TextBlock Text="{Binding BaseTour.Duration, StringFormat='Trajanje: {0} sati'}" />
+                            <TextBlock Text="{Binding BaseTour.Language}" />
+                            <ItemsControl ItemsSource="{Binding BaseTour.Pictures}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding}" Height="50" Margin="5" HorizontalAlignment="Right"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Button Content="Reserve tour" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ReserveButton_Click" Margin="10,0,0,0" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+    </DockPanel>
+    <!--Komentar
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -76,4 +137,5 @@
         </ToolBar>
 
     </Grid>
+    -->
 </Window>

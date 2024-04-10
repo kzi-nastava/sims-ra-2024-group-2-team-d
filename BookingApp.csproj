@@ -9,8 +9,15 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\calendar-icon.png" />
     <None Remove="Resources\Images\delete.png" />
+    <None Remove="Resources\Images\duration-icon.jpg" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\info-icon.png" />
+    <None Remove="Resources\Images\language-icon.png" />
+    <None Remove="Resources\Images\location-icon.jpg" />
+    <None Remove="Resources\Images\notification-icon.png" />
+    <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
 
@@ -27,6 +34,16 @@
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\calendar-icon.png" />
+    <Resource Include="Resources\Images\duration-icon.jpg" />
+    <Resource Include="Resources\Images\info-icon.png" />
+    <Resource Include="Resources\Images\language-icon.png" />
+    <Resource Include="Resources\Images\location-icon.jpg" />
+    <Resource Include="Resources\Images\notification-icon.png" />
+    <Resource Include="Resources\Images\user-icon.png" />
   </ItemGroup>
 
 </Project>

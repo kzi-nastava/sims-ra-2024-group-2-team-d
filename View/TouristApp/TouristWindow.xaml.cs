@@ -26,6 +26,8 @@ namespace BookingApp.View
 
         public static ObservableCollection<TourInstance> TourInstances { get; set; }
 
+        public static ObservableCollection<TourInstance> ActiveTours { get; set; }
+
         public TourInstance SelectedTour { get; set; }
 
         public User LoggedInUser { get; set; }
@@ -38,6 +40,7 @@ namespace BookingApp.View
 
         private readonly KeyPointRepository _keyPointRepository;
 
+
         public TouristWindow(User user)
         {
             InitializeComponent();
@@ -46,12 +49,14 @@ namespace BookingApp.View
             _tourRepository = new TourRepository();           
             _tourInstanceRepository = new TourInstanceRepository();
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
+            ActiveTours = new ObservableCollection<TourInstance>();
             SelectedTour = new TourInstance();
             _pictureRepository = new PictureRepository();
             _keyPointRepository = new KeyPointRepository();
             LinkEntities();
-           
-                     
+            MoveToActiveTours();
+
+
         }
 
         public void LinkEntities()
@@ -59,6 +64,17 @@ namespace BookingApp.View
             LinkTourInstancesWithTours();
             LinkPicturesWithTours();
 
+        }
+
+       public void MoveToActiveTours()
+        {
+            foreach(TourInstance tourInstance in TourInstances)
+            {
+                if (tourInstance.Start && !tourInstance.End){
+                    ActiveTours.Add(tourInstance);
+                    //TourInstances.Remove(tourInstance);
+                }
+            }
         }
 
         public void LinkTourInstancesWithTours()

@@ -42,7 +42,9 @@ namespace BookingApp.Model
                 Id.ToString(),
                 TourId.ToString(),
                 Date.ToString("yyyy-MM-dd HH:mm"),
-                EmptySpots.ToString()
+                EmptySpots.ToString(),
+                Start.ToString(),
+                End.ToString()
             
             };
             return csvValues;
@@ -55,6 +57,8 @@ namespace BookingApp.Model
             TourId = int.Parse(values[1]);
             Date = DateTime.Parse(values[2]);
             EmptySpots = int.Parse(values[3]);
+            Start = bool.Parse(values[4]);
+            End = bool.Parse(values[5]);
             
         }
     }

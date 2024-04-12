@@ -115,6 +115,7 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                UserId.ToString(),
                 Title,
                 Description,
                 Location,
@@ -131,12 +132,13 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            Title = values[1];
-            Description = values[2];
-            Location = values[3];
-            Language = values[4];
-            MaxTourists = int.Parse(values[5]);
-            Duration = int.Parse(values[6]);
+            UserId = int.Parse(values[1]);
+            Title = values[2];
+            Description = values[3];
+            Location = values[4];
+            Language = values[5];
+            MaxTourists = int.Parse(values[6]);
+            Duration = int.Parse(values[7]);
             KeyPoints = new List<KeyPoint>() {};
            
         }

@@ -2,6 +2,7 @@
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,17 +33,17 @@ namespace BookingApp.Repository
 
         public TourInstance UpdateFreeSpots(TourInstance tourInstance)
         {
-            
-                TourInstance oldTourInstance = GetById(tourInstance.Id);
-                if (oldTourInstance == null) return null;               
-                oldTourInstance.EmptySpots = tourInstance.EmptySpots;
-                _serializer.ToCSV(FilePath, _tourInstance);               
-                return oldTourInstance;         
+
+            TourInstance oldTourInstance = GetById(tourInstance.Id);
+            if (oldTourInstance == null) return null;
+            oldTourInstance.EmptySpots = tourInstance.EmptySpots;
+            _serializer.ToCSV(FilePath, _tourInstance);
+            return oldTourInstance;
         }
 
         public TourInstance GetById(int id)
         {
-            return _tourInstance.Find(x=>x.Id==id);
+            return _tourInstance.Find(x => x.Id == id);
         }
 
         public TourInstance Save(TourInstance tourInstance)
@@ -89,15 +90,23 @@ namespace BookingApp.Repository
             return _tourInstance.FindAll(c => c.TourId == tourId);
         }
 
-        public List<TourInstance> GetForTheDay(User user)
+
+        //ISPRAVNA
+        public List<TourInstance> GetForTheDay1(User user, ObservableCollection<TourInstance> tours)
+        {
+            return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today).ToList();
+        }
+
+
+        public List<TourInstance> GetByUser(User user)
         {
             _tourInstance = _serializer.FromCSV(FilePath);
-            //List<TourInstance> _tourInstancesForUser = new List<TourInstance>();
-           
-            return _tourInstance.FindAll(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today);
-            // DateTime.Now.ToString("hh:mm dd.MM.yyyy");
+            return _tourInstance.FindAll(c => c.BaseTour.UserId == user.Id);
 
+            //return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today).ToList();
         }
+
+
 
     }
 }

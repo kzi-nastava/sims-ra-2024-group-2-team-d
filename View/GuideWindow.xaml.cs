@@ -45,8 +45,10 @@ namespace BookingApp.View
             DataContext = this;
             LoggedInUser = user;
             _tourInstanceRepository = new TourInstanceRepository();
-            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetForTheDay(user));
+            _tourRepository = new TourRepository();
+            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
             LinkTourInstancesWithTours();
+            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetForTheDay1(user, TourInstances));
         }
 
         public void LinkTourInstancesWithTours()
@@ -76,28 +78,54 @@ namespace BookingApp.View
             }
         }
 
-       /* private void ShowUpdateCommentForm(object sender, RoutedEventArgs e)
+        private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedComment != null)
+            if (SelectedTourInstance != null)
             {
-                CommentForm updateCommentForm = new CommentForm(SelectedComment, LoggedInUser);
-                updateCommentForm.Show();
+                FollowingTourLive followingTourLive = new FollowingTourLive(SelectedTourInstance);
+                followingTourLive.Show();
             }
+
+
+            /*if(TourGrid.SelectedIndex==-1)
+            {
+                return;
+            }
+
+            TourInstance ti = TourGrid.SelectedItem as TourInstance;
+            //otvara se prozor sa tom turom
+            FollowingTourLive ftl =new FollowingTourLive(ti);*/
+
         }
 
-        private void Delete(object sender, RoutedEventArgs e)
+        private void ShowAllTours(object sender, RoutedEventArgs e)
         {
-            if (SelectedComment != null)
-            {
-                MessageBoxResult result = MessageBox.Show("Are you sure?", "Delete comment",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
-                {
-                    _repository.Delete(SelectedComment);
-                    Comments.Remove(SelectedComment);
-                }
-            }
-        }*/
+            AllTours allTours = new AllTours(LoggedInUser);
+            allTours.Show();
+        }
+
+        /* private void ShowUpdateCommentForm(object sender, RoutedEventArgs e)
+         {
+             if (SelectedComment != null)
+             {
+                 CommentForm updateCommentForm = new CommentForm(SelectedComment, LoggedInUser);
+                 updateCommentForm.Show();
+             }
+         }
+
+         private void Delete(object sender, RoutedEventArgs e)
+         {
+             if (SelectedComment != null)
+             {
+                 MessageBoxResult result = MessageBox.Show("Are you sure?", "Delete comment",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question);
+                 if (result == MessageBoxResult.Yes)
+                 {
+                     _repository.Delete(SelectedComment);
+                     Comments.Remove(SelectedComment);
+                 }
+             }
+         }*/
 
 
     }

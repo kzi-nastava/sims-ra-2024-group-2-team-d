@@ -26,18 +26,21 @@ namespace BookingApp.View.TouristApp
         public TourInstance SelectedTour {  get; set; }
 
         public User LoggedInUser { get; set; }
-        public RecommendedAlternatives(ObservableCollection<TourInstance> tourInstances, User loggedInUser)
+
+        public ObservableCollection<GiftCard> UserGiftCards { get; set; }
+        public RecommendedAlternatives(ObservableCollection<TourInstance> tourInstances, User loggedInUser, ObservableCollection<GiftCard> userGiftCards)
         {
             InitializeComponent();
             DataContext = this;
             TourInstances = tourInstances;
             LoggedInUser = loggedInUser;
+            UserGiftCards = userGiftCards;
 
         }
 
         private void ReserveButton_Click(object sender, RoutedEventArgs e)
         {
-            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances, LoggedInUser);
+            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances, LoggedInUser, UserGiftCards);
             numberOfTouristInsertion.Show();
         }
     }

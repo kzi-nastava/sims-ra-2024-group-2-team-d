@@ -15,7 +15,7 @@
 
         <!-- StackPanel za TextBox-eve i Button u donjem levom uglu -->
         <StackPanel Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
-            <TextBlock Text="Hello"/>
+            <ComboBox ItemsSource="{Binding UserGiftCards}" DisplayMemberPath="ExpirationDate" SelectedItem="{Binding SelectedGiftCard}"></ComboBox>
             <TextBox x:Name="nameInput" Width="200" Margin="0,0,0,5"/>
             <TextBox x:Name="lastNameInput" Width="200" Margin="0,0,0,5"/>
             <TextBox x:Name="ageInput" Width="200" Margin="0,0,0,5"/>

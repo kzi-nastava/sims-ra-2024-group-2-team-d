@@ -19,13 +19,16 @@
             <Setter Property="Height" Value="50" />
         </Style>
     </Window.Resources>
+    
+    <!--Gornji meni-->
+    
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <DockPanel>
                 <DockPanel DockPanel.Dock="Left">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontWeight="Bold"  FontSize="20" Text="{Binding LoggedInUser.Username, StringFormat='Hello, {0}'}" Margin="20,15,20,15"></TextBlock>
-                        <Button Height="40" Width="80" Margin="20,15,20,15">My tours</Button>
+                        <Button Height="40" Width="80" Margin="20,15,20,15" Click="MyTours_Click">My tours</Button>
                         <Button Height="40" Width="80" Margin="20,15,20,15">My requests</Button>
                         <Button Height="50" Width="60" Margin="20,15,20,15">
                             <Image Source="../../Resources/Images/notification-icon.png" Height="40" Width="40"></Image>
@@ -37,25 +40,28 @@
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
-                        <Button Height="50" Width="60" Margin="20,15,20,15">
+                        <Button x:Name="UserIcon" Height="50" Width="60" Margin="20,15,20,15" Click="UserIcon_Click">
                             <Image Source="../../Resources/Images/user-icon.png" Height="40" Width="40"></Image>
-                            <Button.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Tutorial"/>
-                                    <MenuItem Header="My vouchers"/>
-                                    <MenuItem Header="Change font size"/>
-                                </ContextMenu>
-                            </Button.ContextMenu>
                         </Button>
-                        
+                        <Popup x:Name="menuPopup" PlacementTarget="{Binding ElementName=UserIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
+                            <Border Background="WhiteSmoke" BorderBrush="Black" BorderThickness="1">
+                                <StackPanel>
+                                    <Button Content="My vouchers" Width="100" Height="30" Click="ShowVouchers_Click" />
+                                    <Button Content="Opcija 2" Width="100" Height="30" />
+                                    
+                                </StackPanel>
+                            </Border>
+                        </Popup>
                     </StackPanel>
                 </DockPanel>
-                
             </DockPanel>
             <DockPanel DockPanel.Dock="Right">
                 <TextBlock FontWeight="Bold"  FontSize="40" Margin="20,15,20,15" HorizontalAlignment="Right">Active tours</TextBlock>
             </DockPanel>
         </DockPanel>
+        
+        <!--Leva strana-->
+        
         <DockPanel DockPanel.Dock="Left">
             <StackPanel>
                 <GroupBox Margin="10">
@@ -80,6 +86,9 @@
                 <Button Height="40" Width="100" Margin="5,100,10,10">Create request</Button>
             </StackPanel>
         </DockPanel>
+        
+        <!--Ture-->
+        
         <DockPanel DockPanel.Dock="Right">
             <StackPanel>
                 <TextBlock Text="There is no active tour" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="10" Visibility="{Binding ActiveTours.Count, Converter={StaticResource ResourceKey=VisibilityConverter}}" />
@@ -107,9 +116,7 @@
                                             </DataTemplate>
                                         </ContentControl.ContentTemplate>
                                     </ContentControl>
-
                                 </StackPanel>
-                               
                                 <StackPanel Grid.Row="0" Grid.Column="1">
                                     <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
                                     <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding BaseTour.Location}" />
@@ -134,18 +141,15 @@
                                     </Button>
                                     <TextBlock Text="More info" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
-
-
-
-                            </Grid>
+                           </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                
                 <TextBlock FontWeight="Bold"  FontSize="40" Margin="10,15,10,10" HorizontalAlignment="Right">Tours</TextBlock>
                 <ListBox Height="350" Width="780" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
                     <ListBox.ItemTemplate >
                         <DataTemplate>
-                            
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
@@ -167,9 +171,7 @@
                                             </DataTemplate>
                                         </ContentControl.ContentTemplate>
                                     </ContentControl>
-
                                 </StackPanel>
-                                
                                 <StackPanel Grid.Row="0" Grid.Column="1">
                                     <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
                                     <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding BaseTour.Location}" />
@@ -187,94 +189,17 @@
                                     <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
                                 <Button Content="Reserve"  Click="ReserveButton_Click" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
-
                                 <StackPanel Grid.Row="1" Grid.Column="4">
                                     <Button Height="40" Width="40">
                                         <Image Source="../../Resources/Images/info-icon.png"></Image>
                                     </Button>
                                     <TextBlock Text="More info" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
-                                
-                                
-                                
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
-            
         </DockPanel>
     </DockPanel>
-    <!--Komentar
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="760"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <ListBox Height="200" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding BaseTour.Title}" FontWeight="Bold" />
-                            <TextBlock Text="{Binding BaseTour.Location}" />
-                            <TextBlock Text="{Binding BaseTour.MaxTourists, StringFormat='Maksimalan broj turista: {0}'}" />
-                            <TextBlock Text="{Binding Date}" />
-                            <TextBlock Text="{Binding BaseTour.Description}" />
-                            <TextBlock Text="{Binding BaseTour.Duration, StringFormat='Trajanje: {0} sati'}" />
-                            <TextBlock Text="{Binding BaseTour.Language}" />
-                            <ItemsControl ItemsSource="{Binding BaseTour.Pictures}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding}" Height="50" Margin="5" HorizontalAlignment="Right"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                            <Button Content="Reserve tour" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ReserveButton_Click" Margin="10,0,0,0" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-
-        <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="locationInput" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
-            </StackPanel>
-            <Separator/>
-            
-                <StackPanel Orientation="Horizontal">
-
-                    <TextBox x:Name="durationInput" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
-                </StackPanel>
-            
-            <Separator/>
-            
-                <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="languageInput" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
-                </StackPanel>
-            
-            <Separator/>
-            
-                <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="numberOfPeopleInput" Width="50" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
-                </StackPanel>
-            <Separator/>
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Search" Click="OnSearchClick" Width="50"></Button>
-                <Separator/>
-                <Button Content="Reset" Click="OnResetClick" Width="50"/>
-            </StackPanel>
-
-        </ToolBar>
-
-    </Grid>
-    -->
 </Window>

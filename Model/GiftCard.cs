@@ -14,7 +14,9 @@ namespace BookingApp.Model
     {
         public int Id { get; set; }
         public DateOnly ReceiveDate { get; set; }
-        public DateOnly ExpireDate { get; set; }
+        public DateOnly ExpirationDate { get; set; }
+
+        public int UserId {  get; set; }
 
 
         public GiftCard() {}
@@ -22,7 +24,7 @@ namespace BookingApp.Model
         public GiftCard(DateOnly receiveDate)
         {
             ReceiveDate = receiveDate;
-            ExpireDate = ReceiveDate.AddYears(1);
+            ExpirationDate = ReceiveDate.AddYears(1);
         }
 
         public string[] ToCSV()
@@ -30,8 +32,9 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                ReceiveDate.ToString("yyyy-MM-dd HH:mm"),
-                ExpireDate.ToString("yyyy-MM-dd HH:mm"),
+                ReceiveDate.ToString("yyyy-MM-dd"),
+                ExpirationDate.ToString("yyyy-MM-dd"),
+                UserId.ToString()
 
 
             };
@@ -42,7 +45,8 @@ namespace BookingApp.Model
         {
             Id = int.Parse(values[0]);
             ReceiveDate = DateOnly.Parse(values[1]);
-            ExpireDate = DateOnly.Parse(values[2]);
+            ExpirationDate = DateOnly.Parse(values[2]);
+            UserId = int.Parse(values[3]);
         }
 
 

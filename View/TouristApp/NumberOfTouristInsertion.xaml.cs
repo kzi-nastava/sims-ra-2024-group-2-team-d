@@ -27,7 +27,9 @@ namespace BookingApp.View.TouristApp
         public ObservableCollection<TourInstance> TourInstances {  get; set; }
 
         public User LoggedInUser { get; set; }
-        public NumberOfTouristInsertion(TourInstance selectedTour, ObservableCollection<TourInstance> tourInstances, User loggedInUser)
+
+        public ObservableCollection<GiftCard> UserGiftCards { get; set; }
+        public NumberOfTouristInsertion(TourInstance selectedTour, ObservableCollection<TourInstance> tourInstances, User loggedInUser, ObservableCollection<GiftCard> userGiftCards)
         {
             InitializeComponent();
             DataContext = this;
@@ -35,6 +37,7 @@ namespace BookingApp.View.TouristApp
             TourInstances = new ObservableCollection<TourInstance>();
             FilterToursDependingOnLocation(tourInstances);
             LoggedInUser = loggedInUser;
+            UserGiftCards = userGiftCards;
         }
 
         void FilterToursDependingOnLocation(ObservableCollection<TourInstance> tourInstances)
@@ -59,7 +62,7 @@ namespace BookingApp.View.TouristApp
             int touristNumber = int.Parse(touristNumberInput.Text);
             if (SelectedTour.EmptySpots >= touristNumber)
             {
-                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(touristNumber, SelectedTour.Id, LoggedInUser);
+                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(touristNumber, SelectedTour.Id, LoggedInUser, UserGiftCards);
                 reserveTourWindow.Show();
                 this.Close();
             }
@@ -70,7 +73,7 @@ namespace BookingApp.View.TouristApp
             }
             else
             {
-                RecommendedAlternatives recommendedAlternatives = new RecommendedAlternatives(TourInstances, LoggedInUser);
+                RecommendedAlternatives recommendedAlternatives = new RecommendedAlternatives(TourInstances, LoggedInUser, UserGiftCards);
                 recommendedAlternatives.Show();
                 this.Close();
             }

@@ -26,9 +26,11 @@ namespace BookingApp.View.TouristApp
 
         private TourReservationRepository _tourReservationRepository {  get; set; }
 
-        public ObservableCollection<Tourist> Tourists { get; set; }
+        private GiftCardRepository _giftCardRepository { get; set; }
 
         private TourInstanceRepository _tourInstanceRepository { get; set; }
+
+        public ObservableCollection<Tourist> Tourists { get; set; }
 
         public int TouristNumber {  get; set; }
 
@@ -37,18 +39,25 @@ namespace BookingApp.View.TouristApp
         public int AddedTouristsCounter {  get; set; }
 
         public User LoggedInUser {  get; set; }
-        public ReserveTourWindow(int touristNumber, int tourInstanceId, User loggedInUser)
+
+        public ObservableCollection<GiftCard> UserGiftCards {  get; set; }
+
+        public GiftCard SelectedGiftCard {  get; set; }
+
+        public ReserveTourWindow(int touristNumber, int tourInstanceId, User loggedInUser, ObservableCollection<GiftCard> userGiftCards)
         {
             InitializeComponent();
             DataContext = this;
             _touristRepository = new TouristRepository();
             _tourReservationRepository = new TourReservationRepository();
             _tourInstanceRepository = new TourInstanceRepository();
+            _giftCardRepository = new GiftCardRepository();
             Tourists = new ObservableCollection<Tourist>();
             TouristNumber = touristNumber;
             TourInstanceId = tourInstanceId;
             AddedTouristsCounter = TouristNumber;
             LoggedInUser = loggedInUser;
+            UserGiftCards = userGiftCards;
             AddUserToList();
         }
 
@@ -89,6 +98,10 @@ namespace BookingApp.View.TouristApp
             {
                 tourist.ReservationId = tourReservation.Id;
                 _touristRepository.Save(tourist);
+            }
+            if(SelectedGiftCard != null)
+            {
+                _giftCardRepository.Delete(SelectedGiftCard.Id);
             }
             TourInstance tourInstance = _tourInstanceRepository.GetById(TourInstanceId);
             tourInstance.EmptySpots -= TouristNumber;

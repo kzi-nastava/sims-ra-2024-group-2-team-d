@@ -40,5 +40,23 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _giftCards);
             return giftCard;
         }
+
+        public List<GiftCard> GetAll()
+        {
+            return _giftCards;
+        }
+
+        public GiftCard GetById(int id) {
+            return _giftCards.Find(x => x.Id == id);
+        }
+
+        public GiftCard? Delete(int id)
+        {
+            GiftCard? giftCard = GetById(id);
+            if (giftCard == null) return null;
+            _giftCards.Remove(giftCard);
+            _serializer.ToCSV(FilePath, _giftCards);
+            return giftCard;
+        }
     }
 }

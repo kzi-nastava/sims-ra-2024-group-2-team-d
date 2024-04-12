@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.View.TouristApp;
+using BookingApp.WPF.Views;
 
 namespace BookingApp.View
 {
@@ -28,13 +29,13 @@ namespace BookingApp.View
 
         public static ObservableCollection<TourInstance> ActiveTours { get; set; }
 
-        public static ObservableCollection<TourInstance> MyTours { get; set; }
-
-        public List<TourReservation> Reservations {  get; set; }
+        public static ObservableCollection<TourInstance> UserTours { get; set; }
 
         public TourInstance SelectedTour { get; set; }
 
         public User LoggedInUser { get; set; }
+
+        public ObservableCollection<GiftCard> UserGiftCards { get; set; }
 
         private readonly TourRepository _tourRepository;
 
@@ -46,7 +47,7 @@ namespace BookingApp.View
 
         private readonly TourReservationRepository _tourReservationRepository;
 
-
+        private readonly GiftCardRepository _giftCardRepository;
 
 
         public TouristWindow(User user)
@@ -58,12 +59,13 @@ namespace BookingApp.View
             _tourInstanceRepository = new TourInstanceRepository();
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
-            MyTours = new ObservableCollection<TourInstance>();
+            UserTours = new ObservableCollection<TourInstance>();
+            UserGiftCards = new ObservableCollection<GiftCard>();
             SelectedTour = new TourInstance();
             _pictureRepository = new PictureRepository();
             _keyPointRepository = new KeyPointRepository();
+            _giftCardRepository = new GiftCardRepository();
             _tourReservationRepository = new TourReservationRepository();
-            Reservations = _tourReservationRepository.GetAll(); 
             LinkEntities();
             MoveToActiveTours();
 
@@ -75,19 +77,33 @@ namespace BookingApp.View
             LinkTourInstancesWithTours();
             LinkPicturesWithTours();
             LinkReservationsWithUser();
+            LinkGiftCardWithUser();
 
+        }
+
+        public void LinkGiftCardWithUser()
+        {
+            List<GiftCard> giftCards = _giftCardRepository.GetAll();
+            foreach(GiftCard giftCard in giftCards)
+            {
+                if(giftCard.UserId == LoggedInUser.Id)
+                {
+                    UserGiftCards.Add(giftCard);
+                }
+            }
         }
 
         public void LinkReservationsWithUser()
         {
-            foreach (var reservation in Reservations)
+            List<TourReservation> reservations = _tourReservationRepository.GetAll();
+            foreach (var reservation in reservations)
             {
                 if (reservation.UserId == LoggedInUser.Id)
                 {
                     var matchingTourInstance = TourInstances.FirstOrDefault(ti => ti.Id == reservation.TourInstanceId);
                     if (matchingTourInstance != null)
                     {
-                        MyTours.Add(matchingTourInstance);
+                        UserTours.Add(matchingTourInstance);
                     }
                 }
             }
@@ -95,7 +111,7 @@ namespace BookingApp.View
 
        public void MoveToActiveTours()
         {
-            foreach(TourInstance tourInstance in MyTours)
+            foreach(TourInstance tourInstance in UserTours)
             {
                 if (tourInstance.Start && !tourInstance.End){
                     ActiveTours.Add(tourInstance);
@@ -150,7 +166,7 @@ namespace BookingApp.View
 
         private void ReserveButton_Click(object sender, RoutedEventArgs e)
         {
-            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances, LoggedInUser);
+            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances, LoggedInUser, UserGiftCards);
             numberOfTouristInsertion.Show();
 
         }
@@ -175,6 +191,23 @@ namespace BookingApp.View
             numberOfPeopleInput.Text = string.Empty;
         }
 
-       
+
+        private void MyTours_Click(object sender, RoutedEventArgs e)
+        {
+            UserToursView userToursView = new UserToursView(UserTours);
+            userToursView.Show();
+        }
+
+        private void UserIcon_Click(object sender, RoutedEventArgs e)
+        {
+            menuPopup.IsOpen = !menuPopup.IsOpen;
+        }
+
+        private void ShowVouchers_Click(object sender, RoutedEventArgs e)
+        {
+            UserGiftCardView userGiftCardView = new UserGiftCardView(UserGiftCards);
+            userGiftCardView.Show();
+            menuPopup.IsOpen = false;
+        }
     }
 }

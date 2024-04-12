@@ -16,6 +16,7 @@ namespace BookingApp.Model
         public DateOnly ReceiveDate { get; set; }
         public DateOnly ExpireDate { get; set; }
 
+
         public GiftCard() {}
         
         public GiftCard(DateOnly receiveDate)
@@ -31,6 +32,7 @@ namespace BookingApp.Model
                 Id.ToString(),
                 ReceiveDate.ToString("yyyy-MM-dd HH:mm"),
                 ExpireDate.ToString("yyyy-MM-dd HH:mm"),
+
 
             };
             return csvValues;

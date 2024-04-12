@@ -28,6 +28,10 @@ namespace BookingApp.View
 
         public static ObservableCollection<TourInstance> ActiveTours { get; set; }
 
+        public static ObservableCollection<TourInstance> MyTours { get; set; }
+
+        public List<TourReservation> Reservations {  get; set; }
+
         public TourInstance SelectedTour { get; set; }
 
         public User LoggedInUser { get; set; }
@@ -40,6 +44,10 @@ namespace BookingApp.View
 
         private readonly KeyPointRepository _keyPointRepository;
 
+        private readonly TourReservationRepository _tourReservationRepository;
+
+
+
 
         public TouristWindow(User user)
         {
@@ -50,9 +58,12 @@ namespace BookingApp.View
             _tourInstanceRepository = new TourInstanceRepository();
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
+            MyTours = new ObservableCollection<TourInstance>();
             SelectedTour = new TourInstance();
             _pictureRepository = new PictureRepository();
             _keyPointRepository = new KeyPointRepository();
+            _tourReservationRepository = new TourReservationRepository();
+            Reservations = _tourReservationRepository.GetAll(); 
             LinkEntities();
             MoveToActiveTours();
 
@@ -63,12 +74,28 @@ namespace BookingApp.View
         {
             LinkTourInstancesWithTours();
             LinkPicturesWithTours();
+            LinkReservationsWithUser();
 
+        }
+
+        public void LinkReservationsWithUser()
+        {
+            foreach (var reservation in Reservations)
+            {
+                if (reservation.UserId == LoggedInUser.Id)
+                {
+                    var matchingTourInstance = TourInstances.FirstOrDefault(ti => ti.Id == reservation.TourInstanceId);
+                    if (matchingTourInstance != null)
+                    {
+                        MyTours.Add(matchingTourInstance);
+                    }
+                }
+            }
         }
 
        public void MoveToActiveTours()
         {
-            foreach(TourInstance tourInstance in TourInstances)
+            foreach(TourInstance tourInstance in MyTours)
             {
                 if (tourInstance.Start && !tourInstance.End){
                     ActiveTours.Add(tourInstance);

@@ -91,6 +91,7 @@ namespace BookingApp.Repository
         }
 
 
+
         //ISPRAVNA
         public List<TourInstance> GetForTheDay1(User user, ObservableCollection<TourInstance> tours)
         {

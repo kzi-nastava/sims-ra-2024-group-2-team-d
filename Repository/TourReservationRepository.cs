@@ -40,5 +40,10 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _tourReservation);
             return tourReservation;
         }
+
+        public List<TourReservation> GetAll()
+        {
+            return _tourReservation;
+        }
     }
 }

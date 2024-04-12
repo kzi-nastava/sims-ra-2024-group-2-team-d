@@ -13,19 +13,22 @@ namespace BookingApp.Model
     public class TourReservation : ISerializable
     {
         public int Id {  get; set; }
-        public int TourId { get; set; }
+        public int TourInstanceId { get; set; }
         public Tour ReservedTour { get; set; }
+
+        public int UserId {  get; set; }
 
         public int TouristReservationNumber {  get; set; }
         public List<Tourist> Tourists { get; set; }
 
         public TourReservation() { }
 
-        public TourReservation(int tourId, int numberOfReservations)
+        public TourReservation(int tourId, int numberOfReservations, int userId)
         {
             
-            TourId = tourId;
-            TouristReservationNumber = numberOfReservations;         
+            TourInstanceId = tourId;
+            TouristReservationNumber = numberOfReservations;
+            UserId = userId;
             
         }
 
@@ -34,8 +37,9 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                TourId.ToString(),
+                TourInstanceId.ToString(),
                 TouristReservationNumber.ToString(),
+                UserId.ToString()
 
             };
             return csvValues;
@@ -44,8 +48,9 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            TourId = int.Parse(values[1]);
-            TouristReservationNumber = int.Parse(values[2]);           
+            TourInstanceId = int.Parse(values[1]);
+            TouristReservationNumber = int.Parse(values[2]); 
+            UserId = int.Parse(values[3]);
 
         }
     }

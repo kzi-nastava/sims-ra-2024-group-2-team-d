@@ -18,6 +18,8 @@ namespace BookingApp.Model
 
         public int ReservationId {  get; set; }
 
+        public List<int> GiftCardIds { get; set; }
+
         public Tourist()
         {
 
@@ -28,6 +30,7 @@ namespace BookingApp.Model
             Name = name;
             LastName = lastName;
             Age = age;
+            GiftCardIds = new List<int>();
         }
 
         public string[] ToCSV()
@@ -39,9 +42,20 @@ namespace BookingApp.Model
                 LastName,
                 Age.ToString(),
                 ReservationId.ToString(),
+                string.Join(",", GiftCardsForCSV())
 
             };
             return csvValues;
+        }
+
+        public List<string> GiftCardsForCSV()
+        {
+            List<string> csvV = new List<string>();
+            foreach (int gc in GiftCardIds)
+            {
+                csvV.Add(gc.ToString());
+            }
+            return csvV;
         }
 
         public void FromCSV(string[] values)
@@ -51,7 +65,11 @@ namespace BookingApp.Model
             LastName = values[2];
             Age = int.Parse(values[3]);
             ReservationId = int.Parse(values[4]);
-
+            string[] slices = values[5].Split(",").Select(s => s.Trim()).ToArray();
+            foreach (string slice in slices)
+            {
+                GiftCardIds.Add(int.Parse(slice));
+            }
         }
     }
 

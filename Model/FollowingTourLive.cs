@@ -18,11 +18,11 @@ namespace BookingApp.Model
 
         public FollowingTourLive() {}
 
-        public FollowingTourLive(int tourInstanceId, KeyPoint keyPoint, List<int> tourists)
+        public FollowingTourLive(int tourInstanceId, KeyPoint keyPoint)
         {
             TourInstanceId = tourInstanceId;
             KeyPoint = keyPoint;
-            TouristsIds = tourists;
+            TouristsIds = new List<int>();
         }
 
         public string[] ToCSV()

@@ -28,6 +28,13 @@ namespace BookingApp.View
         private readonly TourInstanceRepository _instanceRepository;
         public static ObservableCollection<TourInstance> TourInstances { get; set; }
 
+        private readonly TourRepository _tourRepository;
+
+        public TourReservation TourReservation { get; set; }
+        private readonly TourReservationRepository _reservationRepository;
+        public static ObservableCollection<TourReservation> TourReservations { get; set; }
+
+
         public TourInstance SelectedTourInstance { get; set; }
 
 
@@ -37,7 +44,22 @@ namespace BookingApp.View
             DataContext = this;
             LoggedInUser = user;
             _instanceRepository = new TourInstanceRepository();
-            TourInstances = new ObservableCollection<TourInstance>(_instanceRepository.GetByUser(user));
+            _tourRepository = new TourRepository();
+            TourInstances = new ObservableCollection<TourInstance>(_instanceRepository.GetAll());
+            LinkTourInstancesWithTours();
+            TourInstances = new ObservableCollection<TourInstance>(_instanceRepository.GetByUser(user, TourInstances));
+        }
+
+        public void LinkTourInstancesWithTours()
+        {
+            foreach (TourInstance tourInstance in TourInstances)
+            {
+                Tour baseTour = _tourRepository.GetById(tourInstance.TourId);
+                if (baseTour != null)
+                {
+                    tourInstance.BaseTour = baseTour;
+                }
+            }
         }
 
 
@@ -46,13 +68,24 @@ namespace BookingApp.View
         {
             if (SelectedTourInstance != null)
             {
-                MessageBoxResult result = MessageBox.Show("Are you sure?", "Delete comment",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
+                if ((SelectedTourInstance.Date - DateTime.Now).TotalHours >= 48)
                 {
-                    _instanceRepository.Delete(SelectedTourInstance);
-                    TourInstances.Remove(SelectedTourInstance);
+                    MessageBoxResult result = MessageBox.Show("Are you sure?", "Cancel tour",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+
+                        _instanceRepository.Delete(SelectedTourInstance);
+                        TourInstances.Remove(SelectedTourInstance);
+
+                    }
                 }
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("You can't cancel this tour", "Cancel tour",
+                        MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+
             }
         }
 

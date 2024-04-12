@@ -98,12 +98,9 @@ namespace BookingApp.Repository
         }
 
 
-        public List<TourInstance> GetByUser(User user)
+        public List<TourInstance> GetByUser(User user, ObservableCollection<TourInstance> tours)
         {
-            _tourInstance = _serializer.FromCSV(FilePath);
-            return _tourInstance.FindAll(c => c.BaseTour.UserId == user.Id);
-
-            //return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today).ToList();
+            return tours.Where(c => c.BaseTour.UserId == user.Id).ToList();
         }
 
 

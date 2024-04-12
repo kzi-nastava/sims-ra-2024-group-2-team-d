@@ -25,13 +25,16 @@ namespace BookingApp.View.TouristApp
         public TourInstance SelectedTour { get; set; }
 
         public ObservableCollection<TourInstance> TourInstances {  get; set; }
-        public NumberOfTouristInsertion(TourInstance selectedTour, ObservableCollection<TourInstance> tourInstances)
+
+        public User LoggedInUser { get; set; }
+        public NumberOfTouristInsertion(TourInstance selectedTour, ObservableCollection<TourInstance> tourInstances, User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
             SelectedTour = selectedTour;
             TourInstances = new ObservableCollection<TourInstance>();
             FilterToursDependingOnLocation(tourInstances);
+            LoggedInUser = loggedInUser;
         }
 
         void FilterToursDependingOnLocation(ObservableCollection<TourInstance> tourInstances)
@@ -56,7 +59,7 @@ namespace BookingApp.View.TouristApp
             int touristNumber = int.Parse(touristNumberInput.Text);
             if (SelectedTour.EmptySpots >= touristNumber)
             {
-                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(touristNumber, SelectedTour.Id);
+                ReserveTourWindow reserveTourWindow = new ReserveTourWindow(touristNumber, SelectedTour.Id, LoggedInUser);
                 reserveTourWindow.Show();
                 this.Close();
             }
@@ -67,7 +70,7 @@ namespace BookingApp.View.TouristApp
             }
             else
             {
-                RecommendedAlternatives recommendedAlternatives = new RecommendedAlternatives(TourInstances);
+                RecommendedAlternatives recommendedAlternatives = new RecommendedAlternatives(TourInstances, LoggedInUser);
                 recommendedAlternatives.Show();
                 this.Close();
             }

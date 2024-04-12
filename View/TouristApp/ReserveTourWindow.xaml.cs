@@ -35,7 +35,9 @@ namespace BookingApp.View.TouristApp
         public int TourInstanceId {  get; set; }
 
         public int AddedTouristsCounter {  get; set; }
-        public ReserveTourWindow(int touristNumber, int tourInstanceId)
+
+        public User LoggedInUser {  get; set; }
+        public ReserveTourWindow(int touristNumber, int tourInstanceId, User loggedInUser)
         {
             InitializeComponent();
             DataContext = this;
@@ -46,6 +48,18 @@ namespace BookingApp.View.TouristApp
             TouristNumber = touristNumber;
             TourInstanceId = tourInstanceId;
             AddedTouristsCounter = TouristNumber;
+            LoggedInUser = loggedInUser;
+            AddUserToList();
+        }
+
+        private void AddUserToList()
+        {
+            Tourist tourist = new Tourist(LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age);
+            Tourists.Add(tourist);
+            if (ReduceAndCheckTouristCounter())
+            {
+                ReserveTour();
+            }
         }
 
         private void AddTouristButton_Click(object sender, RoutedEventArgs e)
@@ -69,7 +83,7 @@ namespace BookingApp.View.TouristApp
 
         private void ReserveTour()
         {
-            TourReservation tourReservation = new TourReservation(TourInstanceId,TouristNumber);
+            TourReservation tourReservation = new TourReservation(TourInstanceId,TouristNumber,LoggedInUser.Id);
             tourReservation = _tourReservationRepository.Save(tourReservation);
             foreach (var tourist in Tourists)
             {

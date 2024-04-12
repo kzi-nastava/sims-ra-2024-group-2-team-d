@@ -123,7 +123,7 @@ namespace BookingApp.View
 
         private void ReserveButton_Click(object sender, RoutedEventArgs e)
         {
-            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances);
+            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances, LoggedInUser);
             numberOfTouristInsertion.Show();
 
         }

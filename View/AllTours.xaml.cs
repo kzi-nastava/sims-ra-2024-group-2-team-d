@@ -34,6 +34,9 @@ namespace BookingApp.View
         private readonly TourReservationRepository _reservationRepository;
         public static ObservableCollection<TourReservation> TourReservations { get; set; }
 
+        public GiftCard GiftCard { get; set; }
+        private readonly GiftCardRepository _giftCardRepository;
+        public static ObservableCollection<GiftCard> GiftCards { get; set; }
 
         public TourInstance SelectedTourInstance { get; set; }
 
@@ -48,6 +51,8 @@ namespace BookingApp.View
             TourInstances = new ObservableCollection<TourInstance>(_instanceRepository.GetAll());
             LinkTourInstancesWithTours();
             TourInstances = new ObservableCollection<TourInstance>(_instanceRepository.GetByUser(user, TourInstances));
+            _reservationRepository = new TourReservationRepository();
+            _giftCardRepository = new GiftCardRepository();
         }
 
         public void LinkTourInstancesWithTours()
@@ -75,8 +80,7 @@ namespace BookingApp.View
                     if (result == MessageBoxResult.Yes)
                     {
 
-                        _instanceRepository.Delete(SelectedTourInstance);
-                        TourInstances.Remove(SelectedTourInstance);
+                        MakeGiftCards1();
 
                     }
                 }
@@ -87,6 +91,44 @@ namespace BookingApp.View
                 }
 
             }
+        }
+
+        private void MakeGiftCards1()
+        {
+            int Id = SelectedTourInstance.Id;
+            //_reservationRepository = new TourReservationRepository();
+            List<int> users = new List<int>(_reservationRepository.GetAllUsersByTourInstanceId(Id));
+            foreach (int user in users)
+            {
+                GiftCard gc = new GiftCard(user);
+                _giftCardRepository.Save(gc);
+
+            }
+
+            _instanceRepository.Delete(SelectedTourInstance);
+            TourInstances.Remove(SelectedTourInstance);
+        }
+
+        private void MakeGiftCards()
+        {
+            int Id = SelectedTourInstance.Id;
+            //_reservationRepository = new TourReservationRepository();
+            List<Tourist> tourists = new List<Tourist>(_reservationRepository.GetAllTouristByTourId(Id));
+            foreach (Tourist tourist in tourists)
+            {
+                GiftCard gc = new GiftCard(tourist.Id);
+                _giftCardRepository.Save(gc);
+
+            }
+
+            _instanceRepository.Delete(SelectedTourInstance);
+            TourInstances.Remove(SelectedTourInstance);
+        }
+
+        private void ShowStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            SpecificTourStatistics specificTourStatistics = new SpecificTourStatistics(SelectedTourInstance);
+            specificTourStatistics.Show();
         }
 
 

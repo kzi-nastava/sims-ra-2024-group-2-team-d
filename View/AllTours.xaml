@@ -38,8 +38,16 @@
                 </StackPanel>
             </Button>
             <Separator/>
+            <Button x:Name="ShowStatistics" Click="ShowStatistics_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
+                    <TextBlock Name="statTxtBlock" Text="Tour Statistics" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
+            <Separator/>
 
         </ToolBar>
 
     </Grid>
 </Window>
+

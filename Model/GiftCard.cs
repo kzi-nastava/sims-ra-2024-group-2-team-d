@@ -27,6 +27,13 @@ namespace BookingApp.Model
             ExpirationDate = ReceiveDate.AddYears(1);
         }
 
+        public GiftCard(int id)
+        {
+            ReceiveDate = DateOnly.FromDateTime(DateTime.Now);
+            ExpirationDate = ReceiveDate.AddYears(1);
+            UserId = id;
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues =

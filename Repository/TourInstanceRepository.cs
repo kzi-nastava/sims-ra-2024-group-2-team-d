@@ -104,7 +104,10 @@ namespace BookingApp.Repository
             return tours.Where(c => c.BaseTour.UserId == user.Id).ToList();
         }
 
-
+        public List<TourInstance> GetAllFinishedByUser(User user, ObservableCollection<TourInstance> tours)
+        {
+            return tours.Where(c => c.BaseTour.UserId == user.Id && c.End == true).ToList();
+        }
 
     }
 }

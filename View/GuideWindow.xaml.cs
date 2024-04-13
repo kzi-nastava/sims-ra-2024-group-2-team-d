@@ -104,6 +104,12 @@ namespace BookingApp.View
             allTours.Show();
         }
 
+        private void statisticsButton_Click(object sender, RoutedEventArgs e)
+        {
+            Statistics statistics = new Statistics(LoggedInUser);
+            statistics.Show();
+        }
+
         /* private void ShowUpdateCommentForm(object sender, RoutedEventArgs e)
          {
              if (SelectedComment != null)

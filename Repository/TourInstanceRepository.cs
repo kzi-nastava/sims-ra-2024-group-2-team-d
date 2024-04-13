@@ -28,7 +28,7 @@ namespace BookingApp.Repository
 
         public List<TourInstance> GetAll()
         {
-            return _serializer.FromCSV(FilePath);
+            return _tourInstance;
         }
 
         public TourInstance UpdateFreeSpots(TourInstance tourInstance)
@@ -108,8 +108,6 @@ namespace BookingApp.Repository
         {
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.End == true).ToList();
         }
-
-        
 
     }
 }

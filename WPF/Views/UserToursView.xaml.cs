@@ -22,10 +22,10 @@ namespace BookingApp.WPF.Views
     /// </summary>
     public partial class UserToursView : Window
     {
-        public UserToursView(ObservableCollection<TourInstance> userTours, User loggedInUser)
+        public UserToursView(User loggedInUser,ObservableCollection<TourInstance> tourInstances)
         {
             InitializeComponent();
-            this.DataContext = new UserToursViewModel(userTours, loggedInUser);
+            this.DataContext = new UserToursViewModel(loggedInUser, tourInstances);
         }
     }
 }

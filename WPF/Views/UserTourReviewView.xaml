@@ -15,6 +15,6 @@
         <TextBox></TextBox>
         <TextBlock Text="Komentar"></TextBlock>
         <TextBox></TextBox>
-
+        
     </StackPanel>
 </Window>

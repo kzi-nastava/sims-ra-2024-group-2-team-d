@@ -110,7 +110,11 @@ namespace BookingApp.Repository
 
             return users;
         }
-
+        
+        public TourReservation? GetByUserAndTourInstanceId(int tourInstanceId, int userId)
+        {
+            return _tourReservation.Find(r => r.TourInstanceId == tourInstanceId && r.UserId == userId);
+        }
 
     }
 }

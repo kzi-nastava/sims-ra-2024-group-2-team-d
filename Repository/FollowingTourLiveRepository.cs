@@ -40,5 +40,39 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _followingToursLive);
             return followingTourLive;
         }
+
+        public  List<FollowingTourLive> GetByTourInstanceId(int id)
+        {
+            return _followingToursLive.Where(r=>r.TourInstanceId==id).ToList();
+        }
+
+        public int GetKeyPoint(int id,int touristId)
+        {
+
+            List<FollowingTourLive> list = GetByTourInstanceId(id);
+            int keypoint = -1;
+            foreach (var item in list)
+            {
+                foreach (var item2 in item.TouristsIds)
+                {
+                
+                    if(item2==touristId)
+                    {
+                        keypoint = item.KeyPoint; break;
+                    }
+                }
+            }
+
+            return keypoint;
+
+
+
+        }
+
+        public int GetKeyPointId(int id)
+        {
+
+            return _followingToursLive.Find(r => r.TourInstanceId == id).KeyPoint;
+        }
     }
 }

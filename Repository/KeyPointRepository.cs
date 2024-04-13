@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    internal class KeyPointRepository : SubjectNotifier
+    public class KeyPointRepository : SubjectNotifier
     {
         private const string FilePath = "../../../Resources/Data/keyPoints.csv";
 
@@ -75,6 +75,13 @@ namespace BookingApp.Repository
         {
             _keyPoints = _serializer.FromCSV(FilePath);
             return _keyPoints.FindAll(c => c.TourId == tourId);
+        }
+
+        public string GetKeyPointName(int keyPointId)
+        {
+            _keyPoints = _serializer.FromCSV(FilePath);
+           return _keyPoints.Find(c => c.Id == keyPointId).Name;
+           
         }
 
     }

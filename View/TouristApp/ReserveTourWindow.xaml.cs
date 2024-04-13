@@ -63,7 +63,7 @@ namespace BookingApp.View.TouristApp
 
         private void AddUserToList()
         {
-            Tourist tourist = new Tourist(LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age);
+            Tourist tourist = new Tourist(LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age,LoggedInUser.Id);
             Tourists.Add(tourist);
             if (ReduceAndCheckTouristCounter())
             {
@@ -92,7 +92,7 @@ namespace BookingApp.View.TouristApp
 
         private void ReserveTour()
         {
-            TourReservation tourReservation = new TourReservation(TourInstanceId,TouristNumber,LoggedInUser.Id);
+            TourReservation tourReservation = new TourReservation(TourInstanceId,LoggedInUser.Id);
             tourReservation = _tourReservationRepository.Save(tourReservation);
             foreach (var tourist in Tourists)
             {

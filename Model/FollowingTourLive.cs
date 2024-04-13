@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml.Linq;
+using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
-    internal class FollowingTourLive
+    public class FollowingTourLive : ISerializable
     {
         public int Id { get; set; }
         public int TourInstanceId { get; set; }

@@ -48,5 +48,10 @@ namespace BookingApp.Repository
 
         }
 
+        public List<Tourist> GetAll()
+        {
+            return _tourists;
+        }
+
     }
 }

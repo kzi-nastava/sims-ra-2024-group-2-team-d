@@ -1,8 +1,5 @@
-﻿using BookingApp.Model;
-using BookingApp.WPF.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +15,13 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for UserToursView.xaml
+    /// Interaction logic for UserTourReviewView.xaml
     /// </summary>
-    public partial class UserToursView : Window
+    public partial class UserTourReviewView : Window
     {
-        public UserToursView(ObservableCollection<TourInstance> userTours, User loggedInUser)
+        public UserTourReviewView()
         {
             InitializeComponent();
-            this.DataContext = new UserToursViewModel(userTours, loggedInUser);
         }
     }
 }

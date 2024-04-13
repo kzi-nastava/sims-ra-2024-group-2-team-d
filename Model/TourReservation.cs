@@ -18,16 +18,14 @@ namespace BookingApp.Model
 
         public int UserId {  get; set; }
 
-        public int TouristReservationNumber {  get; set; }
         public List<Tourist> Tourists { get; set; }
 
         public TourReservation() { }
 
-        public TourReservation(int tourId, int numberOfReservations, int userId)
+        public TourReservation(int tourId, int userId)
         {
             
             TourInstanceId = tourId;
-            TouristReservationNumber = numberOfReservations;
             UserId = userId;
             
         }
@@ -38,7 +36,6 @@ namespace BookingApp.Model
             {
                 Id.ToString(),
                 TourInstanceId.ToString(),
-                TouristReservationNumber.ToString(),
                 UserId.ToString()
 
             };
@@ -49,8 +46,7 @@ namespace BookingApp.Model
         {
             Id = int.Parse(values[0]);
             TourInstanceId = int.Parse(values[1]);
-            TouristReservationNumber = int.Parse(values[2]); 
-            UserId = int.Parse(values[3]);
+            UserId = int.Parse(values[2]);
 
         }
     }

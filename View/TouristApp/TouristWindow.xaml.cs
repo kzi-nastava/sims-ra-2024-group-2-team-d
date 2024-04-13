@@ -49,6 +49,8 @@ namespace BookingApp.View
 
         private readonly GiftCardRepository _giftCardRepository;
 
+        private readonly TouristRepository _touristRepository;
+
 
         public TouristWindow(User user)
         {
@@ -66,6 +68,7 @@ namespace BookingApp.View
             _keyPointRepository = new KeyPointRepository();
             _giftCardRepository = new GiftCardRepository();
             _tourReservationRepository = new TourReservationRepository();
+            _touristRepository = new TouristRepository();
             LinkEntities();
             MoveToActiveTours();
 
@@ -78,6 +81,12 @@ namespace BookingApp.View
             LinkPicturesWithTours();
             LinkReservationsWithUser();
             LinkGiftCardWithUser();
+            LinkUserWithTourist();
+
+        }
+
+        public void LinkUserWithTourist()
+        {
 
         }
 
@@ -194,7 +203,7 @@ namespace BookingApp.View
 
         private void MyTours_Click(object sender, RoutedEventArgs e)
         {
-            UserToursView userToursView = new UserToursView(UserTours);
+            UserToursView userToursView = new UserToursView(UserTours, LoggedInUser);
             userToursView.Show();
         }
 

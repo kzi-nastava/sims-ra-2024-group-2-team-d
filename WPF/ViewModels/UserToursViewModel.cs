@@ -1,11 +1,13 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.WPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -13,33 +15,49 @@ namespace BookingApp.WPF.ViewModels
     {
         public static ObservableCollection<TourInstance> ReservedTours { get; set; }
         public static ObservableCollection<TourInstance> FinishedTours { get; set; }
-
         public User LoggedInUser { get; set; }
-
-        private readonly TouristRepository _touristRepository;
-
         public static TourInstance SelectedTour { get; set; }
-       public UserToursViewModel(ObservableCollection<TourInstance> userTours, User loggedInUser) {
+
+        public ICommand OpenTourReviewCommand { get; } 
+
+       public UserToursViewModel(User loggedInUser, ObservableCollection<TourInstance> tourInstances) {
             ReservedTours = new ObservableCollection<TourInstance>();
             FinishedTours = new ObservableCollection<TourInstance>();
-            _touristRepository = new TouristRepository();
             LoggedInUser = loggedInUser;
-            FilterTours(userTours);
+            OpenTourReviewCommand = new RelayCommand(OpenTourReview);
+            FilterTours(tourInstances);
         }
 
-        public void FilterTours(ObservableCollection<TourInstance> userTours)
+        public void FilterTours(ObservableCollection<TourInstance> tourInstances)
         {
-
-            foreach(TourInstance tourInstance in userTours)
+            TourReservationRepository _tourReservationRepository = new TourReservationRepository();
+            List<TourReservation> tourReservations = _tourReservationRepository.GetAll();
+            List<TourInstance> tourInstanceList = tourInstances.ToList();
+            TouristRepository _touristsRepository = new TouristRepository();
+            List<Tourist> tourists = _touristsRepository.GetAll();
+            foreach(TourReservation tourReservation in tourReservations)
             {
-                if (tourInstance.End)
+                if(tourReservation.UserId == LoggedInUser.Id)
                 {
-                    FinishedTours.Add(tourInstance);
-                }else if (!tourInstance.Start)
-                {
-                    ReservedTours.Add(tourInstance);
+                    var matchingTourInstance = tourInstanceList.Find(tourInstance => tourInstance.Id == tourReservation.TourInstanceId && (tourInstance.End || !tourInstance.Start));
+                    var matchingTourist = tourists.Find(tourist => tourist.ReservationId == tourReservation.Id && tourist.UserId == LoggedInUser.Id);
+                    if(matchingTourInstance.End && matchingTourist.ShowedUp)
+                    {
+                        FinishedTours.Add(matchingTourInstance);
+                    }else if (!matchingTourInstance.Start)
+                    {
+                        ReservedTours.Add(matchingTourInstance);
+                    }
                 }
             }
         }
+
+        private void OpenTourReview()
+        {
+            UserTourReviewView userTourReviewView = new UserTourReviewView();
+            userTourReviewView.Show();
+        }
+
+
     }
 }

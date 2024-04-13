@@ -78,8 +78,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        
         <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="10,10,10,10">Finished tours</TextBlock>
-        <ListBox Height="320" ItemsSource="{Binding FinishedTours}" SelectedItem="{Binding SelectedTour}">
+
+        <ListBox x:Name="MainListBox" Height="320" ItemsSource="{Binding FinishedTours}" SelectedItem="{Binding SelectedTour}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -103,9 +105,7 @@
                                     </DataTemplate>
                                 </ContentControl.ContentTemplate>
                             </ContentControl>
-
                         </StackPanel>
-
                         <StackPanel Grid.Row="0" Grid.Column="1">
                             <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
                             <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding BaseTour.Location}" />
@@ -122,8 +122,7 @@
                             <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
                             <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                         </StackPanel>
-                        <Button Content="Rate"  Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
-
+                        <Button Content="Rate" Command="{Binding DataContext.OpenTourReviewCommand, ElementName=MainListBox}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
                         <StackPanel Grid.Row="1" Grid.Column="4">
                             <Button Height="40" Width="40">
                                 <Image Source="../../Resources/Images/info-icon.png"></Image>

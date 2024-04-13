@@ -49,7 +49,6 @@ namespace BookingApp.View
 
         private readonly GiftCardRepository _giftCardRepository;
 
-        private readonly TouristRepository _touristRepository;
 
 
         public TouristWindow(User user)
@@ -68,25 +67,16 @@ namespace BookingApp.View
             _keyPointRepository = new KeyPointRepository();
             _giftCardRepository = new GiftCardRepository();
             _tourReservationRepository = new TourReservationRepository();
-            _touristRepository = new TouristRepository();
             LinkEntities();
             MoveToActiveTours();
-
-
         }
 
         public void LinkEntities()
         {
             LinkTourInstancesWithTours();
             LinkPicturesWithTours();
-            LinkReservationsWithUser();
+            //LinkReservationsWithUser();
             LinkGiftCardWithUser();
-            LinkUserWithTourist();
-
-        }
-
-        public void LinkUserWithTourist()
-        {
 
         }
 
@@ -98,22 +88,6 @@ namespace BookingApp.View
                 if(giftCard.UserId == LoggedInUser.Id)
                 {
                     UserGiftCards.Add(giftCard);
-                }
-            }
-        }
-
-        public void LinkReservationsWithUser()
-        {
-            List<TourReservation> reservations = _tourReservationRepository.GetAll();
-            foreach (var reservation in reservations)
-            {
-                if (reservation.UserId == LoggedInUser.Id)
-                {
-                    var matchingTourInstance = TourInstances.FirstOrDefault(ti => ti.Id == reservation.TourInstanceId);
-                    if (matchingTourInstance != null)
-                    {
-                        UserTours.Add(matchingTourInstance);
-                    }
                 }
             }
         }
@@ -200,10 +174,9 @@ namespace BookingApp.View
             numberOfPeopleInput.Text = string.Empty;
         }
 
-
         private void MyTours_Click(object sender, RoutedEventArgs e)
         {
-            UserToursView userToursView = new UserToursView(UserTours, LoggedInUser);
+            UserToursView userToursView = new UserToursView(LoggedInUser, TourInstances);
             userToursView.Show();
         }
 

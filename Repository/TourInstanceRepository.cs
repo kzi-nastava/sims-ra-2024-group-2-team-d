@@ -108,6 +108,6 @@ namespace BookingApp.Repository
         {
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.End == true).ToList();
         }
-     
+
     }
 }

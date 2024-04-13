@@ -81,7 +81,18 @@ namespace BookingApp.Repository
 
             return tourists;
         }
-
+        public int GetTourInstanceById(int id)
+        {
+            TourReservation tr = _tourReservation.Find(r => r.Id == id);
+            if(tr!=null)
+            {
+                return tr.TourInstanceId;
+            }
+            else
+            {
+                return -1;
+            }
+        }
         //useri koji su napravili rezervacije za jednu istancu ture
         public List<int> GetAllUsersByTourInstanceId(int id)
         {

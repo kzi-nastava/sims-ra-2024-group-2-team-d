@@ -110,6 +110,18 @@ namespace BookingApp.View
             statistics.Show();
         }
 
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure?", "Log out",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {                
+                SignInForm signInForm = new SignInForm();
+                signInForm.Show();
+                this.Close();
+            }
+        }
+
         /* private void ShowUpdateCommentForm(object sender, RoutedEventArgs e)
          {
              if (SelectedComment != null)

@@ -45,6 +45,14 @@
                 </StackPanel>
             </Button>
             <Separator/>
+            <Button x:Name="ShowReviews" Click="ShowReviews_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
+                    <TextBlock Name="RevTxtBlock" Text="Reviews" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
+            <Separator/>
+
 
         </ToolBar>
 

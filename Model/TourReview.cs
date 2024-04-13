@@ -11,6 +11,8 @@ namespace BookingApp.Model
     {
         public int Id {  get; set; }
 
+        public int UserId { get; set; }
+
         public int TourId { get; set; }
 
         public int GuideKnowledge {  get; set; }
@@ -23,9 +25,11 @@ namespace BookingApp.Model
 
         public int GuideId {  get; set; }
 
+        public bool IsValid { get; set; }
+
         public TourReview()
         {
-
+            IsValid = true;
         }
 
         public string[] ToCSV()
@@ -33,10 +37,12 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                UserId.ToString(),
                 TourId.ToString(),
                 GuideKnowledge.ToString(),
                 GuideLanguage.ToString(),
                 Enjoyability.ToString(),
+                IsValid.ToString(),
                 GuideId.ToString(),
                 Comment
 
@@ -47,12 +53,14 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            TourId = int.Parse(values[1]);
-            GuideKnowledge = int.Parse(values[2]);
-            GuideLanguage = int.Parse(values[3]);
-            Enjoyability = int.Parse(values[4]);
-            GuideId = int.Parse(values[5]);
-            Comment = values[6];
+            UserId = int.Parse(values[1]);
+            TourId = int.Parse(values[2]);
+            GuideKnowledge = int.Parse(values[3]);
+            GuideLanguage = int.Parse(values[4]);
+            Enjoyability = int.Parse(values[5]);
+            IsValid = bool.Parse(values[6]);
+            GuideId = int.Parse(values[7]);
+            Comment = values[8];
 
         }
     }

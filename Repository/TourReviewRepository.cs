@@ -41,5 +41,29 @@ namespace BookingApp.Repository
             return tourReview;
         }
 
+        public TourReview Update(TourReview tourReview)
+        {
+            _tourReviews = _serializer.FromCSV(FilePath);
+            TourReview current = _tourReviews.Find(c => c.Id == tourReview.Id);
+            int index = _tourReviews.IndexOf(current);
+            _tourReviews.Remove(current);
+            _tourReviews.Insert(index, tourReview);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _tourReviews);
+            return tourReview;
+        }
+
+        public List<TourReview> GetAllByTourIdAndUser(int id, User user) { 
+        
+            return _tourReviews.Where(r=>r.TourId==id && r.GuideId ==user.Id).ToList();
+        }
+
+        
+        
+        public List<TourReview> GetAllByTourId(int id)
+        {
+
+            return _tourReviews.Where(r => r.TourId == id ).ToList();
+        }
+
     }
 }

@@ -15,6 +15,14 @@
         <TextBox Text="{Binding UserTourReview.Enjoyability}"></TextBox>
         <TextBlock Text="Komentar"></TextBlock>
         <TextBox Text="{Binding UserTourReview.Comment}"></TextBox>
+        <Button Content="Add Image" Command="{Binding AddImageCommand}"/>
+        <ListBox ItemsSource="{Binding ImagePaths}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding}" Stretch="UniformToFill" Width="200" Height="150"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button HorizontalAlignment="Right" Command="{Binding ConfirmReviewCommand}" Content="Confirm"></Button>
         <Button HorizontalAlignment="Left" Content="Cancel"></Button>
     </StackPanel>

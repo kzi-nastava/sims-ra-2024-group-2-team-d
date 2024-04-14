@@ -66,7 +66,7 @@ namespace BookingApp.Model
             MaxGuestNumber = Convert.ToInt32(values[5]);
             MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancelling = Convert.ToInt32(values[7]);
-            Images = values[7].Split(";").ToList<string>();
+            Images = values[8].Split(";").ToList<string>();
         }
 
         private Location fromStringToLocation(string value)

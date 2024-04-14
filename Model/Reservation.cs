@@ -43,7 +43,7 @@ namespace BookingApp.Model
             ReservationDateRange = fromStringToDateRange(values[3]);
             NumberOfGuests = Convert.ToInt32(values[4]);
             ReviewedByOwner = Boolean.Parse(values[5]);
-            ReviewedByOwner = Boolean.Parse(values[6]);
+            ReviewedByGuest = Boolean.Parse(values[6]);
 
         }
 

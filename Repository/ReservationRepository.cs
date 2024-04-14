@@ -76,6 +76,17 @@ namespace BookingApp.Repository
             return list;
         }
 
+        public List<Reservation> GetAllUnreviewedByGuest(int userId)
+        {
+            List<Reservation> list = new List<Reservation>();
+            foreach (var review in GetAll().Where(r => r.UserId == userId).Where(r => r.ReservationDateRange.EndDate <= System.DateTime.Today && r.ReservationDateRange.EndDate.AddDays(5) >= System.DateTime.Today).Where(r => r.ReviewedByGuest == false).ToList())
+            {
+                list.Add(review);
+            }
+
+            return list;
+        }
+
         public List<Reservation> GetAllReviewedByBoth()
         {
             return _reservations.Where(r => r.ReviewedByOwner == true && r.ReviewedByGuest == true).ToList();

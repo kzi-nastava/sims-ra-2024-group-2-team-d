@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.Repository;
 using BookingApp.View.Owner;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,16 @@ namespace BookingApp.View.Guest1
     public partial class HomeWindow : Window
     {
         private readonly User _user;
+        private readonly AccommodationRepository _accommodationRepository;
+        private readonly ReservationRepository _reservationRepository;
         public HomeWindow(User user)
         {
             InitializeComponent();
             DataContext = this;
+            _reservationRepository = new ReservationRepository();
+            _accommodationRepository = new AccommodationRepository();
             _user = user;
+            CheckReviewNotifications();
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)
@@ -39,6 +45,17 @@ namespace BookingApp.View.Guest1
         {
             AccommodationReviews accommodationReviews = new AccommodationReviews(_user);
             accommodationReviews.ShowDialog();
+        }
+
+        private void CheckReviewNotifications()
+        {
+            var list = _accommodationRepository.GetAllOwnerAccommodations(_user.Id).Select(a => a.Id).ToList();
+            foreach (var r in _reservationRepository.GetAllUnreviewed(list))
+            {
+                GuestReviewForm guestReviewForm = new GuestReviewForm(r);
+                guestReviewForm.Show();
+            }
+
         }
     }
 }

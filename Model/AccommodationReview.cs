@@ -18,6 +18,8 @@ namespace BookingApp.Model
         public int Correctness { get; set; }
         public string Description { get; set; }
 
+        public List<string>? Images { get; set; }
+
         public string[] ToCSV()
         {
             string[] csvValues = {
@@ -28,6 +30,7 @@ namespace BookingApp.Model
                 Cleanness.ToString(),
                 Correctness.ToString(),
                 Description,
+                SerializeImages(Images)
             };
             return csvValues;
         }
@@ -41,6 +44,33 @@ namespace BookingApp.Model
             Cleanness = Convert.ToInt32(values[4]);
             Correctness = Convert.ToInt32(values[5]);
             Description = values[6];
+            Images = values[7].Split(";").ToList<string>();
+        }
+
+        private string SerializeImages(List<string> images)
+        {
+            if (images is null) return string.Empty;
+            string list = string.Empty;
+            foreach (var image in images)
+            {
+                list = list + image + ";";
+            }
+            return list;
+        }
+
+        public AccommodationReview()
+        {
+        }
+
+        public AccommodationReview(int reservationId, int accomodationId, int userId, int cleanness, int correctness, string description, List<string>? images)
+        {
+            ReservationId = reservationId;
+            AccomodationId=accomodationId;
+            UserId=userId;
+            Cleanness=cleanness;
+            Correctness=correctness;
+            Description=description;
+            Images=images;
         }
     }
 }

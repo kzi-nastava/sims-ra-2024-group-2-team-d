@@ -90,15 +90,15 @@ namespace BookingApp.View
 
         public void OpenGuestApplication(User user)
         {
-            AccomodationView accomodationView = new AccomodationView(user);
-            accomodationView.Show();
+            Guest1Window guest1Window = new Guest1Window(user);
+            guest1Window.Show();
             Close();
         }
 
         public void OpenOwnerApplication(User user)
         {
-            RegisterAccomodation registerAccomodation = new RegisterAccomodation(user);
-            registerAccomodation.Show();
+            HomeWindow homeWindow = new HomeWindow(user);
+            homeWindow.Show();
             Close();
         }
     }

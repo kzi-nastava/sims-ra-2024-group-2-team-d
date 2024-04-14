@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest1"
         mc:Ignorable="d"
-        Title="RequestsOverview" Height="500" Width="600">
+        Title="RequestsOverview" WindowStartupLocation="CenterOwner" Height="500" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

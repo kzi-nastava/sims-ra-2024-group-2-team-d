@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
@@ -70,8 +71,10 @@ namespace BookingApp.Repository
             return accommodationReview;
         }
 
-        public List<AccommodationReview> GetAccommodationReviews(List<int> accomodationIds, List<int> reservationIds)
+        public List<AccommodationReview> GetAccommodationReviews(List<Accommodation> accomodations, List<Reservation> reservations)
         {
+            var accomodationIds = accomodations.Select(obj => obj.Id).ToList();
+            var reservationIds = reservations.Select(obj => obj.Id).ToList();
             return _accommodationReviews.Where(a => accomodationIds.Contains(a.AccomodationId) && reservationIds.Contains(a.ReservationId)).ToList();
         }
     }

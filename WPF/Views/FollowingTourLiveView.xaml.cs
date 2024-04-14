@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.Model;
+using BookingApp.WPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +13,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookingApp.Model;
-using BookingApp.WPF.ViewModels;
 
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for UserTourReviewView.xaml
+    /// Interaction logic for FollowingTourLiveView.xaml
     /// </summary>
-    public partial class UserTourReviewView : Window
+    public partial class FollowingTourLiveView : Window
     {
-        public UserTourReviewView(User loggedInUser, TourInstance tourInstance)
+        public FollowingTourLiveView(TourInstance activeTour)
         {
             InitializeComponent();
-            this.DataContext = new UserTourReviewViewModel(loggedInUser, tourInstance,Close);
+            this.DataContext = new FollowingTourLiveViewModel(activeTour);
         }
     }
 }

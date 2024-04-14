@@ -41,20 +41,26 @@ namespace BookingApp.WPF.ViewModels
                 {
                     var matchingTourInstance = tourInstanceList.Find(tourInstance => tourInstance.Id == tourReservation.TourInstanceId && (tourInstance.End || !tourInstance.Start));
                     var matchingTourist = tourists.Find(tourist => tourist.ReservationId == tourReservation.Id && tourist.UserId == LoggedInUser.Id);
-                    if(matchingTourInstance.End && matchingTourist.ShowedUp)
+                    if(matchingTourist != null && matchingTourInstance != null)
                     {
-                        FinishedTours.Add(matchingTourInstance);
-                    }else if (!matchingTourInstance.Start)
-                    {
-                        ReservedTours.Add(matchingTourInstance);
+                        if (matchingTourInstance.End && matchingTourist.ShowedUp)
+                        {
+                            FinishedTours.Add(matchingTourInstance);
+                        }
+                        else if (!matchingTourInstance.Start)
+                        {
+                            ReservedTours.Add(matchingTourInstance);
+                        }
+
                     }
+                    
                 }
             }
         }
 
         private void OpenTourReview()
         {
-            UserTourReviewView userTourReviewView = new UserTourReviewView();
+            UserTourReviewView userTourReviewView = new UserTourReviewView(LoggedInUser, SelectedTour);
             userTourReviewView.Show();
         }
 

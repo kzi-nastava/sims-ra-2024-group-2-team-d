@@ -13,7 +13,7 @@ namespace BookingApp.Model
 
         public int UserId { get; set; }
 
-        public int TourId { get; set; }
+        public int TourInstanceId { get; set; }
 
         public int GuideKnowledge {  get; set; }
 
@@ -38,7 +38,7 @@ namespace BookingApp.Model
             {
                 Id.ToString(),
                 UserId.ToString(),
-                TourId.ToString(),
+                TourInstanceId.ToString(),
                 GuideKnowledge.ToString(),
                 GuideLanguage.ToString(),
                 Enjoyability.ToString(),
@@ -54,7 +54,7 @@ namespace BookingApp.Model
         {
             Id = int.Parse(values[0]);
             UserId = int.Parse(values[1]);
-            TourId = int.Parse(values[2]);
+            TourInstanceId = int.Parse(values[2]);
             GuideKnowledge = int.Parse(values[3]);
             GuideLanguage = int.Parse(values[4]);
             Enjoyability = int.Parse(values[5]);

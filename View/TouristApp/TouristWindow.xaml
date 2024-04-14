@@ -133,7 +133,7 @@
                                     <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
                                     <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
-                                <Button Content="Track"  Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
+                                <Button Content="Track" Click="TrackTour_Click" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
 
                                 <StackPanel Grid.Row="1" Grid.Column="4">
                                     <Button Height="40" Width="40">

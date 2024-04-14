@@ -24,6 +24,8 @@ namespace BookingApp.Model
 
         public bool ShowedUp {  get; set; }
 
+        public bool IsNotified { get; set; }
+
         public Tourist()
         {
 
@@ -37,6 +39,7 @@ namespace BookingApp.Model
             GiftCardIds = new List<int>();
             UserId = -1;
             ShowedUp = false;
+            IsNotified = false;
         }
 
         public Tourist(string name, string lastName, int age, int userId)
@@ -47,6 +50,7 @@ namespace BookingApp.Model
             GiftCardIds = new List<int>();
             UserId = userId;
             ShowedUp = false;
+            IsNotified = false;
         }
 
         public string[] ToCSV()
@@ -59,7 +63,8 @@ namespace BookingApp.Model
                 Age.ToString(),
                 ReservationId.ToString(),
                 UserId.ToString(),
-                ShowedUp.ToString()
+                ShowedUp.ToString(),
+                IsNotified.ToString()
                 //string.Join(",", GiftCardsForCSV())
 
             };
@@ -86,6 +91,7 @@ namespace BookingApp.Model
             ReservationId = int.Parse(values[4]);
             UserId = int.Parse(values[5]);
             ShowedUp = bool.Parse(values[6]);
+            IsNotified = bool.Parse(values[7]);
             
         }
     }

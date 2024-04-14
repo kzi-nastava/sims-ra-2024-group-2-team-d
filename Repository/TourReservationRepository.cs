@@ -11,13 +11,9 @@ namespace BookingApp.Repository
     public class TourReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/tourReservation.csv";
-
         private readonly Serializer<TourReservation> _serializer;
-
         private List<TourReservation> _tourReservation;
-
         public TouristRepository _touristRepo;
-
 
         public TourReservationRepository()
         {
@@ -56,7 +52,6 @@ namespace BookingApp.Repository
             foreach (var item in _tourReservation)
             {
                 item.Tourists = _touristRepo.GetAllByTourReservationId(item.Id);
-
             }
         }
 
@@ -64,12 +59,9 @@ namespace BookingApp.Repository
         {
             List<Tourist> tourists = new List<Tourist>();
             BindTourists();
-
             List<TourReservation> list = _tourReservation.Where(r => r.TourInstanceId == id).ToList();
-
             foreach (var item in list)
             {
-
                 foreach (var item1 in item.Tourists)
                 {
                     if (!tourists.Contains(item1))
@@ -77,9 +69,7 @@ namespace BookingApp.Repository
                         tourists.Add(item1);
                     }
                 }
-
             }
-
             return tourists;
         }
         public int GetTourInstanceById(int id)
@@ -89,18 +79,13 @@ namespace BookingApp.Repository
             {
                 return tr.TourInstanceId;
             }
-            else
-            {
-                return -1;
-            }
+            else  return -1;
         }
         //useri koji su napravili rezervacije za jednu istancu ture
         public List<int> GetAllUsersByTourInstanceId(int id)
         {
             List<int> users = new List<int>();
-
             List<TourReservation> list = _tourReservation.Where(r => r.TourInstanceId == id).ToList();
-
             foreach (var item in list)
             {
                 if (!users.Contains(item.UserId))
@@ -108,7 +93,6 @@ namespace BookingApp.Repository
                     users.Add(item.UserId);
                 }
             }
-
             return users;
         }
         
@@ -121,6 +105,5 @@ namespace BookingApp.Repository
         {
             return _tourReservation.Where(r => r.UserId == userId).ToList();
         }
-
     }
 }

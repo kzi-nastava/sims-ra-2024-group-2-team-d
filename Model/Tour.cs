@@ -67,8 +67,6 @@ namespace BookingApp.Model
                 Pictures.Add(fragment);
                 ClassPictures.Add(new Picture(Id, fragment));
             }
-
-            //_instanceRepository = new TourInstanceRepository();
             TourInstances = new List<TourInstance>();
             string format = "dd/MM/yyyy HH:mm";
             string[] slices = dates.Split(",").Select(s => s.Trim()).ToArray(); ;
@@ -79,14 +77,9 @@ namespace BookingApp.Model
                 DateTime.TryParseExact(slice, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate);
                 Dates.Add(parsedDate);
                 TourInstance tourInstance = new TourInstance(Id, parsedDate, maxTourists);
-                TourInstances.Add(tourInstance);
-                //_instanceRepository.Save(tourInstance);
+                TourInstances.Add(tourInstance);    
             }
-
-            Duration = duration;
-            //Pictures = pictures;
-            // Start = false;
-
+            Duration = duration;         
         }
 
         public Tour(string title, string description, string location, string language, int maxTourists, List<KeyPoint> keyPoints, List<DateTime> date, int duration, List<String> pictures)

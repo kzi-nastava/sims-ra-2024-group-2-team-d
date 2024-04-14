@@ -33,8 +33,6 @@ namespace BookingApp.View.Owner
             Accommodation = new AccommodationDto();
             Accommodation.UserId = user.Id;
 
-            CheckReviewNotifications();
-
         }
 
         private void NewAccommodationRegistration(object sender, RoutedEventArgs e)
@@ -67,17 +65,6 @@ namespace BookingApp.View.Owner
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void CheckReviewNotifications()
-        {
-            var list = _accommodationRepository.GetAllOwnerAccommodations(_user.Id).Select(a => a.Id).ToList();
-            foreach (var r in _reservationRepository.GetAllUnreviewed(list))
-            {
-                GuestReviewForm guestReviewForm = new GuestReviewForm(r);
-                guestReviewForm.Show();
-            }
-
         }
 
         private void AddImage_Click(object sender, RoutedEventArgs e)

@@ -76,15 +76,17 @@ namespace BookingApp.Repository
             }
 
             return keypoint;
-
-
-
         }
 
         public int GetKeyPointId(int id)
         {
 
             return _followingToursLive.Find(r => r.TourInstanceId == id).KeyPointId;
+        }
+
+        public FollowingTourLive? GetByTouristAndTourInstanceId(int touristId, int tourInstanceId)
+        {
+            return _followingToursLive.Find(x => x.TourInstanceId == tourInstanceId && x.TouristsIds.Any(t => t == touristId));
         }
     }
 }

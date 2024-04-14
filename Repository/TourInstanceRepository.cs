@@ -41,6 +41,15 @@ namespace BookingApp.Repository
             return oldTourInstance;
         }
 
+        public TourInstance UpdateReviewStatus(TourInstance tourInstance)
+        {
+            TourInstance oldTourInstance = GetById(tourInstance.Id);
+            if (oldTourInstance == null) return null;
+            oldTourInstance.IsNotReviewed = tourInstance.IsNotReviewed;
+            _serializer.ToCSV(FilePath, _tourInstance);
+            return oldTourInstance;
+        }
+
         public TourInstance GetById(int id)
         {
             return _tourInstance.Find(x => x.Id == id);

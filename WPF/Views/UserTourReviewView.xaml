@@ -8,13 +8,21 @@
         Title="UserTourReviewView" Height="450" Width="800">
     <StackPanel>
         <TextBlock Text="Znanje"></TextBlock>
-        <TextBox Text="{Binding UserTourReview.GuideKnowledge}"></TextBox>
+        <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding UserTourReview.GuideKnowledge}" Width="120" Height="30" />
         <TextBlock Text="Jezik"></TextBlock>
-        <TextBox Text="{Binding UserTourReview.GuideLanguage}"></TextBox>
+        <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding  UserTourReview.GuideLanguage}" Width="120" Height="30" />
         <TextBlock Text="Zanimljivost"></TextBlock>
-        <TextBox Text="{Binding UserTourReview.Enjoyability}"></TextBox>
+        <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding  UserTourReview.Enjoyability}" Width="120" Height="30" />
         <TextBlock Text="Komentar"></TextBlock>
         <TextBox Text="{Binding UserTourReview.Comment}"></TextBox>
+        <Button Content="Add Image" Command="{Binding AddImageCommand}"/>
+        <ListBox ItemsSource="{Binding ImagePaths}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding}" Stretch="UniformToFill" Width="200" Height="150"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button HorizontalAlignment="Right" Command="{Binding ConfirmReviewCommand}" Content="Confirm"></Button>
         <Button HorizontalAlignment="Left" Content="Cancel"></Button>
     </StackPanel>

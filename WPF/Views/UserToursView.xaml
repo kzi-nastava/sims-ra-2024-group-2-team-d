@@ -122,7 +122,7 @@
                             <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
                             <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                         </StackPanel>
-                        <Button Content="Rate" Command="{Binding DataContext.OpenTourReviewCommand, ElementName=MainListBox}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
+                        <Button Content="Rate" IsEnabled="{Binding IsNotReviewed}" Command="{Binding DataContext.OpenTourReviewCommand, ElementName=MainListBox}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
                         <StackPanel Grid.Row="1" Grid.Column="4">
                             <Button Height="40" Width="40">
                                 <Image Source="../../Resources/Images/info-icon.png"></Image>

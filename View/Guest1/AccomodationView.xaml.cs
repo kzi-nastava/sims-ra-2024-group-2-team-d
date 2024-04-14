@@ -117,7 +117,6 @@ namespace BookingApp.View.Guest1
             _accommodationRepository = new AccommodationRepository();
             _reservationRepository = new ReservationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
-            CheckReviewNotifications(user.Id);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -212,15 +211,6 @@ namespace BookingApp.View.Guest1
             accomodationReservation.Show();
         }
 
-        private void CheckReviewNotifications(int userId)
-        {
-            var list = _reservationRepository.GetAllUnreviewedByGuest(userId);
-            foreach (var r in list)
-            {
-                AccommodationReviewForm accommodationReviewForm = new AccommodationReviewForm(r);
-                accommodationReviewForm.Show();
-            }
 
-        }
     }
 }

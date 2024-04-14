@@ -74,5 +74,14 @@ namespace BookingApp.Repository
         {
             return GetAll().Where(a => a.UserId == userId).ToList();
         }
+        public int getOwnerIdByAccommodationId(int accommodationId)
+        {
+            return _accommodations.Find(a => a.Id == accommodationId).UserId;
+        }
+
+        public string getNameById(int accommodationId)
+        {
+            return _accommodations.Find(a => a.Id == accommodationId).Name;
+        }
     }
 }

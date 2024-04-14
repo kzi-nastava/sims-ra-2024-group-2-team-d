@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="HomeWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel Height="100">
+        <StackPanel Height="150">
         <Button x:Name="Registration" Height="50" Width="200" Click="Registration_Click" >Registracija</Button>
         <Button x:Name="Reviews" Height="50" Width="200" Click="Reviews_Click" >Prikaz recenzija</Button>
+        <Button x:Name="Requests" Height="50" Width="200" Click="Requests_Click" >Prikaz zahtjeva za promjenu</Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -41,6 +41,17 @@ namespace BookingApp.Repository
             return followingTourLive;
         }
 
+        public FollowingTourLive Update(FollowingTourLive followingTourLive)
+        {
+            _followingToursLive = _serializer.FromCSV(FilePath);
+            FollowingTourLive current = _followingToursLive.Find(c => c.Id == followingTourLive.Id);
+            int index = _followingToursLive.IndexOf(current);
+            _followingToursLive.Remove(current);
+            _followingToursLive.Insert(index, followingTourLive);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _followingToursLive);
+            return followingTourLive;
+        }
+
         public  List<FollowingTourLive> GetByTourInstanceId(int id)
         {
             return _followingToursLive.Where(r=>r.TourInstanceId==id).ToList();

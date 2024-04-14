@@ -40,18 +40,22 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="EndTour" Grid.Row="5" Grid.Column="1" Width="122" HorizontalAlignment="Left" Margin="28,0,0,163" 
-                Click="EndTour_Click">End tour</Button>
+        <Button x:Name="EndTour" Grid.Row="4" Grid.Column="0" Width="122" HorizontalAlignment="Left" Margin="178,99,0,163" 
+                Click="EndTour_Click" Grid.RowSpan="2">End tour</Button>
 
-        <DataGrid x:Name="visitorListView" Grid.Row="3" Grid.Column="1" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"
-ItemsSource="{Binding Visitors, UpdateSourceTrigger=PropertyChanged}" Margin="0,96,0,0" HorizontalAlignment="Center" Width="208">
+        <Button x:Name="EndInEmTour" Grid.Row="5" Grid.Column="1" Width="122" HorizontalAlignment="Left" Margin="132,0,0,163" 
+        Click="EndInEmTour_Click">End in Emergency</Button>
+
+
+        <DataGrid x:Name="TouristsGrid" Grid.Row="3" Grid.Column="1" IsReadOnly="True" SelectedItem="{Binding Path=SelectedTourist}" SelectionMode="Single" AutoGenerateColumns="False"
+ItemsSource="{Binding Tourists, UpdateSourceTrigger=PropertyChanged}" Margin="0,96,0,0" HorizontalAlignment="Center" Width="208">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="90"/>
-                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="*"/>
+                <DataGridTextColumn Header="Surname" Binding="{Binding LastName}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="AddTourists" Grid.Row="4" Grid.Column="1" Width="90" HorizontalAlignment="Center" Content="Add Tourist(s)" 
+        <Button x:Name="AddTourists" Grid.Row="4" Grid.Column="1" Width="90" HorizontalAlignment="Center" Content="Add Tourists" 
                 Margin="0,0,0,65" Click="AddTourists_Click"/>
 
 

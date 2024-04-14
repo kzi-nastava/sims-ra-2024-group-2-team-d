@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Serializer;
+using BookingApp.View.Guest1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +11,8 @@ namespace BookingApp.Repository
     {
         private const string FilePath = "../../../Resources/Data/Reservations.csv";
 
+        private readonly AccommodationRepository _accommodationRepository;
+
         private readonly Serializer<Reservation> _serializer;
 
         private List<Reservation> _reservations;
@@ -17,6 +21,7 @@ namespace BookingApp.Repository
         {
             _serializer = new Serializer<Reservation>();
             _reservations = _serializer.FromCSV(FilePath);
+            _accommodationRepository = new AccommodationRepository();
         }
 
         public List<Reservation> GetAll()
@@ -90,6 +95,48 @@ namespace BookingApp.Repository
         public List<Reservation> GetAllReviewedByBoth()
         {
             return _reservations.Where(r => r.ReviewedByOwner == true && r.ReviewedByGuest == true).ToList();
+        }
+
+        public List<Reservation> GetAllUserReservations(int userId)
+        {
+            return _reservations.Where(r => r.UserId == userId).ToList();
+        }
+
+        public Reservation GetById(int id)
+        {
+            return _reservations.Where(r => r.Id == id).FirstOrDefault();
+        }
+
+        public DateTime GetCheckInDate(int userId, int reservationId)
+        {
+            List<Reservation> reservations = GetAllUserReservations(userId);
+            return reservations.Find(r => r.Id == reservationId).ReservationDateRange.StartDate;
+        }
+        public DateTime GetCheckOutDate(int userId, int reservationId)
+        {
+            List<Reservation> reservations = GetAllUserReservations(userId);
+            return reservations.Find(r => r.Id == reservationId).ReservationDateRange.EndDate;
+        }
+
+        public Dictionary<int, string> GetReservationsByUserId(int userId)
+        {
+            Dictionary<int, string> result = new Dictionary<int, string>();
+            List<Reservation> usersReservations = GetAllUserReservations(userId).Where(r=> r.ReservationDateRange.StartDate >= DateTime.UtcNow).ToList();
+            if (usersReservations.Count > 0)
+            {
+                foreach (Reservation reservation in usersReservations)
+                {
+                    
+                    Reservation founded = GetById(reservation.Id);
+                    string value = "";
+                    string accommodationName = _accommodationRepository.getNameById(reservation.AccomodationId);
+                    value = value + " " + accommodationName + "; " + founded.ReservationDateRange.SStartDate + "-" + founded.ReservationDateRange.SEndDate;
+                    result.Add(reservation.Id, value);
+                }
+                return result;
+            }
+            return null;
+
         }
     }
 }

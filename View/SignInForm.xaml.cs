@@ -57,8 +57,8 @@ namespace BookingApp.View
                 } 
                 else if(user.Password == txtPassword.Password && user.Role == Roles.GUEST)
                 {
-                    AccomodationView accomodationView = new AccomodationView(user);
-                    accomodationView.Show();
+                    Guest1Window guest1Window = new Guest1Window(user);
+                    guest1Window.Show();
                     Close();
                 }else if(user.Password == txtPassword.Password && user.Role == Roles.TOURIST)
                 {

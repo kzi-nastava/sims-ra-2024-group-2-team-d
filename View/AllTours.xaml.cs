@@ -127,30 +127,37 @@ namespace BookingApp.View
 
         private void ShowStatistics_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedTourInstance.End==true)
+            if (SelectedTourInstance != null)
             {
-                SpecificTourStatistics specificTourStatistics = new SpecificTourStatistics(SelectedTourInstance);
-                specificTourStatistics.Show();
-            }
-            else
-            {
+                if (SelectedTourInstance.End == true)
+                {
+                    SpecificTourStatistics specificTourStatistics = new SpecificTourStatistics(SelectedTourInstance);
+                    specificTourStatistics.Show();
+                }
+                else
+                {
 
-                MessageBox.Show("The tour is not finished!");
+                    MessageBox.Show("The tour is not finished!");
+                }
             }
            
         }
 
         private void ShowReviews_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTourInstance.End == true)
-            {
-                GuideReviews guideReviews = new GuideReviews(SelectedTourInstance);
-                guideReviews.Show();
-            }
-            else
+            if (SelectedTourInstance != null)
             {
 
-                MessageBox.Show("The tour is not finished!");
+                if (SelectedTourInstance.End == true)
+                {
+                    GuideReviews guideReviews = new GuideReviews(SelectedTourInstance);
+                    guideReviews.Show();
+                }
+                else
+                {
+
+                    MessageBox.Show("The tour is not finished!");
+                }
             }
         }
     }

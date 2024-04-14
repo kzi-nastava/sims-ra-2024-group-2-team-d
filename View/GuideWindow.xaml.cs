@@ -80,21 +80,22 @@ namespace BookingApp.View
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTourInstance != null)
+            /*if (SelectedTourInstance != null)
             {
                 FollowingTourLive followingTourLive = new FollowingTourLive(SelectedTourInstance);
                 followingTourLive.Show();
             }
 
 
-            /*if(TourGrid.SelectedIndex==-1)
+            if (TourGrid.SelectedIndex == -1)
             {
                 return;
-            }
+            }*/
 
             TourInstance ti = TourGrid.SelectedItem as TourInstance;
             //otvara se prozor sa tom turom
-            FollowingTourLive ftl =new FollowingTourLive(ti);*/
+            FollowTour ft = new FollowTour(ti);
+            ft.Show();
 
         }
 

@@ -15,9 +15,49 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="15"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="15"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="Grades(1-5):" FontSize="25" Width="148" Height="46" />
+
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <DataGrid ItemsSource="{Binding tourReviews}" x:Name="GradesRevGrid"
+              SelectedItem="{Binding Path=SelectedTourInstance}"
+              IsReadOnly="True" SelectionMode="Single" 
+              AutoGenerateColumns="False" Height="80" HeadersVisibility="Column" FontSize="13" Width="494">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Guide Knowledge" Binding="{Binding GuideKnowledge}" Width="150"/>
+                    <DataGridTextColumn Header="Guide Language" Binding="{Binding GuideLanguage}" Width="150"/>
+                    <DataGridTextColumn Header="How interesting the tour was" Binding="{Binding Enjoyability}" Width="*"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="1">
+            <TextBlock Text="Comment:" FontSize="25" Width="148" Height="46" />
+
+        </StackPanel>
+        <StackPanel Grid.Row="6" Grid.Column="1">
+            <DataGrid ItemsSource="{Binding tourReviews}" x:Name="ComRevGrid"
+      SelectedItem="{Binding Path=SelectedTourInstance}"
+      IsReadOnly="True" SelectionMode="Single" 
+      AutoGenerateColumns="False" Height="100"  FontSize="13" Width="494">
+                <DataGrid.Columns>
+                    <DataGridTextColumn  Binding="{Binding Comment}" Width="*"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+
+
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
             <Button Click="Button_Click">
                 <StackPanel Orientation="Horizontal">

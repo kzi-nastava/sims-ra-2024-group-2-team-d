@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,20 @@ namespace BookingApp.View
     public partial class SpecificGuideReview : Window
     {
         public TouristReview TouristReview { get; set; }
-        public TourReviewRepository TourReviewRepository { get; set; }
-        public SpecificGuideReview(TouristReview tr)
+        public TourReviewRepository _tourReviewRepository { get; set; }
+        public ObservableCollection<TourReview> tourReviews { get; set; }
+
+        public SpecificGuideReview(TouristReview touristReview)
         {
             InitializeComponent();
-            TourReviewRepository = new TourReviewRepository();
-            TouristReview = tr;
+            _tourReviewRepository = new TourReviewRepository();
+            TouristReview = touristReview;
+            tourReviews = new ObservableCollection<TourReview>();
+            tourReviews.Add(TouristReview.TourReview);
+            GradesRevGrid.ItemsSource = tourReviews;
+            GradesRevGrid.DataContext = tourReviews;
+            ComRevGrid.ItemsSource = tourReviews;
+            ComRevGrid.DataContext = tourReviews;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,7 +45,7 @@ namespace BookingApp.View
             MessageBoxButton.OK, MessageBoxImage.Question);
 
             TouristReview.TourReview.IsValid = false;
-            TourReviewRepository.Update(TouristReview.TourReview);
+            _tourReviewRepository.Update(TouristReview.TourReview);
             this.Close();
 
         }

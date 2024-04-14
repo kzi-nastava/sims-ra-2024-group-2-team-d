@@ -17,6 +17,8 @@ namespace BookingApp.Repository
 
         private List<KeyPoint> _keyPoints;
 
+        //public TourInstance TourInstance;
+
         public KeyPointRepository()
         {
             _serializer = new Serializer<KeyPoint>();
@@ -75,6 +77,12 @@ namespace BookingApp.Repository
         {
             _keyPoints = _serializer.FromCSV(FilePath);
             return _keyPoints.FindAll(c => c.TourId == tourId);
+        }
+
+        public List<KeyPoint> GetByTourInstance(TourInstance tourInstance)
+        {
+            _keyPoints = _serializer.FromCSV(FilePath);
+            return _keyPoints.FindAll(c => c.TourId == tourInstance.TourId);
         }
 
         public string GetKeyPointName(int keyPointId)

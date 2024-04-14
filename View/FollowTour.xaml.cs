@@ -18,22 +18,40 @@ using System.Windows.Shapes;
 namespace BookingApp.View
 {
     /// <summary>
-    /// Interaction logic for FollowingTourLive.xaml
+    /// Interaction logic for FollowTour.xaml
     /// </summary>
-    public partial class FollowingTourLive : Window
+    public partial class FollowTour : Window
     {
         public TourInstance TourInstance;
+        public static ObservableCollection<TourInstance> tourInstances;
 
         public static ObservableCollection<KeyPoint> KeyPoints { get; set; }
         private readonly KeyPointRepository _keyPointRepository;
 
 
-        public FollowingTourLive(TourInstance ti)
+        public FollowTour(TourInstance tourInstance)
         {
             InitializeComponent();
-            this.TourInstance = ti;
+            TourInstance = tourInstance;
             _keyPointRepository = new KeyPointRepository();
-            KeyPoints = new ObservableCollection<KeyPoint>(_keyPointRepository.GetByTourId(TourInstance.TourId));
+            KeyPoints = new ObservableCollection<KeyPoint>(_keyPointRepository.GetByTourInstance(TourInstance));
+
+            KeyPointGrid.ItemsSource = KeyPoints;
+            KeyPointGrid.DataContext = KeyPoints;
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EndTour_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddTourists_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

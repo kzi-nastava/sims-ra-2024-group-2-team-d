@@ -18,6 +18,8 @@ namespace BookingApp.Model
 
         public int UserId {  get; set; }
 
+        public bool IsValid {  get; set; }
+
 
         public GiftCard() {}
         
@@ -25,6 +27,7 @@ namespace BookingApp.Model
         {
             ReceiveDate = receiveDate;
             ExpirationDate = ReceiveDate.AddYears(1);
+            IsValid = true;
         }
 
         public GiftCard(int id)
@@ -32,6 +35,7 @@ namespace BookingApp.Model
             ReceiveDate = DateOnly.FromDateTime(DateTime.Now);
             ExpirationDate = ReceiveDate.AddYears(1);
             UserId = id;
+            IsValid = true;
         }
 
         public string[] ToCSV()
@@ -41,8 +45,8 @@ namespace BookingApp.Model
                 Id.ToString(),
                 ReceiveDate.ToString("yyyy-MM-dd"),
                 ExpirationDate.ToString("yyyy-MM-dd"),
-                UserId.ToString()
-
+                UserId.ToString(),
+                IsValid.ToString()
 
             };
             return csvValues;
@@ -54,8 +58,7 @@ namespace BookingApp.Model
             ReceiveDate = DateOnly.Parse(values[1]);
             ExpirationDate = DateOnly.Parse(values[2]);
             UserId = int.Parse(values[3]);
+            IsValid = bool.Parse(values[4]);
         }
-
-
     }
 }

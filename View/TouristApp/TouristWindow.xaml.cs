@@ -62,29 +62,7 @@ namespace BookingApp.View
             _tourReservationRepository = new TourReservationRepository();
             LinkEntities();
             MoveToActiveTours();
-            //CheckForNotification();
         }
-        /*
-
-        public void CheckForNotification()
-        {
-            TouristRepository _touristRepository = new TouristRepository();
-            FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
-            foreach(TourInstance activeTour in ActiveTours)
-            {
-                TourReservation reservation = _tourReservationRepository.GetByUserAndTourInstanceId(activeTour.Id, LoggedInUser.Id);
-                Tourist userTourist = _touristRepository.GetByUserAndReservationId(LoggedInUser.Id, reservation.Id);
-                FollowingTourLive followingTourLive = _followingTourLiveRepository.GetByTouristAndTourInstanceId(userTourist.Id, activeTour.Id);
-                if(followingTourLive != null && !userTourist.IsNotified)
-                {
-                    foreach(FollowingTourLive following in _followingTourLiveRepository.GetByTourInstanceId(activeTour.Id))
-                    {
-
-                    }
-                }
-            }
-        }
-        */
         public void LinkEntities()
         {
             LinkTourInstancesWithTours();
@@ -96,9 +74,10 @@ namespace BookingApp.View
         public void LinkGiftCardWithUser()
         {
             List<GiftCard> giftCards = _giftCardRepository.GetAll();
-            foreach(GiftCard giftCard in giftCards)
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            foreach (GiftCard giftCard in giftCards)
             {
-                if(giftCard.UserId == LoggedInUser.Id)
+                if(giftCard.UserId == LoggedInUser.Id && giftCard.IsValid && giftCard.ExpirationDate < today)
                 {
                     UserGiftCards.Add(giftCard);
                 }

@@ -53,27 +53,19 @@ namespace BookingApp.View
                 {
                     if(user.Role == Roles.OWNER)
                     {
-                        RegisterAccomodation registerAccomodation = new RegisterAccomodation(user);
-                        registerAccomodation.Show();
-                        Close();
+                        OpenOwnerApplication(user);
                     }
                     else if(user.Role == Roles.GUEST)
                     {
-                        AccomodationView accomodationView = new AccomodationView(user);
-                        accomodationView.Show();
-                        Close();
+                        OpenGuestApplication(user);
                     }
                     else if(user.Role == Roles.TOURIST)
                     {
-                        TouristWindow touristWindow = new TouristWindow(user);
-                        touristWindow.Show();
-                        Close();
+                        OpenTouristApplication(user);
                     }
                     else if(user.Role == Roles.GUIDE)
                     {
-                        GuideWindow guideWindow = new GuideWindow(user);
-                        guideWindow.Show();
-                        Close();
+                        OpenGuideApplication(user);
                     }
                 }  
             }
@@ -81,6 +73,33 @@ namespace BookingApp.View
             {
                 MessageBox.Show("Username or password is wrong!");
             }          
+        }
+
+        public void OpenGuideApplication(User user)
+        {
+            GuideWindow guideWindow = new GuideWindow(user);
+            guideWindow.Show();
+            Close();
+        }
+        public void OpenTouristApplication(User user)
+        {
+            TouristWindow touristWindow = new TouristWindow(user);
+            touristWindow.Show();
+            Close();
+        }
+
+        public void OpenGuestApplication(User user)
+        {
+            AccomodationView accomodationView = new AccomodationView(user);
+            accomodationView.Show();
+            Close();
+        }
+
+        public void OpenOwnerApplication(User user)
+        {
+            RegisterAccomodation registerAccomodation = new RegisterAccomodation(user);
+            registerAccomodation.Show();
+            Close();
         }
     }
 }

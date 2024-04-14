@@ -18,7 +18,7 @@ namespace BookingApp.Model
         public int EmptySpots { get; set; }
         public bool Start {  get; set; }
         public bool End { get; set; }
-        
+      
         public bool IsNotReviewed {  get; set; }
 
         public TourInstance(int tourId, DateTime date, int emptySpots)

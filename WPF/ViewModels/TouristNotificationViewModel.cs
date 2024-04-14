@@ -33,21 +33,32 @@ namespace BookingApp.WPF.ViewModels
 
         public void CheckForNotification(List<TourInstance> activeTours)
         {
-            foreach (TourInstance activeTour in activeTours)
+            List<int> userToursIds = FilterTours();
+            foreach (int userTourId in userToursIds)
             {
                 List<Tourist> tourists = new List<Tourist>();
-                TourReservation reservation = _tourReservationRepository.GetByUserAndTourInstanceId(activeTour.Id, LoggedInUser.Id);
+                TourReservation reservation = _tourReservationRepository.GetByUserAndTourInstanceId(userTourId, LoggedInUser.Id);
                 Tourist userTourist = _touristRepository.GetByUserAndReservationId(LoggedInUser.Id, reservation.Id);
-                FollowingTourLive followingTourLive = _followingTourLiveRepository.GetByTouristAndTourInstanceId(userTourist.Id, activeTour.Id);
+                FollowingTourLive followingTourLive = _followingTourLiveRepository.GetByTouristAndTourInstanceId(userTourist.Id, userTourId);
                 if (followingTourLive != null && !userTourist.IsNotified)
                 {
-                    foreach (FollowingTourLive following in _followingTourLiveRepository.GetByTourInstanceId(activeTour.Id))
+                    foreach (FollowingTourLive following in _followingTourLiveRepository.GetByTourInstanceId(userTourId))
                     {
                         tourists.AddRange(_touristRepository.GetByIds(following.TouristsIds));
                     }
                 }
                 PresentTourists.Add(tourists);
             }
+        }
+
+        public List<int> FilterTours()
+        {
+            List<int> userToursIds = new List<int>();
+            foreach(TourReservation tourReservation in _tourReservationRepository.GetByUserId(LoggedInUser.Id))
+            {
+                userToursIds.Add(tourReservation.TourInstanceId);
+            }
+            return userToursIds;
         }
     }
 }

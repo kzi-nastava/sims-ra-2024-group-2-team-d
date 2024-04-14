@@ -18,6 +18,8 @@ namespace BookingApp.Model
         public int EmptySpots { get; set; }
         public bool Start {  get; set; }
         public bool End { get; set; }
+        
+        public bool IsNotReviewed {  get; set; }
 
         public TourInstance(int tourId, DateTime date, int emptySpots)
         {
@@ -27,12 +29,14 @@ namespace BookingApp.Model
             EmptySpots = emptySpots;
             Start = false;
             End = false;
+            IsNotReviewed = true;
         }
 
         public TourInstance() {
             Start = false;
             End = false;
             BaseTour = new Tour();
+            IsNotReviewed = true;
         }
 
         public string[] ToCSV()
@@ -44,7 +48,8 @@ namespace BookingApp.Model
                 Date.ToString("yyyy-MM-dd HH:mm"),
                 EmptySpots.ToString(),
                 Start.ToString(),
-                End.ToString()
+                End.ToString(),
+                IsNotReviewed.ToString()
             
             };
             return csvValues;
@@ -59,6 +64,7 @@ namespace BookingApp.Model
             EmptySpots = int.Parse(values[3]);
             Start = bool.Parse(values[4]);
             End = bool.Parse(values[5]);
+            IsNotReviewed = bool.Parse(values[6]);
             
         }
     }

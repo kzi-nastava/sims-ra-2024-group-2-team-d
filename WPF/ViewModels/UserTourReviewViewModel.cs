@@ -26,6 +26,8 @@ namespace BookingApp.WPF.ViewModels
 
         private PictureRepository _pictureRepository;
 
+        public ObservableCollection<int> Ratings { get; } = new ObservableCollection<int>() { 1, 2, 3, 4, 5 };
+
         public UserTourReviewViewModel(User loggedInUser, TourInstance tourInstance, Action closeAction)
         {
             UserTourReview = new TourReview();
@@ -35,7 +37,7 @@ namespace BookingApp.WPF.ViewModels
             _pictureRepository = new PictureRepository();
             ConfirmReviewCommand = new RelayCommand(() =>
             {
-                ConfirmReview(tourInstance.BaseTour.Id);
+                ConfirmReview(tourInstance);
                 closeAction();
             });
             ImagePaths = new ObservableCollection<string>();
@@ -43,16 +45,20 @@ namespace BookingApp.WPF.ViewModels
 
         }
 
-        public void ConfirmReview(int tourId)
+        public void ConfirmReview(TourInstance tourInstance)
         {
             
             TourReviewRepository _tourReviewRepository = new TourReviewRepository();
             _tourReviewRepository.Save(UserTourReview);
             foreach(string imagePath in ImagePaths)
             {
-                Picture picture = new Picture(tourId,imagePath);
+                Picture picture = new Picture(tourInstance.BaseTour.Id,imagePath);
                 _pictureRepository.Save(picture);
             }
+
+            tourInstance.IsNotReviewed = false;
+            TourInstanceRepository _tourInstanceRepository = new TourInstanceRepository();
+            _tourInstanceRepository.UpdateReviewStatus(tourInstance);
 
             
         }

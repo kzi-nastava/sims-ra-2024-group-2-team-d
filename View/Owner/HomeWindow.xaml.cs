@@ -57,5 +57,11 @@ namespace BookingApp.View.Guest1
             }
 
         }
+
+        private void Requests_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeReservationRequests changeReservationRequest = new ChangeReservationRequests(_user);
+            changeReservationRequest.Show();
+        }
     }
 }

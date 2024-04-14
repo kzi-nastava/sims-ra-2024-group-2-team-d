@@ -5,14 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest1"
         mc:Ignorable="d"
-        Title="RequestsOverview" Height="500" Width="750">
+        Title="RequestsOverview" Height="500" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="230"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Separator Background="Black" Grid.Column="1" HorizontalAlignment="Left" Margin="0,301,0,0" VerticalAlignment="Top"/>
-        <Rectangle HorizontalAlignment="Center" Height="130" Stroke="Black" VerticalAlignment="Top" Width="210" Margin="0,168,0,0"/>
         <DataGrid ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}"
                   Grid.Column="1" Margin="10,119,10,118"
                   IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
@@ -22,9 +20,7 @@
                 <DataGridTextColumn Binding="{Binding OwnerComment}" Header="Owner's Comment" Width ="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button FontSize="12" Content="Change reservation" HorizontalAlignment="Center" Margin="0,191,0,0" VerticalAlignment="Top" Height="35" Width="132" Click="ChangeReservation_Click"/>
-        <Button FontSize="12" Content="Cancel reservation" HorizontalAlignment="Center" Margin="0,243,0,0" VerticalAlignment="Top" Height="35" Width="132" Click="CancelReservation_Click"/>
+        <Button FontSize="12" Content="Change reservation" HorizontalAlignment="Center" Margin="0,405,0,0" VerticalAlignment="Top" Height="35" Width="132" Click="ChangeReservation_Click"/>
         <Label Grid.Column="1" Content="Your Requests" FontSize="20" HorizontalAlignment="Left" Margin="11,77,0,0" VerticalAlignment="Top"/>
-        <Label Content="Options" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

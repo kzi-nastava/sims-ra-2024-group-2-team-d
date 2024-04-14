@@ -138,5 +138,14 @@ namespace BookingApp.Repository
             return null;
 
         }
+
+        public void ChangeReservationDateRange(DateTime newStartDate, DateTime newEndDate, int reservationId)
+        {
+            Reservation reservation = GetById(reservationId);
+            reservation.ReservationDateRange.StartDate = newStartDate;
+            reservation.ReservationDateRange.EndDate = newEndDate;
+            Update(reservation);
+        }
+
     }
 }

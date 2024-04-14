@@ -11,6 +11,7 @@ namespace BookingApp.WPF
     {
         private Action _execute;
         private Func<bool> _canExecute;
+        private Action<object> accept_Click;
 
         public event EventHandler CanExecuteChanged
         {
@@ -22,6 +23,11 @@ namespace BookingApp.WPF
         {
             _execute = execute;
             _canExecute = canExecute;
+        }
+
+        public RelayCommand(Action<object> accept_Click)
+        {
+            this.accept_Click = accept_Click;
         }
 
         public bool CanExecute(object parameter)

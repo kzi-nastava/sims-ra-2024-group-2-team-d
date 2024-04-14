@@ -8,6 +8,7 @@ namespace BookingApp.Model
     {
         private int _requestId;
         private int _reservationId;
+        private int _accommodationId;
         private string _accommodationName;
         private DateTime _newStartDate;
         private DateTime _newEndDate;
@@ -16,10 +17,11 @@ namespace BookingApp.Model
         private int _ownerId;
         private string _ownerComment;
 
-        public ChangeReservationRequest(int reservationId, string accommodationName, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId)
+        public ChangeReservationRequest(int reservationId, int accommmodationId, string accommodationName, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId)
         {
             this.ReservationId = reservationId;
             this.AccommodationName = accommodationName;
+            this.AccommodationId = accommmodationId;
             this.NewStartDate = newStartDate;
             this.NewEndDate = newEndDate;
             this.RequestStatus = requestStatus;
@@ -37,14 +39,17 @@ namespace BookingApp.Model
         public int RequestId { get => _requestId; set => _requestId = value; }
         public int UserId { get => _userId; set => _userId = value; }
         public int OwnerId { get => _ownerId; set => _ownerId = value; }
+        public int AccommodationId { get => _accommodationId; set => _accommodationId = value; }
         public string OwnerComment { get => _ownerComment; set => _ownerComment = value; }
         public string AccommodationName { get => _accommodationName; set => _accommodationName = value; }
+        public string IsDateAvailable { get; set; } = "Da";
 
         public string[] ToCSV()
         {
             string[] csvValues = {
                 _requestId.ToString(),
                 _reservationId.ToString(),
+                _accommodationId.ToString(),
                 _accommodationName.ToString(),
                 _newStartDate.ToString(),
                 _newEndDate.ToString(),
@@ -59,13 +64,14 @@ namespace BookingApp.Model
         {
             _requestId = Convert.ToInt32(values[0]);
             _reservationId = Convert.ToInt32(values[1]);
-            _accommodationName = Convert.ToString(values[2]);
-            _newStartDate = Convert.ToDateTime(values[3]);
-            _newEndDate = Convert.ToDateTime(values[4]);
-            _requestStatus = (StatusType)Enum.Parse(typeof(StatusType), values[5]);
-            _userId = Convert.ToInt32(values[6]);
-            _ownerId = Convert.ToInt32(values[7]);
-            _ownerComment = Convert.ToString(values[8]);
+            _accommodationId = Convert.ToInt32(values[2]);
+            _accommodationName = Convert.ToString(values[3]);
+            _newStartDate = Convert.ToDateTime(values[4]);
+            _newEndDate = Convert.ToDateTime(values[5]);
+            _requestStatus = (StatusType)Enum.Parse(typeof(StatusType), values[6]);
+            _userId = Convert.ToInt32(values[7]);
+            _ownerId = Convert.ToInt32(values[8]);
+            _ownerComment = Convert.ToString(values[9]);
         }
     }
 }

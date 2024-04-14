@@ -61,7 +61,38 @@ namespace BookingApp.Repository
 
         public List<ChangeReservationRequest> GetAllByUser(int userId)
         {
-            return _requests.Where(r => r.UserId == userId).ToList();
+            return GetAll().Where(r => r.UserId == userId).ToList();
+        }
+
+        public ChangeReservationRequest GetById(int requestId)
+        {
+            return GetAll().Where(r => r.RequestId == requestId).FirstOrDefault();
+        }
+
+        public List<ChangeReservationRequest> GetAllPendingReservationRequests(List<int> accomodationsIds)
+        {
+            return GetAll().Where(r => accomodationsIds.Contains(r.AccommodationId) && r.RequestStatus == StatusType.Pending).ToList();
+        }
+
+        public void AcceptRequest(int requestId)
+        {
+            var request = GetById(requestId);
+            if (request != null)
+            {
+                request.RequestStatus = StatusType.Approved;
+                Update(request);
+            }
+        }
+
+        public void DeclineRequest(int requestId, string comment)
+        {
+            var request = GetById(requestId);
+            if (request != null)
+            {
+                request.RequestStatus = StatusType.Canceled;
+                request.OwnerComment = comment;
+                Update(request);
+            }
         }
     }
 }

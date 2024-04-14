@@ -1,0 +1,22 @@
+﻿<Window x:Class="BookingApp.View.Owner.DeclineRequest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Owner"
+        mc:Ignorable="d"
+                Title="DeclineRequest" Height="200" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label FontSize="10"   Grid.Row="0" Margin="10,2,4,2">Add comment:</Label>
+        <TextBox  x:Name="CommentBox" Margin="14,6,18,10" Text="{Binding Path=OwnerComment, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="1"></TextBox>
+        <Button Grid.Row="2" Content="Add" HorizontalAlignment="Left" Margin="70,0,0,0" VerticalAlignment="Top" Command="{Binding OKCommand}" Height="20"  Width="66">
+        </Button>
+        <Button Grid.Row="2" Content="Decline" HorizontalAlignment="Left" Margin="162,0,0,0" VerticalAlignment="Top"  Height="20"  Width="66">
+        </Button>
+    </Grid>
+</Window>

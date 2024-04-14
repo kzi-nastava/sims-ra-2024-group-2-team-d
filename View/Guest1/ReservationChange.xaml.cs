@@ -72,7 +72,7 @@ namespace BookingApp.View.Guest1
             _ownerId = _accommodationRepository.getOwnerIdByAccommodationId(SelectedReservationId);
             string accommodationName = _accommodationRepository.getNameById(SelectedReservationId);
             //Reservation reservation = _reservationRepository.GetById(SelectedReservationId);
-            ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
+            ChangeReservationRequest request = new ChangeReservationRequest(SelectedReservationId, 1, accommodationName, NewCheckInDate, NewCheckOutDate, StatusType.Pending, _userId, _ownerId);
             _changeReservationRequestRepository.Save(request);
             Requests.Add(request);
             this.Close();

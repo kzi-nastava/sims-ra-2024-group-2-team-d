@@ -54,7 +54,7 @@ namespace BookingApp.Repository
 
         public List<TourReview> GetAllByTourIdAndUser(int id, User user) { 
         
-            return _tourReviews.Where(r=>r.TourId==id && r.GuideId ==user.Id).ToList();
+            return _tourReviews.Where(r=>r.TourInstanceId==id && r.GuideId ==user.Id).ToList();
         }
 
         
@@ -62,7 +62,7 @@ namespace BookingApp.Repository
         public List<TourReview> GetAllByTourId(int id)
         {
 
-            return _tourReviews.Where(r => r.TourId == id ).ToList();
+            return _tourReviews.Where(r => r.TourInstanceId == id ).ToList();
         }
 
     }

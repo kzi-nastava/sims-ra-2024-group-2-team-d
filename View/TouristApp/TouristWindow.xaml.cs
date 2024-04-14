@@ -26,15 +26,9 @@ namespace BookingApp.View
     {
 
         public static ObservableCollection<TourInstance> TourInstances { get; set; }
-
         public static ObservableCollection<TourInstance> ActiveTours { get; set; }
-
-        public static ObservableCollection<TourInstance> UserTours { get; set; }
-
         public TourInstance SelectedTour { get; set; }
-
         public User LoggedInUser { get; set; }
-
         public ObservableCollection<GiftCard> UserGiftCards { get; set; }
 
         private readonly TourRepository _tourRepository;
@@ -50,7 +44,6 @@ namespace BookingApp.View
         private readonly GiftCardRepository _giftCardRepository;
 
 
-
         public TouristWindow(User user)
         {
             InitializeComponent();
@@ -60,7 +53,6 @@ namespace BookingApp.View
             _tourInstanceRepository = new TourInstanceRepository();
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
-            UserTours = new ObservableCollection<TourInstance>();
             UserGiftCards = new ObservableCollection<GiftCard>();
             SelectedTour = new TourInstance();
             _pictureRepository = new PictureRepository();
@@ -75,7 +67,6 @@ namespace BookingApp.View
         {
             LinkTourInstancesWithTours();
             LinkPicturesWithTours();
-            //LinkReservationsWithUser();
             LinkGiftCardWithUser();
 
         }
@@ -94,11 +85,13 @@ namespace BookingApp.View
 
        public void MoveToActiveTours()
         {
-            foreach(TourInstance tourInstance in UserTours)
+            List<TourReservation> userReservations = _tourReservationRepository.GetByUserId(LoggedInUser.Id);
+            foreach(TourReservation userReservation in userReservations)
             {
-                if (tourInstance.Start && !tourInstance.End){
+                TourInstance tourInstance = _tourInstanceRepository.GetById(userReservation.TourInstanceId);
+                if(tourInstance.Start && !tourInstance.End)
+                {
                     ActiveTours.Add(tourInstance);
-                    //TourInstances.Remove(tourInstance);
                 }
             }
         }
@@ -126,7 +119,6 @@ namespace BookingApp.View
                 }
             }
         }
-
 
         private void OnSearchClick(object sender, RoutedEventArgs e)
         {
@@ -190,6 +182,12 @@ namespace BookingApp.View
             UserGiftCardView userGiftCardView = new UserGiftCardView(UserGiftCards);
             userGiftCardView.Show();
             menuPopup.IsOpen = false;
+        }
+
+        private void TrackTour_Click(object sender, RoutedEventArgs e)
+        {
+            FollowingTourLiveView followingTourLiveView = new FollowingTourLiveView(SelectedTour);
+            followingTourLiveView.Show();
         }
     }
 }

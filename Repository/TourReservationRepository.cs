@@ -116,5 +116,10 @@ namespace BookingApp.Repository
             return _tourReservation.Find(r => r.TourInstanceId == tourInstanceId && r.UserId == userId);
         }
 
+        public List<TourReservation> GetByUserId(int  userId)
+        {
+            return _tourReservation.Where(r => r.UserId == userId).ToList();
+        }
+
     }
 }

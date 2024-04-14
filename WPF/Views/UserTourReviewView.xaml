@@ -8,13 +8,14 @@
         Title="UserTourReviewView" Height="450" Width="800">
     <StackPanel>
         <TextBlock Text="Znanje"></TextBlock>
-        <TextBox></TextBox>
+        <TextBox Text="{Binding UserTourReview.GuideKnowledge}"></TextBox>
         <TextBlock Text="Jezik"></TextBlock>
-        <TextBox></TextBox>
+        <TextBox Text="{Binding UserTourReview.GuideLanguage}"></TextBox>
         <TextBlock Text="Zanimljivost"></TextBlock>
-        <TextBox></TextBox>
+        <TextBox Text="{Binding UserTourReview.Enjoyability}"></TextBox>
         <TextBlock Text="Komentar"></TextBlock>
-        <TextBox></TextBox>
-        
+        <TextBox Text="{Binding UserTourReview.Comment}"></TextBox>
+        <Button HorizontalAlignment="Right" Command="{Binding ConfirmReviewCommand}" Content="Confirm"></Button>
+        <Button HorizontalAlignment="Left" Content="Cancel"></Button>
     </StackPanel>
 </Window>

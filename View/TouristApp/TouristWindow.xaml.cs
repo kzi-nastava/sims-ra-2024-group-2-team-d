@@ -42,6 +42,7 @@ namespace BookingApp.View
         private readonly TourReservationRepository _tourReservationRepository;
 
         private readonly GiftCardRepository _giftCardRepository;
+ 
 
 
         public TouristWindow(User user)
@@ -61,8 +62,29 @@ namespace BookingApp.View
             _tourReservationRepository = new TourReservationRepository();
             LinkEntities();
             MoveToActiveTours();
+            //CheckForNotification();
         }
+        /*
 
+        public void CheckForNotification()
+        {
+            TouristRepository _touristRepository = new TouristRepository();
+            FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
+            foreach(TourInstance activeTour in ActiveTours)
+            {
+                TourReservation reservation = _tourReservationRepository.GetByUserAndTourInstanceId(activeTour.Id, LoggedInUser.Id);
+                Tourist userTourist = _touristRepository.GetByUserAndReservationId(LoggedInUser.Id, reservation.Id);
+                FollowingTourLive followingTourLive = _followingTourLiveRepository.GetByTouristAndTourInstanceId(userTourist.Id, activeTour.Id);
+                if(followingTourLive != null && !userTourist.IsNotified)
+                {
+                    foreach(FollowingTourLive following in _followingTourLiveRepository.GetByTourInstanceId(activeTour.Id))
+                    {
+
+                    }
+                }
+            }
+        }
+        */
         public void LinkEntities()
         {
             LinkTourInstancesWithTours();
@@ -188,6 +210,12 @@ namespace BookingApp.View
         {
             FollowingTourLiveView followingTourLiveView = new FollowingTourLiveView(SelectedTour);
             followingTourLiveView.Show();
+        }
+
+        private void Notification_Click(object sender, RoutedEventArgs e)
+        {
+            TouristNotificationView touristNotificationView = new TouristNotificationView(ActiveTours.ToList(), LoggedInUser);
+            touristNotificationView.Show();
         }
     }
 }

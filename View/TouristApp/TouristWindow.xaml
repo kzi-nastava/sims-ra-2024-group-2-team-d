@@ -30,7 +30,7 @@
                         <TextBlock FontWeight="Bold"  FontSize="20" Text="{Binding LoggedInUser.Username, StringFormat='Hello, {0}'}" Margin="20,15,20,15"></TextBlock>
                         <Button Height="40" Width="80" Margin="20,15,20,15" Click="MyTours_Click">My tours</Button>
                         <Button Height="40" Width="80" Margin="20,15,20,15">My requests</Button>
-                        <Button Height="50" Width="60" Margin="20,15,20,15">
+                        <Button Height="50" Width="60" Margin="20,15,20,15" Click="Notification_Click">
                             <Image Source="../../Resources/Images/notification-icon.png" Height="40" Width="40"></Image>
                             <Button.ContextMenu>
                                 <ContextMenu>

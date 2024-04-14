@@ -48,6 +48,16 @@ namespace BookingApp.Repository
 
         }
 
+        public List<Tourist> GetByIds(List<int> touristIds)
+        {
+            return _tourists.Where(t => touristIds.Contains(t.Id)).ToList();
+        }
+
+        public Tourist? GetByUserAndReservationId(int userId, int reservationId)
+        {
+            return _tourists.Find(x => x.UserId == userId && x.ReservationId == reservationId);
+        }
+
         public List<Tourist> GetAll()
         {
             return _tourists;

@@ -14,6 +14,7 @@
     <None Remove="Resources\Images\duration-icon.jpg" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\info-icon.png" />
+    <None Remove="Resources\Images\kalemegdan.jpg" />
     <None Remove="Resources\Images\language-icon.png" />
     <None Remove="Resources\Images\location-icon.jpg" />
     <None Remove="Resources\Images\notification-icon.png" />
@@ -40,6 +41,7 @@
     <Resource Include="Resources\Images\calendar-icon.png" />
     <Resource Include="Resources\Images\duration-icon.jpg" />
     <Resource Include="Resources\Images\info-icon.png" />
+    <Resource Include="Resources\Images\kalemegdan.jpg" />
     <Resource Include="Resources\Images\language-icon.png" />
     <Resource Include="Resources\Images\location-icon.jpg" />
     <Resource Include="Resources\Images\notification-icon.png" />

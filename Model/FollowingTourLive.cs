@@ -43,6 +43,11 @@ namespace BookingApp.Model
         public List<string> TouristsForCSV()
         {
             List<string> csvV = new List<string>();
+            if (TouristsIds == null)
+            {
+                return csvV;
+                //TouristsIds = new List<int>();
+            }
             foreach (int t in TouristsIds)
                 {
                     csvV.Add(t.ToString());
@@ -58,11 +63,14 @@ namespace BookingApp.Model
             string[] slices = values[3].Split(",").Select(s => s.Trim()).ToArray();
             foreach(string slice in slices)
             {
-                if (TouristsIds==null)
+                if (TouristsIds == null)
                 {
                     TouristsIds = new List<int>();
                 }
-                TouristsIds.Add(int.Parse(slice));
+                else 
+                {
+                    TouristsIds.Add(int.Parse(slice)); 
+                }
             }
 
         }

@@ -37,25 +37,24 @@ namespace BookingApp.WPF.ViewModels
             List<Tourist> tourists = _touristsRepository.GetAll();
             foreach(TourReservation tourReservation in tourReservations)
             {
-                if(tourReservation.UserId == LoggedInUser.Id)
-                {
-                    var matchingTourInstance = tourInstanceList.Find(tourInstance => tourInstance.Id == tourReservation.TourInstanceId && (tourInstance.End || !tourInstance.Start));
-                    var matchingTourist = tourists.Find(tourist => tourist.ReservationId == tourReservation.Id && tourist.UserId == LoggedInUser.Id);
-                    if(matchingTourist != null && matchingTourInstance != null)
-                    {
-                        if (matchingTourInstance.End && matchingTourist.ShowedUp)
-                        {
-                            FinishedTours.Add(matchingTourInstance);
-                        }
-                        else if (!matchingTourInstance.Start)
-                        {
-                            ReservedTours.Add(matchingTourInstance);
-                        }
-
-                    }
-                    
-                }
+                AddToCorrespondingTour(tourReservation, tourists, tourInstanceList);
             }
+        }
+
+        public void AddToCorrespondingTour(TourReservation tourReservation, List<Tourist> tourists, List<TourInstance> tourInstanceList)
+        {
+            if (tourReservation.UserId != LoggedInUser.Id) return;         
+                var matchingTourInstance = tourInstanceList.Find(tourInstance => tourInstance.Id == tourReservation.TourInstanceId && (tourInstance.End || !tourInstance.Start));
+                var matchingTourist = tourists.Find(tourist => tourist.ReservationId == tourReservation.Id && tourist.UserId == LoggedInUser.Id);
+            if (matchingTourist == null || matchingTourInstance == null) return;             
+                    if (matchingTourInstance.End && matchingTourist.ShowedUp)
+                    {
+                        FinishedTours.Add(matchingTourInstance);
+                    }
+                    else if (!matchingTourInstance.Start)
+                    {
+                        ReservedTours.Add(matchingTourInstance);
+                    }                     
         }
 
         private void OpenTourReview()
@@ -63,7 +62,5 @@ namespace BookingApp.WPF.ViewModels
             UserTourReviewView userTourReviewView = new UserTourReviewView(LoggedInUser, SelectedTour);
             userTourReviewView.Show();
         }
-
-
     }
 }

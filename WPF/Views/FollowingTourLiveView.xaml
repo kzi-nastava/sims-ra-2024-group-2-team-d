@@ -9,5 +9,8 @@
     <StackPanel>
         <TextBlock>Trenutna pozicija</TextBlock>
         <TextBlock Text="{Binding CurrentKeyPoint.Name}"></TextBlock>
+        <TextBlock>Neke info o turi</TextBlock>
+        <TextBlock Text="{Binding ActiveTour.BaseTour.Title}"></TextBlock>
+        <TextBlock Text="{Binding ActiveTour.Date}"></TextBlock>
     </StackPanel>
 </Window>

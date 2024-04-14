@@ -101,7 +101,8 @@ namespace BookingApp.View.TouristApp
             }
             if(SelectedGiftCard != null)
             {
-                _giftCardRepository.Delete(SelectedGiftCard.Id);
+                SelectedGiftCard.IsValid = false;
+                _giftCardRepository.UpdateValidStatus(SelectedGiftCard);
             }
             TourInstance tourInstance = _tourInstanceRepository.GetById(TourInstanceId);
             tourInstance.EmptySpots -= TouristNumber;

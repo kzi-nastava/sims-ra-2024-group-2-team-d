@@ -50,13 +50,14 @@ namespace BookingApp.Repository
             return _giftCards.Find(x => x.Id == id);
         }
 
-        public GiftCard? Delete(int id)
+        public GiftCard? UpdateValidStatus(GiftCard newGiftCard)
         {
-            GiftCard? giftCard = GetById(id);
-            if (giftCard == null) return null;
-            _giftCards.Remove(giftCard);
+            GiftCard? oldGiftCard = GetById(newGiftCard.Id);
+            if (oldGiftCard == null) return null;
+            //_giftCards.Remove(giftCard);
+            oldGiftCard.IsValid = newGiftCard.IsValid;
             _serializer.ToCSV(FilePath, _giftCards);
-            return giftCard;
+            return oldGiftCard;
         }
     }
 }

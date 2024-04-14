@@ -40,14 +40,15 @@ namespace BookingApp.WPF.ViewModels
                 TourReservation reservation = _tourReservationRepository.GetByUserAndTourInstanceId(userTourId, LoggedInUser.Id);
                 Tourist userTourist = _touristRepository.GetByUserAndReservationId(LoggedInUser.Id, reservation.Id);
                 FollowingTourLive followingTourLive = _followingTourLiveRepository.GetByTouristAndTourInstanceId(userTourist.Id, userTourId);
-                if (followingTourLive != null && !userTourist.IsNotified)
+                if (followingTourLive != null && !userTourist.IsNotified && userTourist.ShowedUp)
                 {
                     foreach (FollowingTourLive following in _followingTourLiveRepository.GetByTourInstanceId(userTourId))
                     {
                         tourists.AddRange(_touristRepository.GetByIds(following.TouristsIds));
                     }
+                    PresentTourists.Add(tourists);
                 }
-                PresentTourists.Add(tourists);
+               
             }
         }
 

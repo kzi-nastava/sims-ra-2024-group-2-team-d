@@ -42,12 +42,10 @@ namespace BookingApp.WPF.ViewModels
             });
             ImagePaths = new ObservableCollection<string>();
             AddImageCommand = new RelayCommand(AddImageExecute);
-
         }
 
         public void ConfirmReview(TourInstance tourInstance)
-        {
-            
+        {          
             TourReviewRepository _tourReviewRepository = new TourReviewRepository();
             _tourReviewRepository.Save(UserTourReview);
             foreach(string imagePath in ImagePaths)
@@ -55,12 +53,9 @@ namespace BookingApp.WPF.ViewModels
                 Picture picture = new Picture(tourInstance.BaseTour.Id,imagePath);
                 _pictureRepository.Save(picture);
             }
-
             tourInstance.IsNotReviewed = false;
             TourInstanceRepository _tourInstanceRepository = new TourInstanceRepository();
-            _tourInstanceRepository.UpdateReviewStatus(tourInstance);
-
-            
+            _tourInstanceRepository.UpdateReviewStatus(tourInstance);           
         }
 
         private void AddImageExecute()
@@ -71,10 +66,9 @@ namespace BookingApp.WPF.ViewModels
 
             if (openFileDialog.ShowDialog() == true)
             {
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;  // ili Environment.CurrentDirectory
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 foreach (string fullFilename in openFileDialog.FileNames)
                 {
-                    // Kreiranje relativne putanje
                     string relativePath = Path.GetRelativePath(baseDirectory, fullFilename);
                     ImagePaths.Add(relativePath);
                 }

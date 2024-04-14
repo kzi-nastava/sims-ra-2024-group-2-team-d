@@ -59,19 +59,22 @@ namespace BookingApp.Model
         {
             Id = int.Parse(values[0]);
             TourInstanceId = int.Parse(values[1]);
-            KeyPointId = int.Parse(values[2]);
-            string[] slices = values[3].Split(",").Select(s => s.Trim()).ToArray();
-            if (TouristsIds == null)
+            KeyPointId = int.Parse(values[2]);          
+            if (string.IsNullOrWhiteSpace(values[3]))
             {
-                TouristsIds = new List<int>();
+                TouristsIds = new List<int>(); 
             }
-
-            foreach (string slice in slices)
+            else
             {
-                TouristsIds.Add(int.Parse(slice));
-            }
+                string[] slices = values[3].Split(',').Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToArray();
+                TouristsIds = new List<int>(); 
 
+                foreach (string slice in slices)
+                {
+                    TouristsIds.Add(int.Parse(slice)); 
+                }
+            }
         }
 
-}
+    }
 }

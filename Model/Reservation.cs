@@ -20,6 +20,8 @@ namespace BookingApp.Model
 
         public bool ReviewedByOwner { get; set; } = false;
 
+        public bool ReviewedByGuest { get; set; } = false;
+
 
         public Reservation()
         {
@@ -41,6 +43,7 @@ namespace BookingApp.Model
             ReservationDateRange = fromStringToDateRange(values[3]);
             NumberOfGuests = Convert.ToInt32(values[4]);
             ReviewedByOwner = Boolean.Parse(values[5]);
+            ReviewedByOwner = Boolean.Parse(values[6]);
 
         }
 
@@ -53,6 +56,7 @@ namespace BookingApp.Model
                 ReservationDateRange.ToString(),
                 NumberOfGuests.ToString(),
                 ReviewedByOwner.ToString(),
+                ReviewedByGuest.ToString(),
             };
             return csvValues;
 

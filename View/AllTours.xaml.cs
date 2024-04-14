@@ -109,7 +109,7 @@ namespace BookingApp.View
             TourInstances.Remove(SelectedTourInstance);
         }
 
-        private void MakeGiftCards()
+        /*private void MakeGiftCards()
         {
             int Id = SelectedTourInstance.Id;
             //_reservationRepository = new TourReservationRepository();
@@ -123,7 +123,7 @@ namespace BookingApp.View
 
             _instanceRepository.Delete(SelectedTourInstance);
             TourInstances.Remove(SelectedTourInstance);
-        }
+        }*/
 
         private void ShowStatistics_Click(object sender, RoutedEventArgs e)
         {

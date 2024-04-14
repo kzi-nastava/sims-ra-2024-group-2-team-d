@@ -49,36 +49,38 @@ namespace BookingApp.View
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-                if(user.Password == txtPassword.Password && user.Role == Roles.OWNER)
+                if(user.Password == txtPassword.Password)
                 {
-                    RegisterAccomodation registerAccomodation = new RegisterAccomodation(user);
-                    registerAccomodation.Show();
-                    Close();
-                } 
-                else if(user.Password == txtPassword.Password && user.Role == Roles.GUEST)
-                {
-                    AccomodationView accomodationView = new AccomodationView(user);
-                    accomodationView.Show();
-                    Close();
-                }else if(user.Password == txtPassword.Password && user.Role == Roles.TOURIST)
-                {
-                    TouristWindow touristWindow = new TouristWindow(user);
-                    touristWindow.Show();
-                    Close();
-
-                }else if(user.Password == txtPassword.Password && user.Role == Roles.GUIDE)
-                {
-                    GuideWindow guideWindow = new GuideWindow(user);
-                    guideWindow.Show();
-                    Close();
-
-                }
+                    if(user.Role == Roles.OWNER)
+                    {
+                        RegisterAccomodation registerAccomodation = new RegisterAccomodation(user);
+                        registerAccomodation.Show();
+                        Close();
+                    }
+                    else if(user.Role == Roles.GUEST)
+                    {
+                        AccomodationView accomodationView = new AccomodationView(user);
+                        accomodationView.Show();
+                        Close();
+                    }
+                    else if(user.Role == Roles.TOURIST)
+                    {
+                        TouristWindow touristWindow = new TouristWindow(user);
+                        touristWindow.Show();
+                        Close();
+                    }
+                    else if(user.Role == Roles.GUIDE)
+                    {
+                        GuideWindow guideWindow = new GuideWindow(user);
+                        guideWindow.Show();
+                        Close();
+                    }
+                }  
             }
             else
             {
-                MessageBox.Show("Wrong username!");
-            }
-            
+                MessageBox.Show("Username or password is wrong!");
+            }          
         }
     }
 }

@@ -94,6 +94,7 @@ namespace BookingApp.View
 
             TourInstance ti = TourGrid.SelectedItem as TourInstance;
             //otvara se prozor sa tom turom
+            
             FollowTour ft = new FollowTour(ti);
             ft.Show();
 

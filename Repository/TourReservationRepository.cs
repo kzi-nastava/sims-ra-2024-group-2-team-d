@@ -63,6 +63,7 @@ namespace BookingApp.Repository
         public List<Tourist> GetAllTouristByTourId(int id)
         {
             List<Tourist> tourists = new List<Tourist>();
+            BindTourists();
 
             List<TourReservation> list = _tourReservation.Where(r => r.TourInstanceId == id).ToList();
 

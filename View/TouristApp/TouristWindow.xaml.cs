@@ -77,7 +77,7 @@ namespace BookingApp.View
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             foreach (GiftCard giftCard in giftCards)
             {
-                if(giftCard.UserId == LoggedInUser.Id && giftCard.IsValid && giftCard.ExpirationDate < today)
+                if(giftCard.UserId == LoggedInUser.Id && giftCard.IsValid && giftCard.ExpirationDate > today)
                 {
                     UserGiftCards.Add(giftCard);
                 }

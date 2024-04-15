@@ -55,6 +55,7 @@ ItemsSource="{Binding Tourists, UpdateSourceTrigger=PropertyChanged}" Margin="0,
             </DataGrid.Columns>
         </DataGrid>
 
+
         <Button x:Name="AddTourists" Grid.Row="4" Grid.Column="1" Width="90" HorizontalAlignment="Center" Content="Add Tourists" 
                 Margin="0,0,0,65" Click="AddTourists_Click"/>
 

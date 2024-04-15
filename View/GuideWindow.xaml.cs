@@ -69,14 +69,14 @@ namespace BookingApp.View
             createTour.Show();
         }
 
-        private void ShowViewCommentForm(object sender, RoutedEventArgs e)
+        /*private void ShowViewCommentForm(object sender, RoutedEventArgs e)
         {
             if (SelectedComment != null)
             {
                 CommentForm viewCommentForm = new CommentForm(SelectedComment);
                 viewCommentForm.Show();
             }
-        }
+        }*/
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
@@ -94,9 +94,12 @@ namespace BookingApp.View
 
             TourInstance ti = TourGrid.SelectedItem as TourInstance;
             //otvara se prozor sa tom turom
-            
-            FollowTour ft = new FollowTour(ti);
-            ft.Show();
+            if (ti.End != true)
+            {
+                FollowTour ft = new FollowTour(ti);
+                ft.Show();
+                Close();
+            }
 
         }
 

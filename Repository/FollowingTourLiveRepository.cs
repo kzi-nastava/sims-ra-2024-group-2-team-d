@@ -57,6 +57,10 @@ namespace BookingApp.Repository
             return _followingToursLive.Where(r=>r.TourInstanceId==id).ToList();
         }
 
+        public FollowingTourLive GetByTourInstanceIdAndKeyPointId(int TourInstanceId, int KeyPointId) 
+        {
+            return _followingToursLive.Find(r => r.TourInstanceId == TourInstanceId && r.KeyPointId == KeyPointId);
+        }
 
         public int GetKeyPoint(int id,int touristId)
         {
@@ -74,7 +78,6 @@ namespace BookingApp.Repository
                     }
                 }
             }
-
             return keypoint;
         }
 

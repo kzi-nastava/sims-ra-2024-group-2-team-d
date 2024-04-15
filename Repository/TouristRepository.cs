@@ -40,12 +40,20 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _tourists);
             return tourist;
         }
-
+        public Tourist Update(Tourist tourist)
+        {
+            _tourists = _serializer.FromCSV(FilePath);
+            Tourist current = _tourists.Find(c => c.Id == tourist.Id);
+            int index = _tourists.IndexOf(current);
+            _tourists.Remove(current);
+            _tourists.Insert(index, tourist);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _tourists);
+            return tourist;
+        }
 
         public List<Tourist> GetAllByTourReservationId(int id)
         {
             return _tourists.Where(t => t.ReservationId == id).ToList();
-
         }
 
         public List<Tourist> GetByIds(List<int> touristIds)

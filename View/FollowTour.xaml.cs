@@ -51,11 +51,11 @@ namespace BookingApp.View
             _keyPointRepository = new KeyPointRepository();
             KeyPoints = new ObservableCollection<KeyPoint>(_keyPointRepository.GetByTourInstance(TourInstance));
             KeyPoints[0].Status = true;
-            FollowingTourLive = new FollowingTourLive();
-            FollowingTourLive.TourInstanceId = TourInstance.Id;
-            FollowingTourLive.KeyPointId = KeyPoints[0].Id;
+            //FollowingTourLive = new FollowingTourLive();
+            //FollowingTourLive.TourInstanceId = TourInstance.Id;
+            //FollowingTourLive.KeyPointId = KeyPoints[0].Id;
             FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
-            _followingTourLiveRepository.Save(FollowingTourLive);
+            //_followingTourLiveRepository.Save(FollowingTourLive);
 
             _tourReservationRepository = new TourReservationRepository();
             _touristRepository = new TouristRepository();
@@ -84,9 +84,6 @@ namespace BookingApp.View
 
             FollowingTourLive = new FollowingTourLive();
             FollowingTourLive.TourInstanceId = TourInstance.Id;
-            //int a = ++i;
-            //KeyPoint keyPoint = FindLastlyChecked();
-            //KeyPoints[a].Status = true;
             FollowingTourLive.KeyPointId = keyPoint.Id;
 
             FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
@@ -138,20 +135,6 @@ namespace BookingApp.View
             return lastCheckedKeyPoint;
         }
 
-        /*public KeyPoint FindLastlyChecked()
-        {
-            int MaxOrder = KeyPoints[0].Order;
-            KeyPoint KeyPoint = KeyPoints[0];
-            foreach (KeyPoint keyPoint in KeyPoints)
-            {
-                if (keyPoint.Status == true && keyPoint.Order > MaxOrder)
-                {
-                    MaxOrder = keyPoint.Order;
-                    KeyPoint = keyPoint;
-                }
-            }
-            return KeyPoint;
-        }*/
 
         private void EndTour_Click(object sender, RoutedEventArgs e)
         {
@@ -179,60 +162,6 @@ namespace BookingApp.View
                 _followingTourLiveRepository.Update(followingTourLive);
             }
         }
-
-        private void TouristsGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            DataGridRow row = sender as DataGridRow;
-            if (row == null)
-                return;
-
-            Tourist selectedTourist = row.Item as Tourist;
-
-            if (selectedTourist == null)
-                return;
-
-            (DataContext as FollowTour).SelectedTourist = selectedTourist;
-
-            AddTourists_Click(sender, e);
-        }
-
-        /*private void AddTourists_Click(object sender, RoutedEventArgs e)
-        {
-            // Pronalaženje poslednjeg označenog KeyPoint-a
-            KeyPoint lastCheckedKeyPoint = FindLastCheckedKeyPoint();
-
-            // Ako nije pronađen nijedan označen KeyPoint, izlazimo iz metode
-            if (lastCheckedKeyPoint == null)
-            {
-                MessageBox.Show("Please select a key point before adding tourists.");
-                return;
-            }
-
-            // Kreiranje instance FollowingTourLiveRepository
-            FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
-
-            // Pronalaženje FollowingTourLive objekta koji odgovara poslednjem označenom KeyPoint-u
-            FollowingTourLive followingTourLive = _followingTourLiveRepository.GetByTourInstanceIdAndKeyPointId(TourInstance.Id, lastCheckedKeyPoint.Id);
-
-            // Ako nije pronađen odgovarajući FollowingTourLive objekat, izlazimo iz metode
-            if (followingTourLive == null)
-            {
-                MessageBox.Show("Error: FollowingTourLive object not found.");
-                return;
-            }
-
-            // Ažuriranje liste turista za trenutni FollowingTourLive objekat
-            if (SelectedTourist != null)
-            {
-                SelectedTourist.ShowedUp = true;
-                followingTourLive.TouristsIds.Add(SelectedTourist.Id);
-                _followingTourLiveRepository.Update(followingTourLive);
-            }
-            else
-            {
-                MessageBox.Show("Please select a tourist before adding.");
-            }
-        }*/
 
         private void EndInEmTour_Click(object sender, RoutedEventArgs e)
         {

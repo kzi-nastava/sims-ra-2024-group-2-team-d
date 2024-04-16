@@ -7,14 +7,21 @@
         mc:Ignorable="d"
         Title="AccommodationReviews" Height="450" Width="800">
     <Grid>
-        <DataGrid Grid.Column="1" Grid.Row="0" Margin="10,29,20,20"
-       ItemsSource="{Binding Path = Reviews, UpdateSourceTrigger=PropertyChanged}"
-       IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Cistoca" Width="130" Binding="{Binding Cleanness}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Korektnost domacina" Width="130" Binding="{Binding Correctness}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Komentar" Width="*" Binding="{Binding Description}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel>
+            <!-- DataGrid za prikaz ocena -->
+            <DataGrid Grid.Column="1" Grid.Row="0" Margin="10,29,20,20"
+                      ItemsSource="{Binding Reviews}"
+                      IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Čistoća" Width="130" Binding="{Binding Cleanness}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Korektnost domaćina" Width="130" Binding="{Binding Correctness}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Komentar" Width="*" Binding="{Binding Description}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!-- Prikaz prosečne ocene -->
+            <TextBlock Margin="10" Text="{Binding AverageRatingText}" />
+            <!-- Prikaz statusa super-vlasnika -->
+            <TextBlock Margin="10" Text="{Binding SuperOwnerStatusText}" />
+        </StackPanel>
     </Grid>
 </Window>

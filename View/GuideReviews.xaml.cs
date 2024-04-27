@@ -51,9 +51,6 @@ namespace BookingApp.View
             touristReviews = new ObservableCollection<TouristReview>();
             GenerateReviews();
 
-
-            
-
         }
 
         public void GenerateReviews()

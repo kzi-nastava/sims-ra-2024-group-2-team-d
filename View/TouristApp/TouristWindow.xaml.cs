@@ -196,5 +196,11 @@ namespace BookingApp.View
             TouristNotificationView touristNotificationView = new TouristNotificationView(ActiveTours.ToList(), LoggedInUser);
             touristNotificationView.Show();
         }
+
+        private void TypeOfTourRequestSelection_Click(object sender, RoutedEventArgs e)
+        {
+            TypeOfTourRequestSelectionView typeOfTourRequestSelectionView = new TypeOfTourRequestSelectionView();
+            typeOfTourRequestSelectionView.ShowDialog();
+        }
     }
 }

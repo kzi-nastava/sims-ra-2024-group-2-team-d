@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristApp"
         mc:Ignorable="d"
-        Title="NumberOfTouristInsertion" Height="250" Width="200" WindowStartupLocation="CenterScreen">
+        Title="NumberOfTouristInsertion" Height="250" Width="250" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TextBlock HorizontalAlignment="Center" x:Name="textBox" Margin="0,34,0,0" TextWrapping="Wrap" Text="Enter number of tourists" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Center" x:Name="textBox" Margin="0,34,0,0" TextWrapping="Wrap" Text="Please enter number of tourists you want to make a reservation for" VerticalAlignment="Top" Height="63"/>
         <TextBox x:Name="touristNumberInput" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
-        <Button Content="Confirm" Click="ConfirmButton_Click" HorizontalAlignment="Left" Margin="37,178,0,0" VerticalAlignment="Top"/>
-        <Button Content="Close" Click="CloseButton_Click" HorizontalAlignment="Left" Margin="130,178,0,0" VerticalAlignment="Top"/>
+        <Button Content="Cancel" Width="50" Height="30" Click="CloseButton_Click" HorizontalAlignment="Left" Margin="37,178,0,0" VerticalAlignment="Top"/>
+        <Button Content="Confirm" Width="50" Height="30" Click="ConfirmButton_Click" HorizontalAlignment="Left" Margin="130,178,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

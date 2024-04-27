@@ -5,37 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristApp"
         mc:Ignorable="d"
-        Title="ReserveTourWindow" Height="450" Width="800">
+        Title="ReserveTourWindow" Height="768" Width="1024">
+    <Window.Resources>
+        <Style x:Key="MyTextStyle" TargetType="Label">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="MyTextStyleTB" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <!-- Podela Grid-a na dve kolone -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="321*"/>
+            <ColumnDefinition Width="191*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- StackPanel za TextBox-eve i Button u donjem levom uglu -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" VerticalAlignment="Center" Content="Name" Style="{StaticResource MyTextStyle}" Margin="10,0,0,0"/>
+            <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" x:Name="nameInput" Width="180" Height="30" Margin="0,0,0,5"/>
+            <ComboBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Height="30" Width="180" Margin="0,0,0,5" ItemsSource="{Binding UserGiftCards}" DisplayMemberPath="ExpirationDate" SelectedItem="{Binding SelectedGiftCard}"></ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Last name" Style="{StaticResource MyTextStyle}"></Label>
+                <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="lastNameInput" Width="180" Height="30" Margin="00,0,0,5"/>
+            
+                <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Age" Style="{StaticResource MyTextStyle}"></Label>
+            <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" x:Name="ageInput" Width="180" Height="30" Margin="0,0,0,5"/>
+            <Button Click="AddTouristButton_Click" Width="50" Height="50" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left">
+                <Image Source="../../Resources/Images/plus-icon.png" Height="40" Width="40"></Image>
+            </Button>
+            <TextBlock  Style="{StaticResource MyTextStyleTB}" Text="{Binding AddedTouristsCounter, StringFormat='Number of people left to reserve for: {0}'}" Grid.Row="3" Grid.ColumnSpan="3" />
+            <Button Content="Reserve" Grid.Column="1" Grid.Row="4" Height="100" Width="150"></Button>
+        </Grid>
+
+        <!-- StackPanel za TextBox-eve i Button u donjem levom uglu 
         <StackPanel Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
             <ComboBox ItemsSource="{Binding UserGiftCards}" DisplayMemberPath="ExpirationDate" SelectedItem="{Binding SelectedGiftCard}"></ComboBox>
             <TextBox x:Name="nameInput" Width="200" Margin="0,0,0,5"/>
             <TextBox x:Name="lastNameInput" Width="200" Margin="0,0,0,5"/>
             <TextBox x:Name="ageInput" Width="200" Margin="0,0,0,5"/>
             <Button Content="Add" Click="AddTouristButton_Click" Width="200"/>
-        </StackPanel>
+        </StackPanel> -->
 
         <!-- Lista sa desne strane -->
-        <ListView ItemsSource="{Binding Tourists}" x:Name="itemsList" Grid.Column="1" Margin="10">
+        <ListView ItemsSource="{Binding Tourists}" x:Name="itemsList" Grid.Column="1" Margin="10,10,10,10">
             <ListBox.ItemTemplate>
-    <DataTemplate>
-        <StackPanel>
-            <TextBlock Text="{Binding Name}" />
-            <TextBlock Text="{Binding LastName}" />
-            <TextBlock Text="{Binding Age}" />
-            
-            
-        </StackPanel>
-    </DataTemplate>
-</ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding Name}" />
+                        <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding LastName}" />
+                        <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding Age}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListView>
-        
+
     </Grid>
 </Window>

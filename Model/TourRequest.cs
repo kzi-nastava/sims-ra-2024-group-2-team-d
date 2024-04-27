@@ -7,7 +7,7 @@ using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
-    public enum Status { Accepted,OnHold, Invalid}
+    public enum Status { Accepted, OnHold, Invalid}
     public class TourRequest : ISerializable
     {
         public int Id { get; set; }
@@ -22,7 +22,7 @@ namespace BookingApp.Model
 
         public TourRequest()
         {
-
+            CurrentStatus = Status.OnHold;
         }
 
         public string[] ToCSV()

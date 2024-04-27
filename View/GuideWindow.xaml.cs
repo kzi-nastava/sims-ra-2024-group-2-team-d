@@ -127,6 +127,12 @@ namespace BookingApp.View
             }
         }
 
+        private void RequestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            RequestsGuide requestsGuide = new RequestsGuide(LoggedInUser);
+            requestsGuide.Show();
+        }
+
         /* private void ShowUpdateCommentForm(object sender, RoutedEventArgs e)
          {
              if (SelectedComment != null)

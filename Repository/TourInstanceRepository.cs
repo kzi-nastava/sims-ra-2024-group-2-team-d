@@ -109,5 +109,14 @@ namespace BookingApp.Repository
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.End == true).ToList();
         }
 
+        public bool CheckIfUserIsAvaliable(User user, DateTime dateTime)
+        {
+            if(_tourInstance.FindAll(x => x.BaseTour.UserId == user.Id && x.Date == dateTime).Count !=0)
+            {
+                return false;
+            }
+            else return true;
+        }
+
     }
 }

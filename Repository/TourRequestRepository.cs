@@ -40,5 +40,21 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _tourRequest);
             return tourRequest;
         }
+
+        public TourRequest Update(TourRequest tourRequest)
+        {
+            _tourRequest = _serializer.FromCSV(FilePath);
+            TourRequest current = _tourRequest.Find(c => c.Id == tourRequest.Id);
+            int index = _tourRequest.IndexOf(current);
+            _tourRequest.Remove(current);
+            _tourRequest.Insert(index, tourRequest);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _tourRequest);
+            return tourRequest;
+        }
+
+        public List<TourRequest> GetAll()
+        {
+            return _tourRequest;
+        }
     }
 }

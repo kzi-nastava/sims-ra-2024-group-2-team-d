@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.View.TouristApp;
 using BookingApp.WPF.Views;
+using BookingApp.WPF;
 
 namespace BookingApp.View
 {
@@ -42,7 +43,8 @@ namespace BookingApp.View
         private readonly TourReservationRepository _tourReservationRepository;
 
         private readonly GiftCardRepository _giftCardRepository;
- 
+
+        public ICommand Reserve { get; set; }
 
 
         public TouristWindow(User user)
@@ -60,6 +62,7 @@ namespace BookingApp.View
             _keyPointRepository = new KeyPointRepository();
             _giftCardRepository = new GiftCardRepository();
             _tourReservationRepository = new TourReservationRepository();
+            Reserve = new RelayCommand(MakeReservation);
             LinkEntities();
             MoveToActiveTours();
         }
@@ -140,7 +143,7 @@ namespace BookingApp.View
             }
         }
 
-        private void ReserveButton_Click(object sender, RoutedEventArgs e)
+        private void MakeReservation()
         {
             NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances, LoggedInUser, UserGiftCards);
             numberOfTouristInsertion.Show();

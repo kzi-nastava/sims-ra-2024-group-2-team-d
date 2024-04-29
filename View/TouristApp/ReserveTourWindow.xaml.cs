@@ -69,6 +69,7 @@ namespace BookingApp.View.TouristApp
             AddedTouristsCounter = TouristNumber;
             LoggedInUser = loggedInUser;
             UserGiftCards = userGiftCards;
+            ReserveButton.IsEnabled = false;
             AddUserToList();
         }
 
@@ -76,7 +77,11 @@ namespace BookingApp.View.TouristApp
         {
             Tourist tourist = new Tourist(LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age,LoggedInUser.Id);
             Tourists.Add(tourist);
-            --AddedTouristsCounter;
+            if (--AddedTouristsCounter == 0)
+            {
+                ReserveButton.IsEnabled = true;
+                AddTouristButton.IsEnabled = false;
+            }
         }
 
         private void AddTouristButton_Click(object sender, RoutedEventArgs e)
@@ -86,11 +91,15 @@ namespace BookingApp.View.TouristApp
             int age = int.Parse(ageInput.Text);
             Tourist tourist = new Tourist(name, lastName, age);
             Tourists.Add(tourist);
-           --AddedTouristsCounter;
+           if(--AddedTouristsCounter == 0)
+            {
+                ReserveButton.IsEnabled = true;
+                AddTouristButton.IsEnabled = false;
+            }
         }
         
 
-        private void ReserveTour()
+        private void ReserveTour(object sender, RoutedEventArgs e)
         {
             TourReservation tourReservation = new TourReservation(TourInstanceId,LoggedInUser.Id);
             tourReservation = _tourReservationRepository.Save(tourReservation);

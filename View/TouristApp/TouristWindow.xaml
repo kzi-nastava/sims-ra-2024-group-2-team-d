@@ -147,7 +147,7 @@
                 </ListBox>
                 
                 <TextBlock FontWeight="Bold"  FontSize="40" Margin="10,15,10,10" HorizontalAlignment="Right">Tours</TextBlock>
-                <ListBox Height="350" Width="780" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
+                <ListBox x:Name="TourReservations" Height="350" Width="780" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
                     <ListBox.ItemTemplate >
                         <DataTemplate>
                             <Grid>
@@ -188,7 +188,7 @@
                                     <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
                                     <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
-                                <Button Content="Reserve"  Click="ReserveButton_Click" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
+                                <Button Content="Reserve" Command="{Binding ElementName=TourReservations, Path=DataContext.Reserve}" CommandParameter="{Binding}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
                                 <StackPanel Grid.Row="1" Grid.Column="4">
                                     <Button Height="40" Width="40">
                                         <Image Source="../../Resources/Images/info-icon.png"></Image>

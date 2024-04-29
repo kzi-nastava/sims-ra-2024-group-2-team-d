@@ -11,15 +11,14 @@
         <ListBox ItemsSource="{Binding GiftCards}">
             
             <ListBox.ItemTemplate>
-                    <DataTemplate>
+                <DataTemplate>
                     <StackPanel Orientation="Horizontal">
+                        <Image Source="../../Resources/Images/voucher-icon.png" Height="40" Width="40"></Image>
                         <TextBlock Margin="10,10,10,10" Text="{Binding ReceiveDate, StringFormat='Receive Date: {0:yyyy-MM-dd}'}"/>
                         <TextBlock Margin="10,10,10,10" Text="{Binding ExpirationDate, StringFormat='Expiration Date: {0:yyyy-MM-dd}'}"/>
                     </StackPanel>
-                        
-                    </DataTemplate>
-                        
-                    </ListBox.ItemTemplate>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </StackPanel>
 </Window>

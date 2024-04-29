@@ -5,39 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristApp"
         mc:Ignorable="d"
-        Title="RecommendedAlternatives" Height="450" Width="800">
+        Title="RecommendedAlternatives" Height="768" Width="1024">
+    <Window.Resources>
+        <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="760"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="940"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="15"/>
+            <RowDefinition Height="63*"/>
+            <RowDefinition Height="46*"/>
+            <RowDefinition Height="643*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <ListBox ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
-                <ListBox.ItemTemplate>
+        <Menu Margin="0,0,0,5">
+            <Button Grid.Column="0" Width="50" Height="50">
+                <Image Source="../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
+            </Button>
+        </Menu>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="0,5,0,0">
+            <ListBox Height="632" Width="946" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
+                <ListBox.ItemTemplate >
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding BaseTour.Title}" FontWeight="Bold" />
-                            <TextBlock Text="{Binding BaseTour.Location}" />
-                            <TextBlock Text="{Binding BaseTour.MaxTourists, StringFormat='Maksimalan broj turista: {0}'}" />
-                            <TextBlock Text="{Binding Date}" />
-                            <TextBlock Text="{Binding BaseTour.Description}" />
-                            <TextBlock Text="{Binding BaseTour.Duration, StringFormat='Trajanje: {0} sati'}" />
-                            <TextBlock Text="{Binding Language}" />
-                            <Button Content="Reserve tour" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ReserveButton_Click" Margin="10,0,0,0" />
-                        </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
+                                <TextBlock Text="{Binding BaseTour.Title}" FontWeight="Bold" Style="{StaticResource MyTextStyle}" />
+                                <ContentControl Content="{Binding BaseTour.Pictures[0], FallbackValue=/path/to/default/image}">
+                                    <ContentControl.ContentTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </ContentControl.ContentTemplate>
+                                </ContentControl>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
+                                <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding BaseTour.Location}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="2">
+                                <Image Height="40" Width="40" Source="../../Resources/Images/calendar-icon.png"></Image>
+                                <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding Date}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="3">
+                                <Image Height="40" Width="40" Source="../../Resources/Images/duration-icon.jpg"></Image>
+                                <TextBlock Text="{Binding BaseTour.Duration}" Style="{StaticResource MyTextStyle}" />
+                            </StackPanel>
+                            <StackPanel  Grid.Row="0" Grid.Column="4">
+                                <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
+                                <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
+                            </StackPanel>
+                            <Button Content="Reserve"  Click="ReserveButton_Click" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
+                            <StackPanel Grid.Row="1" Grid.Column="4">
+                                <Button Height="40" Width="40">
+                                    <Image Source="../../Resources/Images/info-icon.png"></Image>
+                                </Button>
+                                <TextBlock Text="More info" Style="{StaticResource MyTextStyle}" />
+                            </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        <TextBlock Grid.Column="1" Text="In previous tour there weren't any empty spots. Here are other tours in the same location" HorizontalAlignment="Left" Margin="175,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="482" Height="20"/>
+        <TextBlock Grid.Column="1" FontWeight="Bold" FontSize="20" Text="Recommended tours on the same location" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="482" Height="28"/>
+        <TextBlock Grid.Column="1" Text="Previous tour is full. Here are other tours on the same location" Margin="0,63,0,11" Grid.RowSpan="2"/>
 
 
 

@@ -22,6 +22,7 @@
     <None Remove="Resources\Images\plus-icon.png" />
     <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="Resources\Images\voucher-icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +51,7 @@
     <Resource Include="Resources\Images\notification-icon.png" />
     <Resource Include="Resources\Images\plus-icon.png" />
     <Resource Include="Resources\Images\user-icon.png" />
+    <Resource Include="Resources\Images\voucher-icon.png" />
   </ItemGroup>
 
 </Project>

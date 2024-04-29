@@ -41,26 +41,17 @@
             <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" x:Name="nameInput" Width="180" Height="30" Margin="0,0,0,5"/>
             <ComboBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Height="30" Width="180" Margin="0,0,0,5" ItemsSource="{Binding UserGiftCards}" DisplayMemberPath="ExpirationDate" SelectedItem="{Binding SelectedGiftCard}"></ComboBox>
 
-                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Last name" Style="{StaticResource MyTextStyle}"></Label>
-                <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="lastNameInput" Width="180" Height="30" Margin="00,0,0,5"/>
-            
-                <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Age" Style="{StaticResource MyTextStyle}"></Label>
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Last name" Style="{StaticResource MyTextStyle}"></Label>
+            <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="lastNameInput" Width="180" Height="30" Margin="00,0,0,5"/>
+
+            <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Age" Style="{StaticResource MyTextStyle}"></Label>
             <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" x:Name="ageInput" Width="180" Height="30" Margin="0,0,0,5"/>
-            <Button Click="AddTouristButton_Click" Width="50" Height="50" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left">
+            <Button Click="AddTouristButton_Click" x:Name="AddTouristButton" Width="50" Height="50" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left">
                 <Image Source="../../Resources/Images/plus-icon.png" Height="40" Width="40"></Image>
             </Button>
             <TextBlock  Style="{StaticResource MyTextStyleTB}" Text="{Binding AddedTouristsCounter, StringFormat='Number of people left to reserve for: {0}'}" Grid.Row="3" Grid.ColumnSpan="3" />
-            <Button Content="Reserve" Grid.Column="1" Grid.Row="4" Height="100" Width="150"></Button>
+            <Button Content="Reserve" Click="ReserveTour" Grid.Column="1" Grid.Row="4" Height="100" Width="150" x:Name="ReserveButton"></Button>
         </Grid>
-
-        <!-- StackPanel za TextBox-eve i Button u donjem levom uglu 
-        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
-            <ComboBox ItemsSource="{Binding UserGiftCards}" DisplayMemberPath="ExpirationDate" SelectedItem="{Binding SelectedGiftCard}"></ComboBox>
-            <TextBox x:Name="nameInput" Width="200" Margin="0,0,0,5"/>
-            <TextBox x:Name="lastNameInput" Width="200" Margin="0,0,0,5"/>
-            <TextBox x:Name="ageInput" Width="200" Margin="0,0,0,5"/>
-            <Button Content="Add" Click="AddTouristButton_Click" Width="200"/>
-        </StackPanel> -->
 
         <!-- Lista sa desne strane -->
         <ListView ItemsSource="{Binding Tourists}" x:Name="itemsList" Grid.Column="1" Margin="10,10,10,10">

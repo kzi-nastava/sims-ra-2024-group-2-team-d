@@ -5,8 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
-        Title="MoreInfoAboutTourView" Height="450" Width="800">
+        Title="MoreInfoAboutTourView" Height="450" Width="780">
+    <Window.Resources>
+        <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="205*" />
+            <ColumnDefinition Width="205*" />
+            <ColumnDefinition Width="238*" />
+            <ColumnDefinition Width="172*" />
+        </Grid.ColumnDefinitions>
+        <Menu>
+            <Button Grid.Column="0" Width="50" Height="50">
+                <Image Source="../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
+            </Button>
+        </Menu>
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,205,0">
+            <TextBlock Text="{Binding TourInstance.BaseTour.Title}" FontWeight="Bold" Style="{StaticResource MyTextStyle}" />
+            <ContentControl Content="{Binding TourInstance.BaseTour.Pictures[0], FallbackValue=/path/to/default/image}">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Height="170" Margin="5" HorizontalAlignment="Right"/>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
+            <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding TourInstance.BaseTour.Location}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <Image Height="40" Width="40" Source="../../Resources/Images/calendar-icon.png"></Image>
+            <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding TourInstance.Date}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="3" >
+            <Image Height="40" Width="40" Source="../../Resources/Images/duration-icon.jpg"></Image>
+            <TextBlock Text="{Binding TourInstance.BaseTour.Duration}" Style="{StaticResource MyTextStyle}" />
+        </StackPanel>
+        <StackPanel  Grid.Row="2" Grid.Column="1">
+            <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
+            <TextBlock Text="{Binding TourInstance.BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
+        </StackPanel>
+        <StackPanel  Grid.Row="2" Grid.Column="2">
+            <Image Height="40" Width="40" Source="../../Resources/Images/people-icon.jpg"></Image>
+            <TextBlock Text="{Binding TourInstance.BaseTour.MaxTourists}" Style="{StaticResource MyTextStyle}" />
+        </StackPanel>
+        <StackPanel  Grid.Row="2" Grid.Column="3" Grid.RowSpan="2">
+            <Image Height="40" Width="40" Source="../../Resources/Images/pin-icon.png"></Image>
+            <ItemsControl ItemsSource="{Binding TourInstance.BaseTour.KeyPoints}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource MyTextStyle}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Text="{Binding TourInstance.BaseTour.Description}" Style="{StaticResource MyTextStyle}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Grid.RowSpan="2" />
+
+
     </Grid>
 </Window>

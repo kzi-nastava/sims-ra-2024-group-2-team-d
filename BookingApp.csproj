@@ -19,6 +19,8 @@
     <None Remove="Resources\Images\language-icon.png" />
     <None Remove="Resources\Images\location-icon.jpg" />
     <None Remove="Resources\Images\notification-icon.png" />
+    <None Remove="Resources\Images\people-icon.jpg" />
+    <None Remove="Resources\Images\pin-icon.png" />
     <None Remove="Resources\Images\plus-icon.png" />
     <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
@@ -49,6 +51,8 @@
     <Resource Include="Resources\Images\language-icon.png" />
     <Resource Include="Resources\Images\location-icon.jpg" />
     <Resource Include="Resources\Images\notification-icon.png" />
+    <Resource Include="Resources\Images\people-icon.jpg" />
+    <Resource Include="Resources\Images\pin-icon.png" />
     <Resource Include="Resources\Images\plus-icon.png" />
     <Resource Include="Resources\Images\user-icon.png" />
     <Resource Include="Resources\Images\voucher-icon.png" />

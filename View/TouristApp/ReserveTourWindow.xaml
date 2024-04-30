@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristApp"
         mc:Ignorable="d"
-        Title="ReserveTourWindow" Height="768" Width="1024">
+        Title="ReserveTourWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="MyTextStyle" TargetType="Label">
             <Setter Property="Margin" Value="10,10,10,10" />

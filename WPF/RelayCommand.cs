@@ -9,9 +9,8 @@ namespace BookingApp.WPF
 {
     public class RelayCommand : ICommand
     {
-        private Action _execute;
-        private Func<bool> _canExecute;
-        private Action<object> accept_Click;
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
 
         public event EventHandler CanExecuteChanged
         {
@@ -19,25 +18,27 @@ namespace BookingApp.WPF
             remove { CommandManager.RequerySuggested -= value; }
         }
 
+        // Konstruktor za komande koje ne zahtevaju parametre
         public RelayCommand(Action execute, Func<bool> canExecute = null)
+            : this(param => execute(), param => canExecute == null || canExecute())
         {
-            _execute = execute;
-            _canExecute = canExecute;
         }
 
-        public RelayCommand(Action<object> accept_Click)
+        // Konstruktor za komande koje zahtevaju parametre
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            this.accept_Click = accept_Click;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
         }
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute();
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            _execute();
+            _execute(parameter);
         }
     }
 }

@@ -46,6 +46,8 @@ namespace BookingApp.View
 
         public ICommand Reserve { get; set; }
 
+        public ICommand MoreInfoCommand {  get; set; }
+
 
         public TouristWindow(User user)
         {
@@ -62,16 +64,26 @@ namespace BookingApp.View
             _keyPointRepository = new KeyPointRepository();
             _giftCardRepository = new GiftCardRepository();
             _tourReservationRepository = new TourReservationRepository();
-            Reserve = new RelayCommand(MakeReservation);
+            Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
+            MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
             LinkEntities();
             MoveToActiveTours();
         }
         public void LinkEntities()
         {
             LinkTourInstancesWithTours();
+            LinkKeyPointsWithTourInstances();
             LinkPicturesWithTours();
             LinkGiftCardWithUser();
 
+        }
+
+        public void LinkKeyPointsWithTourInstances()
+        {
+            foreach(TourInstance tourInstance in TourInstances)
+            {
+                tourInstance.BaseTour.KeyPoints = _keyPointRepository.GetByTourInstance(tourInstance);
+            }
         }
 
         public void LinkGiftCardWithUser()
@@ -143,9 +155,9 @@ namespace BookingApp.View
             }
         }
 
-        private void MakeReservation()
+        private void MakeReservation(TourInstance tourInstance)
         {
-            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(SelectedTour, TourInstances, LoggedInUser, UserGiftCards);
+            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(tourInstance, TourInstances, LoggedInUser, UserGiftCards);
             numberOfTouristInsertion.Show();
 
         }
@@ -204,6 +216,12 @@ namespace BookingApp.View
         {
             TypeOfTourRequestSelectionView typeOfTourRequestSelectionView = new TypeOfTourRequestSelectionView();
             typeOfTourRequestSelectionView.ShowDialog();
+        }
+
+        public void ShowMoreInfo(TourInstance tourInstance)
+        {
+            MoreInfoAboutTourView moreInfoAboutTourView = new MoreInfoAboutTourView(tourInstance);
+            moreInfoAboutTourView.Show();
         }
     }
 }

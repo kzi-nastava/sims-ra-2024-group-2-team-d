@@ -9,6 +9,7 @@
     <Window.Resources>
         <local:CountToVisibilityConverter x:Key="VisibilityConverter" />
         <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="10,10,10,10" />
             <Setter Property="FontSize" Value="20" />
         </Style>
@@ -190,7 +191,7 @@
                                 </StackPanel>
                                 <Button Content="Reserve" Command="{Binding ElementName=TourReservations, Path=DataContext.Reserve}" CommandParameter="{Binding}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
                                 <StackPanel Grid.Row="1" Grid.Column="4">
-                                    <Button Height="40" Width="40">
+                                    <Button Height="40" Width="40" Command="{Binding ElementName=TourReservations, Path=DataContext.MoreInfoCommand}" CommandParameter="{Binding}">
                                         <Image Source="../../Resources/Images/info-icon.png"></Image>
                                     </Button>
                                     <TextBlock Text="More info" Style="{StaticResource MyTextStyle}" />

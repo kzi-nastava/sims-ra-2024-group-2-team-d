@@ -44,9 +44,13 @@ namespace BookingApp.View
 
         private readonly GiftCardRepository _giftCardRepository;
 
+        public ObservableCollection<string> UniqueLanguages { get; set; }
+
         public ICommand Reserve { get; set; }
 
         public ICommand MoreInfoCommand {  get; set; }
+
+        public ICommand OpenMorePicturesCommand {  get; set; }
 
 
         public TouristWindow(User user)
@@ -66,6 +70,7 @@ namespace BookingApp.View
             _tourReservationRepository = new TourReservationRepository();
             Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
+            OpenMorePicturesCommand = new RelayCommand(tourInstance => OpenMorePictures((TourInstance)tourInstance));
             LinkEntities();
             MoveToActiveTours();
         }
@@ -75,7 +80,20 @@ namespace BookingApp.View
             LinkKeyPointsWithTourInstances();
             LinkPicturesWithTours();
             LinkGiftCardWithUser();
+            LoadUniqueLanguages();
 
+        }
+
+        private void LoadUniqueLanguages()
+        {
+            UniqueLanguages = new ObservableCollection<string>(
+                TourInstances.Select(t => t.BaseTour.Language).Distinct());
+        }
+
+        public void OpenMorePictures(TourInstance tourInstance)
+        {
+            ShowMorePicturesView showMorePicturesView = new ShowMorePicturesView(tourInstance);
+            showMorePicturesView.Show();
         }
 
         public void LinkKeyPointsWithTourInstances()

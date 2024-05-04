@@ -1,8 +1,10 @@
 ﻿using BookingApp.Dto;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -30,7 +32,9 @@ namespace BookingApp.View
         public TourRequest TourRequest { get; set; }
         public TourRequestRepository _tourRequestRepository { get; set; }
         public TourInstanceRepository _tourInstanceRepository { get; set; }
+        public TourRepository _tourRepository { get; set; }
 
+        public List<TourInstance> TourInstances { get; set; }
         public TourInstance TourInstance { get; set; }
         public TourDto TourDto { get; set; }
 
@@ -42,11 +46,28 @@ namespace BookingApp.View
             LoggedInUser = user;
             _tourRequestRepository = new TourRequestRepository();
             _tourInstanceRepository = new TourInstanceRepository();
+            _tourRepository = new TourRepository();
+            //TourInstances = new List<TourInstance>(_tourInstanceRepository.GetAll());
+            //LinkTourInstancesWithTours();
+            //TourInstances = new ObservableCollection<TourInstance>(MainService.TourInstanceService.GetForTheDay1(LoggedInUser, TourInstances));
+
             TourRequest = tourRequest;
-            TourDto = new TourDto();
+            //TourDto = new TourDto();
 
 
         }
+
+        /*public void LinkTourInstancesWithTours()
+        {
+            foreach (TourInstance tourInstance in TourInstances)
+            {
+                Tour baseTour = _tourRepository.GetById(tourInstance.TourId);
+                if (baseTour != null)
+                {
+                    tourInstance.BaseTour = baseTour;
+                }
+            }
+        }*/
 
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
@@ -64,11 +85,15 @@ namespace BookingApp.View
                     DateTime StartDateTime = new DateTime(TourRequest.Start.Year, TourRequest.Start.Month, TourRequest.Start.Day);
                     DateTime EndDateTime = new DateTime(TourRequest.End.Year, TourRequest.End.Month, TourRequest.End.Day);
 
-                    if (parsedDate.Date >= StartDateTime && parsedDate.Date <= EndDateTime && _tourInstanceRepository.CheckIfUserIsAvaliable(LoggedInUser, parsedDate))
+                    if (parsedDate.Date >= StartDateTime && parsedDate.Date <= EndDateTime 
+                        && _tourInstanceRepository.CheckIfUserIsAvaliable(LoggedInUser, parsedDate, TourInstances) 
+                        && _tourRequestRepository.CheckUserIsAvaliable(LoggedInUser, parsedDate))
                     {
                         TourRequest.CurrentStatus = Status.Accepted;
+                        TourRequest.ChosenDateTime = parsedDate;
+                        TourRequest.GuideId = LoggedInUser.Id;
                         _tourRequestRepository.Update(TourRequest);
-                        CreateTourInstanceFromRequest(TourRequest, parsedDate);
+                        //CreateTourInstanceFromRequest(TourRequest, parsedDate);
 
                         MessageBox.Show("You have successfully acceptted this request!");
                         this.Close();
@@ -86,32 +111,6 @@ namespace BookingApp.View
 
             }
 
-
-
-
-            /* string validTour = TourDto.IsValid;
-
-             if (validTour == string.Empty)
-             {
-                 string format = "dd/MM/yyyy HH:mm";
-                 DateTime parsedDate;
-                 DateTime.TryParseExact(TourDto.Dates, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate);
-                 DateTime StartDateTime = new DateTime(TourRequest.Start.Year, TourRequest.Start.Month, TourRequest.Start.Day);
-                 DateTime EndDateTime = new DateTime(TourRequest.End.Year, TourRequest.End.Month, TourRequest.End.Day);
-
-                 if (parsedDate.Date >= StartDateTime && parsedDate.Date <= EndDateTime /*&& CheckIfUserIsAvaliable(user, parsedDate)*//*)
-                 {
-                     TourRequest.CurrentStatus = Status.Accepted;
-                     _tourRequestRepository.Update(TourRequest);
-                     CreateTourInstanceFromRequest(TourRequest, parsedDate);
-
-                     MessageBox.Show("You have successfully acceptted this request!");
-                     this.Close();
-                 }*/
-
-
-
-
             /*TourRequests.Remove(selectedRequest);
 
             RequestsGrid.ItemsSource = TourRequests;
@@ -120,18 +119,16 @@ namespace BookingApp.View
 
 
 
-        public void CreateTourInstanceFromRequest(TourRequest request, DateTime dateTime)
+        /*public void CreateTourInstanceFromRequest(TourRequest request, DateTime dateTime)
         {
             TourInstance = new TourInstance(request.Id, dateTime);
             _tourInstanceRepository.Save(TourInstance);
-        }
+        }*/
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
-
-        
+       
     }
 }

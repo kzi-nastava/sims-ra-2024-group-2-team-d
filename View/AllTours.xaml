@@ -31,21 +31,21 @@
         </StackPanel>
 
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Click="Delete">
+            <Button Command="{Binding DeleteCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
                     <TextBlock Name="DeleteTxtBlock" Text="Cancel Tour" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button x:Name="ShowStatistics" Click="ShowStatistics_Click">
+            <Button Command="{Binding StatisticsCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
                     <TextBlock Name="statTxtBlock" Text="Tour Statistics" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button x:Name="ShowReviews" Click="ShowReviews_Click">
+            <Button Command="{Binding ReviewsCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
                     <TextBlock Name="RevTxtBlock" Text="Reviews" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />

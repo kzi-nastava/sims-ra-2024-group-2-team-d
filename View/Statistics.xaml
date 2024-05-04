@@ -7,42 +7,59 @@
         mc:Ignorable="d"
         Title="Statistics" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="760"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" Grid.Column="1" Margin="0,0,0,-74" Grid.RowSpan="7" >
+            <TabItem Header="Tours">
 
+            </TabItem>
+            <TabItem Header="Requests">
+                
 
+            </TabItem>
+        </TabControl>
+        <!--StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" -->
+        <Button Grid.Column="1" Grid.Row="0" Content="Requests" Name="Requests" Width="100" Click="Requests_Click" Height="30" Margin="600,0,0,0"></Button>
 
-        <StackPanel Orientation="Vertical" >
-
-            <TextBlock Text="Best visited tour ever:" FontSize="25" Width="286" Height="59" />
-            <DataGrid x:Name="statisticsGrid"
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Best visited tour ever:" FontSize="25" Width="286" Height="45" />
+        <DataGrid x:Name="statisticsGrid" Grid.Row="2" Grid.Column="1"
   IsReadOnly="True"  AutoGenerateColumns="False"
-   ItemsSource="{Binding instances, UpdateSourceTrigger=PropertyChanged}" Height="55" Width="776"
+   ItemsSource="{Binding instances, UpdateSourceTrigger=PropertyChanged}" Height="55" Margin="10,2,10,2"
    >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Tour Title" Binding="{Binding BaseTour.Title}" Width="300"/>
-                    <DataGridTextColumn Header="Tour Date and Time" Binding="{Binding Date}" Width="Auto"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <TextBlock Text="Best visited tour in:" FontSize="25" Width="228" Height="40" Margin="30" />
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tour Title" Binding="{Binding BaseTour.Title}" Width="300"/>
+                <DataGridTextColumn Header="Tour Date and Time" Binding="{Binding Date}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
-            <StackPanel Orientation="Horizontal" Margin="50 0 50 20" Width="233" Height="37">
-                <TextBox Width="144" Name="SearchTextBox"  Height="31"  Margin="0,0,0,20"/>
-                <Button Content="Search" Name="SearchBUtton" Width="87" Click="SearchBUtton_Click" Height="35"></Button>
-            </StackPanel>
+        <TextBlock Grid.Column="1" Grid.Row="4" Text="Best visited tour in:" FontSize="25" Width="286" Height="45" />
+        <!--StackPanel Orientation="Horizontal" Margin="50 0 50 20" Width="233" Height="37"-->
+        <TextBox Grid.Column="1" Grid.Row="5" Width="144" Name="SearchTextBox"  Height="31"  Margin="244,14,372,14"/>
+        <Button Grid.Column="1" Grid.Row="5" Content="Search" Name="SearchBUtton" Width="50" Click="SearchBUtton_Click" Height="35" Margin="393,12,317,12"></Button>
+        <!--/StackPanel-->
 
-            <DataGrid x:Name="statisticsGridYear"
+        <DataGrid Grid.Column="1" Grid.Row="6" x:Name="statisticsGridYear"
 IsReadOnly="True"  AutoGenerateColumns="False"
  ItemsSource="{Binding tourYear, UpdateSourceTrigger=PropertyChanged}"  Height="61" Width="780" Margin="10,10,10,0"
  >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Tour Title" Binding="{Binding BaseTour.Title}" Width="300" />
-                    <DataGridTextColumn Header="Tour Date and Time" Binding="{Binding Date}" Width="Auto"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tour Title" Binding="{Binding BaseTour.Title}" Width="300" />
+                <DataGridTextColumn Header="Tour Date and Time" Binding="{Binding Date}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
-
-        </StackPanel>
-
-
-
+        <!--/StackPanel-->
     </Grid>
 </Window>

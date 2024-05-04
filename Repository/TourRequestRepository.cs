@@ -32,6 +32,72 @@ namespace BookingApp.Repository
             return _tourRequest.Max(c => c.Id) + 1;
         }
 
+        public List<TourRequest> getByStatus()
+        {
+            return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold).ToList();
+        }
+
+        public List<TourRequest> FilterByLocation(string location)
+        {
+            return _tourRequest.Where(x =>x.CurrentStatus==Status.OnHold && x.Location == location).ToList();
+        }
+
+        public List<TourRequest> FilterByLanguage(string language)
+        {
+            return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold && x.Language == language).ToList();
+        }
+
+        public List<TourRequest> FilterByNumOfTourists(int num)
+        {
+            return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold && x.NumberOfTourists == num).ToList();
+        }
+
+        public List<TourRequest> FilterByDateRange(DateOnly start, DateOnly end)
+        {
+            return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold &&
+            ((x.Start>=start && x.Start<=end) || (x.End<=end && x.End>=start))).ToList();
+        }
+
+        public string FindMostWantedLocInLastYear()
+        {
+            Dictionary<string, int> counts = new Dictionary<string, int>();
+            List<TourRequest> tourRequests = new List<TourRequest>(_tourRequest.Where(x => x.CreatedOn >= DateOnly.FromDateTime(DateTime.Now.AddYears(-1))).ToList());
+            //tourRequests = _tourRequest.Where(x => x.CreatedOn >= DateOnly.FromDateTime(DateTime.Now.AddYears(-1))).ToList();         
+            foreach (var request in tourRequests)
+            {
+                if (counts.ContainsKey(request.Location))
+                {
+                    counts[request.Location]++;
+                }
+                else
+                {
+                    counts[request.Location] = 1;
+                }
+            }
+            string location = counts.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            return location;
+        }
+
+        public string FindMostWantedLangInLastYear()
+        {
+            Dictionary<string, int> counts = new Dictionary<string, int>();
+            List<TourRequest> tourRequests = new List<TourRequest>(_tourRequest.Where(x => x.CreatedOn >= DateOnly.FromDateTime(DateTime.Now.AddYears(-1))).ToList());
+            //tourRequests = _tourRequest.Where(x => x.CreatedOn >= DateOnly.FromDateTime(DateTime.Now.AddYears(-1))).ToList();
+            foreach (var request in tourRequests)
+            {
+                if (counts.ContainsKey(request.Language))
+                {
+                    counts[request.Language]++;
+                }
+                else
+                {
+                    counts[request.Language] = 1;
+                }
+            }
+            string language = counts.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            return language;
+        }
+
         public TourRequest Save(TourRequest tourRequest)
         {
             tourRequest.Id = NextId();
@@ -55,6 +121,15 @@ namespace BookingApp.Repository
         public List<TourRequest> GetAll()
         {
             return _tourRequest;
+        }
+
+        public bool CheckUserIsAvaliable(User user, DateTime dateTime)
+        {
+            if (_tourRequest.Where(x => x.CurrentStatus == Status.Accepted && x.GuideId == user.Id && x.ChosenDateTime == dateTime).ToList().Count != 0)
+            {
+                return false;
+            }
+            else return true;
         }
     }
 }

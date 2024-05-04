@@ -44,7 +44,11 @@ namespace BookingApp.View
 
         private readonly GiftCardRepository _giftCardRepository;
 
+        private readonly TouristNotificationsRepository _touristNotificationsRepository;
+
         public ObservableCollection<string> UniqueLanguages { get; set; }
+
+        public ObservableCollection<TouristNotifications> Notifications { get; set; }
 
         public ICommand Reserve { get; set; }
 
@@ -63,11 +67,13 @@ namespace BookingApp.View
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
             UserGiftCards = new ObservableCollection<GiftCard>();
+            Notifications = new ObservableCollection<TouristNotifications>();
             SelectedTour = new TourInstance();
             _pictureRepository = new PictureRepository();
             _keyPointRepository = new KeyPointRepository();
             _giftCardRepository = new GiftCardRepository();
             _tourReservationRepository = new TourReservationRepository();
+            _touristNotificationsRepository = new TouristNotificationsRepository();
             Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
             OpenMorePicturesCommand = new RelayCommand(tourInstance => OpenMorePictures((TourInstance)tourInstance));
@@ -81,7 +87,18 @@ namespace BookingApp.View
             LinkPicturesWithTours();
             LinkGiftCardWithUser();
             LoadUniqueLanguages();
+            LinkNotifications();
 
+        }
+
+        public void LinkNotifications()
+        {
+            List<TouristNotifications> notifications = _touristNotificationsRepository.GetByUserId(LoggedInUser.Id);
+            notifications.Reverse();
+            foreach(var notification in notifications)
+            {
+                Notifications.Add(notification);
+            }
         }
 
         private void LoadUniqueLanguages()
@@ -226,8 +243,10 @@ namespace BookingApp.View
 
         private void Notification_Click(object sender, RoutedEventArgs e)
         {
+            notificationPopup.IsOpen = !notificationPopup.IsOpen;
+            /*
             TouristNotificationView touristNotificationView = new TouristNotificationView(ActiveTours.ToList(), LoggedInUser);
-            touristNotificationView.Show();
+            touristNotificationView.Show(); */
         }
 
         private void TypeOfTourRequestSelection_Click(object sender, RoutedEventArgs e)

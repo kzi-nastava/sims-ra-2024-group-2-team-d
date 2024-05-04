@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
+using BookingApp.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +24,7 @@ namespace BookingApp.View
     /// </summary>
     public partial class GuideWindow : Window
     {
-        public static ObservableCollection<Comment> Comments { get; set; }
+       /* public static ObservableCollection<Comment> Comments { get; set; }
         public static ObservableCollection<TourInstance> TourInstances { get; set; }
 
         public static ObservableCollection<Tour> Tours { get; set; }
@@ -39,35 +41,41 @@ namespace BookingApp.View
         private readonly CommentRepository _repository;
         private readonly TourInstanceRepository _tourInstanceRepository;
 
+        private MainService MainService { get; set; }*/
+
         public GuideWindow(User user)
         {
             InitializeComponent();
+            DataContext = new GuideWindowViewModel(user);
+            /*MainService = MainService.GetInstance();
             DataContext = this;
             LoggedInUser = user;
             _tourInstanceRepository = new TourInstanceRepository();
             _tourRepository = new TourRepository();
-            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
+            TourInstances = new ObservableCollection<TourInstance>(MainService.TourInstanceService.GetAll());
             LinkTourInstancesWithTours();
-            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetForTheDay1(user, TourInstances));
+            TourInstances = new ObservableCollection<TourInstance>(MainService.TourInstanceService.GetForTheDay1(user, TourInstances));*/
         }
 
-        public void LinkTourInstancesWithTours()
-        {
-            foreach (TourInstance tourInstance in TourInstances)
-            {
-                Tour baseTour = _tourRepository.GetById(tourInstance.TourId);
-                if (baseTour != null)
-                {
-                    tourInstance.BaseTour = baseTour;
-                }
-            }
-        }
+        
 
-        private void ShowCreateCommentForm(object sender, RoutedEventArgs e)
-        {
-            CreateTour createTour = new CreateTour(LoggedInUser);
-            createTour.Show();
-        }
+        /* public void LinkTourInstancesWithTours()
+         {
+             foreach (TourInstance tourInstance in TourInstances)
+             {
+                 Tour baseTour = _tourRepository.GetById(tourInstance.TourId);
+                 if (baseTour != null)
+                 {
+                     tourInstance.BaseTour = baseTour;
+                 }
+             }
+         }
+
+         private void ShowCreateCommentForm(object sender, RoutedEventArgs e)
+         {
+             CreateTour createTour = new CreateTour(LoggedInUser);
+             createTour.Show();
+         }*/
 
         /*private void ShowViewCommentForm(object sender, RoutedEventArgs e)
         {
@@ -78,32 +86,32 @@ namespace BookingApp.View
             }
         }*/
 
-        private void StartTourButton_Click(object sender, RoutedEventArgs e)
+        /*private void StartTourButton_Click(object sender, RoutedEventArgs e)*/
+        //{
+        /*if (SelectedTourInstance != null)
         {
-            /*if (SelectedTourInstance != null)
-            {
-                FollowingTourLive followingTourLive = new FollowingTourLive(SelectedTourInstance);
-                followingTourLive.Show();
-            }
-
-
-            if (TourGrid.SelectedIndex == -1)
-            {
-                return;
-            }*/
-
-            TourInstance ti = TourGrid.SelectedItem as TourInstance;
-            //otvara se prozor sa tom turom
-            if (ti.End != true)
-            {
-                FollowTour ft = new FollowTour(ti);
-                ft.Show();
-                Close();
-            }
-
+            FollowingTourLive followingTourLive = new FollowingTourLive(SelectedTourInstance);
+            followingTourLive.Show();
         }
 
-        private void ShowAllTours(object sender, RoutedEventArgs e)
+
+        if (TourGrid.SelectedIndex == -1)
+        {
+            return;
+        }*/
+
+        /*TourInstance ti = TourGrid.SelectedItem as TourInstance;
+        //otvara se prozor sa tom turom
+        if (ti.End != true)
+        {
+            FollowTour ft = new FollowTour(ti);
+            ft.Show();
+            Close();
+        }
+
+    }*/
+
+        /*private void ShowAllTours(object sender, RoutedEventArgs e)
         {
             AllTours allTours = new AllTours(LoggedInUser);
             allTours.Show();
@@ -132,30 +140,7 @@ namespace BookingApp.View
             RequestsGuide requestsGuide = new RequestsGuide(LoggedInUser);
             requestsGuide.Show();
         }
-
-        /* private void ShowUpdateCommentForm(object sender, RoutedEventArgs e)
-         {
-             if (SelectedComment != null)
-             {
-                 CommentForm updateCommentForm = new CommentForm(SelectedComment, LoggedInUser);
-                 updateCommentForm.Show();
-             }
-         }
-
-         private void Delete(object sender, RoutedEventArgs e)
-         {
-             if (SelectedComment != null)
-             {
-                 MessageBoxResult result = MessageBox.Show("Are you sure?", "Delete comment",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question);
-                 if (result == MessageBoxResult.Yes)
-                 {
-                     _repository.Delete(SelectedComment);
-                     Comments.Remove(SelectedComment);
-                 }
-             }
-         }*/
-
+        */
 
     }
 }

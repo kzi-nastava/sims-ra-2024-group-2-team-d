@@ -23,7 +23,7 @@
             <DataGrid ItemsSource="{Binding TourInstances}" x:Name="TourGrid"
       SelectedItem="{Binding Path=SelectedTourInstance}"
       IsReadOnly="True" SelectionMode="Single" 
-  AutoGenerateColumns="False" Height="325" HeadersVisibility="Column" FontSize="13">
+  AutoGenerateColumns="False" Height="325" HeadersVisibility="Column" FontSize="13" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Tours for the day" Binding="{Binding BaseTour.Title}" Width="400"/>
                     <DataGridTextColumn Header="Time" Binding="{Binding Date, StringFormat={}{0:HH:mm}}" Width="*"/>
@@ -32,42 +32,42 @@
         </StackPanel>
 
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Click="ShowCreateCommentForm">
+            <Button Command="{Binding ShowCreateTour}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
                     <TextBlock Text="Create Tour" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button x:Name="StartTourButton" Click="StartTourButton_Click">
+            <Button x:Name="StartTourButton" Command="{Binding ShowStartTour}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/view.png" Width="20" Height="25"/>
                     <TextBlock Text="Start tour" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button Click="ShowAllTours">
+            <Button Command="{Binding ShowAllTours}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
                     <TextBlock Text="All tours" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button x:Name="statisticsButton" Click="statisticsButton_Click">
+            <Button x:Name="statisticsButton" Command="{Binding ShowStatistics}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
                     <TextBlock Text="Statistics" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button x:Name="LogOutButton" Click="LogOutButton_Click" VerticalAlignment="Top">
+            <Button x:Name="LogOutButton" Command="{Binding ShowLogOut}" VerticalAlignment="Top">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
                     <TextBlock Text="Log Out" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button x:Name="RequestsButton" Click="RequestsButton_Click" VerticalAlignment="Top">
+            <Button x:Name="RequestsButton" Command="{Binding ShowRequests}" VerticalAlignment="Top">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
                     <TextBlock Text="Tour Requests" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />

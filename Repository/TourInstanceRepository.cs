@@ -92,7 +92,7 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _tourInstance);
         }
 
-        //ISPRAVNA
+        //ISPRAVNA izbrisi
         public List<TourInstance> GetForTheDay1(User user, ObservableCollection<TourInstance> tours)
         {
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today).ToList();
@@ -109,9 +109,9 @@ namespace BookingApp.Repository
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.End == true).ToList();
         }
 
-        public bool CheckIfUserIsAvaliable(User user, DateTime dateTime)
+        public bool CheckIfUserIsAvaliable(User user, DateTime dateTime, List<TourInstance> tourInstances)
         {
-            if(_tourInstance.FindAll(x => x.BaseTour.UserId == user.Id && x.Date == dateTime).Count !=0)
+            if (tourInstances.Where(x => x.BaseTour.UserId == user.Id && x.Date == dateTime).ToList().Count != 0)
             {
                 return false;
             }

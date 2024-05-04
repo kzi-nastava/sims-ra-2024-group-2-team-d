@@ -3,7 +3,9 @@ using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,10 +22,33 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for RequestsGuide.xaml
     /// </summary>
-    public partial class RequestsGuide : Window
+    public partial class RequestsGuide : Window,INotifyPropertyChanged
     {
         public User LoggedInUser { get; set; }
         public ObservableCollection<TourRequest> TourRequests { get; set; }
+        private TourRequest tourReq;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+        public TourRequest SelectedTour
+        {
+            get
+            {
+                return this.tourReq;
+            }
+
+            set
+            {
+                this.tourReq = value;
+                OnPropertyChanged("SelectedTour");
+
+            }
+        }
         public TourRequestRepository _tourRequestRepository { get; set; }
         public TourInstance TourInstance { get; set; }
         public TourInstanceRepository _tourInstanceRepository { get; set; }
@@ -35,14 +60,14 @@ namespace BookingApp.View
             _tourInstanceRepository = new TourInstanceRepository();
             
             _tourRequestRepository = new TourRequestRepository();
-            TourRequests = new ObservableCollection<TourRequest>(_tourRequestRepository.GetAll());
+            //TourRequests = new ObservableCollection<TourRequest>(_tourRequestRepository.GetAll());
             GenerateTourRequests();
            
         }
 
         public void GenerateTourRequests()
         {
-            TourRequests = new ObservableCollection<TourRequest>(TourRequests.Where(x => x.CurrentStatus == Status.OnHold).ToList());
+            TourRequests = new ObservableCollection<TourRequest>(_tourRequestRepository.getByStatus());
             RequestsGrid.ItemsSource = TourRequests;
             RequestsGrid.DataContext = TourRequests;
         }
@@ -61,22 +86,56 @@ namespace BookingApp.View
 
             AcceptReqGuide acceptReqGuide = new AcceptReqGuide(selectedRequest, LoggedInUser);
             acceptReqGuide.ShowDialog();
-            TourRequests.Clear();
+            
             GenerateTourRequests();
 
-            /*MessageBox.Show("You have accepted selected tour request!");
+        }
 
-             TourRequest selectedRequest = (TourRequest)RequestsGrid.SelectedItem;
-             selectedRequest.CurrentStatus = Status.Accepted;
-             _tourRequestRepository.Update(selectedRequest);
-             CreateTourInstanceFromRequest(selectedRequest);
+        private void SearchByLocation_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchLocation.Text == "") return;
+            string Location = SearchLocation.Text;
+         
+            TourRequests = new ObservableCollection<TourRequest>(_tourRequestRepository.FilterByLocation(Location));
+            RequestsGrid.ItemsSource = TourRequests;
+            RequestsGrid.DataContext = TourRequests;
+        }
 
+        private void SearchByNum_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchNum.Text == "") return;
+            int Num = Convert.ToInt32(SearchNum.Text);
 
+            TourRequests = new ObservableCollection<TourRequest>(_tourRequestRepository.FilterByNumOfTourists(Num));
+            RequestsGrid.ItemsSource = TourRequests;
+            RequestsGrid.DataContext = TourRequests;
+        }
 
-             TourRequests.Remove(selectedRequest);
+        private void SearchByLanguage_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchLanguage.Text == "") return;
+            string Language = SearchLanguage.Text;
 
-             RequestsGrid.ItemsSource = TourRequests;
-             RequestsGrid.DataContext = TourRequests;*/
+            TourRequests = new ObservableCollection<TourRequest>(_tourRequestRepository.FilterByLanguage(Language));
+            RequestsGrid.ItemsSource = TourRequests;
+            RequestsGrid.DataContext = TourRequests;
+        }
+
+        private void SearchByDate_Click(object sender, RoutedEventArgs e)
+        {
+            if (StartDate.Text == "") return;
+            if (EndDate.Text == "") return;
+
+            DateOnly Start = DateOnly.ParseExact(StartDate.Text, "yyyy-MM-dd", null);
+            DateOnly End = DateOnly.ParseExact(EndDate.Text, "yyyy-MM-dd", null);
+            TourRequests = new ObservableCollection<TourRequest>(_tourRequestRepository.FilterByDateRange(Start, End));
+            RequestsGrid.ItemsSource = TourRequests;
+            RequestsGrid.DataContext = TourRequests;
+
+        }
+
+        private void Statistics_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 

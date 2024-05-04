@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="Tourist" Height="768" Width="1024">
+        Title="Tourist" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <local:CountToVisibilityConverter x:Key="VisibilityConverter" />
         <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="10,10,10,10" />
             <Setter Property="FontSize" Value="20" />
         </Style>
@@ -74,7 +75,7 @@
                         <TextBlock FontSize="16" Text="Duration" Margin="10,10,10,10" ></TextBlock>
                         <TextBox x:Name="durationInput" Width="150" Margin="10,10,10,10"></TextBox>
                         <TextBlock FontSize="16" Text="Language" Margin="10,10,10,10" ></TextBlock>
-                        <ComboBox x:Name="languageInput" ItemsSource="{Binding TourInstances}" DisplayMemberPath="BaseTour.Language" Width="150" Margin="10,10,10,10"></ComboBox>
+                        <ComboBox x:Name="languageInput" ItemsSource="{Binding UniqueLanguages}" Width="150" Margin="10,10,10,10"/>
                         <TextBlock FontSize="16" Text="Num of people" Margin="10,10,10,10" ></TextBlock>
                         <TextBox x:Name="numberOfPeopleInput" Width="150" Margin="10,10,10,10"></TextBox>
                         <StackPanel Orientation="Horizontal">
@@ -83,7 +84,7 @@
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
-                <Button Height="40" Width="100" Margin="5,100,10,10">Create request</Button>
+                <Button Height="40" Width="100" Margin="5,100,10,10" Click="TypeOfTourRequestSelection_Click">Create request</Button>
             </StackPanel>
         </DockPanel>
         
@@ -147,7 +148,7 @@
                 </ListBox>
                 
                 <TextBlock FontWeight="Bold"  FontSize="40" Margin="10,15,10,10" HorizontalAlignment="Right">Tours</TextBlock>
-                <ListBox Height="350" Width="780" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
+                <ListBox x:Name="TourReservations" Height="350" Width="780" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
                     <ListBox.ItemTemplate >
                         <DataTemplate>
                             <Grid>
@@ -164,13 +165,13 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
                                     <TextBlock Text="{Binding BaseTour.Title}" FontWeight="Bold" Style="{StaticResource MyTextStyle}" />
-                                    <ContentControl Content="{Binding BaseTour.Pictures[0], FallbackValue=/path/to/default/image}">
-                                        <ContentControl.ContentTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding}" Height="100" Margin="5" HorizontalAlignment="Right"/>
-                                            </DataTemplate>
-                                        </ContentControl.ContentTemplate>
-                                    </ContentControl>
+                                    <Button Command="{Binding ElementName=TourReservations, Path=DataContext.OpenMorePicturesCommand}" CommandParameter="{Binding}">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Source="{Binding BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Grid.Column="1">
                                     <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
@@ -188,9 +189,9 @@
                                     <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
                                     <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
-                                <Button Content="Reserve"  Click="ReserveButton_Click" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
+                                <Button Content="Reserve" Command="{Binding ElementName=TourReservations, Path=DataContext.Reserve}" CommandParameter="{Binding}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
                                 <StackPanel Grid.Row="1" Grid.Column="4">
-                                    <Button Height="40" Width="40">
+                                    <Button Height="40" Width="40" Command="{Binding ElementName=TourReservations, Path=DataContext.MoreInfoCommand}" CommandParameter="{Binding}">
                                         <Image Source="../../Resources/Images/info-icon.png"></Image>
                                     </Button>
                                     <TextBlock Text="More info" Style="{StaticResource MyTextStyle}" />

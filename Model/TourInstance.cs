@@ -65,8 +65,7 @@ namespace BookingApp.Model
                 EmptySpots.ToString(),
                 Start.ToString(),
                 End.ToString(),
-                IsNotReviewed.ToString(),
-                TourRequestId.ToString()
+                IsNotReviewed.ToString()
             
             };
             return csvValues;
@@ -82,7 +81,6 @@ namespace BookingApp.Model
             Start = bool.Parse(values[4]);
             End = bool.Parse(values[5]);
             IsNotReviewed = bool.Parse(values[6]);
-            TourRequestId = int.Parse(values[7]);
             
         }
     }

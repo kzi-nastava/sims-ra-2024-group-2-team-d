@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace BookingApp.View.TouristApp
     /// <summary>
     /// Interaction logic for ReserveTourWindow.xaml
     /// </summary>
-    public partial class ReserveTourWindow : Window
+    public partial class ReserveTourWindow : Window, INotifyPropertyChanged
     {
         private TouristRepository _touristRepository {  get; set; }
 
@@ -36,13 +37,23 @@ namespace BookingApp.View.TouristApp
 
         public int TourInstanceId {  get; set; }
 
-        public int AddedTouristsCounter {  get; set; }
-
         public User LoggedInUser {  get; set; }
 
         public ObservableCollection<GiftCard> UserGiftCards {  get; set; }
 
         public GiftCard SelectedGiftCard {  get; set; }
+
+        private int addedTouristsCounter;
+
+        public int AddedTouristsCounter
+        {
+            get { return addedTouristsCounter; }
+            set
+            {
+                addedTouristsCounter = value;
+                OnPropertyChanged(nameof(AddedTouristsCounter));
+            }
+        }
 
         public ReserveTourWindow(int touristNumber, int tourInstanceId, User loggedInUser, ObservableCollection<GiftCard> userGiftCards)
         {
@@ -58,6 +69,7 @@ namespace BookingApp.View.TouristApp
             AddedTouristsCounter = TouristNumber;
             LoggedInUser = loggedInUser;
             UserGiftCards = userGiftCards;
+            ReserveButton.IsEnabled = false;
             AddUserToList();
         }
 
@@ -65,9 +77,10 @@ namespace BookingApp.View.TouristApp
         {
             Tourist tourist = new Tourist(LoggedInUser.FirstName, LoggedInUser.LastName, LoggedInUser.Age,LoggedInUser.Id);
             Tourists.Add(tourist);
-            if (ReduceAndCheckTouristCounter())
+            if (--AddedTouristsCounter == 0)
             {
-                ReserveTour();
+                ReserveButton.IsEnabled = true;
+                AddTouristButton.IsEnabled = false;
             }
         }
 
@@ -77,20 +90,16 @@ namespace BookingApp.View.TouristApp
             string lastName = lastNameInput.Text;
             int age = int.Parse(ageInput.Text);
             Tourist tourist = new Tourist(name, lastName, age);
-            Tourists.Add(tourist); 
-            
-            if (ReduceAndCheckTouristCounter())
+            Tourists.Add(tourist);
+           if(--AddedTouristsCounter == 0)
             {
-                ReserveTour();
+                ReserveButton.IsEnabled = true;
+                AddTouristButton.IsEnabled = false;
             }
         }
+        
 
-        private bool ReduceAndCheckTouristCounter()
-        {
-            return --AddedTouristsCounter == 0;
-        }
-
-        private void ReserveTour()
+        private void ReserveTour(object sender, RoutedEventArgs e)
         {
             TourReservation tourReservation = new TourReservation(TourInstanceId,LoggedInUser.Id);
             tourReservation = _tourReservationRepository.Save(tourReservation);
@@ -108,6 +117,13 @@ namespace BookingApp.View.TouristApp
             tourInstance.EmptySpots -= TouristNumber;
             _tourInstanceRepository.UpdateFreeSpots(tourInstance);
             this.Close();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

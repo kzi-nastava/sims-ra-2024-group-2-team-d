@@ -36,6 +36,8 @@ namespace BookingApp.View
         public FollowingTourLive FollowingTourLive;
         private readonly FollowingTourLiveRepository _followingTourLiveRepository;
 
+        public List<int> TouristsId { get; set; }
+
         public Tourist SelectedTourist { get; set; }
         //public int i = 0;
 
@@ -60,6 +62,7 @@ namespace BookingApp.View
             _tourReservationRepository = new TourReservationRepository();
             _touristRepository = new TouristRepository();
             Tourists = new ObservableCollection<Tourist>(_tourReservationRepository.GetAllTouristByTourId(TourInstance.Id));
+            TouristsId = new List<int>();
 
 
 
@@ -160,7 +163,23 @@ namespace BookingApp.View
                 _touristRepository.Update(ti);
                 followingTourLive.TouristsIds.Add(ti.Id);
                 _followingTourLiveRepository.Update(followingTourLive);
+                TouristsId.Add(ti.Id);
+                if(ti.UserId != -1)
+                {
+                    NotifyTouristUser(ti.UserId);
+                }
             }
+        }
+
+        private void NotifyTouristUser(int userId)
+        {
+            LiveTourNotification liveTourNotification = new LiveTourNotification(TouristsId);
+            LiveTourNotificationRepository _liveTourNotificationRepository = new LiveTourNotificationRepository();
+            LiveTourNotification savedNotification = _liveTourNotificationRepository.Save(liveTourNotification);
+            TouristNotifications notification = new TouristNotifications(savedNotification.Id, "You have been added to the tour. Click \"See more\" to see other tourists", NotificationType.AddedToLiveTour, userId);
+            TouristNotificationsRepository _touristNotificationsRepository = new TouristNotificationsRepository();
+            _touristNotificationsRepository.Save(notification);
+
         }
 
         private void EndInEmTour_Click(object sender, RoutedEventArgs e)

@@ -31,16 +31,33 @@
                         <TextBlock FontWeight="Bold"  FontSize="20" Text="{Binding LoggedInUser.Username, StringFormat='Hello, {0}'}" Margin="20,15,20,15"></TextBlock>
                         <Button Height="40" Width="80" Margin="20,15,20,15" Click="MyTours_Click">My tours</Button>
                         <Button Height="40" Width="80" Margin="20,15,20,15">My requests</Button>
-                        <Button Height="50" Width="60" Margin="20,15,20,15" Click="Notification_Click">
+                        <Button x:Name="NotificationIcon" Height="50" Width="60" Margin="20,15,20,15" Click="Notification_Click">
                             <Image Source="../../Resources/Images/notification-icon.png" Height="40" Width="40"></Image>
-                            <Button.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Prva opcija"/>
-                                    <MenuItem Header="Druga opcija"/>
-                                    <MenuItem Header="Treća opcija"/>
-                                </ContextMenu>
-                            </Button.ContextMenu>
                         </Button>
+                        <Popup x:Name="notificationPopup" PlacementTarget="{Binding ElementName=NotificationIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
+                            <Border Background="WhiteSmoke" BorderBrush="Black" BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock HorizontalAlignment="Center">
+                                        <Underline>
+                                            Notifications
+                                        </Underline>
+                                    </TextBlock>
+                                    <ListBox x:Name="notifications" ItemsSource="{Binding Notifications}" SelectedItem="{Binding SelectedTour}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Message}" HorizontalAlignment="Center"></TextBlock>
+                                                    <StackPanel>
+                                                        <Button Content="See more" Style="{StaticResource MyButtonStyle}"></Button>
+                                                        <Button Content="Mark as read" Style="{StaticResource MyButtonStyle}"></Button>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
                         <Button x:Name="UserIcon" Height="50" Width="60" Margin="20,15,20,15" Click="UserIcon_Click">
                             <Image Source="../../Resources/Images/user-icon.png" Height="40" Width="40"></Image>
                         </Button>
@@ -49,7 +66,6 @@
                                 <StackPanel>
                                     <Button Content="My vouchers" Width="100" Height="30" Click="ShowVouchers_Click" />
                                     <Button Content="Opcija 2" Width="100" Height="30" />
-                                    
                                 </StackPanel>
                             </Border>
                         </Popup>

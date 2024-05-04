@@ -19,10 +19,15 @@ namespace BookingApp.Model
         public DateOnly Start {  get; set; }
         public DateOnly End { get; set; }
         public DateOnly CreatedOn {  get; set; }
+        public DateTime ChosenDateTime { get; set; }
+        public int GuideId { get; set; }
 
         public TourRequest()
         {
             CurrentStatus = Status.OnHold;
+            GuideId = -1;
+            ChosenDateTime = new DateTime(1900, 1, 1, 0, 0, 0);
+
         }
 
         public string[] ToCSV()
@@ -37,7 +42,9 @@ namespace BookingApp.Model
                 NumberOfTourists.ToString(),
                 Start.ToString("yyyy-MM-dd"),
                 End.ToString("yyyy-MM-dd"),
-                CreatedOn.ToString("yyyy-MM-dd")
+                CreatedOn.ToString("yyyy-MM-dd"),
+                GuideId.ToString(),
+                ChosenDateTime.ToString(),
 
             };
             return csvValues;
@@ -54,6 +61,8 @@ namespace BookingApp.Model
             Start = DateOnly.Parse(values[6]);
             End = DateOnly.Parse(values[7]);
             CreatedOn = DateOnly.Parse(values[8]);
+            GuideId = int.Parse(values[9]);
+            ChosenDateTime = DateTime.Parse(values[10]);
 
         }
 

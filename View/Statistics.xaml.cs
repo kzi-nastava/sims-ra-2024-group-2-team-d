@@ -171,5 +171,11 @@ namespace BookingApp.View
             int year = Convert.ToInt32(SearchTextBox.Text);
             MostVisitedByYear(year);
         }
+
+        private void Requests_Click(object sender, RoutedEventArgs e)
+        {
+            RequestsStatistics requestsStatistics = new RequestsStatistics(LoggedInUser);
+            requestsStatistics.Show();
+        }
     }
 }

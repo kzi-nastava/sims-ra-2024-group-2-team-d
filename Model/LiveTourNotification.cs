@@ -16,9 +16,12 @@ namespace BookingApp.Model
 
         public List<int> TouristsId { get; set; }
 
+        public int TourInstanceId {  get; set; }
 
-        public LiveTourNotification(List<int> touristsId) { 
+
+        public LiveTourNotification(List<int> touristsId, int tourInstanceId) { 
             TouristsId = touristsId;
+            TourInstanceId = tourInstanceId;
         }
 
         public LiveTourNotification()
@@ -31,7 +34,8 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                string.Join(",", TouristsForCSV())
+                string.Join(",", TouristsForCSV()),
+                TourInstanceId.ToString()
 
             };
             return csvValues;
@@ -68,6 +72,7 @@ namespace BookingApp.Model
                     TouristsId.Add(int.Parse(slice));
                 }
             }
+            TourInstanceId = int.Parse(values[2]);
 
         }
     }

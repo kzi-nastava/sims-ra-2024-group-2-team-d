@@ -19,6 +19,12 @@
             <Setter Property="Width" Value="100" />
             <Setter Property="Height" Value="50" />
         </Style>
+        <Style x:Key="NotificationsButtons" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Width" Value="75" />
+            <Setter Property="Height" Value="25" />
+        </Style>
     </Window.Resources>
     
     <!--Gornji meni-->
@@ -42,16 +48,17 @@
                                             Notifications
                                         </Underline>
                                     </TextBlock>
-                                    <ListBox x:Name="notifications" ItemsSource="{Binding Notifications}" SelectedItem="{Binding SelectedTour}">
+                                    <TextBlock Text="There are no notifications" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="10" Visibility="{Binding Notifications.Count, Converter={StaticResource ResourceKey=VisibilityConverter}}"></TextBlock>
+                                    <ListBox x:Name="notifications" ItemsSource="{Binding Notifications}">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Message}" HorizontalAlignment="Center"></TextBlock>
+                                                <WrapPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Message}" FontSize="15" HorizontalAlignment="Center" Width="150" TextWrapping="Wrap"></TextBlock>
                                                     <StackPanel>
-                                                        <Button Content="See more" Style="{StaticResource MyButtonStyle}"></Button>
-                                                        <Button Content="Mark as read" Style="{StaticResource MyButtonStyle}"></Button>
+                                                        <Button Content="See more" Command="{Binding ElementName=notifications, Path=DataContext.OpenNotificationCommand}" CommandParameter="{Binding}" Style="{StaticResource NotificationsButtons}" ></Button>
+                                                        <Button Content="Mark as read" Command="{Binding ElementName=notifications, Path=DataContext.MarkAsReadCommand}" CommandParameter="{Binding}" Height="25" Width="75" FontSize="12" Margin="10,10,10,10"></Button>
                                                     </StackPanel>
-                                                </StackPanel>
+                                                </WrapPanel>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>

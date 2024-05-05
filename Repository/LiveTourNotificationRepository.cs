@@ -40,5 +40,11 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _liveTourNotification);
             return liveTourNotification;
         }
+
+        public LiveTourNotification GetById(int id)
+        {
+            return _liveTourNotification.Find(x => x.Id == id);
+        }
+
     }
 }

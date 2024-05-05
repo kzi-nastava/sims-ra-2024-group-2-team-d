@@ -173,7 +173,7 @@ namespace BookingApp.View
 
         private void NotifyTouristUser(int userId)
         {
-            LiveTourNotification liveTourNotification = new LiveTourNotification(TouristsId);
+            LiveTourNotification liveTourNotification = new LiveTourNotification(TouristsId, TourInstance.Id);
             LiveTourNotificationRepository _liveTourNotificationRepository = new LiveTourNotificationRepository();
             LiveTourNotification savedNotification = _liveTourNotificationRepository.Save(liveTourNotification);
             TouristNotifications notification = new TouristNotifications(savedNotification.Id, "You have been added to the tour. Click \"See more\" to see other tourists", NotificationType.AddedToLiveTour, userId);

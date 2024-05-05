@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using BookingApp.View.TouristApp;
 using BookingApp.WPF.Views;
 using BookingApp.WPF;
+using BookingApp.Services;
 
 namespace BookingApp.View
 {
@@ -50,11 +51,17 @@ namespace BookingApp.View
 
         public ObservableCollection<TouristNotifications> Notifications { get; set; }
 
+        public TouristNotificationService TouristNotificationService { get; set; }
+
         public ICommand Reserve { get; set; }
 
         public ICommand MoreInfoCommand {  get; set; }
 
         public ICommand OpenMorePicturesCommand {  get; set; }
+
+        public ICommand OpenNotificationCommand {  get; set; }
+
+        public ICommand MarkAsReadCommand {  get; set; }
 
 
         public TouristWindow(User user)
@@ -74,9 +81,12 @@ namespace BookingApp.View
             _giftCardRepository = new GiftCardRepository();
             _tourReservationRepository = new TourReservationRepository();
             _touristNotificationsRepository = new TouristNotificationsRepository();
+            TouristNotificationService = new TouristNotificationService();
             Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
             OpenMorePicturesCommand = new RelayCommand(tourInstance => OpenMorePictures((TourInstance)tourInstance));
+            OpenNotificationCommand = new RelayCommand(notification => OpenNotification((TouristNotifications)notification));
+            MarkAsReadCommand = new RelayCommand(notification => MarkAsRead((TouristNotifications)notification));
             LinkEntities();
             MoveToActiveTours();
         }
@@ -89,6 +99,12 @@ namespace BookingApp.View
             LoadUniqueLanguages();
             LinkNotifications();
 
+        }
+
+        public void MarkAsRead(TouristNotifications notification)
+        {
+            notification.IsRead = true;
+            TouristNotificationService.ChangeIsReadStatus(notification);
         }
 
         public void LinkNotifications()
@@ -179,7 +195,7 @@ namespace BookingApp.View
             var filteredTours = TourInstances
                 .Where(t => (string.IsNullOrEmpty(locationInput.Text) || t.BaseTour.Location.Contains(locationInput.Text, StringComparison.OrdinalIgnoreCase)) &&                          
                             (string.IsNullOrEmpty(durationInput.Text) || t.BaseTour.Duration.ToString().Contains(durationInput.Text)) &&
-                            (languageInput.SelectedItem == null || t.BaseTour.Language.Contains((languageInput.SelectedItem as dynamic).BaseTour.Language, StringComparison.OrdinalIgnoreCase)) &&
+                            (languageInput.SelectedItem == null || t.BaseTour.Language.Contains(languageInput.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase)) &&
                             t.BaseTour.MaxTourists >= numberOfPeople)
                 .ToList();
 
@@ -259,6 +275,16 @@ namespace BookingApp.View
         {
             MoreInfoAboutTourView moreInfoAboutTourView = new MoreInfoAboutTourView(tourInstance);
             moreInfoAboutTourView.Show();
+        }
+
+        public void OpenNotification(TouristNotifications notification)
+        {
+            if(notification.Type == NotificationType.AddedToLiveTour)
+            {
+                OpenLiveTourNotificationView liveTourNotification = new OpenLiveTourNotificationView(notification);
+                liveTourNotification.Show();
+                notificationPopup.IsOpen = !notificationPopup.IsOpen;
+            }
         }
     }
 }

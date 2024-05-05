@@ -5,8 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
-        Title="OpenLiveTourNotificationView" Height="450" Width="800">
+        Title="OpenLiveTourNotificationView" Height="450" Width="500">
+    <Window.Resources>
+        <Style x:Key="MyTextStyleTB" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="TouristsTB" TargetType="TextBlock">
+            <Setter Property="Margin" Value="3,1,2,1"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41*"></RowDefinition>
+            <RowDefinition Height="2"></RowDefinition>
+            <RowDefinition Height="176*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Width="50" Height="50">
+                <Image Source="../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
+            </Button>
+            <TextBlock Style="{StaticResource MyTextStyleTB}" HorizontalAlignment="Center" Width="400" TextWrapping="Wrap" TextAlignment="Center" Height="62" >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="All tourists on tour {0} at {1}">
+                        <Binding Path="LiveTour.BaseTour.Title"></Binding>
+                        <Binding Path="LiveTour.Date"></Binding>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </WrapPanel>
+        <Border Grid.Row="1" Background="Black" />
+        <ItemsControl ItemsSource="{Binding Tourists}" HorizontalAlignment="Center" Grid.Row="2">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource TouristsTB}" />
+                        <TextBlock Text="{Binding LastName}" Style="{StaticResource TouristsTB}" />
+                        <TextBlock Text="{Binding Age}" Style="{StaticResource TouristsTB}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

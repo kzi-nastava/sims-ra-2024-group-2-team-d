@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.WPF.ViewModels;
 
 namespace BookingApp.WPF.Views
 {
@@ -19,9 +21,10 @@ namespace BookingApp.WPF.Views
     /// </summary>
     public partial class OpenLiveTourNotificationView : Window
     {
-        public OpenLiveTourNotificationView()
+        public OpenLiveTourNotificationView(TouristNotifications notification)
         {
             InitializeComponent();
+            DataContext = new OpenLiveTourNotificationViewModel(notification);
         }
     }
 }

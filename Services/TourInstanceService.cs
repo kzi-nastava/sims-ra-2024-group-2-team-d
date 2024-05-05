@@ -13,10 +13,12 @@ namespace BookingApp.Services
     public class TourInstanceService
     {
         public TourInstanceRepository TourInstanceRepository { get; set; }
+        public TourRepository TourRepository { get; set; }
 
         public TourInstanceService()
         {
             TourInstanceRepository = new TourInstanceRepository();
+            TourRepository = new TourRepository();
         }
 
         public List<TourInstance> GetAll()
@@ -31,7 +33,10 @@ namespace BookingApp.Services
 
         public TourInstance GetById(int id)
         {
-            return TourInstanceRepository.GetById(id);
+            TourInstance tourInstance = TourInstanceRepository.GetById(id);
+            Tour tour = TourRepository.GetById(tourInstance.TourId);
+            tourInstance.BaseTour = tour;
+            return tourInstance;
         }
 
         public List<TourInstance> GetByUser(User user, ObservableCollection<TourInstance> tours)

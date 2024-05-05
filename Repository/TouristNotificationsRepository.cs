@@ -45,5 +45,20 @@ namespace BookingApp.Repository
         {
             return _touristNotifications.FindAll(t => t.UserId == userId && !t.IsRead);
         }
+
+        public TouristNotifications? UpdateIsReadStatus(TouristNotifications touristNotification)
+        {
+            TouristNotifications? oldTouristNotification = GetById(touristNotification.Id);
+            if (oldTouristNotification == null) return null;
+            //_giftCards.Remove(giftCard);
+            oldTouristNotification.IsRead = touristNotification.IsRead;
+            _serializer.ToCSV(FilePath, _touristNotifications);
+            return oldTouristNotification;
+        }
+
+        public TouristNotifications GetById(int id)
+        {
+            return _touristNotifications.Find(t => t.Id == id);
+        }
     }
 }

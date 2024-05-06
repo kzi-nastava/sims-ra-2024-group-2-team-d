@@ -17,14 +17,14 @@ using BookingApp.Model;
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for TypeOfTourRequestSelectionView.xaml
+    /// Interaction logic for CreateTourRequestView.xaml
     /// </summary>
-    public partial class TypeOfTourRequestSelectionView : Window
+    public partial class CreateTourRequestView : Window
     {
-        public TypeOfTourRequestSelectionView(User loggedInUser)
+        public CreateTourRequestView(User loggedInUser)
         {
             InitializeComponent();
-            DataContext = new TypeOfTourRequestSelectionViewModel(loggedInUser);
+            DataContext = new CreateTourRequestViewModel(loggedInUser, Close);
         }
     }
 }

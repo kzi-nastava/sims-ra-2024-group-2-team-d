@@ -267,7 +267,7 @@ namespace BookingApp.View
 
         private void TypeOfTourRequestSelection_Click(object sender, RoutedEventArgs e)
         {
-            TypeOfTourRequestSelectionView typeOfTourRequestSelectionView = new TypeOfTourRequestSelectionView();
+            TypeOfTourRequestSelectionView typeOfTourRequestSelectionView = new TypeOfTourRequestSelectionView(LoggedInUser);
             typeOfTourRequestSelectionView.ShowDialog();
         }
 

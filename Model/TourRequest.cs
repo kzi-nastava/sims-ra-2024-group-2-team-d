@@ -20,14 +20,30 @@ namespace BookingApp.Model
         public DateOnly End { get; set; }
         public DateOnly CreatedOn {  get; set; }
         public DateTime ChosenDateTime { get; set; }
-        public int GuideId { get; set; }
+        public int GuideId { get; set; }      
+        public List<int> TouristsId {  get; set; }
 
         public TourRequest()
         {
             CurrentStatus = Status.OnHold;
             GuideId = -1;
             ChosenDateTime = new DateTime(1900, 1, 1, 0, 0, 0);
+            TouristsId = new List<int>();
+        }
 
+        public TourRequest(string location, string description, string language, int numberOfTourists, DateOnly start, DateOnly end, List<int> touristsId)
+        {
+            CurrentStatus = Status.OnHold;
+            Location = location;
+            Description = description;
+            Language = language;
+            NumberOfTourists = numberOfTourists;
+            Start = start;
+            End = end;
+            ChosenDateTime = new DateTime(1900, 1, 1, 0, 0, 0);
+            GuideId = -1;
+            TouristsId = touristsId;
+            CreatedOn = DateOnly.FromDateTime(DateTime.Now);
         }
 
         public string[] ToCSV()
@@ -45,9 +61,23 @@ namespace BookingApp.Model
                 CreatedOn.ToString("yyyy-MM-dd"),
                 GuideId.ToString(),
                 ChosenDateTime.ToString(),
-
+                string.Join(",", TouristsForCSV()),
             };
             return csvValues;
+        }
+
+        public List<string> TouristsForCSV()
+        {
+            List<string> csvV = new List<string>();
+            if (TouristsId == null)
+            {
+                return csvV;
+            }
+            foreach (int t in TouristsId)
+            {
+                csvV.Add(t.ToString());
+            }
+            return csvV;
         }
 
         public void FromCSV(string[] values)
@@ -63,10 +93,20 @@ namespace BookingApp.Model
             CreatedOn = DateOnly.Parse(values[8]);
             GuideId = int.Parse(values[9]);
             ChosenDateTime = DateTime.Parse(values[10]);
+            if (string.IsNullOrWhiteSpace(values[11]))
+            {
+                TouristsId = new List<int>();
+            }
+            else
+            {
+                string[] slices = values[11].Split(',').Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToArray();
+                TouristsId = new List<int>();
 
+                foreach (string slice in slices)
+                {
+                    TouristsId.Add(int.Parse(slice));
+                }
+            }
         }
-
-
-
     }
 }

@@ -17,7 +17,7 @@
                 <Image Source="../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
             </Button>
         </Menu>
-        <Button Grid.Column="0" Margin="20,133,20,168" Content="Create standard tour request"></Button>
+        <Button Grid.Column="0" Margin="20,133,20,168" Content="Create standard tour request" Command="{Binding StandardTourRequestCreationCommand}"></Button>
         <Button Grid.Column="2" Margin="20,133,20,168" Content="Create complex tour request"></Button>
     </Grid>
 </Window>

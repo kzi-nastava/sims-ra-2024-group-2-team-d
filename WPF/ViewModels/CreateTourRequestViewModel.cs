@@ -32,7 +32,7 @@ namespace BookingApp.WPF.ViewModels
         public CreateTourRequestViewModel(User loggedInUser, Action closeAction) {
             LoggedInUser = loggedInUser;
             Tourists = new ObservableCollection<Tourist>();
-            NewTourRequest = new TourRequestDTO();
+            NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
             InputTourist = new Tourist();
             TouristService = new TouristService();
             TourRequestService = new TourRequestService();

@@ -23,6 +23,8 @@ namespace BookingApp.Model
         public int GuideId { get; set; }      
         public List<int> TouristsId {  get; set; }
 
+        public int UserTouristId {  get; set; }
+
         public TourRequest()
         {
             CurrentStatus = Status.OnHold;
@@ -31,7 +33,7 @@ namespace BookingApp.Model
             TouristsId = new List<int>();
         }
 
-        public TourRequest(string location, string description, string language, int numberOfTourists, DateOnly start, DateOnly end, List<int> touristsId)
+        public TourRequest(string location, string description, string language, int numberOfTourists, DateOnly start, DateOnly end, List<int> touristsId, int userTouristId)
         {
             CurrentStatus = Status.OnHold;
             Location = location;
@@ -44,6 +46,7 @@ namespace BookingApp.Model
             GuideId = -1;
             TouristsId = touristsId;
             CreatedOn = DateOnly.FromDateTime(DateTime.Now);
+            UserTouristId = userTouristId;
         }
 
         public string[] ToCSV()
@@ -62,6 +65,7 @@ namespace BookingApp.Model
                 GuideId.ToString(),
                 ChosenDateTime.ToString(),
                 string.Join(",", TouristsForCSV()),
+                UserTouristId.ToString()
             };
             return csvValues;
         }
@@ -107,6 +111,7 @@ namespace BookingApp.Model
                     TouristsId.Add(int.Parse(slice));
                 }
             }
+            UserTouristId = int.Parse(values[12]);
         }
     }
 }

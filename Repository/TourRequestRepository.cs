@@ -2,6 +2,7 @@
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -130,6 +131,10 @@ namespace BookingApp.Repository
                 return false;
             }
             else return true;
+        }
+
+        public List<TourRequest> GetByUserTouristId(int userTouristId) { 
+            return _tourRequest.Where(t => t.UserTouristId == userTouristId).ToList();
         }
     }
 }

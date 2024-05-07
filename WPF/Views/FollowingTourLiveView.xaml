@@ -5,12 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
-        Title="FollowingTourLiveView" Height="450" Width="800">
+        Title="FollowingTourLiveView" Height="450" Width="500">
+    <Window.Resources>
+        <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+    </Window.Resources>
     <StackPanel>
-        <TextBlock>Trenutna pozicija</TextBlock>
-        <TextBlock Text="{Binding CurrentKeyPoint.Name}"></TextBlock>
-        <TextBlock>Neke info o turi</TextBlock>
-        <TextBlock Text="{Binding ActiveTour.BaseTour.Title}"></TextBlock>
-        <TextBlock Text="{Binding ActiveTour.Date}"></TextBlock>
+        <TextBlock Text="{Binding ActiveTour.BaseTour.Title}" Style="{StaticResource MyTextStyle}"></TextBlock>
+        <TextBlock Text="{Binding ActiveTour.Date}" Style="{StaticResource MyTextStyle}"></TextBlock>
+        <Image Source="{Binding ActiveTour.BaseTour.Pictures[0]}" Width="200" Height="150"></Image>
+        <TextBlock Text="Current key point" Style="{StaticResource MyTextStyle}" FontWeight="Bold" FontSize="26"></TextBlock>
+        <TextBlock Text="{Binding CurrentKeyPoint.Name}" Style="{StaticResource MyTextStyle}"></TextBlock>
+       
     </StackPanel>
 </Window>

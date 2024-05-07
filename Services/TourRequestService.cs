@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Model;
+using System.Collections.ObjectModel;
 
 namespace BookingApp.Services
 {
@@ -18,6 +19,10 @@ namespace BookingApp.Services
         public TourRequest Save(TourRequest tourRequest)
         {
             return TourRequestRepository.Save(tourRequest);
+        }
+
+        public List<TourRequest> GetByUserTouristId(int userTouristId) {
+            return TourRequestRepository.GetByUserTouristId(userTouristId);
         }
     }
 }

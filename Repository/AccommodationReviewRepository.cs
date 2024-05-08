@@ -16,7 +16,10 @@ namespace BookingApp.Repository
         private readonly Serializer<AccommodationReview> _serializer;
 
         private List<AccommodationReview> _accommodationReviews;
-
+        public List<AccommodationReview> getAccomReviews()
+        {
+            return _accommodationReviews;
+        }
         public AccommodationReviewRepository()
         {
             _serializer = new Serializer<AccommodationReview>();

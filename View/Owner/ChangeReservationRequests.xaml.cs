@@ -26,22 +26,14 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class ChangeReservationRequests : Window
     {
-        private readonly ChangeReservationRequestsViewModel viewModel;
+       
         public ChangeReservationRequests(User user)
         {
-            viewModel = new ChangeReservationRequestsViewModel(user.Id);
+            
             InitializeComponent();
-            DataContext = viewModel;
+            DataContext = new ChangeReservationRequestsViewModel(user.Id);
         }
 
-        private void Accept_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.Accept_Click();
-        }
-
-        private void Decline_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.Decline_Click();
-        }
+       
     }
 }

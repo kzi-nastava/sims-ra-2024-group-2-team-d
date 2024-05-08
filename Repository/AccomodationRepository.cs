@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Serializer;
+using BookingApp.View.Owner;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,11 @@ namespace BookingApp.Repository
         private readonly Serializer<Accommodation> _serializer;
 
         private List<Accommodation> _accommodations;
+
+        public List<Accommodation> getAccommodation()
+        {
+            return _accommodations;
+        }
 
         public AccommodationRepository()
         {
@@ -69,7 +75,7 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _accommodations);
             return accommodation;
         }
-
+        //obrisi
         public List<Accommodation> GetAllOwnerAccommodations(int userId)
         {
             return GetAll().Where(a => a.UserId == userId).ToList();

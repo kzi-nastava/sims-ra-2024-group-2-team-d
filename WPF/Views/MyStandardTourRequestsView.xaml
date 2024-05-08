@@ -25,12 +25,29 @@
             <TextBlock Text="My Standard Tour Requests" FontSize="23" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"></TextBlock>
         </StackPanel>
         <DataGrid ItemsSource="{Binding MyTourRequests}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" AutoGenerateColumns="False" Margin="0,86,0,0" Grid.RowSpan="2">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Chosen date" Binding="{Binding ChosenDateTime}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Status" Binding="{Binding CurrentStatus}" Width="*"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="More info" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Height="30" Width="30" Command="{Binding Path=DataContext.InfoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                <Image Source="../../../Resources/Images/info-icon.png"></Image>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

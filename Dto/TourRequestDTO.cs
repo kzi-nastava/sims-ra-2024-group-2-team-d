@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BookingApp.Dto
 {
-    public class TourRequestDTO : INotifyPropertyChanged
+    public class TourRequestDTO : INotifyPropertyChanged, IDataErrorInfo
     {
-        public string Location { get; set; }
-        public string Description { get; set; }
-        public string Language { get; set; }
         private int numberOfTourists;
 
         public int NumberOfTourists
@@ -30,12 +29,6 @@ namespace BookingApp.Dto
                 }
             }
         }
-        public string Start { get; set; }
-        public string End { get; set; }
-        public int GuideId { get; set; }
-        public List<int> TouristsId { get; set; }
-
-        public int UserTouristId {  get; set; }
         
         private int numberOfTouristsCounter {  get; set; }
 
@@ -52,9 +45,101 @@ namespace BookingApp.Dto
             }
         }
 
+        private string start;
+
+        public string Start
+        {
+            get => start;
+            set
+            {
+                if(value != start) {
+                    start = value;
+                    OnPropertyChanged("Start");
+                }
+            }
+        }
+        private string end;
+
+        public string End
+        {
+            get => end;
+            set
+            {
+                if(value != end)
+                {
+                    end = value;
+                    OnPropertyChanged("End");
+                }
+            }
+        }
+        public int GuideId { get; set; }
+        public List<int> TouristsId { get; set; }
+
+        public int UserTouristId { get; set; }
+
         public string CurrentStatus {  get; set; }
 
         public string ChosenDateTime {  get; set; }
+
+        private string location;
+        public string Location
+        {
+            get => location;
+            set
+            {
+                if (value != location)
+                {
+                    location = value;
+                    OnPropertyChanged("Location");
+                }
+            }
+        }
+        private string description;
+        public string Description
+        {
+            get => description;
+            set
+            {
+                if(value != description)
+                {
+                    description = value;
+                    OnPropertyChanged("Description");
+                }
+            }
+        }
+        private string language;
+        public string Language
+        {
+            get => language;
+            set
+            {
+                if (value != language)
+                {
+                    language = value;
+                    OnPropertyChanged("Language");
+                }
+            }
+        }
+
+        public string Error => null;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == nameof(NumberOfTourists))
+                {
+                    Regex regex = new Regex("^[0-9]*$");  // Dozvoljava samo brojeve
+                    if (!regex.IsMatch(NumberOfTourists.ToString()))
+                    {
+                        result = "Please enter a valid number.";
+                    }
+                }
+                return result;
+            }
+        }
+
         public TourRequestDTO(int userTouristId)
         {
             TouristsId = new List<int>();

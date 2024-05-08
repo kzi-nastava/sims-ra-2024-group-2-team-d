@@ -7,7 +7,12 @@
         mc:Ignorable="d"
         Title="ShowMorePicturesView" Height="450" Width="780">
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="187*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding TourInstance.BaseTour.Title}" Grid.Row="0" HorizontalAlignment="Center" FontSize="26" FontWeight="Bold"></TextBlock>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
             <ItemsControl ItemsSource="{Binding TourInstance.BaseTour.Pictures}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

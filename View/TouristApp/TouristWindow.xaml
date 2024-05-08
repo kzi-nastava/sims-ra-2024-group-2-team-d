@@ -133,7 +133,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
                                     <TextBlock Text="{Binding BaseTour.Title}" FontWeight="Bold" Style="{StaticResource MyTextStyle}" />
-                                    <Button Command="{Binding ElementName=ToursForTracking, Path=DataContext.OpenMorePicturesCommand}" CommandParameter="{Binding}">
+                                    <Button HorizontalAlignment="Left" Command="{Binding ElementName=ToursForTracking, Path=DataContext.OpenMorePicturesCommand}" CommandParameter="{Binding}">
                                         <Button.Template>
                                             <ControlTemplate>
                                                 <Image Source="{Binding BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
@@ -188,7 +188,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
                                     <TextBlock Text="{Binding BaseTour.Title}" FontWeight="Bold" Style="{StaticResource MyTextStyle}" />
-                                    <Button Command="{Binding ElementName=TourReservations, Path=DataContext.OpenMorePicturesCommand}" CommandParameter="{Binding}">
+                                    <Button HorizontalAlignment="Left" Command="{Binding ElementName=TourReservations, Path=DataContext.OpenMorePicturesCommand}" CommandParameter="{Binding}">
                                         <Button.Template>
                                             <ControlTemplate>
                                                 <Image Source="{Binding BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>

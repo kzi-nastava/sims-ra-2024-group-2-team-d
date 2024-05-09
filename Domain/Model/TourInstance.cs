@@ -6,25 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TourInstance : ISerializable
     {
         public int TourId { get; set; }
 
-        public Tour BaseTour {  get; set; }
+        public Tour BaseTour { get; set; }
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int EmptySpots { get; set; }
-        public bool Start {  get; set; }
+        public bool Start { get; set; }
         public bool End { get; set; }
         public int TourRequestId { get; set; }
-      
-        public bool IsNotReviewed {  get; set; }
+
+        public bool IsNotReviewed { get; set; }
 
         public TourInstance(int tourId, DateTime date, int emptySpots)
         {
-            Id = this.Id;
+            Id = Id;
             TourId = tourId;
             Date = date;
             EmptySpots = emptySpots;
@@ -36,7 +36,7 @@ namespace BookingApp.Model
 
         public TourInstance(int tourRequestId, DateTime date)
         {
-            Id = this.Id;
+            Id = Id;
             TourId = -1;
             BaseTour = null;
             Date = date;
@@ -48,7 +48,8 @@ namespace BookingApp.Model
 
         }
 
-        public TourInstance() {
+        public TourInstance()
+        {
             Start = false;
             End = false;
             BaseTour = new Tour();
@@ -66,7 +67,7 @@ namespace BookingApp.Model
                 Start.ToString(),
                 End.ToString(),
                 IsNotReviewed.ToString()
-            
+
             };
             return csvValues;
         }
@@ -81,7 +82,7 @@ namespace BookingApp.Model
             Start = bool.Parse(values[4]);
             End = bool.Parse(values[5]);
             IsNotReviewed = bool.Parse(values[6]);
-            
+
         }
     }
 }

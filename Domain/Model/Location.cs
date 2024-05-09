@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
-    public class Location 
+    public class Location
     {
         public string City { get; set; }
         public string Country { get; set; }
@@ -22,7 +22,7 @@ namespace BookingApp.Model
             Country = country;
         }
 
-       
+
 
         public override string ToString()
         {

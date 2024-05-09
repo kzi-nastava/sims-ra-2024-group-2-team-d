@@ -1,5 +1,4 @@
-﻿using BookingApp.Model;
-using BookingApp.Repository;
+﻿using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +17,7 @@ using BookingApp.View.TouristApp;
 using BookingApp.WPF.Views;
 using BookingApp.WPF;
 using BookingApp.Services;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.View
 {
@@ -296,6 +296,10 @@ namespace BookingApp.View
                 OpenLiveTourNotificationView liveTourNotification = new OpenLiveTourNotificationView(notification);
                 liveTourNotification.Show();
                 notificationPopup.IsOpen = !notificationPopup.IsOpen;
+            }
+            else if(notification.Type == NotificationType.TourRequestAcceptance)
+            {
+
             }
         }
     }

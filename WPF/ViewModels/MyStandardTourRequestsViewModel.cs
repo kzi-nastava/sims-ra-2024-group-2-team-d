@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookingApp.Model;
 using BookingApp.Services;
 using BookingApp.Dto;
 using System.Windows.Input;
 using BookingApp.WPF.Views;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.ViewModels
 {

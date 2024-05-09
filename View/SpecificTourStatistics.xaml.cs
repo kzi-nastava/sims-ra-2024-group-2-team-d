@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -54,7 +54,7 @@ namespace BookingApp.View
         {
             int Id = TouristsStatistics.TourInstanceId;
             //_reservationRepository = new TourReservationRepository();
-            List<Model.FollowingTourLive> ToursLive = new List<Model.FollowingTourLive>();
+            List<FollowingTourLive> ToursLive = new List<FollowingTourLive>();
             ToursLive = _live_repo.GetByTourInstanceId(Id);
             List<Tourist> touristsReservation = new List<Tourist>(_reservationRepository.GetAllTouristByTourId(Id));
             List<Tourist> tourists = new List<Tourist>();
@@ -81,13 +81,13 @@ namespace BookingApp.View
         }
 
 
-        public List<Tourist> GetTourists(List<Tourist> list,List<Model.FollowingTourLive> list1)
+        public List<Tourist> GetTourists(List<Tourist> list,List<FollowingTourLive> list1)
         {
             List<Tourist> povratna = new List<Tourist>();
 
             foreach (var item in list)
             {
-                foreach (Model.FollowingTourLive item1 in list1)
+                foreach (FollowingTourLive item1 in list1)
                 {
                     foreach (var item2 in item1.TouristsIds)
                     {

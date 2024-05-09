@@ -2,16 +2,16 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
-    public class GuestReview : BookingApp.Serializer.ISerializable
+    public class GuestReview : Serializer.ISerializable
     {
         public int Id { get; set; }
         public int AccomodationId { get; set; }
         public int UserId { get; set; }
         public int Cleanness { get; set; }
-        public int Rules {  get; set; }
-        public string Description {  get; set; }
+        public int Rules { get; set; }
+        public string Description { get; set; }
 
         public GuestReview()
         {

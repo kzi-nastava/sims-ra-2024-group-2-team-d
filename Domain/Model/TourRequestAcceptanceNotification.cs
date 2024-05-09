@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
-    public class TourRequestAcceptanceNotification: ISerializable
+    public class TourRequestAcceptanceNotification : ISerializable
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
 
-        public int TourRequestId {  get; set; }
+        public int TourRequestId { get; set; }
         public TourRequestAcceptanceNotification() { }
 
         public TourRequestAcceptanceNotification(int tourRequestId)

@@ -8,21 +8,22 @@ using System.Xml.Linq;
 using BookingApp.Serializer;
 using InitialProject.CustomClasses;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
-    public enum NotificationType { TourCreation, AddedToLiveTour, TourRequestAcceptance}
+    public enum NotificationType { TourCreation, AddedToLiveTour, TourRequestAcceptance }
     public class TouristNotifications : ISerializable
     {
         public int Id { get; set; }
-        public string Message {  get; set; }
-        public bool IsRead {  get; set; }
+        public string Message { get; set; }
+        public bool IsRead { get; set; }
         public NotificationType Type { get; set; }
         public int NotificationId { get; set; }
 
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
 
 
-        public TouristNotifications(int notificationId, string message, NotificationType type, int userId) {
+        public TouristNotifications(int notificationId, string message, NotificationType type, int userId)
+        {
             IsRead = false;
             Type = type;
             Message = message;

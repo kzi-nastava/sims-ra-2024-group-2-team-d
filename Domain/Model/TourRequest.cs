@@ -5,25 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
-    public enum Status { Accepted, OnHold, Invalid}
+    public enum Status { Accepted, OnHold, Invalid }
     public class TourRequest : ISerializable
     {
         public int Id { get; set; }
         public Status CurrentStatus { get; set; }
-        public string Location {  get; set; }
-        public string Description {  get; set; }
-        public string Language {  get; set; }
-        public int NumberOfTourists {  get; set; }
-        public DateOnly Start {  get; set; }
+        public string Location { get; set; }
+        public string Description { get; set; }
+        public string Language { get; set; }
+        public int NumberOfTourists { get; set; }
+        public DateOnly Start { get; set; }
         public DateOnly End { get; set; }
-        public DateOnly CreatedOn {  get; set; }
+        public DateOnly CreatedOn { get; set; }
         public DateTime ChosenDateTime { get; set; }
-        public int GuideId { get; set; }      
-        public List<int> TouristsId {  get; set; }
+        public int GuideId { get; set; }
+        public List<int> TouristsId { get; set; }
 
-        public int UserTouristId {  get; set; }
+        public int UserTouristId { get; set; }
 
         public TourRequest()
         {

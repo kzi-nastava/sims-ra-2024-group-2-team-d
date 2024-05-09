@@ -7,19 +7,20 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class LiveTourNotification : ISerializable
-    
+
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
 
         public List<int> TouristsId { get; set; }
 
-        public int TourInstanceId {  get; set; }
+        public int TourInstanceId { get; set; }
 
 
-        public LiveTourNotification(List<int> touristsId, int tourInstanceId) { 
+        public LiveTourNotification(List<int> touristsId, int tourInstanceId)
+        {
             TouristsId = touristsId;
             TourInstanceId = tourInstanceId;
         }

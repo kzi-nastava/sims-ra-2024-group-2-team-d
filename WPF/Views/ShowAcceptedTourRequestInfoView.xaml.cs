@@ -11,20 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookingApp.Domain.Model;
-using BookingApp.WPF.ViewModels;
 
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for MyStandardTourRequestsView.xaml
+    /// Interaction logic for ShowAcceptedTourRequestInfoView.xaml
     /// </summary>
-    public partial class MyStandardTourRequestsView : Window
+    public partial class ShowAcceptedTourRequestInfoView : Window
     {
-        public MyStandardTourRequestsView(User loggedInUser)
+        public ShowAcceptedTourRequestInfoView()
         {
             InitializeComponent();
-            DataContext = new MyStandardTourRequestsViewModel(loggedInUser);
         }
     }
 }

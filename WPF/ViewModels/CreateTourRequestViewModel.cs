@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BookingApp.Model;
 using BookingApp.Services;
 using BookingApp.Dto;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.ViewModels
 {

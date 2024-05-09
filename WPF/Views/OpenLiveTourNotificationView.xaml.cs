@@ -1,5 +1,4 @@
-﻿using BookingApp.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.WPF.ViewModels;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.Views
 {

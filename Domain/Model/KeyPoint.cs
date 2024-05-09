@@ -11,7 +11,7 @@ using System.Windows;
 using System.Xml.Linq;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class KeyPoint : ISerializable
     {
@@ -26,20 +26,20 @@ namespace BookingApp.Model
 
         public KeyPoint(int tourId, string name, int order)
         {
-            Id = this.Id;
+            Id = Id;
             TourId = tourId;
             Name = name;
             Status = false;
             Order = order;
         }
 
-      /*  public KeyPoint(int id, string name, int order)
-        {
-            Id = id;
-            Name = name;
-            Status = false;
-            Order = order;
-        }*/ ////////////////////////////////////////////////////////////ne znam za sta se koristi
+        /*  public KeyPoint(int id, string name, int order)
+          {
+              Id = id;
+              Name = name;
+              Status = false;
+              Order = order;
+          }*/ ////////////////////////////////////////////////////////////ne znam za sta se koristi
 
         public override string ToString()
         {

@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class GiftCard : ISerializable
     {
@@ -16,13 +16,13 @@ namespace BookingApp.Model
         public DateOnly ReceiveDate { get; set; }
         public DateOnly ExpirationDate { get; set; }
 
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
 
-        public bool IsValid {  get; set; }
+        public bool IsValid { get; set; }
 
 
-        public GiftCard() {}
-        
+        public GiftCard() { }
+
         public GiftCard(DateOnly receiveDate)
         {
             ReceiveDate = receiveDate;

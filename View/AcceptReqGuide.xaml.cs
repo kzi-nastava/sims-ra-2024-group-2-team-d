@@ -1,5 +1,5 @@
-﻿using BookingApp.Dto;
-using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Dto;
 using BookingApp.Repository;
 using BookingApp.Services;
 using System;
@@ -50,7 +50,7 @@ namespace BookingApp.View
             _tourInstanceRepository = new TourInstanceRepository();
             _tourRepository = new TourRepository();
             _tourRequestAcceptanceNotificationService = new TourRequestAcceptanceNotificationService();
-            //TourInstances = new List<TourInstance>(_tourInstanceRepository.GetAll());
+            TourInstances = new List<TourInstance>(_tourInstanceRepository.GetAll());
             //LinkTourInstancesWithTours();
             //TourInstances = new ObservableCollection<TourInstance>(MainService.TourInstanceService.GetForTheDay1(LoggedInUser, TourInstances));
 

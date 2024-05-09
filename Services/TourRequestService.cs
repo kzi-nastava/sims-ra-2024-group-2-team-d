@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookingApp.Model;
 using System.Collections.ObjectModel;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.Services
 {
@@ -32,7 +32,7 @@ namespace BookingApp.Services
             for(int i=0; i<tourRequests.Count; i++)
             {
                 DateOnly deadlineDate = tourRequests[i].End.AddDays(-2);
-                if (today >= deadlineDate)
+                if (today >= deadlineDate && tourRequests[i].CurrentStatus != Status.Accepted)
                 {
                     tourRequests[i].CurrentStatus = Status.Invalid;
                     TourRequestRepository.Update(tourRequests[i]);

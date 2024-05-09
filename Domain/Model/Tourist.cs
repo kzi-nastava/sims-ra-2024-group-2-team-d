@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class Tourist : ISerializable
     {
@@ -16,13 +16,13 @@ namespace BookingApp.Model
 
         public int Age { get; set; }
 
-        public int ReservationId {  get; set; }
+        public int ReservationId { get; set; }
 
         public List<int> GiftCardIds { get; set; }
 
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
 
-        public bool ShowedUp {  get; set; }
+        public bool ShowedUp { get; set; }
 
         public bool IsNotified { get; set; }
 
@@ -92,9 +92,9 @@ namespace BookingApp.Model
             UserId = int.Parse(values[5]);
             ShowedUp = bool.Parse(values[6]);
             IsNotified = bool.Parse(values[7]);
-            
+
         }
     }
 
-    
+
 }

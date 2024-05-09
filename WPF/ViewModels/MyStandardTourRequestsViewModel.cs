@@ -25,6 +25,7 @@ namespace BookingApp.WPF.ViewModels
         public MyStandardTourRequestsViewModel(User loggedInUser) {
             LoggedInUser = loggedInUser;
             _tourRequestService = new TourRequestService();
+            _tourRequestService.InvalidateOutdatedTourRequests();
             MyTourRequests = new ObservableCollection<TourRequestDTO>(ConvertModelToDTO(_tourRequestService.GetByUserTouristId(LoggedInUser.Id)));
             InfoCommand = new RelayCommand(tourRequest => ShowMoreInfo((TourRequestDTO)tourRequest));
          

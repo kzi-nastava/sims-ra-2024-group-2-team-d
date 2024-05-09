@@ -10,7 +10,7 @@ using InitialProject.CustomClasses;
 
 namespace BookingApp.Model
 {
-    public enum NotificationType { TourCreation, AddedToLiveTour}
+    public enum NotificationType { TourCreation, AddedToLiveTour, TourRequestAcceptance}
     public class TouristNotifications : ISerializable
     {
         public int Id { get; set; }

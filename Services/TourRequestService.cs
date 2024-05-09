@@ -24,5 +24,20 @@ namespace BookingApp.Services
         public List<TourRequest> GetByUserTouristId(int userTouristId) {
             return TourRequestRepository.GetByUserTouristId(userTouristId);
         }
+
+        public void InvalidateOutdatedTourRequests()
+        {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            List<TourRequest> tourRequests = TourRequestRepository.GetAll();
+            for(int i=0; i<tourRequests.Count; i++)
+            {
+                DateOnly deadlineDate = tourRequests[i].End.AddDays(-2);
+                if (today >= deadlineDate)
+                {
+                    tourRequests[i].CurrentStatus = Status.Invalid;
+                    TourRequestRepository.Update(tourRequests[i]);
+                }
+            }
+        }
     }
 }

@@ -19,5 +19,10 @@ namespace BookingApp.Services
         {
             return _touristNotificationsRepository.UpdateIsReadStatus(notification);
         }
+
+        public TouristNotifications Save(TouristNotifications notification)
+        {
+            return _touristNotificationsRepository.Save(notification);
+        }
     }
 }

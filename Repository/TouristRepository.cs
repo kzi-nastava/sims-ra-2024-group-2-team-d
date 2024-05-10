@@ -75,6 +75,5 @@ namespace BookingApp.Repository
         {
             return _tourists.Find(x => x.UserId == id);
         }
-
     }
 }

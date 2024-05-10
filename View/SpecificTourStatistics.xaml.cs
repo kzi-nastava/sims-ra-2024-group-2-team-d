@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,85 +23,86 @@ namespace BookingApp.View
     /// </summary>
     public partial class SpecificTourStatistics : Window
     {
-        public User LoggedInUser { get; set; }
-        public TourInstance TourInstance { get; set; }
-        public TouristsStatistics TouristsStatistics { get; set; }
+        //public User LoggedInUser { get; set; }
+        //public TourInstance TourInstance { get; set; }
+        //public TouristsStatistics TouristsStatistics { get; set; }
 
-        public ObservableCollection<TouristsStatistics> TouristsStatisticsColl { get; set; }
+        //public ObservableCollection<TouristsStatistics> TouristsStatisticsColl { get; set; }
 
-        public TourReservation TourReservation { get; set; }
-        private readonly TourReservationRepository _reservationRepository;
-        public static ObservableCollection<TourReservation> TourReservations { get; set; }
+        //public TourReservation TourReservation { get; set; }
+        //private readonly TourReservationRepository _reservationRepository;
+        //public static ObservableCollection<TourReservation> TourReservations { get; set; }
 
 
-        public FollowingTourLiveRepository _live_repo { get; set; }
+        //public FollowingTourLiveRepository _live_repo { get; set; }
 
         public SpecificTourStatistics(TourInstance tourInstance)
         {
             InitializeComponent();
-            TourInstance = tourInstance;
-            TouristsStatistics = new TouristsStatistics();
-            TouristsStatistics.TourInstanceId = TourInstance.Id;
-            TouristsStatisticsColl = new ObservableCollection<TouristsStatistics>();
-            _reservationRepository = new TourReservationRepository();
-            _live_repo=new FollowingTourLiveRepository();
-            CountTouristsByAge();
-
-            
-        }
-
-
-        private void CountTouristsByAge()
-        {
-            int Id = TouristsStatistics.TourInstanceId;
+            DataContext = new SpecificTourStatisticsViewModel(tourInstance);
+            //TourInstance = tourInstance;
+            //TouristsStatistics = new TouristsStatistics();
+            //TouristsStatistics.TourInstanceId = TourInstance.Id;
+            //TouristsStatisticsColl = new ObservableCollection<TouristsStatistics>();
             //_reservationRepository = new TourReservationRepository();
-            List<Model.FollowingTourLive> ToursLive = new List<Model.FollowingTourLive>();
-            ToursLive = _live_repo.GetByTourInstanceId(Id);
-            List<Tourist> touristsReservation = new List<Tourist>(_reservationRepository.GetAllTouristByTourId(Id));
-            List<Tourist> tourists = new List<Tourist>();
-            tourists = GetTourists(touristsReservation, ToursLive);
-            foreach (Tourist tourist in tourists)
-            {
-                if (tourist.Age <= 18)
-                {
-                    TouristsStatistics.Young += 1;
-                }
-                else if(tourist.Age>18 && tourist.Age <= 50)
-                {
-                    TouristsStatistics.Middle += 1;
-                }
-                else if(tourist.Age > 50)
-                {
-                    TouristsStatistics.Old += 1;
-                }
-            }
+            //_live_repo=new FollowingTourLiveRepository();
+            //CountTouristsByAge();
 
-            TouristsStatisticsColl.Add(TouristsStatistics);
-            TouristsStatisticsGrid.ItemsSource = TouristsStatisticsColl;
-            TouristsStatisticsGrid.DataContext = TouristsStatisticsColl;
+
         }
 
 
-        public List<Tourist> GetTourists(List<Tourist> list,List<Model.FollowingTourLive> list1)
-        {
-            List<Tourist> povratna = new List<Tourist>();
+        //private void CountTouristsByAge()
+        //{
+        //    int Id = TouristsStatistics.TourInstanceId;
+        //    //_reservationRepository = new TourReservationRepository();
+        //    List<Model.FollowingTourLive> ToursLive = new List<Model.FollowingTourLive>();
+        //    ToursLive = _live_repo.GetByTourInstanceId(Id);
+        //    List<Tourist> touristsReservation = new List<Tourist>(_reservationRepository.GetAllTouristByTourId(Id));
+        //    List<Tourist> tourists = new List<Tourist>();
+        //    tourists = GetTourists(touristsReservation, ToursLive);
+        //    foreach (Tourist tourist in tourists)
+        //    {
+        //        if (tourist.Age <= 18)
+        //        {
+        //            TouristsStatistics.Young += 1;
+        //        }
+        //        else if(tourist.Age>18 && tourist.Age <= 50)
+        //        {
+        //            TouristsStatistics.Middle += 1;
+        //        }
+        //        else if(tourist.Age > 50)
+        //        {
+        //            TouristsStatistics.Old += 1;
+        //        }
+        //    }
 
-            foreach (var item in list)
-            {
-                foreach (Model.FollowingTourLive item1 in list1)
-                {
-                    foreach (var item2 in item1.TouristsIds)
-                    {
-                        if(item.Id==item2 && item1.TourInstanceId==_reservationRepository.GetTourInstanceById(item.ReservationId) && !povratna.Contains(item))
-                        {
-                            povratna.Add(item);
-                        }
-                    }
-                }
-            }
+        //    TouristsStatisticsColl.Add(TouristsStatistics);
+        //    TouristsStatisticsGrid.ItemsSource = TouristsStatisticsColl;
+        //    TouristsStatisticsGrid.DataContext = TouristsStatisticsColl;
+        //}
 
-            return povratna;
-        }
+
+        //public List<Tourist> GetTourists(List<Tourist> list,List<Model.FollowingTourLive> list1)
+        //{
+        //    List<Tourist> povratna = new List<Tourist>();
+
+        //    foreach (var item in list)
+        //    {
+        //        foreach (Model.FollowingTourLive item1 in list1)
+        //        {
+        //            foreach (var item2 in item1.TouristsIds)
+        //            {
+        //                if(item.Id==item2 && item1.TourInstanceId==_reservationRepository.GetTourInstanceById(item.ReservationId) && !povratna.Contains(item))
+        //                {
+        //                    povratna.Add(item);
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return povratna;
+        //}
 
 
     }

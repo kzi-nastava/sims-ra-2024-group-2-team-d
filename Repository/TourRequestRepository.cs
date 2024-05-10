@@ -54,8 +54,7 @@ namespace BookingApp.Repository
 
         public List<TourRequest> FilterByDateRange(DateOnly start, DateOnly end)
         {
-            return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold &&
-            ((x.Start>=start && x.Start<=end) || (x.End<=end && x.End>=start))).ToList();
+            return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold && ((x.Start>=start && x.Start<=end) || (x.End<=end && x.End>=start))).ToList();
         }
 
         public string FindMostWantedLocInLastYear()

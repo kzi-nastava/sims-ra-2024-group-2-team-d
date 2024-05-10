@@ -109,7 +109,7 @@ namespace BookingApp.Repository
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.End == true).ToList();
         }
 
-        public bool CheckIfUserIsAvaliable(User user, DateTime dateTime, List<TourInstance> tourInstances)
+        public bool CheckIfUserIsAvaliable(User user, DateTime dateTime, ObservableCollection<TourInstance> tourInstances)
         {
             if (tourInstances.Where(x => x.BaseTour.UserId == user.Id && x.Date == dateTime).ToList().Count != 0)
             {

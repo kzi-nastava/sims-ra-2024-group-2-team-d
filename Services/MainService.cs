@@ -19,6 +19,13 @@ namespace BookingApp.Services
         public TourService TourService { get; set; }
         public TourReservationService TourReservationService { get; set; }
         public GiftCardService GiftCardService { get; set; }
+        public TourReviewService TourReviewService { get; set; }
+        public TouristService TouristService { get; set; }
+        public FollowingTourLiveService FollowingTourLiveService { get; set; }
+        public KeyPointService KeyPointService { get; set; }
+        public TourRequestService TourRequestService { get; set; }
+        public UserService UserService { get; set; }
+        public PictureService PictureService { get; set; }
 
         public MainService()
         {
@@ -26,6 +33,13 @@ namespace BookingApp.Services
             TourService = new TourService();
             TourReservationService = new TourReservationService();
             GiftCardService = new GiftCardService();
+            TourReviewService = new TourReviewService();
+            TouristService = new TouristService();
+            FollowingTourLiveService = new FollowingTourLiveService();
+            KeyPointService = new KeyPointService();
+            TourRequestService = new TourRequestService();
+            UserService = new UserService();
+            PictureService = new PictureService();
         }
 
         public static MainService GetInstance()

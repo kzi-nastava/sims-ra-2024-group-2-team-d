@@ -60,7 +60,7 @@ namespace BookingApp.Model
                 End.ToString("yyyy-MM-dd"),
                 CreatedOn.ToString("yyyy-MM-dd"),
                 GuideId.ToString(),
-                ChosenDateTime.ToString(),
+                ChosenDateTime.ToString("yyyy-MM-dd"),
                 string.Join(",", TouristsForCSV()),
             };
             return csvValues;

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,11 @@ namespace BookingApp.Services
         public TourService()
         {
             TourRepository = new TourRepository();
+        }
+
+        public Tour JustSave(Tour tour)
+        {
+            return TourRepository.JustSave(tour);
         }
 
         public Tour GetById(int id)

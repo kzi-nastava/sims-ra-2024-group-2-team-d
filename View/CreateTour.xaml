@@ -33,13 +33,13 @@
             <TextBox Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Tour.Title, UpdateSourceTrigger=LostFocus}"></TextBox>
 
             <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,10" >Location:</Label>
-            <TextBox Grid.Row="1" Grid.Column="1" Height="30"  Text="{Binding Path=Tour.Location, UpdateSourceTrigger=LostFocus}" ></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" Height="30" IsReadOnly="{Binding LocReadOnly}" Text="{Binding Path=Tour.Location, UpdateSourceTrigger=LostFocus}" ></TextBox>
 
             <Label Grid.Row="2" Grid.Column="0" Margin="0,10,0,10" >Description</Label>
             <TextBox Grid.Row="2" Grid.Column="1" Height="30"  Text="{Binding Path=Tour.Description, UpdateSourceTrigger=LostFocus }"></TextBox>
 
             <Label Grid.Row="3" Grid.Column="0" Margin="0,10,0,10" >Language:</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" Height="30"  Text="{Binding Path=Tour.Language, UpdateSourceTrigger=LostFocus }"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" Height="30" IsReadOnly="{Binding LangReadOnly}" Text="{Binding Path=Tour.Language, UpdateSourceTrigger=LostFocus }"></TextBox>
 
             <Label Grid.Row="4" Grid.Column="0" Margin="0,10,0,10" >Maximum number of Tourists:</Label>
             <TextBox Grid.Row="4" Grid.Column="1" Height="30" Text="{Binding Path=Tour.MaxTourists, UpdateSourceTrigger=LostFocus}"></TextBox>
@@ -58,11 +58,11 @@
 
 
             <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
-                <Label x:Name="ErrorMessage" FontSize="11" Foreground="Red" Visibility="Hidden" ></Label>
+                <Label x:Name="ErrorMessage" FontSize="11" Foreground="Red" Content="{Binding ErrorText}" Visibility="{Binding IsVisibleError}"  ></Label>
             </StackPanel>
 
-            <Button Content="Save" Click="CreateNewTour" HorizontalAlignment="Left" Margin="120,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43"/>
-            <Button Grid.Column="1" Content="Cancel" Click="Cancel" HorizontalAlignment="Left" Margin="230,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
+            <Button Content="Save" Command="{Binding CreateNewTourCommand}" HorizontalAlignment="Left" Margin="120,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43"/>
+            <Button Grid.Column="1" Content="Cancel" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="230,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="43" />
 
         </Grid>
 

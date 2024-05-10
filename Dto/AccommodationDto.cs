@@ -1,4 +1,4 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

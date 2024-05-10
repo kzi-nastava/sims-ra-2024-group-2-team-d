@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Serializer;
 
-namespace BookingApp.Domain.Model
+namespace BookingApp.Model
 {
     public class TourReview : ISerializable
     {

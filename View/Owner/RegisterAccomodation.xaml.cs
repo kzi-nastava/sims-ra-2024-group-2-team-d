@@ -1,5 +1,5 @@
-﻿using BookingApp.Domain.Model;
-using BookingApp.Dto;
+﻿using BookingApp.Dto;
+using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.ComponentModel;

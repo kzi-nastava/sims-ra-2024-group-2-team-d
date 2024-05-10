@@ -1,5 +1,4 @@
-﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
+﻿using BookingApp.Repository;
 using BookingApp.Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows;
 using BookingApp.View;
 using System.Security.Cryptography.X509Certificates;
+using BookingApp.Model;
 
 namespace BookingApp.ViewModel.Guide
 {

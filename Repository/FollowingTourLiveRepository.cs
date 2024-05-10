@@ -64,7 +64,6 @@ namespace BookingApp.Repository
 
         public int GetKeyPoint(int id,int touristId)
         {
-
             List<FollowingTourLive> list = GetByTourInstanceId(id);
             int keypoint = -1;
             foreach (var item in list)

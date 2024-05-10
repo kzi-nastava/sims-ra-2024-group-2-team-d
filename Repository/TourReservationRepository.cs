@@ -72,6 +72,7 @@ namespace BookingApp.Repository
             }
             return tourists;
         }
+
         public int GetTourInstanceById(int id)
         {
             TourReservation tr = _tourReservation.Find(r => r.Id == id);

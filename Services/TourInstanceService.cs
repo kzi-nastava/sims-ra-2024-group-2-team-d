@@ -31,6 +31,30 @@ namespace BookingApp.Services
             TourInstanceRepository.Delete(tourInstance);
         }
 
+        public TourInstance Update(TourInstance tourInstance)
+        {
+            return TourInstanceRepository.Update(tourInstance);
+        }
+
+        public TourInstance Save(TourInstance tourInstance)
+        {
+            return TourInstanceRepository.Save(tourInstance);
+        }
+
+        public List<TourInstance> GetAllFinishedByUser(User user, ObservableCollection<TourInstance> tours)
+        {
+            return tours.Where(c => c.BaseTour.UserId == user.Id && c.End == true).ToList();
+        }
+
+        public bool CheckIfUserIsAvaliable(User user, DateTime dateTime, ObservableCollection<TourInstance> tourInstances)
+        {
+            if (tourInstances.Where(x => x.BaseTour.UserId == user.Id && x.Date == dateTime).ToList().Count != 0)
+            {
+                return false;
+            }
+            else return true;
+        }
+
         public TourInstance GetById(int id)
         {
             TourInstance tourInstance = TourInstanceRepository.GetById(id);

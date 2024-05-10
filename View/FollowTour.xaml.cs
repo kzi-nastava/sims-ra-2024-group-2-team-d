@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,87 +23,88 @@ namespace BookingApp.View
     /// </summary>
     public partial class FollowTour : Window
     {
-        public TourInstance TourInstance;
-        public static ObservableCollection<TourInstance> tourInstances;
-        private readonly TourInstanceRepository _tourInstanceRepository;
+        //public TourInstance TourInstance;
+        //public static ObservableCollection<TourInstance> tourInstances;
+        //private readonly TourInstanceRepository _tourInstanceRepository;
 
-        public static ObservableCollection<KeyPoint> KeyPoints { get; set; }
-        private readonly KeyPointRepository _keyPointRepository;
+        //public static ObservableCollection<KeyPoint> KeyPoints { get; set; }
+        //private readonly KeyPointRepository _keyPointRepository;
 
-        public static ObservableCollection<Tourist> Tourists { get; set; }
-        private readonly TouristRepository _touristRepository;
-        private readonly TourReservationRepository _tourReservationRepository;
+        //public static ObservableCollection<Tourist> Tourists { get; set; }
+        //private readonly TouristRepository _touristRepository;
+        //private readonly TourReservationRepository _tourReservationRepository;
 
-        public FollowingTourLive FollowingTourLive;
-        private readonly FollowingTourLiveRepository _followingTourLiveRepository;
+        //public FollowingTourLive FollowingTourLive;
+        //private readonly FollowingTourLiveRepository _followingTourLiveRepository;
 
-        public List<int> TouristsId { get; set; }
+        //public List<int> TouristsId { get; set; }
 
-        public Tourist SelectedTourist { get; set; }
+        //public Tourist SelectedTourist { get; set; }
         //public int i = 0;
 
 
         public FollowTour(TourInstance tourInstance)
         {
             InitializeComponent();
-            TourInstance = tourInstance;
-            TourInstance.Start = true;
-            _tourInstanceRepository = new TourInstanceRepository();
-            _tourInstanceRepository.Update(TourInstance);
+            DataContext = new FollowTourViewModel(tourInstance);
+            //TourInstance = tourInstance;
+            //TourInstance.Start = true;
+            //_tourInstanceRepository = new TourInstanceRepository();
+            //_tourInstanceRepository.Update(TourInstance);
 
-            _keyPointRepository = new KeyPointRepository();
-            KeyPoints = new ObservableCollection<KeyPoint>(_keyPointRepository.GetByTourInstance(TourInstance));
-            KeyPoints[0].Status = true;
-            //FollowingTourLive = new FollowingTourLive();
-            //FollowingTourLive.TourInstanceId = TourInstance.Id;
-            //FollowingTourLive.KeyPointId = KeyPoints[0].Id;
-            FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
-            //_followingTourLiveRepository.Save(FollowingTourLive);
+            //_keyPointRepository = new KeyPointRepository();
+            //KeyPoints = new ObservableCollection<KeyPoint>(_keyPointRepository.GetByTourInstance(TourInstance));
+            //KeyPoints[0].Status = true;
+            ////FollowingTourLive = new FollowingTourLive();
+            ////FollowingTourLive.TourInstanceId = TourInstance.Id;
+            ////FollowingTourLive.KeyPointId = KeyPoints[0].Id;
+            //FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
+            ////_followingTourLiveRepository.Save(FollowingTourLive);
 
-            _tourReservationRepository = new TourReservationRepository();
-            _touristRepository = new TouristRepository();
-            Tourists = new ObservableCollection<Tourist>(_tourReservationRepository.GetAllTouristByTourId(TourInstance.Id));
-            TouristsId = new List<int>();
+            //_tourReservationRepository = new TourReservationRepository();
+            //_touristRepository = new TouristRepository();
+            //Tourists = new ObservableCollection<Tourist>(_tourReservationRepository.GetAllTouristByTourId(TourInstance.Id));
+            //TouristsId = new List<int>();
 
 
 
-            KeyPointGrid.ItemsSource = KeyPoints;
-            KeyPointGrid.DataContext = KeyPoints;
+            //KeyPointGrid.ItemsSource = KeyPoints;
+            //KeyPointGrid.DataContext = KeyPoints;
 
-            TouristsGrid.ItemsSource = Tourists;
-            TouristsGrid.DataContext = Tourists;
+            //TouristsGrid.ItemsSource = Tourists;
+            //TouristsGrid.DataContext = Tourists;
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            CheckBox checkBox = sender as CheckBox;
-            if (checkBox == null)
-                return;
-            KeyPoint keyPoint = checkBox.DataContext as KeyPoint;
+        //private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    CheckBox checkBox = sender as CheckBox;
+        //    if (checkBox == null)
+        //        return;
+        //    KeyPoint keyPoint = checkBox.DataContext as KeyPoint;
 
-            if (keyPoint == null)
-                return;
+        //    if (keyPoint == null)
+        //        return;
            
-            keyPoint.Status = true;
+        //    keyPoint.Status = true;
 
-            FollowingTourLive = new FollowingTourLive();
-            FollowingTourLive.TourInstanceId = TourInstance.Id;
-            FollowingTourLive.KeyPointId = keyPoint.Id;
+        //    FollowingTourLive = new FollowingTourLive();
+        //    FollowingTourLive.TourInstanceId = TourInstance.Id;
+        //    FollowingTourLive.KeyPointId = keyPoint.Id;
 
-            FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
-            _followingTourLiveRepository.Save(FollowingTourLive);
+        //    FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
+        //    _followingTourLiveRepository.Save(FollowingTourLive);
 
-            if (AreAllCheckBoxesChecked())
-            {
-                EndTour.IsEnabled = true;
-                EndInEmTour.IsEnabled = false;
-            }
-            else
-            {
-                EndTour.IsEnabled = false;
-                EndInEmTour.IsEnabled = true;
-            }
-        }
+        //    if (AreAllCheckBoxesChecked())
+        //    {
+        //        EndTour.IsEnabled = true;
+        //        EndInEmTour.IsEnabled = false;
+        //    }
+        //    else
+        //    {
+        //        EndTour.IsEnabled = false;
+        //        EndInEmTour.IsEnabled = true;
+        //    }
+        //}
 
         public bool AreAllCheckBoxesChecked()
         {           
@@ -139,57 +141,57 @@ namespace BookingApp.View
         }
 
 
-        private void EndTour_Click(object sender, RoutedEventArgs e)
-        {
-            TourInstance.End = true;
-            _tourInstanceRepository.Update(TourInstance);
-            UserRepository _userRepository = new UserRepository();
-            GuideWindow ft = new GuideWindow(_userRepository.GetById(TourInstance.BaseTour.UserId));
-            ft.Show();
-            this.Close();
-        }
+        //private void EndTour_Click(object sender, RoutedEventArgs e)
+        //{
+        //    TourInstance.End = true;
+        //    _tourInstanceRepository.Update(TourInstance);
+        //    UserRepository _userRepository = new UserRepository();
+        //    GuideWindow ft = new GuideWindow(_userRepository.GetById(TourInstance.BaseTour.UserId));
+        //    ft.Show();
+        //    this.Close();
+        //}
 
-        private void AddTourists_Click(object sender, RoutedEventArgs e)
-        {
-            Tourist ti = TouristsGrid.SelectedItem as Tourist;
-            if (ti != null)
-            {
-                FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
-                List<FollowingTourLive> toursLive = new List<FollowingTourLive>(_followingTourLiveRepository.GetByTourInstanceId(TourInstance.Id));
-                //FollowingTourLive followingTourLive = new FollowingTourLive();
-                FollowingTourLive followingTourLive = toursLive.Find(r => r.KeyPointId == FindLastCheckedKeyPoint().Id);
+        //private void AddTourists_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Tourist ti = TouristsGrid.SelectedItem as Tourist;
+        //    if (ti != null)
+        //    {
+        //        FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
+        //        List<FollowingTourLive> toursLive = new List<FollowingTourLive>(_followingTourLiveRepository.GetByTourInstanceId(TourInstance.Id));
+        //        //FollowingTourLive followingTourLive = new FollowingTourLive();
+        //        FollowingTourLive followingTourLive = toursLive.Find(r => r.KeyPointId == FindLastCheckedKeyPoint().Id);
 
-                ti.ShowedUp = true;
-                _touristRepository.Update(ti);
-                followingTourLive.TouristsIds.Add(ti.Id);
-                _followingTourLiveRepository.Update(followingTourLive);
-                TouristsId.Add(ti.Id);
-                if(ti.UserId != -1)
-                {
-                    NotifyTouristUser(ti.UserId);
-                }
-            }
-        }
+        //        ti.ShowedUp = true;
+        //        _touristRepository.Update(ti);
+        //        followingTourLive.TouristsIds.Add(ti.Id);
+        //        _followingTourLiveRepository.Update(followingTourLive);
+        //        TouristsId.Add(ti.Id);
+        //        if(ti.UserId != -1)
+        //        {
+        //            NotifyTouristUser(ti.UserId);
+        //        }
+        //    }
+        //}
 
-        private void NotifyTouristUser(int userId)
-        {
-            LiveTourNotification liveTourNotification = new LiveTourNotification(TouristsId, TourInstance.Id);
-            LiveTourNotificationRepository _liveTourNotificationRepository = new LiveTourNotificationRepository();
-            LiveTourNotification savedNotification = _liveTourNotificationRepository.Save(liveTourNotification);
-            TouristNotifications notification = new TouristNotifications(savedNotification.Id, "You have been added to the tour. Click \"See more\" to see other tourists", NotificationType.AddedToLiveTour, userId);
-            TouristNotificationsRepository _touristNotificationsRepository = new TouristNotificationsRepository();
-            _touristNotificationsRepository.Save(notification);
+        //private void NotifyTouristUser(int userId)
+        //{
+        //    LiveTourNotification liveTourNotification = new LiveTourNotification(TouristsId, TourInstance.Id);
+        //    LiveTourNotificationRepository _liveTourNotificationRepository = new LiveTourNotificationRepository();
+        //    LiveTourNotification savedNotification = _liveTourNotificationRepository.Save(liveTourNotification);
+        //    TouristNotifications notification = new TouristNotifications(savedNotification.Id, "You have been added to the tour. Click \"See more\" to see other tourists", NotificationType.AddedToLiveTour, userId);
+        //    TouristNotificationsRepository _touristNotificationsRepository = new TouristNotificationsRepository();
+        //    _touristNotificationsRepository.Save(notification);
 
-        }
+        //}
 
-        private void EndInEmTour_Click(object sender, RoutedEventArgs e)
-        {
-            TourInstance.End = true;
-            _tourInstanceRepository.Update(TourInstance);
-            UserRepository _userRepository = new UserRepository();
-            GuideWindow ft = new GuideWindow(_userRepository.GetById(TourInstance.BaseTour.UserId));
-            ft.Show();
-            this.Close();
-        }
+        //private void EndInEmTour_Click(object sender, RoutedEventArgs e)
+        //{
+        //    TourInstance.End = true;
+        //    _tourInstanceRepository.Update(TourInstance);
+        //    UserRepository _userRepository = new UserRepository();
+        //    GuideWindow ft = new GuideWindow(_userRepository.GetById(TourInstance.BaseTour.UserId));
+        //    ft.Show();
+        //    this.Close();
+        //}
     }
 }

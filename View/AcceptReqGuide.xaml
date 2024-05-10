@@ -23,12 +23,12 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="Set a tour date:" Width="286" Height="15" />
         </StackPanel>
-        <TextBox Name="DateTextBox" Grid.Row="3" Grid.Column="1" Height="30" Width="120"></TextBox>
+        <TextBox Name="DateTextBox" Text="{Binding DateText}" Grid.Row="3" Grid.Column="1" Height="30" Width="120"></TextBox>
 
         <Button x:Name="Ok" Grid.Row="5" Grid.Column="1" Width="50" HorizontalAlignment="Left" 
-Click="Ok_Click" Margin="137,3,0,12">OK</Button>
+Command="{Binding OkCommand}" Margin="137,3,0,12">OK</Button>
         <Button x:Name="Cancel" Grid.Row="5" Grid.Column="1" Width="50" HorizontalAlignment="Left" 
-Click="Cancel_Click" Margin="207,3,0,12">Cancel</Button>
+Command="{Binding CancelCommand}" Margin="207,3,0,12">Cancel</Button>
 
 
     </Grid>

@@ -20,8 +20,7 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <DataGrid ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTour}" x:Name="RequestsGrid"
-      
+            <DataGrid ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest}" x:Name="RequestsGrid"     
       IsReadOnly="True" SelectionMode="Single" 
       AutoGenerateColumns="False" Height="310" HeadersVisibility="Column" FontSize="13">
                 <DataGrid.Columns>
@@ -35,21 +34,21 @@
             </DataGrid>
         </StackPanel>
         <Button x:Name="Accept" Grid.Row="3" Grid.Column="1" Width="122" HorizontalAlignment="Center" 
-        Click="Accept_Click" Margin="0,7,0,8" Grid.RowSpan="2">Accept Tour Request</Button>
-        <Button x:Name="Statistics" Grid.Row="3" Grid.Column="1" Width="122" HorizontalAlignment="Left" 
-Click="Statistics_Click" Margin="575,7,0,8" Grid.RowSpan="2">Show Statistics</Button>
+        Command="{Binding AcceptCommand}" Margin="0,7,0,8" Grid.RowSpan="2">Accept Tour Request</Button>
+        <!--Button x:Name="Statistics" Grid.Row="3" Grid.Column="1" Width="122" HorizontalAlignment="Left" 
+Click="Statistics_Click" Margin="575,7,0,8" Grid.RowSpan="2">Show Statistics</Button-->
         <!--TextBox Width="100" Name="SearchTextBox"  Height="30"  Margin="81,2,535,7" Grid.Column="1"/-->
         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,10" Height="30">
             <Label Content="Filter by:" />
-            <TextBox Width="100" Name="SearchLocation"  Height="30"  Margin="0,0,0,0"/>
-            <Button Content="Location" Name="SearchByLocation" Width="50" Click="SearchByLocation_Click" Height="25"></Button>
-            <TextBox Width="30" Name="SearchNum"  Height="30"  Margin="10,0,0,0"/>
-            <Button Content="NumOfTourists" Name="SearchByNum" Width="87" Click="SearchByNum_Click" Height="25"></Button>
-            <TextBox Width="70" Name="SearchLanguage"  Height="30"  Margin="10,0,0,0"/>
-            <Button Content="Language" Name="SearchByLanguage" Width="87" Click="SearchByLanguage_Click" Height="25"></Button>
-            <TextBox Width="90" Name="StartDate"  Height="30"  Margin="10,0,0,0"/>
-            <TextBox Width="90" Name="EndDate"  Height="30"  Margin="2,0,0,0"/>
-            <Button Content="Date Range" Name="SearchByDate" Width="65" Click="SearchByDate_Click" Height="25" ></Button>
+            <TextBox Width="100" Name="SearchLocation" Text="{Binding Location}" Height="30"  Margin="0,0,0,0"/>
+            <Button Content="Location" Name="SearchByLocation" Width="50" Command="{Binding SearchByLocationCommand}" Height="25"></Button>
+            <TextBox Width="30" Name="SearchNum" Text="{Binding Num}" Height="30"  Margin="10,0,0,0"/>
+            <Button Content="NumOfTourists" Name="SearchByNum" Width="87" Command="{Binding SearchByNumCommand}" Height="25"></Button>
+            <TextBox Width="70" Name="SearchLanguage" Text="{Binding Lang}" Height="30"  Margin="10,0,0,0"/>
+            <Button Content="Language" Name="SearchByLanguage" Width="87" Command="{Binding SearchByLanguageCommand}" Height="25"></Button>
+            <TextBox Width="90" Name="StartDate" Text="{Binding StartDate}" Height="30"  Margin="10,0,0,0"/>
+            <TextBox Width="90" Name="EndDate" Text="{Binding EndDate}" Height="30"  Margin="2,0,0,0"/>
+            <Button Content="Date Range" Name="SearchByDate" Width="65" Command="{Binding SearchByDateCommand}" Height="25" ></Button>
         </StackPanel>
 
 

@@ -27,7 +27,7 @@
 
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1">
-            <DataGrid ItemsSource="{Binding tourReviews}" x:Name="GradesRevGrid"
+            <DataGrid ItemsSource="{Binding TourReviews}" x:Name="GradesRevGrid"
               SelectedItem="{Binding Path=SelectedTourInstance}"
               IsReadOnly="True" SelectionMode="Single" 
               AutoGenerateColumns="False" Height="80" HeadersVisibility="Column" FontSize="13" Width="494">
@@ -45,13 +45,12 @@
 
         </StackPanel>
         <StackPanel Grid.Row="6" Grid.Column="1">
-            <DataGrid ItemsSource="{Binding tourReviews}" x:Name="ComRevGrid"
+            <DataGrid ItemsSource="{Binding TourReviews}" x:Name="ComRevGrid"
       SelectedItem="{Binding Path=SelectedTourInstance}"
       IsReadOnly="True" SelectionMode="Single" 
       AutoGenerateColumns="False" Height="100"  FontSize="13" Width="494">
                 <DataGrid.Columns>
                     <DataGridTextColumn  Binding="{Binding Comment}" Width="*"/>
-
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -59,7 +58,7 @@
 
 
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Click="Button_Click">
+            <Button Command="{Binding InvalidCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
                     <TextBlock Name="InvalidTxtBlock" Text="Invalid review" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />

@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="RequestsStatistics" Height="450" Width="800">
+        Title="RequestsStatistics" Height="500" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="760"/>
+            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="380"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -18,18 +19,61 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="Most wanted location" FontSize="20" Margin="80,0,480,0" />
-        <TextBlock Grid.Column="1" Grid.Row="2" Text="in last year:" FontSize="20" Height="45" Margin="128,0,528,35" Grid.RowSpan="2" />
-        <TextBlock Grid.Column="1" FontSize="17" Grid.Row="3" Text="{Binding Location}" Margin="80,0,474,0" />
-        <Button Grid.Column="1" Grid.Row="4" Content="Create tour in this location" Name="CrLoc" Click="CrLoc_Click" Height="35" Margin="103,0,503,5"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Most wanted location" FontSize="20" Margin="80,0,86,0" />
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="in last year:" FontSize="20" Height="45" Margin="128,0,138,25" Grid.RowSpan="2" />
+        <TextBlock Grid.Column="1" FontSize="17" Grid.Row="3" Text="{Binding Location}" Margin="80,0,100,0" />
+        <Button Grid.Column="1" Grid.Row="4" Content="Create tour in this location" Name="CrLoc" Command="{Binding CreateInLocCommand}" Height="35" Margin="107,0,118,5"/>
 
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="Most wanted language" FontSize="20" Margin="459,0,39,0" />
-        <TextBlock Grid.Column="1" Grid.Row="2" Text="in last year:" FontSize="20" Height="45" Margin="513,0,141,25" Grid.RowSpan="2" />
-        <TextBlock Grid.Column="1" FontSize="17" Grid.Row="3" Text="{Binding Lang}" Margin="486,0,114,0" />
-        <Button Grid.Column="1" Grid.Row="4" Content="Create tour in this language" Name="CrLang" Click="CrLang_Click" Height="35" Margin="492,0,114,5"/>
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="Most wanted language" FontSize="20" Margin="74,0,74,0" />
+        <TextBlock Grid.Column="2" Grid.Row="2" Text="in last year:" FontSize="20" Height="45" Margin="131,0,120,25" Grid.RowSpan="2" />
+        <TextBlock Grid.Column="2" FontSize="17" Grid.Row="3" Text="{Binding Lang}" Margin="57,2,57,38" Grid.RowSpan="2" />
+        <Button Grid.Column="2" Grid.Row="4" Content="Create tour in this language" Name="CrLang" Command="{Binding CreateInLangCommand}" Height="35" Margin="105,0,105,5"/>
+        <TextBlock Grid.Column="1" Grid.Row="6" Text="See requests statistics for location:" FontSize="20" Margin="63,12,10,12" />
+        <TextBox Grid.Column="2" Grid.Row="6" Name="SearchTextBox"  Height="31"  Margin="10,11,190,13"/>
+        <Button Grid.Column="2" Grid.Row="6" Content="Search" Name="SearchBUtton" Width="50" Command="{Binding SearchCommand}" Margin="195,10,135,16"/>
+
+        <StackPanel Grid.Row="8" Grid.Column="1" Margin="0,0,0,-145">
+            <DataGrid ItemsSource="{Binding TourInstances}" x:Name="TourGrid"
+              SelectedItem="{Binding Path=SelectedTourInstance}"
+              IsReadOnly="True" SelectionMode="Single" 
+              AutoGenerateColumns="False" Height="164" HeadersVisibility="Column" FontSize="13" Width="193">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Year" Binding="{Binding BaseTour.Title}" Width="100"/>
+                    <DataGridTextColumn Header="Requests num" Binding="{Binding Date}" Width="90"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <TextBlock Grid.Column="2" Grid.Row="7" Text="Set a year:" FontSize="18" Margin="0,0,280,6" />
+        <TextBox Grid.Column="2" Grid.Row="7" Name="SearchhTextBox"  Height="31"  Margin="105,0,160,29" Grid.RowSpan="2"/>
+        <Button Grid.Column="2" Grid.Row="7" Content="Set" Name="sSearchBUtton" Command="{Binding SearchCommand}" Margin="225,2,114,2"/>
+
+        <StackPanel Grid.Row="8" Grid.Column="2" Margin="0,0,0,-25">
+            <DataGrid ItemsSource="{Binding TourInstances}" x:Name="TourrGrid"
+      SelectedItem="{Binding Path=SelectedTourInstance}"
+      IsReadOnly="True" SelectionMode="Single" 
+      AutoGenerateColumns="False" Height="164" HeadersVisibility="Column" FontSize="13" Width="380">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Jan" Binding="{Binding BaseTour.Title}" Width="28"/>
+                    <DataGridTextColumn Header="Feb" Binding="{Binding Date}" Width="31"/>
+                    <DataGridTextColumn Header="Mar" Binding="{Binding Date}" Width="33"/>
+                    <DataGridTextColumn Header="Apr" Binding="{Binding Date}" Width="31"/>
+                    <DataGridTextColumn Header="May" Binding="{Binding Date}" Width="35"/>
+                    <DataGridTextColumn Header="Jun" Binding="{Binding Date}" Width="29"/>
+                    <DataGridTextColumn Header="Jul" Binding="{Binding Date}" Width="27"/>
+                    <DataGridTextColumn Header="Aug" Binding="{Binding Date}" Width="33"/>
+                    <DataGridTextColumn Header="Sep" Binding="{Binding Date}" Width="31"/>
+                    <DataGridTextColumn Header="Oct" Binding="{Binding Date}" Width="31"/>
+                    <DataGridTextColumn Header="Nov" Binding="{Binding Date}" Width="35"/>
+                    <DataGridTextColumn Header="Dec" Binding="{Binding Date}" Width="33"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
 
     </Grid>
 </Window>

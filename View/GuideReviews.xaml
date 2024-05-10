@@ -19,8 +19,8 @@
             <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <DataGrid ItemsSource="{Binding touristReviews}" x:Name="ReviewGrid"
-              
+            <DataGrid ItemsSource="{Binding TouristReviews}" x:Name="ReviewGrid"
+              SelectedItem="{Binding Path=SelectedTouristReview}"
               IsReadOnly="True" SelectionMode="Single" 
               AutoGenerateColumns="False" Height="325" HeadersVisibility="Column" FontSize="13">
                 <DataGrid.Columns>
@@ -31,7 +31,7 @@
             </DataGrid>
         </StackPanel>
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Click="Button_Click">
+            <Button Command="{Binding OpenCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
                     <TextBlock Name="OpenTxtBlock" Text="Open review" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />

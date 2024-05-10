@@ -20,6 +20,7 @@ namespace BookingApp.ViewModel.Guide
         public TourRequest TourRequest { get; set; }
         public User LoggedInUser { get; set; }
         public ObservableCollection<TourInstance> TourInstances { get; set; }
+        public TourRequestAcceptanceNotificationService _tourRequestAcceptanceNotificationService { get; set; }
         public MyCommand OkCommand { get; set; }
         public MyCommand CancelCommand { get; set; }
         private string dateText;
@@ -39,6 +40,7 @@ namespace BookingApp.ViewModel.Guide
             TourRequest = tourRequest;
             LoggedInUser = user;
             TourInstances = new ObservableCollection<TourInstance>(MainService.TourInstanceService.GetAll());
+            _tourRequestAcceptanceNotificationService = new TourRequestAcceptanceNotificationService();
             LinkTourInstancesWithTours();
             OkCommand = new MyCommand(Ok);
             CancelCommand = new MyCommand(Cancel);
@@ -77,7 +79,8 @@ namespace BookingApp.ViewModel.Guide
                         TourRequest.CurrentStatus = Status.Accepted;
                         TourRequest.ChosenDateTime = parsedDate;
                         TourRequest.GuideId = LoggedInUser.Id;
-                        MainService.TourRequestService.Update(TourRequest);
+                        TourRequest tourRequest = MainService.TourRequestService.Update(TourRequest);
+                        NotifyTouristUser(tourRequest);
                         //CreateTourInstanceFromRequest(TourRequest, parsedDate);
 
                         MessageBox.Show("You have successfully acceptted this request!");
@@ -93,6 +96,16 @@ namespace BookingApp.ViewModel.Guide
                     MessageBox.Show("You have to enter date in format yyyy-MM-dd HH:mm");
                 }
             }
+        }
+
+        private void NotifyTouristUser(TourRequest tourRequest)
+        {
+            TourRequestAcceptanceNotification tourRequestAcceptanceNotification = new TourRequestAcceptanceNotification(tourRequest.Id);
+            TourRequestAcceptanceNotification savedNotification = _tourRequestAcceptanceNotificationService.Save(tourRequestAcceptanceNotification);
+            TouristNotifications notification = new TouristNotifications(savedNotification.Id, "Your request has been accepted. Click \"See more\" to see more info", NotificationType.TourRequestAcceptance, tourRequest.UserTouristId);
+            TouristNotificationService _touristNotificationsService = new TouristNotificationService();
+            _touristNotificationsService.Save(notification);
+
         }
 
         private void Cancel()

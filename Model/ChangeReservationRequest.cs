@@ -1,7 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 
-namespace BookingApp.Domain.Model
+namespace BookingApp.Model
 {
     public enum StatusType { Pending, Canceled, Approved }
     public class ChangeReservationRequest : ISerializable

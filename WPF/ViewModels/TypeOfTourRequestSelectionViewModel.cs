@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BookingApp.WPF.Views;
-using BookingApp.Domain.Model;
+using BookingApp.Model;
 
 namespace BookingApp.WPF.ViewModels
 {

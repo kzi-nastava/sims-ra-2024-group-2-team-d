@@ -1,4 +1,4 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Model;
 using BookingApp.Repository;
 using InitialProject.CustomClasses;
 using System;

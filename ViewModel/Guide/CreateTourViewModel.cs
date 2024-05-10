@@ -1,5 +1,4 @@
 ﻿using BookingApp.Dto;
-using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
 using System;
@@ -10,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BookingApp.Model;
 
 namespace BookingApp.ViewModel.Guide
 {

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using BookingApp.Model;
 
 namespace BookingApp.Services
 {

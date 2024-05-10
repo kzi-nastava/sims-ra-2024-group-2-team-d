@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using BookingApp.Services;
 using BookingApp.Dto;
-using BookingApp.Domain.Model;
+using BookingApp.Model;
 
 namespace BookingApp.WPF.ViewModels
 {

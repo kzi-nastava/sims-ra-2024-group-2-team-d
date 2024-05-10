@@ -66,4 +66,8 @@
     <Resource Include="Resources\Images\voucher-icon.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\RepositoryInterfaces\" />
+  </ItemGroup>
+
 </Project>

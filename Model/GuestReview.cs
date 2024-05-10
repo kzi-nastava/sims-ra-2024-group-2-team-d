@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace BookingApp.Domain.Model
+namespace BookingApp.Model
 {
     public class GuestReview : Serializer.ISerializable
     {

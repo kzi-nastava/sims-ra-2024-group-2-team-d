@@ -22,6 +22,8 @@ namespace BookingApp.Model
         public List<string>? Images { get; set; }
         public List<Reservation> Reservations { get; set; }
 
+        public List<Renovation> Renovations { get; set; }
+
         public Accommodation()
         {
         }

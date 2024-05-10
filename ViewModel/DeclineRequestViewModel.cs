@@ -1,4 +1,5 @@
 ﻿using BookingApp.Repository;
+using BookingApp.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -12,6 +13,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
         public int RequestId { get; set; }
 
         private string _ownerComment;
+        private BaseService baseService { get; set; }
         public string OwnerComment
         {
             get { return _ownerComment; }
@@ -26,6 +28,7 @@ namespace InitialProject.Presentation.WPF.ViewModel.Owner
 
         public DeclineRequestViewModel(int requestId)
         {
+            baseService = new BaseService();
             _changeReservationRequestRepository = new ChangeReservationRequestRepository();
             RequestId = requestId;
             OwnerComment = string.Empty;

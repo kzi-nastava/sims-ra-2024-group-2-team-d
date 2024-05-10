@@ -6,73 +6,84 @@
         xmlns:local="clr-namespace:BookingApp.View.Owner"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-            Title="Register Accommodation" Height="550" Width="440">
+            Title="Register Accommodation" Height="716" Width="414">
+    <Window.Effect>
+        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="5" Opacity="0.5"/>
+    </Window.Effect>
+    
     <Grid>
-        <Grid Grid.Row="0" Grid.Column="0" Margin="21,25,21,10" >
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+        
+        <Grid Background="LightSteelBlue">
+            <Grid Grid.Row="0" Grid.Column="0" Margin="21,100,10,10" >
 
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="170"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="20"></ColumnDefinition>
+                </Grid.RowDefinitions>
 
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="25"></ColumnDefinition>
 
-            <Label Grid.Row="0" Grid.Column="0" Margin="0,10,0,10" >Naziv smestaja:</Label>
-            <TextBox Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationName, UpdateSourceTrigger=LostFocus}"></TextBox>
+                </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,10" >Drzava:</Label>
-            <TextBox Grid.Row="1" Grid.Column="1" Height="30"  Text="{Binding Path=Accommodation.AccommodationCountry, UpdateSourceTrigger=LostFocus}" ></TextBox>
+                <Label  Grid.Row="0" Grid.Column="0" Margin="10,20,0,10" FontWeight="Bold" Foreground="MidnightBlue" >Naziv smestaja:</Label>
+                <TextBox BorderBrush="MidnightBlue"  Grid.Row="0" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationName, UpdateSourceTrigger=LostFocus}" TextChanged="TextBox_TextChanged"></TextBox>
 
-            <Label Grid.Row="2" Grid.Column="0" Margin="0,10,0,10" >Grad</Label>
-            <TextBox Grid.Row="2" Grid.Column="1" Height="30"  Text="{Binding Path=Accommodation.AccommodationCity, UpdateSourceTrigger=LostFocus }"></TextBox>
+                <Label Grid.Row="1" Grid.Column="0" Margin="10,20,0,10" FontWeight="Bold" Foreground="MidnightBlue" >Drzava:</Label>
+                <TextBox BorderBrush="MidnightBlue" Grid.Row="1" Grid.Column="1" Height="30"  Text="{Binding Path=Accommodation.AccommodationCountry, UpdateSourceTrigger=LostFocus}" ></TextBox>
 
-            <Label Grid.Row="3" Grid.Column="0" Margin="0,10,0,10" >Tip smestaja:</Label>
-            <ComboBox Grid.Row="3" Grid.Column="1" Name="TypeComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
+                <Label Grid.Row="2" Grid.Column="0" Margin="10,20,0,10"  FontWeight="Bold" Foreground="MidnightBlue"  >Grad</Label>
+                <TextBox BorderBrush="MidnightBlue" Grid.Row="2" Grid.Column="1" Height="30"  Text="{Binding Path=Accommodation.AccommodationCity, UpdateSourceTrigger=LostFocus }"></TextBox>
+
+                <Label Grid.Row="3" Grid.Column="0" Margin="10,20,0,10"  FontWeight="Bold" Foreground="MidnightBlue" >Tip smestaja:</Label>
+                <ComboBox BorderBrush="MidnightBlue" Grid.Row="3" Grid.Column="1" Name="TypeComboBox" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
             IsEditable="False"   Margin="0,10,0,10" HorizontalAlignment="Left" Width="203"  SelectedIndex="{Binding Path=Accommodation.ApartmentType, Mode=OneWayToSource}" >
-                <ComboBoxItem IsSelected="True" Content="Apartman"></ComboBoxItem>
-                <ComboBoxItem Content="Kuca"></ComboBoxItem>
-                <ComboBoxItem Content="Koliba"></ComboBoxItem>
-            </ComboBox>
+                    <ComboBoxItem  IsSelected="True" Content="Apartman"></ComboBoxItem>
+                    <ComboBoxItem Content="Kuca"></ComboBoxItem>
+                    <ComboBoxItem Content="Koliba"></ComboBoxItem>
+                </ComboBox>
 
-            <Label Grid.Row="4" Grid.Column="0" Margin="0,10,0,10" >Max broj gostiju:</Label>
-            <TextBox Grid.Row="4" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationMaxGuests, UpdateSourceTrigger=LostFocus}"></TextBox>
+                <Label Grid.Row="4" Grid.Column="0" Margin="10,20,0,10"  FontWeight="Bold" Foreground="MidnightBlue" >Max broj gostiju:</Label>
+                <TextBox BorderBrush="MidnightBlue" Grid.Row="4" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationMaxGuests, UpdateSourceTrigger=LostFocus}"></TextBox>
 
-            <Label Grid.Row="5" Grid.Column="0" Margin="0,10,0,10" >Min broj dana za rezervaciju:</Label>
-            <TextBox Grid.Row="5" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationReservationMinDays, UpdateSourceTrigger=LostFocus}"></TextBox>
+                <Label Grid.Row="5" Grid.Column="0" Margin="10,20,0,10"  FontWeight="Bold" Foreground="MidnightBlue" >Min broj dana za rezervaciju:</Label>
+                <TextBox BorderBrush="MidnightBlue" Grid.Row="5" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationReservationMinDays, UpdateSourceTrigger=LostFocus}"></TextBox>
 
-            <Label Grid.Row="6" Grid.Column="0" Margin="0,10,0,10">Broj dana za otkazivanje:</Label>
-            <TextBox Grid.Row="6" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationCancelationDays, UpdateSourceTrigger=LostFocus}"></TextBox>
+                <Label Grid.Row="6" Grid.Column="0" Margin="10,20,0,10"  FontWeight="Bold" Foreground="MidnightBlue" >Broj dana za otkazivanje:</Label>
+                <TextBox BorderBrush="MidnightBlue" Grid.Row="6" Grid.Column="1" Height="30" Text="{Binding Path=Accommodation.AccommodationCancelationDays, UpdateSourceTrigger=LostFocus}"></TextBox>
 
-            <Label Grid.Row="7" Grid.Column="0" Margin="0,10,0,10">Slika:</Label>
-            <TextBox x:Name="ImageTextbox" Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=ImagePath, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button x:Name="AddImage" Grid.Column="2" Grid.Row="7" Margin="0,10,0,10" Background="White" Click="AddImage_Click" BorderThickness="0" >
-                <StackPanel>
-                    <Image Source="../../Resources/Images/add.png" Visibility="Visible" />
+                <Label Grid.Row="7" Grid.Column="0" Margin="10,20,0,10"  FontWeight="Bold" Foreground="MidnightBlue" >Slika:</Label>
+                <TextBox BorderBrush="MidnightBlue" x:Name="ImageTextbox" Grid.Row="7" Grid.Column="1" Height="30" Text="{Binding Path=ImagePath, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button x:Name="AddImage" Grid.Column="2" Grid.Row="8" Margin="0,10,0,10" Background="White" Click="AddImage_Click" BorderThickness="0" >
+                    <StackPanel>
+                        <Image Source="../../Resources/Images/add.png" Visibility="Visible" />
+                    </StackPanel>
+                </Button>
+                <Button Content="..." x:Name="SearchImage" Grid.Column="2" Grid.Row="7" Margin="0,10,0,10" Background="White" Click="AddImageFromPC_Click" BorderThickness="0" >
+
+                </Button>
+
+
+                <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Label x:Name="ErrorMessage" FontSize="11" Foreground="Red" Visibility="Hidden" ></Label>
                 </StackPanel>
-            </Button>
-            
 
-            <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
-                <Label x:Name="ErrorMessage" FontSize="11" Foreground="Red" Visibility="Hidden" ></Label>
-            </StackPanel>
+                <Button  Content="Save"  Click="NewAccommodationRegistration" HorizontalAlignment="Center" Grid.Row="9" VerticalAlignment="Center" Width="160" FontWeight="Bold" Background="#003F54" Height="50"/>
+                <Button Grid.Column="1" FontWeight="Bold" Content="Cancel" Click="CancelButton" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Row="9" VerticalAlignment="Center" Width="160" Background="#003F54" Height="50" />
 
-            <Button Content="Save" Click="NewAccommodationRegistration" HorizontalAlignment="Center" Grid.Row="9" VerticalAlignment="Center" Width="43"/>
-            <Button Grid.Column="1" Content="Cancel" Click="CancelButton" HorizontalAlignment="Left" Margin="89,0,0,0" Grid.Row="9" VerticalAlignment="Center" Width="43" />
+            </Grid>
 
         </Grid>
-
     </Grid>
 </Window>

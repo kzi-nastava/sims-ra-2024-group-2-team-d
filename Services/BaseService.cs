@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Interfaces;
+using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace BookingApp.Services
 
         public GuestReviewService   GuestReviewService { get; set; }
 
+        public RenovationService RenovationService { get; set; }
+
         private static object lockObject { get; set; } = new object();
 
         private static BaseService instance;
@@ -39,12 +42,13 @@ namespace BookingApp.Services
 
         }
         
-        public BaseService() { 
-            AccomodationService= new AccomodationService();
+        public BaseService() {
+            AccomodationService = new AccomodationService();
             AccommodationReviewService  = new AccommodationReviewService();
             ChangeReservationService = new ChangeReservationRequestService();
             ReservationService = new ReservationService();
             GuestReviewService = new GuestReviewService();
+            RenovationService = new RenovationService();
 
         }
 

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Dto;
 using BookingApp.Model;
 using BookingApp.Repository;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -52,7 +53,16 @@ namespace BookingApp.View.Owner
 
         }
 
+        private void AddImageFromPC_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
 
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ImageTextbox.Text = openFileDialog.FileName;
+            }
+        }
 
 
         private void CancelButton(object sender, RoutedEventArgs e)
@@ -76,6 +86,11 @@ namespace BookingApp.View.Owner
             Accommodation.Images.Add(ImagePath);
             ImagePath = String.Empty;
             OnPropertyChanged("ImagePath");
+        }
+
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
         }
     }
 }

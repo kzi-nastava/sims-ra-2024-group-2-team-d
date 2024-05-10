@@ -14,6 +14,7 @@ namespace BookingApp.Dto
     public class TourRequestDTO : INotifyPropertyChanged, IDataErrorInfo
     {
         private int numberOfTourists;
+      
 
         public int NumberOfTourists
         {

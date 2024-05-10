@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Owner"
         mc:Ignorable="d"
-        Title="ChangeReservationRequests"  Height="450" Width="800">
-    <Grid>
+         WindowStartupLocation="CenterScreen"
+        Title="ChangeReservationRequests"  Height="736" Width="414">
+    <Grid Background="LightSteelBlue">
         <Label>Requests for changing reservations:</Label>
         <DataGrid Margin="14,29,16,45"
                   ItemsSource="{Binding Requests}"
@@ -16,7 +17,7 @@
                 <DataGridTextColumn Header="Accommodation Name" Width="*" Binding="{Binding AccommodationName}"  ></DataGridTextColumn>
                 <DataGridTextColumn Header="New start date" Width="*" Binding="{Binding NewStartDate}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="New end date" Width="*"  Binding="{Binding NewEndDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Is date range available" Width="*" Binding="{Binding IsDateAvailable}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Is  available" Width="*" Binding="{Binding IsDateAvailable}"></DataGridTextColumn>
 
 
             </DataGrid.Columns>

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.View.Owner;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace BookingApp.View.Guest1
             _user = user;
             CheckReviewNotifications();
         }
-
+        
         private void Registration_Click(object sender, RoutedEventArgs e)
         {
             RegisterAccomodation registerAccomodation = new RegisterAccomodation(_user);
@@ -62,6 +63,18 @@ namespace BookingApp.View.Guest1
         {
             ChangeReservationRequests changeReservationRequest = new ChangeReservationRequests(_user);
             changeReservationRequest.Show();
+        }
+
+        private void Accommodations_Click(object sender, RoutedEventArgs e)
+        {
+            RenovationView renovationView = new RenovationView(_user);
+            renovationView.Show();
+        }
+
+        private void Renovations_Click(object sender, RoutedEventArgs e)
+        {
+            RenovationReview renovationReview = new RenovationReview(_user);
+            renovationReview.Show();
         }
     }
 }

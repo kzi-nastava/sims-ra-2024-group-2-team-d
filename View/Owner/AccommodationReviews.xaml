@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Owner"
         mc:Ignorable="d"
-        Title="AccommodationReviews" Height="450" Width="800">
-    <Grid>
+         WindowStartupLocation="CenterScreen"
+        Title="AccommodationReviews" Height="736" Width="414">
+    <Grid Background="LightSteelBlue">
         <StackPanel>
             <!-- DataGrid za prikaz ocena -->
             <DataGrid Grid.Column="1" Grid.Row="0" Margin="10,29,20,20"

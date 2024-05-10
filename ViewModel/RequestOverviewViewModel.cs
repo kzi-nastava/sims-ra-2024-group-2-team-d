@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,9 @@ namespace BookingApp.ViewModel
         private ObservableCollection<ChangeReservationRequest> _requests;
         private readonly AccommodationRepository _accommodationRepository;
         private readonly ChangeReservationRequestRepository _requestsRepository;
+
+        private BaseService baseService { get; set; }
+
         public ObservableCollection<ChangeReservationRequest> Requests
         {
             get
@@ -34,6 +38,7 @@ namespace BookingApp.ViewModel
 
         public RequestsOverviewViewModel(int userId)
         {
+            baseService = new BaseService();
             _requestsRepository = new ChangeReservationRequestRepository();
             _accommodationRepository = new AccommodationRepository();
             Requests = new ObservableCollection<ChangeReservationRequest>(_requestsRepository.GetAllByUser(userId));

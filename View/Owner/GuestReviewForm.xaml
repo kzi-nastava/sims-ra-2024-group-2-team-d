@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:BookingApp.View.Owner"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Guest Review Form" Height="350" Width="350">
-    <Grid>
+        Title="Guest Review Form" Height="716" Width="414">
+    <Grid Background="LightSteelBlue">
         <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -21,10 +21,10 @@
             <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="Information" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,0"  TextWrapping="Wrap"> Da li zelite da ocjenite gosta koji je boravio u vasem</TextBlock>
+        <TextBlock x:Name="Information" Height="100" FontSize="19" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,0" FontWeight="Black" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"> Da li zelite da ocjenite gosta koji je boravio u vasem</TextBlock>
 
-        <Label Grid.Row="1" Grid.Column="0" Margin="27,0,0,0" VerticalAlignment="Center" Content="Cistoca:"></Label>
-        <ComboBox Grid.Row="1" Grid.Column="1" Margin="5,7,5,7" Text="{Binding Path=Cleanness, Mode=OneWayToSource}">
+        <Label Grid.Row="1" Grid.Column="0" FontSize="20" Margin="80,0,0,0" VerticalAlignment="Center" Content="Cistoca:"></Label>
+        <ComboBox Width="150" Grid.Row="1" Grid.Column="1" Margin="5,7,5,7" Text="{Binding Path=Cleanness, Mode=OneWayToSource}" SelectionChanged="ComboBox_SelectionChanged">
             <ComboBoxItem IsSelected="True">1</ComboBoxItem>
             <ComboBoxItem>2</ComboBoxItem>
             <ComboBoxItem>3</ComboBoxItem>
@@ -33,8 +33,8 @@
         </ComboBox>
 
 
-        <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="27,0,0,0" Content="Postovanje pravila:"></Label>
-        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,7,5,7" Text="{Binding Path=Rules, Mode=OneWayToSource}">
+        <Label Grid.Column="0" Grid.Row="2" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="21,0,0,0" Content="Postovanje pravila:"></Label>
+        <ComboBox Width="150" Grid.Row="2" Grid.Column="1" Margin="5,7,5,7" Text="{Binding Path=Rules, Mode=OneWayToSource}">
             <ComboBoxItem IsSelected="True">1</ComboBoxItem>
             <ComboBoxItem>2</ComboBoxItem>
             <ComboBoxItem>3</ComboBoxItem>
@@ -42,12 +42,12 @@
             <ComboBoxItem>5</ComboBoxItem>
         </ComboBox>
 
-        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="25,7,0,0" Content="Komentar:"></Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Height="72" Margin="5,0,5,0" VerticalAlignment="Center" Text="{Binding Path=Comment,Mode=OneWayToSource}"/>
+        <Label Grid.Row="3" Grid.Column="0" Margin="30,30,0,0" Content="Komentar:"></Label>
+        <TextBox Width="350" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Height="100" Margin="5,20,5,0" VerticalAlignment="Center" Text="{Binding Path=Comment,Mode=OneWayToSource}" TextChanged="TextBox_TextChanged"/>
 
 
-        <Button x:Name="Cancel" Content="Cancel" Grid.Column="0" Grid.Row="4" Click="Cancel_Click"  HorizontalAlignment="Center" Height="27"  Width="64"/>
-        <Button x:Name="Submit" Content="Submit" Grid.Column="1" Grid.Row="4" Click="Submit_Click" HorizontalAlignment="Center" Height="27" Width="64"/>
+        <Button x:Name="Cancel" Content="Cancel" Grid.Column="0" Grid.Row="4" Background="#003F54" Click="Cancel_Click"  HorizontalAlignment="Center" Height="50"  Width="150"/>
+        <Button x:Name="Submit" Content="Submit" Grid.Column="1" Grid.Row="4" Background="#003F54" Click="Submit_Click" HorizontalAlignment="Center" Height="50" Width="150"/>
 
     </Grid>
 </Window>

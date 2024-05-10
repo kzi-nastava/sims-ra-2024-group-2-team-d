@@ -1,0 +1,40 @@
+﻿<Window x:Class="BookingApp.View.Owner.RenovationReview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Owner"
+        mc:Ignorable="d"
+        Title="RenovationReview" Height="450" Width="800">
+    <Grid Margin="10,10,0,13">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="13*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!-- DataGrid za prikaz smestaja -->
+        <DataGrid Grid.Row="0" Margin="10,24,20,24" Name="DataGridReno"
+                  ItemsSource="{Binding  Renovations}"
+                  SelectedItem="{Binding Path= SelectedRenovation, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Smestaj" Width="*" Binding="{Binding AccomodationId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pocetak renoviranja" Width="*" Binding="{Binding _startDay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Kraj renoviranja" Width="*" Binding="{Binding _endDay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Komentar" Width="*" Binding="{Binding Comment}"></DataGridTextColumn>
+               
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Dugme za rezervaciju -->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Button x:Name="Reservation"  Command="{Binding onAccept}"   VerticalAlignment="Center" Height="36" Width="120" HorizontalAlignment="Center">Otkazi renoviranje</Button>
+        </Grid>
+
+    </Grid>
+</Window>

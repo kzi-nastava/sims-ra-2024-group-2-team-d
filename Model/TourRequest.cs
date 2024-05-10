@@ -7,23 +7,23 @@ using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
-    public enum Status { Accepted, OnHold, Invalid}
+    public enum Status { Accepted, OnHold, Invalid }
     public class TourRequest : ISerializable
     {
         public int Id { get; set; }
         public Status CurrentStatus { get; set; }
-        public string Location {  get; set; }
-        public string Description {  get; set; }
-        public string Language {  get; set; }
-        public int NumberOfTourists {  get; set; }
-        public DateOnly Start {  get; set; }
+        public string Location { get; set; }
+        public string Description { get; set; }
+        public string Language { get; set; }
+        public int NumberOfTourists { get; set; }
+        public DateOnly Start { get; set; }
         public DateOnly End { get; set; }
-        public DateOnly CreatedOn {  get; set; }
+        public DateOnly CreatedOn { get; set; }
         public DateTime ChosenDateTime { get; set; }
-        public int GuideId { get; set; }      
-        public List<int> TouristsId {  get; set; }
+        public int GuideId { get; set; }
+        public List<int> TouristsId { get; set; }
 
-        public int UserTouristId {  get; set; }
+        public int UserTouristId { get; set; }
 
         public TourRequest()
         {
@@ -63,7 +63,7 @@ namespace BookingApp.Model
                 End.ToString("yyyy-MM-dd"),
                 CreatedOn.ToString("yyyy-MM-dd"),
                 GuideId.ToString(),
-                ChosenDateTime.ToString(),
+                ChosenDateTime.ToString("yyyy-MM-dd"),
                 string.Join(",", TouristsForCSV()),
                 UserTouristId.ToString()
             };

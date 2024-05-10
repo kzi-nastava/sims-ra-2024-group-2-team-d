@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookingApp.Model;
 using BookingApp.Services;
 using BookingApp.Dto;
 using System.Windows.Input;
 using BookingApp.WPF.Views;
+using BookingApp.Model;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -25,6 +25,7 @@ namespace BookingApp.WPF.ViewModels
         public MyStandardTourRequestsViewModel(User loggedInUser) {
             LoggedInUser = loggedInUser;
             _tourRequestService = new TourRequestService();
+            _tourRequestService.InvalidateOutdatedTourRequests();
             MyTourRequests = new ObservableCollection<TourRequestDTO>(ConvertModelToDTO(_tourRequestService.GetByUserTouristId(LoggedInUser.Id)));
             InfoCommand = new RelayCommand(tourRequest => ShowMoreInfo((TourRequestDTO)tourRequest));
          

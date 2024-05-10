@@ -16,13 +16,13 @@ namespace BookingApp.Model
         public DateOnly ReceiveDate { get; set; }
         public DateOnly ExpirationDate { get; set; }
 
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
 
-        public bool IsValid {  get; set; }
+        public bool IsValid { get; set; }
 
 
-        public GiftCard() {}
-        
+        public GiftCard() { }
+
         public GiftCard(DateOnly receiveDate)
         {
             ReceiveDate = receiveDate;

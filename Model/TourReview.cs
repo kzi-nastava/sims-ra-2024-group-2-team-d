@@ -9,13 +9,13 @@ namespace BookingApp.Model
 {
     public class TourReview : ISerializable
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
 
         public int UserId { get; set; }
 
         public int TourInstanceId { get; set; }
 
-        public int GuideKnowledge {  get; set; }
+        public int GuideKnowledge { get; set; }
 
         public int GuideLanguage { get; set; }
 
@@ -23,7 +23,7 @@ namespace BookingApp.Model
 
         public string Comment { get; set; }
 
-        public int GuideId {  get; set; }
+        public int GuideId { get; set; }
 
         public bool IsValid { get; set; }
 

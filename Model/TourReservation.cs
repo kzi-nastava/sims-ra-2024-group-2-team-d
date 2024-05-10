@@ -12,11 +12,11 @@ namespace BookingApp.Model
 {
     public class TourReservation : ISerializable
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
         public int TourInstanceId { get; set; }
         public Tour ReservedTour { get; set; }
 
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
 
         public List<Tourist> Tourists { get; set; }
 
@@ -24,10 +24,10 @@ namespace BookingApp.Model
 
         public TourReservation(int tourId, int userId)
         {
-            
+
             TourInstanceId = tourId;
             UserId = userId;
-            
+
         }
 
         public string[] ToCSV()

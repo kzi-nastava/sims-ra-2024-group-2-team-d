@@ -1,12 +1,13 @@
-0|Accepted|Novi Sad, Srbija|srpski|Vojvo?anska kuhinja|5|2024-06-12|2024-06-15|2024-03-11|4|6/15/2024 10:00:00 AM||6
-1|Accepted|Milano, Italija|srpski|�oping tura|4|2024-06-12|2024-06-15|2024-03-11|4|6/15/2024 12:00:00 PM||6
-2|OnHold|Kragujevac, Srbija|srpski|Istorija|5|2024-07-12|2024-08-25|2024-03-09|-1|6/15/2024 12:00:00 AM||6
-3|OnHold|Kragujevac, Srbija|srpski|Istorija|6|2024-07-12|2024-08-25|2024-03-09|-1|6/15/2024 12:00:00 AM||6
-4|OnHold|Nis, Srbija|engleski|Istorija|6|2024-10-12|2024-10-25|2024-03-09|-1|6/15/2024 12:00:00 AM||6
-5|OnHold|Uzice, Srbija|engleski|Istorija|5|2024-10-12|2024-10-25|2024-03-09|-1|6/15/2024 12:00:00 AM||6
-6|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2024-03-09|-1|6/15/2024 12:00:00 AM||6
-7|OnHold|dsadsa|dsa|daa|2|0001-01-01|0001-01-01|2024-05-07|-1|1/1/1900 12:00:00 AM|36,37|3
-8|OnHold|sda|das|dasda|2|0001-01-01|0001-01-01|2024-05-07|-1|1/1/1900 12:00:00 AM|38,39|3
-9|OnHold|ew|dsa|dwaaa|2|2024-11-11|0001-01-01|2024-05-07|-1|1/1/1900 12:00:00 AM|40,41|3
-10|OnHold|dsa|da|daaa|2|2024-11-11|2024-12-12|2024-05-07|-1|1/1/1900 12:00:00 AM|42,43|3
-11|Accepted|Tokyo, Japan|srpski|Enjoy!|3|2024-05-05|2024-06-06|2024-05-07|-1|2024-06-06|44,45,46|3
+0|Accepted|Novi Sad, Srbija|srpski|Vojvo?anska kuhinja|5|2024-06-12|2024-06-15|2024-03-11|4|2024-06-15||6
+1|Accepted|Milano, Italija|srpski|�oping tura|4|2024-06-12|2024-06-15|2024-03-11|4|2024-06-15||6
+2|OnHold|Kragujevac, Srbija|srpski|Istorija|5|2024-07-12|2024-08-25|2024-03-09|4|2024-08-20||6
+3|OnHold|Kragujevac, Srbija|srpski|Istorija|6|2024-07-12|2024-08-25|2024-03-09|-1|2024-06-15||6
+4|OnHold|Nis, Srbija|engleski|Istorija|6|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15||6
+5|OnHold|Uzice, Srbija|engleski|Istorija|5|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15||6
+6|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15||6
+7|OnHold|dsadsa|dsa|daa|2|2024-11-11|2024-12-12|2024-05-07|-1|1900-01-01|36,37|3
+8|Accepted|sda|das|dasda|2|2024-11-11|2024-12-12|2024-05-07|4|2024-11-18|38,39|3
+9|OnHold|ew|dsa|dwaaa|2|2024-11-11|2024-12-12|2024-05-07|-1|1900-01-01|40,41|3
+10|OnHold|dsa|da|daaa|2|2024-11-11|2024-12-12|2024-05-07|-1|1900-01-01|42,43|3
+11|Accepted|Tokyo, Japan|srpski|Enjoy!|3|2024-05-05|2024-10-10|2024-05-07|4|2024-06-06|44,45,46|3
+12|Invalid|Srbija, ns|srb|uzivaj|1|2024-05-05|2024-05-10|2024-05-09|-1|1900-01-01|47,48,49|3

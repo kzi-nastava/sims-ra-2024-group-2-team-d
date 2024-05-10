@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public enum AccommodationType { Apartman = 0, Kuca= 1, Koliba= 2 }
+    public enum AccommodationType { Apartman = 0, Kuca = 1, Koliba = 2 }
     public class Accommodation : ISerializable
     {
         public int Id { get; set; }
 
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
         public AccommodationType AccommodationType { get; set; }
@@ -30,10 +30,10 @@ namespace BookingApp.Model
 
         public Accommodation(int userId, string name, string city, string country, AccommodationType accommodationType, int maxGuestNumber, int minReservationDays, int daysBeforeCancelling, List<string> images, List<Reservation> reservations)
         {
-            Id = this.Id;
+            Id = Id;
             UserId = userId;
             Name = name;
-            Location = new Location(city,country);
+            Location = new Location(city, country);
             AccommodationType = accommodationType;
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
@@ -68,7 +68,7 @@ namespace BookingApp.Model
             MaxGuestNumber = Convert.ToInt32(values[5]);
             MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancelling = Convert.ToInt32(values[7]);
-            Images = values[8].Split(";").ToList<string>();
+            Images = values[8].Split(";").ToList();
         }
 
         private Location fromStringToLocation(string value)
@@ -83,7 +83,7 @@ namespace BookingApp.Model
         {
             if (images is null) return string.Empty;
             string list = string.Empty;
-            foreach(var  image in images)
+            foreach (var image in images)
             {
                 list = list + image + ";";
             }

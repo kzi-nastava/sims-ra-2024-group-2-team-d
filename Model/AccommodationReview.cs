@@ -44,7 +44,7 @@ namespace BookingApp.Model
             Cleanness = Convert.ToInt32(values[4]);
             Correctness = Convert.ToInt32(values[5]);
             Description = values[6];
-            Images = values[7].Split(";").ToList<string>();
+            Images = values[7].Split(";").ToList();
         }
 
         private string SerializeImages(List<string> images)
@@ -65,12 +65,12 @@ namespace BookingApp.Model
         public AccommodationReview(int reservationId, int accomodationId, int userId, int cleanness, int correctness, string description, List<string>? images)
         {
             ReservationId = reservationId;
-            AccomodationId=accomodationId;
-            UserId=userId;
-            Cleanness=cleanness;
-            Correctness=correctness;
-            Description=description;
-            Images=images;
+            AccomodationId = accomodationId;
+            UserId = userId;
+            Cleanness = cleanness;
+            Correctness = correctness;
+            Description = description;
+            Images = images;
         }
     }
 }

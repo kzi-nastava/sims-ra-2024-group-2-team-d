@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public class TouristReview 
+    public class TouristReview
     {
         public int UserId { get; set; }
         public string FullName { get; set; }
-        public int KeyPointId { get; set;}
+        public int KeyPointId { get; set; }
         public string KeyPointName { get; set; }
         public TourReview TourReview { get; set; }
 

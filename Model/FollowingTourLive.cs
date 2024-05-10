@@ -16,7 +16,7 @@ namespace BookingApp.Model
         public int TourInstanceId { get; set; }
         public int KeyPointId { get; set; }
 
-        public List<int> TouristsIds { get; set;} //= new List<Tourist>();
+        public List<int> TouristsIds { get; set; } //= new List<Tourist>();
 
         public FollowingTourLive() { }
 
@@ -49,9 +49,9 @@ namespace BookingApp.Model
                 //TouristsIds = new List<int>();
             }
             foreach (int t in TouristsIds)
-                {
-                    csvV.Add(t.ToString());
-                }
+            {
+                csvV.Add(t.ToString());
+            }
             return csvV;
         }
 
@@ -59,19 +59,19 @@ namespace BookingApp.Model
         {
             Id = int.Parse(values[0]);
             TourInstanceId = int.Parse(values[1]);
-            KeyPointId = int.Parse(values[2]);          
+            KeyPointId = int.Parse(values[2]);
             if (string.IsNullOrWhiteSpace(values[3]))
             {
-                TouristsIds = new List<int>(); 
+                TouristsIds = new List<int>();
             }
             else
             {
                 string[] slices = values[3].Split(',').Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToArray();
-                TouristsIds = new List<int>(); 
+                TouristsIds = new List<int>();
 
                 foreach (string slice in slices)
                 {
-                    TouristsIds.Add(int.Parse(slice)); 
+                    TouristsIds.Add(int.Parse(slice));
                 }
             }
         }

@@ -13,10 +13,10 @@ namespace BookingApp.Model
     {
 
         public int Id { get; set; }
-        public int AccomodationId {  get; set; }
+        public int AccomodationId { get; set; }
         public int UserId { get; set; }
-        public DateRange ReservationDateRange {  get; set; }
-        public int NumberOfGuests {  get; set; }
+        public DateRange ReservationDateRange { get; set; }
+        public int NumberOfGuests { get; set; }
 
         public bool ReviewedByOwner { get; set; } = false;
 
@@ -42,8 +42,8 @@ namespace BookingApp.Model
             UserId = Convert.ToInt32(values[2]);
             ReservationDateRange = fromStringToDateRange(values[3]);
             NumberOfGuests = Convert.ToInt32(values[4]);
-            ReviewedByOwner = Boolean.Parse(values[5]);
-            ReviewedByGuest = Boolean.Parse(values[6]);
+            ReviewedByOwner = bool.Parse(values[5]);
+            ReviewedByGuest = bool.Parse(values[6]);
 
         }
 

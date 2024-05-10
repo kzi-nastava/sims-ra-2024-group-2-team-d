@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,30 +23,30 @@ namespace BookingApp.View
     /// </summary>
     public partial class RequestsStatistics : Window
     {
-        public User LoggedInUser { get; set; }
-        public string Location { get; set; }
-        public string Lang { get; set; }
-        public TourRequestRepository _tourRequestRepository { get; set; }
+        //public User LoggedInUser { get; set; }
+        //public string Location { get; set; }
+        //public string Lang { get; set; }
+        //public TourRequestRepository _tourRequestRepository { get; set; }
 
         public RequestsStatistics(User user)
         {
             InitializeComponent();
-            LoggedInUser = user;
-            DataContext = this;
-            _tourRequestRepository = new TourRequestRepository();          
-            Location = _tourRequestRepository.FindMostWantedLocInLastYear();
-            Lang = _tourRequestRepository.FindMostWantedLangInLastYear();
-           
+            DataContext = new RequestsStatisticsViewModel(user);
+            //LoggedInUser = user;
+            //DataContext = this;
+            //_tourRequestRepository = new TourRequestRepository();          
+            //Location = _tourRequestRepository.FindMostWantedLocInLastYear();
+            //Lang = _tourRequestRepository.FindMostWantedLangInLastYear();        
         }
 
-        private void CrLoc_Click(object sender, RoutedEventArgs e)
-        {
+        //private void CrLoc_Click(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void CrLang_Click(object sender, RoutedEventArgs e)
-        {
+        //private void CrLang_Click(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
     }
 }

@@ -88,9 +88,7 @@ namespace BookingApp.Repository
         public string GetKeyPointName(int keyPointId)
         {
             _keyPoints = _serializer.FromCSV(FilePath);
-           return _keyPoints.Find(c => c.Id == keyPointId).Name;
-           
+           return _keyPoints.Find(c => c.Id == keyPointId).Name;           
         }
-
     }
 }

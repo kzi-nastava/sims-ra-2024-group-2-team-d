@@ -19,15 +19,15 @@ namespace BookingApp.Model
 
         public ChangeReservationRequest(int reservationId, int accommmodationId, string accommodationName, DateTime newStartDate, DateTime newEndDate, StatusType requestStatus, int userId, int ownerId)
         {
-            this.ReservationId = reservationId;
-            this.AccommodationName = accommodationName;
-            this.AccommodationId = accommmodationId;
-            this.NewStartDate = newStartDate;
-            this.NewEndDate = newEndDate;
-            this.RequestStatus = requestStatus;
-            this.UserId = userId;
-            this.OwnerId = ownerId;
-            this.OwnerComment = "-";
+            ReservationId = reservationId;
+            AccommodationName = accommodationName;
+            AccommodationId = accommmodationId;
+            NewStartDate = newStartDate;
+            NewEndDate = newEndDate;
+            RequestStatus = requestStatus;
+            UserId = userId;
+            OwnerId = ownerId;
+            OwnerComment = "-";
         }
         public ChangeReservationRequest()
         {

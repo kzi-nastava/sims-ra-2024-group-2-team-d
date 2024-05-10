@@ -97,7 +97,7 @@ namespace BookingApp.ViewModel.Guide
 
         private void ShowCreateTourForm()
         {
-            CreateTour createTour = new CreateTour(LoggedInUser);
+            CreateTour createTour = new CreateTour(LoggedInUser, "", "");
             createTour.Show();
         }
 
@@ -109,8 +109,6 @@ namespace BookingApp.ViewModel.Guide
                 ft.Show();
                 //Close();
             }
-
         }
-
     }
 }

@@ -1,6 +1,7 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Serializer;
 using BookingApp.View.Guest1;
+using BookingApp.View.Owner;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace BookingApp.Repository
         private readonly Serializer<Reservation> _serializer;
 
         private List<Reservation> _reservations;
+
+        public List<Reservation> getReservation()
+        {
+            return _reservations;
+        }
 
         public ReservationRepository()
         {

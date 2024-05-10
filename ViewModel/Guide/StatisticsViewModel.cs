@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.View;
@@ -73,7 +73,7 @@ namespace BookingApp.ViewModel.Guide
             int index = -1;
             for (int i = 0; i < list.Count; i++)
             {
-                List<Model.FollowingTourLive> ToursLive = new List<Model.FollowingTourLive>();
+                List<FollowingTourLive> ToursLive = new List<FollowingTourLive>();
                 ToursLive = MainService.FollowingTourLiveService.GetByTourInstanceId(list[i].Id);
                 //List<Tourist> touristsReservation = new List<Tourist>(_reservationRepository.GetAllTouristByTourId(TourInstances[i].Id));
                 List<int> tourists = new List<int>();
@@ -112,7 +112,7 @@ namespace BookingApp.ViewModel.Guide
             int index = -1;
             for (int i = 0; i < TourInstances.Count; i++)
             {
-                List<Model.FollowingTourLive> ToursLive = new List<Model.FollowingTourLive>();
+                List<FollowingTourLive> ToursLive = new List<FollowingTourLive>();
                 ToursLive = MainService.FollowingTourLiveService.GetByTourInstanceId(TourInstances[i].Id);
                 //List<Tourist> touristsReservation = new List<Tourist>(_reservationRepository.GetAllTouristByTourId(TourInstances[i].Id));
                 List<int> tourists = new List<int>();
@@ -132,7 +132,7 @@ namespace BookingApp.ViewModel.Guide
             else return;
         }
 
-        public List<int> GetShowedUpTourists(List<Model.FollowingTourLive> followingTourLive)
+        public List<int> GetShowedUpTourists(List<FollowingTourLive> followingTourLive)
         {
             List<int> tourists = new List<int>();
             foreach (var item in followingTourLive)

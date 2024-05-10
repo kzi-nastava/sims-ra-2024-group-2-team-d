@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,11 @@ namespace BookingApp.Services
         public TouristNotifications ChangeIsReadStatus(TouristNotifications notification)
         {
             return _touristNotificationsRepository.UpdateIsReadStatus(notification);
+        }
+
+        public TouristNotifications Save(TouristNotifications notification)
+        {
+            return _touristNotificationsRepository.Save(notification);
         }
     }
 }

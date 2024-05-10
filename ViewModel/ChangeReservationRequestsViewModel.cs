@@ -1,6 +1,8 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using BookingApp.View.Owner;
+using BookingApp.ViewModel.Guide;
 using BookingApp.WPF;
 using System;
 using System.Collections.Generic;
@@ -23,8 +25,11 @@ namespace BookingApp.ViewModel
         public ObservableCollection<ChangeReservationRequest> _requests;
 
         private readonly ReservationRepository _reservationRepository;
-        private readonly AccommodationRepository _accommodationRepository;
+       
+        private BaseService baseService { get; set; }
 
+        public MyCommand onAccept { get; set; }
+        public MyCommand onDecline { get; set; }
         public ChangeReservationRequest SelectedRequest { get; set; }
 
         public ObservableCollection<ChangeReservationRequest> Requests
@@ -40,12 +45,15 @@ namespace BookingApp.ViewModel
 
         public ChangeReservationRequestsViewModel(int userId)
         {
+            baseService = new BaseService();
             _changeReservationRequestRepository = new ChangeReservationRequestRepository();
             _reservationRepository = new ReservationRepository();
-            _accommodationRepository = new AccommodationRepository();
-            var accommodations = _accommodationRepository.GetAllOwnerAccommodations(userId);
+            
+            var accommodations = baseService.AccomodationService.GetAllOwnerAccommodations(userId);
             var idList = accommodations.Select(obj => obj.Id).ToList();
             Requests = new ObservableCollection<ChangeReservationRequest>(_changeReservationRequestRepository.GetAllPendingReservationRequests(idList));
+            onAccept = new MyCommand(Accept_Click);
+            onDecline = new MyCommand(Decline_Click);
         }
 
 

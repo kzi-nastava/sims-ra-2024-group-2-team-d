@@ -7,9 +7,18 @@
         mc:Ignorable="d"
         Title="UserGiftCardView" Height="450" Width="800">
     <StackPanel>
-        <TextBlock Text="My vouchers" FontSize="26" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Width="50" Height="50" HorizontalAlignment="Left" Grid.Column="0">
+                    <Image Source="../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
+                </Button>
+            <TextBlock Text="My vouchers" FontSize="26" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="1"></TextBlock>
+        </Grid>
         <ListBox ItemsSource="{Binding GiftCards}">
-            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

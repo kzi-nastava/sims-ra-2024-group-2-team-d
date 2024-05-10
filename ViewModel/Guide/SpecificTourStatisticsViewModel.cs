@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
 using System;
@@ -33,7 +33,7 @@ namespace BookingApp.ViewModel.Guide
         {
             int Id = TouristsStatistics.TourInstanceId;
             //_reservationRepository = new TourReservationRepository();
-            List<Model.FollowingTourLive> ToursLive = new List<Model.FollowingTourLive>();
+            List<FollowingTourLive> ToursLive = new List<FollowingTourLive>();
             ToursLive = MainService.FollowingTourLiveService.GetByTourInstanceId(Id);
             List<Tourist> touristsReservation = new List<Tourist>(MainService.TourReservationService.GetAllTouristByTourId(Id));
             List<Tourist> tourists = new List<Tourist>();
@@ -58,12 +58,12 @@ namespace BookingApp.ViewModel.Guide
             //TouristsStatisticsGrid.DataContext = TouristsStatisticsColl;
         }
 
-        public List<Tourist> GetTourists(List<Tourist> tourists, List<Model.FollowingTourLive> followingToursLive)
+        public List<Tourist> GetTourists(List<Tourist> tourists, List<FollowingTourLive> followingToursLive)
         {
             List<Tourist> final = new List<Tourist>();
             foreach (var item in tourists)
             {
-                foreach (Model.FollowingTourLive item1 in followingToursLive)
+                foreach (FollowingTourLive item1 in followingToursLive)
                 {
                     foreach (var item2 in item1.TouristsIds)
                     {

@@ -1,5 +1,4 @@
-﻿using BookingApp.Model;
-using BookingApp.Repository;
+﻿using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +17,7 @@ using BookingApp.View.TouristApp;
 using BookingApp.WPF.Views;
 using BookingApp.WPF;
 using BookingApp.Services;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.View
 {
@@ -63,6 +63,10 @@ namespace BookingApp.View
 
         public ICommand MarkAsReadCommand {  get; set; }
 
+        public ICommand TrackTourLiveCommand {  get; set; }
+
+        public ICommand OpenTypeOfMyTourRequestSelectionCommand { get; set; }
+
 
         public TouristWindow(User user)
         {
@@ -87,6 +91,8 @@ namespace BookingApp.View
             OpenMorePicturesCommand = new RelayCommand(tourInstance => OpenMorePictures((TourInstance)tourInstance));
             OpenNotificationCommand = new RelayCommand(notification => OpenNotification((TouristNotifications)notification));
             MarkAsReadCommand = new RelayCommand(notification => MarkAsRead((TouristNotifications)notification));
+            TrackTourLiveCommand = new RelayCommand(tourInstance => TrackTourLive((TourInstance)tourInstance));
+            OpenTypeOfMyTourRequestSelectionCommand = new RelayCommand(OpenTypeOfMyTourRequestSelection);
             LinkEntities();
             MoveToActiveTours();
         }
@@ -99,6 +105,12 @@ namespace BookingApp.View
             LoadUniqueLanguages();
             LinkNotifications();
 
+        }
+
+        public void OpenTypeOfMyTourRequestSelection()
+        {
+            TypeOfMyTourRequestSelectionView view = new TypeOfMyTourRequestSelectionView(LoggedInUser);
+            view.Show();
         }
 
         public void MarkAsRead(TouristNotifications notification)
@@ -251,9 +263,9 @@ namespace BookingApp.View
             menuPopup.IsOpen = false;
         }
 
-        private void TrackTour_Click(object sender, RoutedEventArgs e)
+        private void TrackTourLive(TourInstance tourInstance)
         {
-            FollowingTourLiveView followingTourLiveView = new FollowingTourLiveView(SelectedTour);
+            FollowingTourLiveView followingTourLiveView = new FollowingTourLiveView(tourInstance);
             followingTourLiveView.Show();
         }
 
@@ -284,6 +296,10 @@ namespace BookingApp.View
                 OpenLiveTourNotificationView liveTourNotification = new OpenLiveTourNotificationView(notification);
                 liveTourNotification.Show();
                 notificationPopup.IsOpen = !notificationPopup.IsOpen;
+            }
+            else if(notification.Type == NotificationType.TourRequestAcceptance)
+            {
+
             }
         }
     }

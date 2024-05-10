@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\back_icon.png" />
+    <None Remove="Resources\Images\beograd.jpg" />
     <None Remove="Resources\Images\calendar-icon.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\duration-icon.jpg" />
@@ -18,7 +19,10 @@
     <None Remove="Resources\Images\kalemegdan.jpg" />
     <None Remove="Resources\Images\language-icon.png" />
     <None Remove="Resources\Images\location-icon.jpg" />
+    <None Remove="Resources\Images\nekaSlika.jpg" />
     <None Remove="Resources\Images\notification-icon.png" />
+    <None Remove="Resources\Images\noviSad.jpg" />
+    <None Remove="Resources\Images\noviSad2.jpeg" />
     <None Remove="Resources\Images\people-icon.jpg" />
     <None Remove="Resources\Images\pin-icon.png" />
     <None Remove="Resources\Images\plus-icon.png" />
@@ -44,13 +48,17 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\back_icon.png" />
+    <Resource Include="Resources\Images\beograd.jpg" />
     <Resource Include="Resources\Images\calendar-icon.png" />
     <Resource Include="Resources\Images\duration-icon.jpg" />
     <Resource Include="Resources\Images\info-icon.png" />
     <Resource Include="Resources\Images\kalemegdan.jpg" />
     <Resource Include="Resources\Images\language-icon.png" />
     <Resource Include="Resources\Images\location-icon.jpg" />
+    <Resource Include="Resources\Images\nekaSlika.jpg" />
     <Resource Include="Resources\Images\notification-icon.png" />
+    <Resource Include="Resources\Images\noviSad.jpg" />
+    <Resource Include="Resources\Images\noviSad2.jpeg" />
     <Resource Include="Resources\Images\people-icon.jpg" />
     <Resource Include="Resources\Images\pin-icon.png" />
     <Resource Include="Resources\Images\plus-icon.png" />

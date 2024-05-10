@@ -85,6 +85,8 @@
                             <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding Name}" />
                             <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding LastName}" />
                             <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding Age}" />
+                            <Button Margin="5,5,5,5" Height="30" Width="50">Edit</Button>
+                            <Button Margin="5,5,5,5" Height="30" Width="50">Delete</Button>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

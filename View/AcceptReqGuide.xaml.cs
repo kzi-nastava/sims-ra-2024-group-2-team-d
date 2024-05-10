@@ -1,5 +1,5 @@
-﻿using BookingApp.Dto;
-using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Dto;
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.ViewModel.Guide;
@@ -129,6 +129,6 @@ namespace BookingApp.View
         //{
         //    Close();
         //}
-       
+
     }
 }

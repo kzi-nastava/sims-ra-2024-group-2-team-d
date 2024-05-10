@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BookingApp.Model;
 using BookingApp.Services;
 using BookingApp.Dto;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -32,7 +32,7 @@ namespace BookingApp.WPF.ViewModels
         public CreateTourRequestViewModel(User loggedInUser, Action closeAction) {
             LoggedInUser = loggedInUser;
             Tourists = new ObservableCollection<Tourist>();
-            NewTourRequest = new TourRequestDTO();
+            NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
             InputTourist = new Tourist();
             TouristService = new TouristService();
             TourRequestService = new TourRequestService();

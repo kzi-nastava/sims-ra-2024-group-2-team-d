@@ -10,17 +10,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using BookingApp.Model;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BookingApp.ViewModel.Guide
 {
     public class CreateTourViewModel : INotifyPropertyChanged
     {
         private MainService MainService { get; set; }
+
+        private TourCreationNotificationService _tourCreationNotificationService;
+
+        private TourRequestService _tourRequestService;
         public User LoggedInUser { get; set; }
         public TourDto Tour { get; set; }
         public TourInstance TourInstance { get; set; }
         public KeyPoint KeyPoint { get; set; }
         public Picture Picture { get; set; }
+
+        public TourCreationNotification NewTourCreationNotification { get; set; }
         public MyCommand CreateNewTourCommand { get; set; }
         public MyCommand CancelCommand { get; set; }
         private Visibility isVisibleError;
@@ -100,6 +107,30 @@ namespace BookingApp.ViewModel.Guide
             Lang = lang;
             LocReadOnly = false;
             LangReadOnly = false;
+            _tourRequestService = new TourRequestService();
+            CheckLoc();
+            CheckLang();
+        }
+
+        public CreateTourViewModel(User user, string location, string lang, TourCreationNotification tourCreationNotification)
+        {
+            MainService = MainService.GetInstance();
+            LoggedInUser = user;
+            Tour = new TourDto();
+            Tour.UserId = user.Id;
+            TourInstance = new TourInstance();
+            KeyPoint = new KeyPoint();
+            Picture = new Picture();
+            CreateNewTourCommand = new MyCommand(CreateNewTour);
+            CancelCommand = new MyCommand(Cancel);
+            IsVisibleError = Visibility.Hidden;
+            Loc = location;
+            Lang = lang;
+            LocReadOnly = false;
+            LangReadOnly = false;
+            _tourCreationNotificationService = new TourCreationNotificationService();
+            NewTourCreationNotification = tourCreationNotification;
+            _tourRequestService = new TourRequestService();
             CheckLoc();
             CheckLang();
         }
@@ -139,8 +170,14 @@ namespace BookingApp.ViewModel.Guide
                         instance.BaseTour = MainService.TourService.GetById(instance.TourId);
                     }
 
-                    MainService.TourInstanceService.Save(instance);
+                    TourInstance savedTourInstance = MainService.TourInstanceService.Save(instance);
+                    if(NewTourCreationNotification != null)
+                    {
+                        NotifyUsers(newT, savedTourInstance);
+                    }
                 }
+
+                
 
                 List<Picture> newPictures = new List<Picture>();
                 newPictures = newT.ClassPictures;
@@ -166,6 +203,35 @@ namespace BookingApp.ViewModel.Guide
                 IsVisibleError= Visibility.Visible;
                 ErrorText = validTour;
             }
+        }
+
+        public void NotifyUsers(Tour savedTour, TourInstance savedTourInstance)
+        {
+            if (NewTourCreationNotification.IsBasedOnLanguage)
+            {
+                List<int> userIds = _tourRequestService.FindUserIdsByLanguage(savedTour.Language);
+                foreach (int userId in userIds)
+                {
+                    NewTourCreationNotification.CreatedTourInstanceId = savedTourInstance.Id;
+                    TourCreationNotification savedNotification = _tourCreationNotificationService.Save(NewTourCreationNotification);
+                    TouristNotifications notification = new TouristNotifications(savedNotification.Id, "A tour based on a language you requested has been created. Click \"See more\" to see more info about tour", NotificationType.TourCreation, userId);
+                    TouristNotificationsRepository _touristNotificationsRepository = new TouristNotificationsRepository();
+                    _touristNotificationsRepository.Save(notification);
+                }
+            }
+            else if (NewTourCreationNotification.IsBasedOnLocation)
+            {
+                List<int> userIds = _tourRequestService.FindUserIdsByLocation(savedTour.Location);
+                foreach (int userId in userIds)
+                {
+                    NewTourCreationNotification.CreatedTourInstanceId = savedTourInstance.Id;
+                    TourCreationNotification savedNotification = _tourCreationNotificationService.Save(NewTourCreationNotification);
+                    TouristNotifications notification = new TouristNotifications(savedNotification.Id, "A tour based on a location you requested has been created. Click \"See more\" to see more info about tour", NotificationType.TourCreation, userId);
+                    TouristNotificationsRepository _touristNotificationsRepository = new TouristNotificationsRepository();
+                    _touristNotificationsRepository.Save(notification);
+                }
+            }
+
         }
 
         private void Cancel()

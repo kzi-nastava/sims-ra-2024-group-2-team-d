@@ -34,13 +34,17 @@ namespace BookingApp.ViewModel.Guide
 
         private void CreateInLoc()
         {
-            CreateTour createTour = new CreateTour(LoggedInUser, Location, "");
+            TourCreationNotification notification = new TourCreationNotification();
+            notification.IsBasedOnLocation = true;
+            CreateTour createTour = new CreateTour(LoggedInUser, Location, "",notification);
             createTour.Show();
         }
 
         private void CreateInLang()
         {
-            CreateTour createTour = new CreateTour(LoggedInUser, "", Lang);
+            TourCreationNotification notification = new TourCreationNotification();
+            notification.IsBasedOnLanguage = true;
+            CreateTour createTour = new CreateTour(LoggedInUser, "", Lang, notification);
             createTour.Show();
         }
 

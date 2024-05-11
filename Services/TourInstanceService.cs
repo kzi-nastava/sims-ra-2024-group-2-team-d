@@ -15,10 +15,16 @@ namespace BookingApp.Services
         public TourInstanceRepository TourInstanceRepository { get; set; }
         public TourRepository TourRepository { get; set; }
 
+        private KeyPointService _keyPointService;
+
+        private PictureService _pictureService;
+
         public TourInstanceService()
         {
             TourInstanceRepository = new TourInstanceRepository();
             TourRepository = new TourRepository();
+            _keyPointService = new KeyPointService();
+            _pictureService = new PictureService();
         }
 
         public List<TourInstance> GetAll()
@@ -60,6 +66,8 @@ namespace BookingApp.Services
             TourInstance tourInstance = TourInstanceRepository.GetById(id);
             Tour tour = TourRepository.GetById(tourInstance.TourId);
             tourInstance.BaseTour = tour;
+            tourInstance.BaseTour.KeyPoints = _keyPointService.GetByTourInstance(tourInstance);
+            tourInstance.BaseTour.Pictures = _pictureService.GetByTourId(tourInstance.TourId);
             return tourInstance;
         }
 

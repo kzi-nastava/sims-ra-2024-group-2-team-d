@@ -47,6 +47,8 @@ namespace BookingApp.View
 
         private readonly TouristNotificationsRepository _touristNotificationsRepository;
 
+        private TourCreationNotificationService _tourCreationNotificationService;
+
         public ObservableCollection<string> UniqueLanguages { get; set; }
 
         public ObservableCollection<TouristNotifications> Notifications { get; set; }
@@ -93,6 +95,7 @@ namespace BookingApp.View
             MarkAsReadCommand = new RelayCommand(notification => MarkAsRead((TouristNotifications)notification));
             TrackTourLiveCommand = new RelayCommand(tourInstance => TrackTourLive((TourInstance)tourInstance));
             OpenTypeOfMyTourRequestSelectionCommand = new RelayCommand(OpenTypeOfMyTourRequestSelection);
+            _tourCreationNotificationService = new TourCreationNotificationService();
             LinkEntities();
             MoveToActiveTours();
         }
@@ -300,6 +303,14 @@ namespace BookingApp.View
             else if(notification.Type == NotificationType.TourRequestAcceptance)
             {
 
+            }
+            else if(notification.Type == NotificationType.TourCreation)
+            {
+                TourCreationNotification tourCreationNotification = _tourCreationNotificationService.GetById(notification.NotificationId);
+                TourInstanceService service = new TourInstanceService();
+                MoreInfoAboutTourView view = new MoreInfoAboutTourView(service.GetById(tourCreationNotification.CreatedTourInstanceId));
+                view.Show();
+                notificationPopup.IsOpen = !notificationPopup.IsOpen;
             }
         }
     }

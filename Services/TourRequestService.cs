@@ -121,5 +121,37 @@ namespace BookingApp.Services
                 }
             }
         }
+
+        public List<int> FindUserIdsByLocation(string location)
+        {
+            List<TourRequest> tourRequests = TourRequestRepository.GetByLocation(location);
+            List<int> uniqueUserTouristIds = tourRequests.Select(tr => tr.UserTouristId).Distinct().ToList(); 
+            for(int i = 0; i < uniqueUserTouristIds.Count; i++)
+            {
+                if(TourRequestRepository.IsAcceptedAtLocationByUser(location, uniqueUserTouristIds[i]))
+                {
+                    uniqueUserTouristIds.RemoveAt(i);
+                    i--;
+                }
+            }
+            return uniqueUserTouristIds;
+
+        }
+
+        public List<int> FindUserIdsByLanguage(string language)
+        {
+            List<TourRequest> tourRequests = TourRequestRepository.GetByLanguage(language);
+            List<int> uniqueUserTouristIds = tourRequests.Select(tr => tr.UserTouristId).Distinct().ToList();
+            for (int i = 0; i < uniqueUserTouristIds.Count; i++)
+            {
+                if (TourRequestRepository.IsAcceptedInLanguageByUser(language, uniqueUserTouristIds[i]))
+                {
+                    uniqueUserTouristIds.RemoveAt(i);
+                    i--;
+                }
+            }
+            return uniqueUserTouristIds;
+
+        }
     }
 }

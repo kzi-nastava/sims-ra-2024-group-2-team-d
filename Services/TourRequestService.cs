@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using BookingApp.Serializer;
 using BookingApp.Model;
+using System.Windows.Media.Imaging;
 
 namespace BookingApp.Services
 {
@@ -121,5 +122,44 @@ namespace BookingApp.Services
                 }
             }
         }
+
+        public int CountRequestsOnLoc(string location)
+        {
+            return TourRequestRepository.GetAll().Where(x => x.Location == location).Count();
+        }
+
+        public int CountRequestsOnLocByYear(string location, int year)
+        {
+            return TourRequestRepository.GetAll().Where(x => x.Location == location && x.CreatedOn.Year == year).Count();
+        }
+
+        public int CountRequestsOnLocByYearAndMonth(string location, int year, int month)
+        {
+            return TourRequestRepository.GetAll().Where(x => x.Location == location && x.CreatedOn.Year == year && x.CreatedOn.Month == month).Count();
+        }
+
+        //public Dictionary<int, Dictionary<string, int>> CountRequestsOnLocByYears(string loc) //nisam znala kako da bindujem na grid
+        //{
+        //    var result = new Dictionary<int, Dictionary<string, int>>();
+        //    List<TourRequest> tourRequests = new List<TourRequest>(TourRequestRepository.GetAll());
+        //    foreach (var tourRequest in tourRequests)
+        //    {
+        //        int year = tourRequest.CreatedOn.Year;
+        //        if (!result.ContainsKey(year))
+        //        {
+        //            result[year] = new Dictionary<string, int>();
+        //        }
+        //        if (!result[year].ContainsKey(tourRequest.Location))
+        //        {
+        //            result[year][tourRequest.Location] = 0;
+        //        }
+        //        if (tourRequest.Location == loc)
+        //        {
+        //            result[year][tourRequest.Location]++;
+        //        }
+        //    }
+        //    return result;
+        //}
+
     }
 }

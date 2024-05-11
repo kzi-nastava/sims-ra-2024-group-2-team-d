@@ -26,7 +26,6 @@ namespace BookingApp.ViewModel.Guide
                 OnPropertyChanged("TourRequests");
             } }
         private TourRequest TourRequest { get; set; }
-
         public TourRequest SelectedTourRequest
         {
             get

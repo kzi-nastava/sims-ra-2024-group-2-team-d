@@ -155,5 +155,46 @@ namespace BookingApp.Repository
         {
             return _tourRequest.Any(t => String.Equals(t.Language, language, StringComparison.OrdinalIgnoreCase) && t.CurrentStatus == Status.Accepted && t.UserTouristId == userId);
         }
+
+        public List<TourRequest> GetAcceptedRequestsByUserId(int userId)
+        {
+            return _tourRequest.Where(t => t.CurrentStatus == Status.Accepted && t.UserTouristId == userId).ToList();
+        }
+
+        public List<TourRequest> GetAcceptedRequestsByUserIdAndYear(int userId, int year)
+        {
+            return _tourRequest.Where(t => t.CurrentStatus == Status.Accepted && t.UserTouristId == userId && t.ChosenDateTime.Year == year).ToList();
+        }
+
+        public List<TourRequest> GetByUserId(int userId)
+        {
+            return _tourRequest.Where(t =>t.UserTouristId == userId).ToList();
+        }
+
+        public List<TourRequest> GetByUserTouristIdAndYear(int userTouristId, int year)
+        {
+            return _tourRequest.Where(t => t.UserTouristId == userTouristId && (t.Start.Year == year || t.End.Year == year)).ToList();
+        }
+
+        public List<string> GetDistinctLanguages()
+        {
+            return _tourRequest.Select(t => t.Language).Distinct().ToList();
+        }
+
+        public int CountRequestsByLanguage(string language)
+        {
+            return _tourRequest.Count(t => String.Equals(t.Language, language, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public List<string> GetDistinctLocations()
+        {
+            return _tourRequest.Select(t => t.Location).Distinct().ToList();
+        }
+
+        public int CountRequestsByLocation(string location)
+        {
+            return _tourRequest.Count(t => String.Equals(t.Location, location, StringComparison.OrdinalIgnoreCase));
+        }
+
     }
 }

@@ -51,6 +51,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\back_icon.png" />
     <Resource Include="Resources\Images\beograd.jpg" />
     <Resource Include="Resources\Images\calendar-icon.png" />

@@ -81,5 +81,14 @@ namespace BookingApp.View.Guest1
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RenovationRecommendationForm renovationWindow = new RenovationRecommendationForm(_reservation);
+            renovationWindow.Show();
+        }
     }
 }

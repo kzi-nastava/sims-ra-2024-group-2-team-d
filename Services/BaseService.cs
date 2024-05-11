@@ -13,6 +13,8 @@ namespace BookingApp.Services
     {
         public AccomodationService AccomodationService { get; set; }
 
+        public RenovationRecommendationService RenovationRecommendationService { get; set; }
+
         public AccommodationReviewService AccommodationReviewService { get; set; }
 
         public ChangeReservationRequestService ChangeReservationService { get; set; }
@@ -49,6 +51,7 @@ namespace BookingApp.Services
             ReservationService = new ReservationService();
             GuestReviewService = new GuestReviewService();
             RenovationService = new RenovationService();
+            RenovationRecommendationService = new RenovationRecommendationService();        
 
         }
 

@@ -1,0 +1,43 @@
+﻿<Window x:Class="BookingApp.View.Guest1.RenovationRecommendationForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Guest1"
+        mc:Ignorable="d"
+        Title="RenovationRecommendationForm" Height="450" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="16*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="Information" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Grid.ColumnSpan="2" Margin="10,0,10,0"  TextWrapping="Wrap">Accommodation renovation recommendation</TextBlock>
+
+        <Label Grid.Row="1"  Grid.Column="0" Margin="25,7,20,20" FontSize="14" Content="Stanje smjestaja:"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Height="72" Margin="5,0,5,0" VerticalAlignment="Center"  Text="{Binding Condition}"  />
+
+        <Label Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2" Margin="15,7,20,20" FontSize="14" Content="Nivo hitnosti renoviranja:"></Label>
+
+        <StackPanel Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2" Margin="15 40 0 0">
+            <CheckBox Content="Bilo bi lepo renovirati neke sitnice, ali sve funkcioniše kako treba i bez toga" x:Name="checkBoxLevel1" Margin="0,0,0,10" IsChecked="{Binding SelectedRenovationLevel, Mode=TwoWay}"/>
+            <CheckBox Content="Male zamerke na smeštaj koje kada bi se uklonile bi ga učinile savršenim" x:Name="checkBoxLevel2" Margin="0,0,0,10"  IsChecked="{Binding SelectedRenovationLevel1, Mode=TwoWay}"/>
+            <CheckBox Content="Nekoliko stvari koje su baš zasmetale bi trebalo renovirati" x:Name="checkBoxLevel3" Margin="0,0,0,10"  IsChecked="{Binding SelectedRenovationLevel2, Mode=TwoWay}"/>
+            <CheckBox Content="Ima dosta loših stvari i renoviranje je stvarno neophodno" x:Name="checkBoxLevel4" Margin="0,0,0,10" IsChecked="{Binding SelectedRenovationLevel3, Mode=TwoWay}"/>
+            <CheckBox Content="Smeštaj je u jako lošem stanju i ne vredi ga uopšte iznajmljivati ukoliko se ne renovira" x:Name="checkBoxLevel5" IsChecked="{Binding SelectedRenovationLevel4, Mode=TwoWay}"/>
+        </StackPanel>
+
+        <Button x:Name="Cancel" Content="Cancel" Grid.Column="0" Grid.Row="3" Margin="0 20 0 0"  HorizontalAlignment="Center" Height="27"   Width="64" Command="{Binding Cancel}"/>
+        <Button x:Name="Submit" Content="Finish" Grid.Column="1" Grid.Row="3" Margin="0 20 0 0" HorizontalAlignment="Center" Height="27" Command="{Binding Finish}" Width="64"/>
+
+
+    </Grid>
+</Window>

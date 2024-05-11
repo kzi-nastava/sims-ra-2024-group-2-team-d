@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
         Title="MyStandardTourRequestsView" Height="768" Width="1024">
@@ -24,6 +26,20 @@
             </Button>
             <TextBlock Text="My Standard Tour Requests" FontSize="23" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"></TextBlock>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+            <TextBlock Text="Year" VerticalAlignment="Center"></TextBlock>
+            <ComboBox ItemsSource="{Binding DistinctYears}" Height="30" Width="200" VerticalAlignment="Center" SelectedItem="{Binding SelectedYear}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding YearSelectionChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+        </StackPanel>
+        <Button Content="Graph of number of requests by language" Grid.Column="0" Grid.Row="1" Command="{Binding ShowLanguageRequestCountGraphCommand}"></Button>
+        <Button Content="Graph of number of requests by location" Grid.Column="0" Grid.Row="2" Command="{Binding ShowLocationRequestCountGraphCommand}"></Button>
+        <TextBlock Text="{Binding AverageNumberOfTourists, StringFormat='Average number of tourists in accepted tours {0:F2}'}" Grid.Row="3" Grid.Column="0"></TextBlock>
+        <lvc:PieChart Series="{Binding PieSeriesCollection}" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2"></lvc:PieChart>
         <DataGrid ItemsSource="{Binding MyTourRequests}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" AutoGenerateColumns="False" Margin="0,86,0,0" Grid.RowSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -50,6 +66,5 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </Window>

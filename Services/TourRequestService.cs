@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using BookingApp.Serializer;
 using BookingApp.Model;
 using System.Windows.Media.Imaging;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace BookingApp.Services
 {
@@ -191,6 +193,77 @@ namespace BookingApp.Services
         //    }
         //    return result;
         //}
+
+        public double CalculateAverageNumberOfTourists(int userId)
+        {
+            List<TourRequest> userRequests = TourRequestRepository.GetAcceptedRequestsByUserId(userId);
+            double average = userRequests.Sum(t => t.NumberOfTourists) / (double)userRequests.Count;
+            return average;
+        }
+
+        public List<string> GetDistinctYearsForTourRequests(int userId)
+        {
+            List<TourRequest> userRequests = TourRequestRepository.GetAcceptedRequestsByUserId(userId);
+            List<string> distinctYears = userRequests.Select(t => t.ChosenDateTime.Year).Distinct().Select(year => year.ToString()).ToList();
+            return distinctYears;
+        }
+
+        public double CalculateAverageNumberOfTourists(int userId, string year)
+        {
+            if(year == "All years")
+            {
+                return CalculateAverageNumberOfTourists(userId);
+            }
+            List<TourRequest> userRequests = TourRequestRepository.GetAcceptedRequestsByUserIdAndYear(userId, int.Parse(year));
+            double average = userRequests.Sum(t => t.NumberOfTourists) / (double)userRequests.Count;
+            return average;
+        }
+
+        public SeriesCollection UpdatePie(int userId, string year)
+        {
+            List<TourRequest> tourRequests = new List<TourRequest>();
+            if (year == "All years")
+            {
+                tourRequests = TourRequestRepository.GetByUserId(userId);
+
+            }
+            else
+            {
+                tourRequests = TourRequestRepository.GetByUserTouristIdAndYear(userId, int.Parse(year));
+            }
+            int acceptedRequests = tourRequests.Count(t => t.CurrentStatus == Status.Accepted);
+            int notAcceptedRequests = tourRequests.Count(t => t.CurrentStatus != Status.Accepted);
+            SeriesCollection PieSeriesCollection = new SeriesCollection
+                                                        {
+            new PieSeries { Title = "Accepted", Values = new ChartValues<int> { acceptedRequests }, DataLabels = true },
+            new PieSeries { Title = "Not accepted", Values = new ChartValues<int> { notAcceptedRequests }, DataLabels = true }
+                            };
+            return PieSeriesCollection;
+        }
+
+        public Dictionary<string,int> GetLanguageRequestCountPair()
+        {
+            List<string> languages = TourRequestRepository.GetDistinctLanguages();
+            Dictionary<string, int> languageCountPair = new Dictionary<string, int>();
+            foreach (string language in languages)
+            {
+                languageCountPair[language] = TourRequestRepository.CountRequestsByLanguage(language);
+            }
+            return languageCountPair;
+        }
+
+        public Dictionary<string, int> GetLocationRequestCountPair() 
+        {
+            List<string> locations = TourRequestRepository.GetDistinctLocations();
+            Dictionary<string, int> locationCountPair = new Dictionary<string, int>();
+            foreach (string location in locations)
+            {
+                locationCountPair[location] = TourRequestRepository.CountRequestsByLocation(location);
+            }
+            return locationCountPair;
+        }
+
+
 
     }
 }

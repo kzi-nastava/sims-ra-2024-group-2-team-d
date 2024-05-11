@@ -11,7 +11,7 @@ using System.Windows;
 using System.Xml.Linq;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class KeyPoint : ISerializable
     {

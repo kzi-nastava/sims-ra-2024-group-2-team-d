@@ -6,20 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using BookingApp.Serializer;
-using BookingApp.Model;
 using System.Windows.Media.Imaging;
 using LiveCharts;
 using LiveCharts.Wpf;
+using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Services
 {
     public class TourRequestService
     {
-        private TourRequestRepository TourRequestRepository { get; set; }
+        private ITourRequestRepository TourRequestRepository { get; set; }
 
-        public TourRequestService() 
+        public TourRequestService(ITourRequestRepository tourRequestRepository) 
         { 
-            TourRequestRepository = new TourRequestRepository();
+            TourRequestRepository = tourRequestRepository;
         }
 
         public bool CheckUserIsAvaliable(User user, DateTime dateTime)

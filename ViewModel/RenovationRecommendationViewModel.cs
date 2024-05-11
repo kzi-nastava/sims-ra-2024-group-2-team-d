@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
-using BookingApp.Model;
+using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.View.Owner;

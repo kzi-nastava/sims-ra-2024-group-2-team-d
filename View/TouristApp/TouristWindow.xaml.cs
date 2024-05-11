@@ -17,7 +17,7 @@ using BookingApp.View.TouristApp;
 using BookingApp.WPF.Views;
 using BookingApp.WPF;
 using BookingApp.Services;
-using BookingApp.Model;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.View
 {

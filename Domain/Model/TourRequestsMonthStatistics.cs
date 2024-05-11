@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TourRequestsMonthStatistics
     {
@@ -29,7 +29,7 @@ namespace BookingApp.Model
 
         public TourRequestsMonthStatistics(int jan, int feb, int mar, int apr, int may, int jun, int jul, int aug, int sep, int oct, int nov, int dec)
         {
-            Jan = jan; Feb= feb; Mar = mar; Apr = apr; May = may; Jun = jun; Jul = jul; Aug = aug; Sep = sep; Oct = oct; Nov = nov; Dec = dec;
+            Jan = jan; Feb = feb; Mar = mar; Apr = apr; May = may; Jun = jun; Jul = jul; Aug = aug; Sep = sep; Oct = oct; Nov = nov; Dec = dec;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class Reservation : ISerializable
     {

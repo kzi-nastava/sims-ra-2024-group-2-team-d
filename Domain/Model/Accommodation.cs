@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public enum AccommodationType { Apartman = 0, Kuca = 1, Koliba = 2 }
     public class Accommodation : ISerializable

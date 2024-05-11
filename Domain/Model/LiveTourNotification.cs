@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class LiveTourNotification : ISerializable
 

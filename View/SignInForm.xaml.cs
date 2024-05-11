@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.View.Guest1;
 using BookingApp.View.Owner;

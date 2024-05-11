@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using BookingApp.Services;
 using BookingApp.Dto;
-using BookingApp.Model;
+using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -35,7 +36,7 @@ namespace BookingApp.WPF.ViewModels
             NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
             InputTourist = new Tourist();
             TouristService = new TouristService();
-            TourRequestService = new TourRequestService();
+            TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             AddTouristCommand = new RelayCommand(AddTourist);
             SendRequestCommand = new RelayCommand(() =>
             {

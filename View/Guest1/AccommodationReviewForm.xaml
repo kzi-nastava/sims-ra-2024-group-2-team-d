@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest1"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Accommodation Review Form" Height="350" Width="400">
+        Title="Accommodation Review Form" Height="450" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -21,9 +21,10 @@
             <RowDefinition Height="14*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="Information" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,0"  TextWrapping="Wrap"> Da li zelite da ocjenite vas boravak u apartmanu </TextBlock>
+        <TextBlock x:Name="Information" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,0"  TextWrapping="Wrap"> Da li zelite da ocjenite vas boravak u apartmanu</TextBlock>
 
         <Label Grid.Row="1" Grid.Column="0" Margin="27,0,0,0" VerticalAlignment="Center" Content="Cistoca:"></Label>
         <ComboBox Grid.Row="1" Grid.Column="1" Margin="5,7,5,7" Text="{Binding Path=Cleanness, Mode=OneWayToSource}">
@@ -56,8 +57,12 @@
         </Button>
 
 
-        <Button x:Name="Cancel" Content="Cancel" Grid.Column="0" Grid.Row="5" Click="Cancel_Click"  HorizontalAlignment="Center" Height="27"  Width="64"/>
-        <Button x:Name="Submit" Content="Submit" Grid.Column="1" Grid.Row="5" Click="Submit_Click" HorizontalAlignment="Center" Height="27" Width="64"/>
+        <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" VerticalAlignment="Center" Margin="25,0,0,0" Content="Napisete preporuku za renoviranje: "></Label>
+        <Button Grid.Column="1" Grid.Row="5" Width="60" Margin="0 0 60 0" VerticalAlignment="Center" HorizontalAlignment="Right" Height="20" Click="Button_Click">Renoviraj</Button>
+
+
+        <Button x:Name="Cancel" Content="Cancel" Grid.Column="0" Grid.Row="6" Click="Cancel_Click"  HorizontalAlignment="Center" Height="27"  Width="64"/>
+        <Button x:Name="Submit" Content="Submit" Grid.Column="1" Grid.Row="6" Click="Submit_Click" HorizontalAlignment="Center" Height="27" Width="64"/>
 
     </Grid>
 </Window>

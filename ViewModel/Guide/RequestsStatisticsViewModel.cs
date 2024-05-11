@@ -4,6 +4,7 @@ using BookingApp.Services;
 using BookingApp.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -21,6 +22,79 @@ namespace BookingApp.ViewModel.Guide
         public string Lang { get; set; }
         public MyCommand CreateInLocCommand { get; set; }
         public MyCommand CreateInLangCommand { get; set; }
+        private string searchLocText;
+        public string SearchLocText
+        {
+            get { return searchLocText; }
+            set
+            {
+                searchLocText = value;
+                OnPropertyChanged("SearchLocText");
+            }
+        }
+        private string searchLocYear;
+        public string SearchLocYear
+        {
+            get { return searchLocYear; }
+            set
+            {
+                searchLocYear = value;
+                OnPropertyChanged("SearchLocYear");
+            }
+        }
+        private string locTotal;
+        public string LocTotal
+        {
+            get { return locTotal; }
+            set
+            {
+                locTotal = value;
+                OnPropertyChanged("LocTotal");
+            }
+        }
+        private string locYear;
+        public string LocYear
+        {
+            get { return locYear; }
+            set
+            {
+                locYear = value;
+                OnPropertyChanged("LocYear");
+            }
+        }
+        private Visibility isVisibleLocTotal;
+        public Visibility IsVisibleLocTotal
+        {
+            get { return isVisibleLocTotal; }
+            set
+            {
+                isVisibleLocTotal = value;
+                OnPropertyChanged("IsVisibleLocTotal");
+            }
+        }
+        private Visibility isVisibleLocYear;
+        public Visibility IsVisibleLocYear
+        {
+            get { return isVisibleLocYear; }
+            set
+            {
+                isVisibleLocYear = value;
+                OnPropertyChanged("IsVisibleLocYear");
+            }
+        }
+        private ObservableCollection<TourRequestsMonthStatistics> tourRequestsMonthStatisticsColl;
+        public ObservableCollection<TourRequestsMonthStatistics> TourRequestsMonthStatisticsColl
+        {
+            get { return tourRequestsMonthStatisticsColl; }
+            set
+            {
+
+                this.tourRequestsMonthStatisticsColl = value;
+                OnPropertyChanged("TourRequestsMonthStatisticsColl");
+            }
+        }
+        public MyCommand SearchLocCommand { get; set; }
+        public MyCommand SearchLocYearCommand { get; set; }
 
         public RequestsStatisticsViewModel(User user) 
         {
@@ -30,7 +104,44 @@ namespace BookingApp.ViewModel.Guide
             Lang = MainService.TourRequestService.FindMostWantedLangInLastYear();
             CreateInLocCommand = new MyCommand(CreateInLoc);
             CreateInLangCommand = new MyCommand(CreateInLang);
+            IsVisibleLocTotal = Visibility.Hidden;
+            IsVisibleLocYear = Visibility.Hidden;
+            SearchLocCommand = new MyCommand(SearchByLoc);
+            SearchLocYearCommand = new MyCommand(SearchByLocAndYear);
+            TourRequestsMonthStatisticsColl = new ObservableCollection<TourRequestsMonthStatistics>();
         }
+
+        private void SearchByLoc()
+        {
+            if (SearchLocText == "") return;
+            LocTotal = MainService.TourRequestService.CountRequestsOnLoc(SearchLocText).ToString();
+            IsVisibleLocTotal = Visibility.Visible;
+            IsVisibleLocYear = Visibility.Hidden;
+        }
+
+        private void SearchByLocAndYear()
+        {
+            if (SearchLocYear == "") return;
+            LocYear = MainService.TourRequestService.CountRequestsOnLocByYear(SearchLocText, Convert.ToInt32(SearchLocYear)).ToString();
+            TourRequestsMonthStatistics TourRequestsMonthStatistics = new TourRequestsMonthStatistics(MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 1),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 2),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 3),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 4),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 5),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 6),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 7),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 8),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 9),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 10),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 11),
+                                                                                                      MainService.TourRequestService.CountRequestsOnLocByYearAndMonth(SearchLocText, Convert.ToInt32(SearchLocYear), 12)
+                                                                                                       );
+            TourRequestsMonthStatisticsColl = new ObservableCollection<TourRequestsMonthStatistics>();
+            TourRequestsMonthStatisticsColl.Add(TourRequestsMonthStatistics);
+            IsVisibleLocYear = Visibility.Visible;
+        }
+
+        
 
         private void CreateInLoc()
         {

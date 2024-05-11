@@ -5,22 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TourCreationNotification : ISerializable
     {
         public int Id { get; set; }
 
-        public int CreatedTourInstanceId {  get; set; }
+        public int CreatedTourInstanceId { get; set; }
 
-        public TourInstance CreatedTourInstance {  get; set; }
+        public TourInstance CreatedTourInstance { get; set; }
 
-        public bool IsBasedOnLanguage {  get; set; }
+        public bool IsBasedOnLanguage { get; set; }
 
-        public bool IsBasedOnLocation {  get; set; }
+        public bool IsBasedOnLocation { get; set; }
 
 
-        public TourCreationNotification() {
+        public TourCreationNotification()
+        {
             IsBasedOnLanguage = false;
             IsBasedOnLocation = false;
 

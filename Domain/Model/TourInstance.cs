@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TourInstance : ISerializable
     {

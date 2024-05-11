@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using BookingApp.Serializer;
 using InitialProject.CustomClasses;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public enum NotificationType { TourCreation, AddedToLiveTour, TourRequestAcceptance }
     public class TouristNotifications : ISerializable

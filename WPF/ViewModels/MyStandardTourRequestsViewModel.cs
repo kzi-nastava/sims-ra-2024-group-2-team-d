@@ -8,10 +8,11 @@ using BookingApp.Services;
 using BookingApp.Dto;
 using System.Windows.Input;
 using BookingApp.WPF.Views;
-using BookingApp.Model;
 using System.ComponentModel;
 using System.Collections;
 using LiveCharts;
+using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -57,7 +58,7 @@ namespace BookingApp.WPF.ViewModels
         public ICommand ShowLocationRequestCountGraphCommand { get; set; }
         public MyStandardTourRequestsViewModel(User loggedInUser) {
             LoggedInUser = loggedInUser;
-            _tourRequestService = new TourRequestService();
+            _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             _tourRequestService.InvalidateOutdatedTourRequests();
             MyTourRequests = new ObservableCollection<TourRequestDTO>(ConvertModelToDTO(_tourRequestService.GetByUserTouristId(LoggedInUser.Id)));
             InfoCommand = new RelayCommand(tourRequest => ShowMoreInfo((TourRequestDTO)tourRequest));

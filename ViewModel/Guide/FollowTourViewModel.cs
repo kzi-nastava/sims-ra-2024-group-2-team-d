@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows;
 using BookingApp.View;
 using System.Security.Cryptography.X509Certificates;
-using BookingApp.Model;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.ViewModel.Guide
 {

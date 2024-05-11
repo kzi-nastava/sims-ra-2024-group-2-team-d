@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Accessibility;
-using BookingApp.Model;
+using BookingApp.Domain.Model;
 using BookingApp.Serializer;
 
 namespace BookingApp.Repository

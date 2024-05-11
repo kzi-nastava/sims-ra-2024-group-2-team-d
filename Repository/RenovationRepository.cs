@@ -1,5 +1,4 @@
-﻿using BookingApp.Model;
-using BookingApp.Serializer;
+﻿using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.View.Guest1;
 using BookingApp.View.Owner;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.Repository
 {

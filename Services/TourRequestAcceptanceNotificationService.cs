@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Repository;
-using BookingApp.Model;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.Services
 {

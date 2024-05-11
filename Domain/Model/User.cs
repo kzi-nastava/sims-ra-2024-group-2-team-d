@@ -1,7 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public enum Roles { OWNER, GUEST, GUIDE, TOURIST }
     public class User : ISerializable

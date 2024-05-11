@@ -9,8 +9,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using BookingApp.Model;
 using System.Security.Cryptography.X509Certificates;
+using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -107,7 +108,7 @@ namespace BookingApp.ViewModel.Guide
             Lang = lang;
             LocReadOnly = false;
             LangReadOnly = false;
-            _tourRequestService = new TourRequestService();
+            _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             CheckLoc();
             CheckLang();
         }
@@ -130,7 +131,7 @@ namespace BookingApp.ViewModel.Guide
             LangReadOnly = false;
             _tourCreationNotificationService = new TourCreationNotificationService();
             NewTourCreationNotification = tourCreationNotification;
-            _tourRequestService = new TourRequestService();
+            _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             CheckLoc();
             CheckLang();
         }

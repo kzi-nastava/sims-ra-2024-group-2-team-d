@@ -10,7 +10,7 @@ using System.Net;
 using BookingApp.Repository;
 using System.Globalization;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class Tour : ISerializable
     {

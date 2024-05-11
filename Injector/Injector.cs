@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Injector
 {
@@ -12,7 +13,8 @@ namespace BookingApp.Injector
     {
         private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
         {
-        { typeof(IAccommodationRepository), new AccommodationRepository() }
+        { typeof(IAccommodationRepository), new AccommodationRepository() },
+        { typeof(ITourRequestRepository), new TourRequestRepository() }
         
         // Add more implementations here
     };

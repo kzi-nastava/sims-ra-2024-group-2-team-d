@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class Renovation : ISerializable
     {
@@ -24,7 +24,7 @@ namespace BookingApp.Model
         public DateTime _endDay { get; set; }
 
 
-        
+
         public string Comment { get; set; }
 
         public Accommodation Accomodation;
@@ -46,7 +46,7 @@ namespace BookingApp.Model
             AccomodationId = Convert.ToInt32(values[1]);
             UserId = Convert.ToInt32(values[2]);
             RenovationDateRange = fromStringToDateRange(values[3]);
-            Comment= values[4];
+            Comment = values[4];
             _startDay = RenovationDateRange.StartDate;
             _endDay = RenovationDateRange.EndDate;
 
@@ -63,8 +63,8 @@ namespace BookingApp.Model
                 UserId.ToString(),
                 RenovationDateRange.ToString(),
                 Comment
-               
-               
+
+
             };
             return csvValues;
 

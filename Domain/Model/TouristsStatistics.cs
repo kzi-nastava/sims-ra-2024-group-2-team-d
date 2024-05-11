@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BookingApp.Serializer;
 
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TouristsStatistics //: ISerializable
     {

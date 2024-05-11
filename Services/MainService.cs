@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace BookingApp.Services
             TouristService = new TouristService();
             FollowingTourLiveService = new FollowingTourLiveService();
             KeyPointService = new KeyPointService();
-            TourRequestService = new TourRequestService();
+            TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             UserService = new UserService();
             PictureService = new PictureService();
         }

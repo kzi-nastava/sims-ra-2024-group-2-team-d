@@ -77,8 +77,8 @@ namespace BookingApp.View
 
         public void OpenGuideApplication(User user)
         {
-            GuideWindow guideWindow = new GuideWindow(user);
-            guideWindow.Show();
+            WelcomeGuide welcomeGuideWindow = new WelcomeGuide(user);
+            welcomeGuideWindow.Show();
             Close();
         }
         public void OpenTouristApplication(User user)

@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\airplane.png" />
     <None Remove="Resources\Images\back_icon.png" />
     <None Remove="Resources\Images\beograd.jpg" />
     <None Remove="Resources\Images\calendar-icon.png" />
+    <None Remove="Resources\Images\cloud1.png" />
+    <None Remove="Resources\Images\cloud2.png" />
+    <None Remove="Resources\Images\cloud3.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\duration-icon.jpg" />
     <None Remove="Resources\Images\edit.png" />
@@ -51,9 +55,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\airplane.png" />
     <Resource Include="Resources\Images\back_icon.png" />
     <Resource Include="Resources\Images\beograd.jpg" />
     <Resource Include="Resources\Images\calendar-icon.png" />
+    <Resource Include="Resources\Images\cloud1.png" />
+    <Resource Include="Resources\Images\cloud2.png" />
+    <Resource Include="Resources\Images\cloud3.png" />
     <Resource Include="Resources\Images\duration-icon.jpg" />
     <Resource Include="Resources\Images\G.jpg" />
     <Resource Include="Resources\Images\HH.jpg" />

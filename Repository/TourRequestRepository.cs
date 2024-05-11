@@ -135,5 +135,25 @@ namespace BookingApp.Repository
         public List<TourRequest> GetByUserTouristId(int userTouristId) { 
             return _tourRequest.Where(t => t.UserTouristId == userTouristId).ToList();
         }
+
+        public List<TourRequest> GetByLocation(string location)
+        {
+            return _tourRequest.Where(t => String.Equals(t.Location, location, StringComparison.OrdinalIgnoreCase) && t.CurrentStatus != Status.Accepted).ToList();
+        }
+
+        public List<TourRequest> GetByLanguage(string language)
+        {
+            return _tourRequest.Where(t => String.Equals(t.Language, language, StringComparison.OrdinalIgnoreCase) && t.CurrentStatus != Status.Accepted).ToList();
+        }
+
+        public bool IsAcceptedAtLocationByUser(string location, int userId)
+        {
+            return _tourRequest.Any(t => String.Equals(t.Location, location, StringComparison.OrdinalIgnoreCase) && t.CurrentStatus == Status.Accepted && t.UserTouristId == userId);
+        }
+
+        public bool IsAcceptedInLanguageByUser(string language, int userId)
+        {
+            return _tourRequest.Any(t => String.Equals(t.Language, language, StringComparison.OrdinalIgnoreCase) && t.CurrentStatus == Status.Accepted && t.UserTouristId == userId);
+        }
     }
 }

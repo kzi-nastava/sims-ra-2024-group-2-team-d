@@ -17,3 +17,10 @@
 17|2|2024-05-10 11:00|37|True|True|True
 19|6|2024-05-10 16:00|10|True|False|True
 20|7|2024-05-04 15:30|144|True|False|True
+21|8|2024-12-05 12:00|150|False|False|True
+22|9|2024-12-12 12:00|151|False|False|True
+23|10|2024-12-12 15:00|123|False|False|True
+24|11|2025-06-06 16:16|321|False|False|True
+25|12|2024-12-12 12:12|32|False|False|True
+26|13|2026-11-11 11:11|6|False|False|True
+27|14|2024-10-10 10:10|60|False|False|True

@@ -23,5 +23,10 @@ namespace BookingApp.Services
             return PictureRepository.Save(picture);
         }
 
+        public List<string> GetByTourId(int tourId)
+        {
+            return PictureRepository.GetByTourId(tourId);
+        }
+
     }
 }

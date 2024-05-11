@@ -81,6 +81,13 @@ namespace BookingApp.View
 
         }
 
+        public CreateTour(User user, string loc, string lang, TourCreationNotification notification)
+        {
+            InitializeComponent();
+            DataContext = new CreateTourViewModel(user, loc, lang, notification);
+
+        }
+
         //private void CreateNewTour(object sender, RoutedEventArgs e)
         //{
         //    string validTour = Tour.IsValid;

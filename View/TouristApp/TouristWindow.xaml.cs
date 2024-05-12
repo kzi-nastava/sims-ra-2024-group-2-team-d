@@ -85,7 +85,7 @@ namespace BookingApp.View
             _keyPointService = new KeyPointService(Injector.Injector.CreateInstance<IKeyPointRepository>());
             _giftCardService = new GiftCardService(Injector.Injector.CreateInstance<IGiftCardRepository>());
             _tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
-            _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>());
+            _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
             Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
             OpenMorePicturesCommand = new RelayCommand(tourInstance => OpenMorePictures((TourInstance)tourInstance));

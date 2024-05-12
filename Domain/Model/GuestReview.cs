@@ -13,6 +13,9 @@ namespace BookingApp.Domain.Model
         public int Rules { get; set; }
         public string Description { get; set; }
 
+        public int ReservationId { get; set; }
+
+
         public GuestReview()
         {
         }

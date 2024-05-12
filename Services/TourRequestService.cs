@@ -162,14 +162,29 @@ namespace BookingApp.Services
             return TourRequestRepository.GetAll().Where(x => x.Location == location).Count();
         }
 
+        public int CountRequestsOnLang(string lang)
+        {
+            return TourRequestRepository.GetAll().Where(x => x.Language == lang).Count();
+        }
+
         public int CountRequestsOnLocByYear(string location, int year)
         {
             return TourRequestRepository.GetAll().Where(x => x.Location == location && x.CreatedOn.Year == year).Count();
         }
 
+        public int CountRequestsOnLangByYear(string lang, int year)
+        {
+            return TourRequestRepository.GetAll().Where(x => x.Language == lang && x.CreatedOn.Year == year).Count();
+        }
+
         public int CountRequestsOnLocByYearAndMonth(string location, int year, int month)
         {
             return TourRequestRepository.GetAll().Where(x => x.Location == location && x.CreatedOn.Year == year && x.CreatedOn.Month == month).Count();
+        }
+
+        public int CountRequestsOnLangByYearAndMonth(string lang, int year, int month)
+        {
+            return TourRequestRepository.GetAll().Where(x => x.Language == lang && x.CreatedOn.Year == year && x.CreatedOn.Month == month).Count();
         }
 
         //public Dictionary<int, Dictionary<string, int>> CountRequestsOnLocByYears(string loc) //nisam znala kako da bindujem na grid

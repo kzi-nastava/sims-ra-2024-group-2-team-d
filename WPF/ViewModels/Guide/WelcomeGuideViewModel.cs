@@ -26,13 +26,22 @@ namespace BookingApp.WPF.ViewModels.Guide
             }
         }
         public MyCommand LetsStartCommand { get; set; }
+        public MyCommand CloseCommand { get; set; }
 
-        public WelcomeGuideViewModel(User user)
+        public WelcomeGuideViewModel(User user, Action closeAction)
         {
             MainService = MainService.GetInstance();
             LoggedInUser = user;
             UsernameText = LoggedInUser.Username;
-            LetsStartCommand = new MyCommand(Start);
+            LetsStartCommand = new MyCommand(() =>
+            {
+                Start();
+                closeAction();
+            });
+            CloseCommand = new MyCommand(() =>
+            {              
+                closeAction();
+            });
         }
 
         private void Start()

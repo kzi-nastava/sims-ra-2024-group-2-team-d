@@ -34,17 +34,26 @@ namespace BookingApp.WPF.ViewModels.Guide
                 OnPropertyChanged("DateText");
             }
         }
+        public bool Check { get; set; }
 
-        public AcceptReqGuideViewModel(TourRequest tourRequest, User user)
+        public AcceptReqGuideViewModel(TourRequest tourRequest, User user, Action closeAction)
         {
             MainService = MainService.GetInstance();
+            Check = false;
             TourRequest = tourRequest;
             LoggedInUser = user;
             TourInstances = new ObservableCollection<TourInstance>(MainService.TourInstanceService.GetAll());
             _tourRequestAcceptanceNotificationService = new TourRequestAcceptanceNotificationService(Injector.Injector.CreateInstance<ITourRequestAcceptanceNotificationRepository>());
             LinkTourInstancesWithTours();
-            OkCommand = new MyCommand(Ok);
-            CancelCommand = new MyCommand(Cancel);
+            OkCommand = new MyCommand(() =>
+            {
+                Ok();
+                if(Check == true) { closeAction(); }
+            });
+            CancelCommand = new MyCommand(() =>
+            {
+                closeAction();
+            });
         }
 
         public void LinkTourInstancesWithTours()
@@ -83,8 +92,11 @@ namespace BookingApp.WPF.ViewModels.Guide
                         TourRequest tourRequest = MainService.TourRequestService.Update(TourRequest);
                         NotifyTouristUser(tourRequest);
                         //CreateTourInstanceFromRequest(TourRequest, parsedDate);
-
-                        MessageBox.Show("You have successfully acceptted this request!");
+                        MessageBoxResult result = MessageBox.Show("You have succesfully accepted this request!", "OK", MessageBoxButton.OK, MessageBoxImage.Question);
+                        if(result == MessageBoxResult.OK)
+                        {
+                            Check = true;
+                        }
                         //this.Close();
                     }
                     else
@@ -107,11 +119,6 @@ namespace BookingApp.WPF.ViewModels.Guide
             TouristNotificationsService _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>());
             _touristNotificationsService.Save(notification);
 
-        }
-
-        private void Cancel()
-        {
-            //Close();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

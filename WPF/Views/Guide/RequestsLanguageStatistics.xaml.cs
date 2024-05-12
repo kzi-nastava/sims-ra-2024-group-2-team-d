@@ -1,5 +1,4 @@
-﻿using BookingApp.Domain.Model;
-using BookingApp.WPF.ViewModels.Guide;
+﻿using BookingApp.WPF.ViewModels.Guide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +13,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.View
+namespace BookingApp.WPF.Views.Guide
 {
     /// <summary>
-    /// Interaction logic for WelcomeGuide.xaml
+    /// Interaction logic for RequestsLanguageStatistics.xaml
     /// </summary>
-    public partial class WelcomeGuide : Window
+    public partial class RequestsLanguageStatistics : Window
     {
-        public WelcomeGuide(User user)
+        public RequestsLanguageStatistics(string text)
         {
             InitializeComponent();
-            DataContext = new WelcomeGuideViewModel(user, Close);
+            DataContext = new RequestsLanguageStatisticsViewModel(text);
         }
     }
 }

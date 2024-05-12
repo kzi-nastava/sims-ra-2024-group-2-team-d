@@ -37,7 +37,7 @@ namespace BookingApp.WPF.ViewModels.Guide
         public MyCommand ShowLogOut { get; set; }
         public MyCommand ShowRequests { get; set; }
 
-        public GuideWindowViewModel(User loggedInUser)
+        public GuideWindowViewModel(User loggedInUser, Action closeAction)
         {
             MainService = MainService.GetInstance();
             LoggedInUser = loggedInUser;
@@ -48,7 +48,13 @@ namespace BookingApp.WPF.ViewModels.Guide
             ShowStartTour = new MyCommand(StartTour);
             ShowAllTours = new MyCommand(AllTours);
             ShowStatistics = new MyCommand(Statistics);
-            ShowLogOut = new MyCommand(LogOut);
+            ShowLogOut = new MyCommand(() =>
+            {
+                if (LogOut())
+                {
+                    closeAction();
+                }
+            });
             ShowRequests = new MyCommand(Requests);
         }
 
@@ -76,7 +82,7 @@ namespace BookingApp.WPF.ViewModels.Guide
             requestsGuide.Show();
         }
 
-        private void LogOut()
+        private bool LogOut()
         {
             MessageBoxResult result = MessageBox.Show("Are you sure?", "Log out",
                     MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -84,8 +90,10 @@ namespace BookingApp.WPF.ViewModels.Guide
             {
                 SignInForm signInForm = new SignInForm();
                 signInForm.Show();
+                return true;
                 //this.Close();
             }
+            else { return false; }
         }
 
         private void Statistics()

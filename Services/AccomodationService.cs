@@ -1,5 +1,5 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Interfaces;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,11 +11,12 @@ namespace BookingApp.Services
 {
     public class AccomodationService
     {
-        public IAccommodationRepository _repo { get; set; }
+        public AccommodationRepository _repo { get; set; }
 
         public AccomodationService() {
 
-            _repo = Injector.Injector.CreateInstance<IAccommodationRepository>();
+            _repo = new AccommodationRepository();
+
         }
 
 

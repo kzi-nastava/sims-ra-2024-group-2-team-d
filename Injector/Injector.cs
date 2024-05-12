@@ -1,5 +1,4 @@
-﻿using BookingApp.Interfaces;
-using BookingApp.Repository;
+﻿using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,14 @@ namespace BookingApp.Injector
             { typeof(ITourCreationNotificationRepository), new TourCreationNotificationRepository() },
             {typeof(ITouristRepository), new TouristRepository()},
             {typeof(ILiveTourNotificationRepository), new LiveTourNotificationRepository() },
-            { typeof(ITourReviewRepository), new TourReviewRepository()}
+            { typeof(ITourReviewRepository), new TourReviewRepository()},
+            { typeof(IAccommodationReviewRepository), new AccommodationReviewRepository() },
+        { typeof(IChangeReservationRequestRepository), new ChangeReservationRequestRepository()},
+        { typeof(ICommentRepository), new CommentRepository()},
+        { typeof(IGuestReviewRepository), new GuestReviewRepository() },
+        { typeof(IRenovationRecommendationRepository), new RenovationRecommendationRepository() },
+        { typeof(IRenovationRepository), new RenovationRepository() },
+        {typeof(IReservationRepository), new ReservationRepository()}
 
         
         // Add more implementations here

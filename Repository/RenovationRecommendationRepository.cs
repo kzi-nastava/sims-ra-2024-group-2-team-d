@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Accessibility;
 using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 
 namespace BookingApp.Repository
 {
-    public class RenovationRecommendationRepository
+    public class RenovationRecommendationRepository : IRenovationRecommendationRepository
     {
         private const string FilePath = "../../../Resources/Data/renovationrecommendation.csv";
 

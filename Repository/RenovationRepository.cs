@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using BookingApp.View.Guest1;
 using BookingApp.View.Owner;
 using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository
 {
-    public class RenovationRepository
+    public class RenovationRepository : IRenovationRepository
     {
         private const string FilePath = "../../../Resources/Data/renovations.csv";
 

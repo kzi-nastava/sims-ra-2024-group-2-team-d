@@ -18,7 +18,6 @@ namespace BookingApp.Domain.Model
         public int EmptySpots { get; set; }
         public bool Start { get; set; }
         public bool End { get; set; }
-        public int TourRequestId { get; set; }
 
         public bool IsNotReviewed { get; set; }
 
@@ -31,22 +30,8 @@ namespace BookingApp.Domain.Model
             Start = false;
             End = false;
             IsNotReviewed = true;
-            TourRequestId = -1;
         }
 
-        public TourInstance(int tourRequestId, DateTime date)
-        {
-            Id = Id;
-            TourId = -1;
-            BaseTour = null;
-            Date = date;
-            EmptySpots = 0;
-            Start = false;
-            End = false;
-            IsNotReviewed = true;
-            TourRequestId = tourRequestId;
-
-        }
 
         public TourInstance()
         {

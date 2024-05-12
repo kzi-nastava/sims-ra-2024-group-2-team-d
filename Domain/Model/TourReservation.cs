@@ -13,8 +13,7 @@ namespace BookingApp.Domain.Model
     public class TourReservation : ISerializable
     {
         public int Id { get; set; }
-        public int TourInstanceId { get; set; }
-        public Tour ReservedTour { get; set; }
+        public int TourInstanceId { get; set; }       
 
         public int UserId { get; set; }
 

@@ -3,6 +3,7 @@ using InitialProject.CustomClasses;
 using System;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,8 +73,10 @@ namespace BookingApp.Domain.Model
 
         public DateRange fromStringToDateRange(string value)
         {
+
+            string format = "dd.MM.yyyy. HH:mm:ss";
             string[] result = value.Split(",");
-            return new DateRange(DateTime.Parse(result[0]), DateTime.Parse(result[1]));
+            return new DateRange(DateTime.ParseExact(result[0], format, CultureInfo.InvariantCulture), DateTime.ParseExact(result[1], format, CultureInfo.InvariantCulture));
         }
 
         public Accommodation GetAccommodationById(List<Accommodation> accommodations, int id)

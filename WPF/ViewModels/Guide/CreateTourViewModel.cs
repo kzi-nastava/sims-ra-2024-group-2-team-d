@@ -1,4 +1,4 @@
-﻿using BookingApp.Dto;
+using BookingApp.Dto;
 using BookingApp.Repository;
 using BookingApp.Services;
 using System;
@@ -28,6 +28,8 @@ namespace BookingApp.WPF.ViewModels.Guide
         public TourInstance TourInstance { get; set; }
         public KeyPoint KeyPoint { get; set; }
         public Picture Picture { get; set; }
+
+        public TouristNotificationsService _touristNotificationsService { get; set; }
 
         public TourCreationNotification NewTourCreationNotification { get; set; }
         public MyCommand CreateNewTourCommand { get; set; }
@@ -102,6 +104,7 @@ namespace BookingApp.WPF.ViewModels.Guide
             LocReadOnly = false;
             LangReadOnly = false;
             _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
+            _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
             CheckLoc();
             CheckLang();
         }
@@ -135,6 +138,7 @@ namespace BookingApp.WPF.ViewModels.Guide
             _tourCreationNotificationService = new TourCreationNotificationService(Injector.Injector.CreateInstance<ITourCreationNotificationRepository>());
             NewTourCreationNotification = tourCreationNotification;
             _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
+            _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
             CheckLoc();
             CheckLang();
         }
@@ -176,7 +180,7 @@ namespace BookingApp.WPF.ViewModels.Guide
                     TourInstance savedTourInstance = MainService.TourInstanceService.Save(instance);
                     if (NewTourCreationNotification != null)
                     {
-                        NotifyUsers(newT, savedTourInstance);
+                        _touristNotificationsService.NotifyUser(newT, savedTourInstance, NewTourCreationNotification);
                     }
                 }
                 List<Picture> newPictures = new List<Picture>();
@@ -207,6 +211,7 @@ namespace BookingApp.WPF.ViewModels.Guide
 
         public void NotifyUsers(Tour savedTour, TourInstance savedTourInstance)
         {
+            /*
             if (NewTourCreationNotification.IsBasedOnLanguage)
             {
                 List<int> userIds = _tourRequestService.FindUserIdsByLanguage(savedTour.Language);
@@ -230,7 +235,7 @@ namespace BookingApp.WPF.ViewModels.Guide
                     TouristNotificationsService _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>());
                     _touristNotificationsService.Save(notification);
                 }
-            }
+            } */
 
         }
 

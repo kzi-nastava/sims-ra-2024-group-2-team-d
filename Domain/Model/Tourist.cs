@@ -18,8 +18,6 @@ namespace BookingApp.Domain.Model
 
         public int ReservationId { get; set; }
 
-        public List<int> GiftCardIds { get; set; }
-
         public int UserId { get; set; }
 
         public bool ShowedUp { get; set; }
@@ -36,7 +34,6 @@ namespace BookingApp.Domain.Model
             Name = name;
             LastName = lastName;
             Age = age;
-            GiftCardIds = new List<int>();
             UserId = -1;
             ShowedUp = false;
             IsNotified = false;
@@ -47,7 +44,6 @@ namespace BookingApp.Domain.Model
             Name = name;
             LastName = lastName;
             Age = age;
-            GiftCardIds = new List<int>();
             UserId = userId;
             ShowedUp = false;
             IsNotified = false;

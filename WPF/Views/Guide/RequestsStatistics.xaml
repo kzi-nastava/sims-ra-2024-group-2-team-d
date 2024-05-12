@@ -38,9 +38,10 @@
         <TextBlock Grid.Column="2" FontSize="17" Grid.Row="3" Text="{Binding Lang}" Margin="57,2,57,38" Grid.RowSpan="2" />
         <Button Grid.Column="2" Grid.Row="4" Content="Create tour in this language" Name="CrLang" Command="{Binding CreateInLangCommand}" Height="35" Margin="105,0,105,5"/>
 
-        <TextBlock Grid.Column="2" Grid.Row="6" Text="See requests statistics for location:" FontSize="20" Margin="36,20,36,4" />
-        <TextBox Grid.Column="2" Grid.Row="7" Name="SearchTextBox" Text="{Binding SearchLocText}" Height="31"  Margin="57,1,143,23"/>
-        <Button Grid.Column="2" Grid.Row="7" Content="Search" Name="SearchBUtton" Width="50" Command="{Binding SearchLocCommand}" Margin="242,2,88,24"/>
+        <TextBlock Grid.Column="2" Grid.Row="6" Text="See requests statistics for:" FontSize="20" Margin="36,20,36,4" />
+        <TextBox Grid.Column="2" Grid.Row="7" Name="SearchTextBox" Text="{Binding SearchLocText}" Height="31"  Margin="35,1,165,23"/>
+        <Button Grid.Column="2" Grid.Row="7" Content="Location" Name="SearchBUtton" Command="{Binding SearchLocCommand}" Margin="225,3,99,23"/>
+        <Button Grid.Column="2" Grid.Row="7" Content="Language" Name="ssSearchBUtton" Command="{Binding SearchLangCommand}" Margin="291,3,24,23"/>
         <TextBlock Grid.Column="2" Grid.Row="8" Visibility="{Binding IsVisibleLocTotal}" Text="Num of requests for this location:" FontSize="16" Margin="21,0,120,27" Grid.RowSpan="2" />
         <TextBlock Grid.Column="2" FontSize="16" Grid.Row="8" Visibility="{Binding IsVisibleLocTotal}" Text="{Binding LocTotal}" Margin="271,1,46,6" />
         <TextBlock Grid.Column="2" Grid.Row="9" Visibility="{Binding IsVisibleLocTotal}" Text="Set a year:" FontSize="16" Margin="50,3,240,24" Grid.RowSpan="2" />
@@ -67,39 +68,6 @@ AutoGenerateColumns="False" Height="58" HeadersVisibility="Column" FontSize="13"
                     <DataGridTextColumn Header="Oct" Binding="{Binding Oct}" Width="31"/>
                     <DataGridTextColumn Header="Nov" Binding="{Binding Nov}" Width="35"/>
                     <DataGridTextColumn Header="Dec" Binding="{Binding Dec}" Width="33"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
-
-        <TextBlock Grid.Column="1" Grid.Row="6" Text="See requests statistics for language:" FontSize="20" Margin="36,20,36,4" />
-        <TextBox Grid.Column="1" Grid.Row="7" Name="sSearchTextBox" Text="{Binding SearchLocxText}" Height="31"  Margin="57,1,143,23"/>
-        <Button Grid.Column="1" Grid.Row="7" Content="Search" Name="ssSearchBUtton" Width="50" Command="{Binding SxearchLocCommand}" Margin="242,2,88,24"/>
-        <TextBlock Grid.Column="1" Grid.Row="8" Text="Num of requests for this language:" FontSize="16" Margin="21,0,120,27" Grid.RowSpan="2" />
-        <TextBlock Grid.Column="1" FontSize="16" Grid.Row="8" Text="{Binding Lang}" Margin="271,1,46,6" />
-        <TextBlock Grid.Column="1" Grid.Row="9" Text="Set a year:" FontSize="16" Margin="50,3,240,24" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="9" Name="SeaarchhTextBox"  Margin="132,0,132,4"/>
-        <Button Grid.Column="1" Grid.Row="9" Content="Set" Name="sSeearchBUtton" Command="{Binding SearchCommand}" Margin="250,0,88,4"/>
-        <TextBlock Grid.Column="1" Grid.Row="10" Text="Num of requests in this year:" FontSize="16" Margin="21,0,151,27" Grid.RowSpan="2" />
-        <TextBlock Grid.Column="1" FontSize="16" Grid.Row="10" Text="{Binding Lang}" Margin="240,2,78,5" />
-
-        <StackPanel Grid.Row="11" Grid.Column="1" Margin="0,0,0,-25">
-            <DataGrid ItemsSource="{Binding TourInstances}" x:Name="TouerrGrid"
-      SelectedItem="{Binding Path=SelectedTourInstance}"
-      IsReadOnly="True" SelectionMode="Single" 
-      AutoGenerateColumns="False" Height="59" HeadersVisibility="Column" FontSize="13" Width="380">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Jan" Binding="{Binding BaseTour.Title}" Width="28"/>
-                    <DataGridTextColumn Header="Feb" Binding="{Binding Date}" Width="31"/>
-                    <DataGridTextColumn Header="Mar" Binding="{Binding Date}" Width="33"/>
-                    <DataGridTextColumn Header="Apr" Binding="{Binding Date}" Width="31"/>
-                    <DataGridTextColumn Header="May" Binding="{Binding Date}" Width="35"/>
-                    <DataGridTextColumn Header="Jun" Binding="{Binding Date}" Width="29"/>
-                    <DataGridTextColumn Header="Jul" Binding="{Binding Date}" Width="27"/>
-                    <DataGridTextColumn Header="Aug" Binding="{Binding Date}" Width="33"/>
-                    <DataGridTextColumn Header="Sep" Binding="{Binding Date}" Width="31"/>
-                    <DataGridTextColumn Header="Oct" Binding="{Binding Date}" Width="31"/>
-                    <DataGridTextColumn Header="Nov" Binding="{Binding Date}" Width="35"/>
-                    <DataGridTextColumn Header="Dec" Binding="{Binding Date}" Width="33"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

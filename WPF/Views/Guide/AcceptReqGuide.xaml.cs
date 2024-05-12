@@ -44,7 +44,7 @@ namespace BookingApp.View
         public AcceptReqGuide(TourRequest tourRequest, User user)
         {
             InitializeComponent();
-            DataContext = new AcceptReqGuideViewModel(tourRequest, user);
+            DataContext = new AcceptReqGuideViewModel(tourRequest, user, Close);
             //LoggedInUser = user;
             //_tourRequestRepository = new TourRequestRepository();
             //_tourInstanceRepository = new TourInstanceRepository();

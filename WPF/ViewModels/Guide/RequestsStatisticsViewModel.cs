@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.View;
+using BookingApp.WPF.Views.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -95,6 +96,7 @@ namespace BookingApp.WPF.ViewModels.Guide
         }
         public MyCommand SearchLocCommand { get; set; }
         public MyCommand SearchLocYearCommand { get; set; }
+        public MyCommand SearchLangCommand { get; set; }
 
         public RequestsStatisticsViewModel(User user)
         {
@@ -107,8 +109,16 @@ namespace BookingApp.WPF.ViewModels.Guide
             IsVisibleLocTotal = Visibility.Hidden;
             IsVisibleLocYear = Visibility.Hidden;
             SearchLocCommand = new MyCommand(SearchByLoc);
+            SearchLangCommand = new MyCommand(SearchByLang);
             SearchLocYearCommand = new MyCommand(SearchByLocAndYear);
             TourRequestsMonthStatisticsColl = new ObservableCollection<TourRequestsMonthStatistics>();
+        }
+
+        private void SearchByLang()
+        {
+            if (SearchLocText == "") return;
+            RequestsLanguageStatistics requestsLanguageStatistics = new RequestsLanguageStatistics(SearchLocText);
+            requestsLanguageStatistics.Show();
         }
 
         private void SearchByLoc()

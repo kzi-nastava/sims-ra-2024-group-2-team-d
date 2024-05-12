@@ -28,7 +28,7 @@
             <Border Grid.ColumnSpan="3" Background="#EBF6F9" CornerRadius="20 20 0 0">
                 <Grid>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button Width="20" Height="20" Content="✕" Background="Transparent" BorderThickness="0" Foreground="Gray" FontWeight="Bold"/>
+                        <Button Width="20" Height="20" Content="✕" Command="{Binding CloseCommand}" Background="Transparent" BorderThickness="0" Foreground="Gray" FontWeight="Bold"/>
                     </StackPanel>
                 </Grid>
             </Border>

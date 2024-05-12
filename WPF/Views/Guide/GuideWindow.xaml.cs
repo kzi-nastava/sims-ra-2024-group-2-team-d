@@ -46,7 +46,7 @@ namespace BookingApp.View
         public GuideWindow(User user)
         {
             InitializeComponent();
-            DataContext = new GuideWindowViewModel(user);
+            DataContext = new GuideWindowViewModel(user, Close);
             /*MainService = MainService.GetInstance();
             DataContext = this;
             LoggedInUser = user;

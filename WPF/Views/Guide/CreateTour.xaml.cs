@@ -60,7 +60,7 @@ namespace BookingApp.View
         public CreateTour(User user, string loc, string lang)
         {
             InitializeComponent();
-            DataContext = new CreateTourViewModel(user, loc, lang);
+            DataContext = new CreateTourViewModel(user, loc, lang, Close);
             //Title = "Create Tour";
             //DataContext = this;
             //LoggedInUser = user;
@@ -84,7 +84,7 @@ namespace BookingApp.View
         public CreateTour(User user, string loc, string lang, TourCreationNotification notification)
         {
             InitializeComponent();
-            DataContext = new CreateTourViewModel(user, loc, lang, notification);
+            DataContext = new CreateTourViewModel(user, loc, lang, notification, Close);
 
         }
 

@@ -1,4 +1,4 @@
-﻿using BookingApp.Dto;
+using BookingApp.Dto;
 using BookingApp.Repository;
 using BookingApp.Services;
 using System;
@@ -12,6 +12,7 @@ using System.Windows;
 using System.Security.Cryptography.X509Certificates;
 using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookingApp.WPF.ViewModels.Guide
 {
@@ -53,26 +54,6 @@ namespace BookingApp.WPF.ViewModels.Guide
                 OnPropertyChanged("ErrorText");
             }
         }
-        //private string locText;
-        //public string LocText
-        //{
-        //    get { return locText; }
-        //    set
-        //    {
-        //        locText = value;
-        //        OnPropertyChanged("LocText");
-        //    }
-        //}
-        //private string langText;
-        //public string LangText
-        //{
-        //    get { return langText; }
-        //    set
-        //    {
-        //        langText = value;
-        //        OnPropertyChanged("LangText");
-        //    }
-        //}
         private bool locReadOnly;
         public bool LocReadOnly
         {
@@ -96,7 +77,7 @@ namespace BookingApp.WPF.ViewModels.Guide
         public string Loc;
         public string Lang;
 
-        public CreateTourViewModel(User user, string location, string lang)
+        public CreateTourViewModel(User user, string location, string lang, Action closeAction)
         {
             MainService = MainService.GetInstance();
             LoggedInUser = user;
@@ -105,8 +86,18 @@ namespace BookingApp.WPF.ViewModels.Guide
             TourInstance = new TourInstance();
             KeyPoint = new KeyPoint();
             Picture = new Picture();
-            CreateNewTourCommand = new MyCommand(CreateNewTour);
-            CancelCommand = new MyCommand(Cancel);
+            CreateNewTourCommand = new MyCommand(() =>
+            {
+                CreateNewTour();
+                if (Tour.IsValid == string.Empty)
+                {
+                    closeAction();
+                }
+            });
+            CancelCommand = new MyCommand(() =>
+            {               
+                    closeAction();                
+            });
             IsVisibleError = Visibility.Hidden;
             Loc = location;
             Lang = lang;
@@ -118,7 +109,7 @@ namespace BookingApp.WPF.ViewModels.Guide
             CheckLang();
         }
 
-        public CreateTourViewModel(User user, string location, string lang, TourCreationNotification tourCreationNotification)
+        public CreateTourViewModel(User user, string location, string lang, TourCreationNotification tourCreationNotification, Action closeAction)
         {
             MainService = MainService.GetInstance();
             LoggedInUser = user;
@@ -127,8 +118,18 @@ namespace BookingApp.WPF.ViewModels.Guide
             TourInstance = new TourInstance();
             KeyPoint = new KeyPoint();
             Picture = new Picture();
-            CreateNewTourCommand = new MyCommand(CreateNewTour);
-            CancelCommand = new MyCommand(Cancel);
+            CreateNewTourCommand = new MyCommand(() =>
+            {
+                CreateNewTour();
+                if (Tour.IsValid == string.Empty)
+                {
+                    closeAction();
+                }
+            });
+            CancelCommand = new MyCommand(() =>
+            {
+                closeAction();
+            });
             IsVisibleError = Visibility.Hidden;
             Loc = location;
             Lang = lang;
@@ -163,7 +164,6 @@ namespace BookingApp.WPF.ViewModels.Guide
         private void CreateNewTour()
         {
             string validTour = Tour.IsValid;
-
             if (validTour == string.Empty)
             {
                 Tour newTour = Tour.ToModel();
@@ -183,7 +183,6 @@ namespace BookingApp.WPF.ViewModels.Guide
                         _touristNotificationsService.NotifyUser(newT, savedTourInstance, NewTourCreationNotification);
                     }
                 }
-
                 List<Picture> newPictures = new List<Picture>();
                 newPictures = newT.ClassPictures;
                 foreach (Picture picture in newPictures)
@@ -201,7 +200,7 @@ namespace BookingApp.WPF.ViewModels.Guide
 
                  LinkTourInstancesWithTours();*/
 
-                //this.Close();
+                //Close();
             }
             else
             {
@@ -238,11 +237,6 @@ namespace BookingApp.WPF.ViewModels.Guide
                 }
             } */
 
-        }
-
-        private void Cancel()
-        {
-            //Close();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BookingApp.ViewModel.Guide
+namespace BookingApp.WPF.ViewModels.Guide
 {
     public class RequestsStatisticsViewModel : INotifyPropertyChanged
     {
@@ -89,14 +89,14 @@ namespace BookingApp.ViewModel.Guide
             set
             {
 
-                this.tourRequestsMonthStatisticsColl = value;
+                tourRequestsMonthStatisticsColl = value;
                 OnPropertyChanged("TourRequestsMonthStatisticsColl");
             }
         }
         public MyCommand SearchLocCommand { get; set; }
         public MyCommand SearchLocYearCommand { get; set; }
 
-        public RequestsStatisticsViewModel(User user) 
+        public RequestsStatisticsViewModel(User user)
         {
             MainService = MainService.GetInstance();
             LoggedInUser = user;
@@ -141,13 +141,13 @@ namespace BookingApp.ViewModel.Guide
             IsVisibleLocYear = Visibility.Visible;
         }
 
-        
+
 
         private void CreateInLoc()
         {
             TourCreationNotification notification = new TourCreationNotification();
             notification.IsBasedOnLocation = true;
-            CreateTour createTour = new CreateTour(LoggedInUser, Location, "",notification);
+            CreateTour createTour = new CreateTour(LoggedInUser, Location, "", notification);
             createTour.Show();
         }
 

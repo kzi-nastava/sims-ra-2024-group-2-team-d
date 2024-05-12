@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BookingApp.ViewModel.Guide
+namespace BookingApp.WPF.ViewModels.Guide
 {
     public class AllToursViewModel : INotifyPropertyChanged
     {
@@ -33,7 +33,7 @@ namespace BookingApp.ViewModel.Guide
         public MyCommand StatisticsCommand { get; set; }
         public MyCommand ReviewsCommand { get; set; }
 
-        public AllToursViewModel(User user) 
+        public AllToursViewModel(User user)
         {
             MainService = MainService.GetInstance();
             LoggedInUser = user;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BookingApp.ViewModel.Guide
+namespace BookingApp.WPF.ViewModels.Guide
 {
     public class MyCommand : ICommand
     {
@@ -55,7 +55,7 @@ namespace BookingApp.ViewModel.Guide
         }
     }
 
-    
+
 
 }
 

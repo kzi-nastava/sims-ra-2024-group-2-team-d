@@ -14,7 +14,7 @@ using BookingApp.View;
 using System.Security.Cryptography.X509Certificates;
 using BookingApp.Domain.Model;
 
-namespace BookingApp.ViewModel.Guide
+namespace BookingApp.WPF.ViewModels.Guide
 {
     public class FollowTourViewModel : INotifyPropertyChanged
     {
@@ -38,7 +38,10 @@ namespace BookingApp.ViewModel.Guide
         public MyCommand AddTouristsCommand { get; set; }
         public MyCommand EndInEmTourCommand { get; set; }
         private bool endEnabled;
-        public bool EndEnabled { get { return endEnabled; } set
+        public bool EndEnabled
+        {
+            get { return endEnabled; }
+            set
             {
                 endEnabled = value;
                 OnPropertyChanged(nameof(EndEnabled));

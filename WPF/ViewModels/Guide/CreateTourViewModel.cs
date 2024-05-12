@@ -13,7 +13,7 @@ using System.Security.Cryptography.X509Certificates;
 using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.ViewModel.Guide
+namespace BookingApp.WPF.ViewModels.Guide
 {
     public class CreateTourViewModel : INotifyPropertyChanged
     {
@@ -32,7 +32,9 @@ namespace BookingApp.ViewModel.Guide
         public MyCommand CreateNewTourCommand { get; set; }
         public MyCommand CancelCommand { get; set; }
         private Visibility isVisibleError;
-        public Visibility IsVisibleError { get { return isVisibleError; }
+        public Visibility IsVisibleError
+        {
+            get { return isVisibleError; }
             set
             {
                 isVisibleError = value;
@@ -138,7 +140,7 @@ namespace BookingApp.ViewModel.Guide
 
         public void CheckLoc()
         {
-            if(Loc != "")
+            if (Loc != "")
             {
                 Tour.Location = Loc;
                 LocReadOnly = true;
@@ -172,13 +174,13 @@ namespace BookingApp.ViewModel.Guide
                     }
 
                     TourInstance savedTourInstance = MainService.TourInstanceService.Save(instance);
-                    if(NewTourCreationNotification != null)
+                    if (NewTourCreationNotification != null)
                     {
                         NotifyUsers(newT, savedTourInstance);
                     }
                 }
 
-                
+
 
                 List<Picture> newPictures = new List<Picture>();
                 newPictures = newT.ClassPictures;
@@ -201,7 +203,7 @@ namespace BookingApp.ViewModel.Guide
             }
             else
             {
-                IsVisibleError= Visibility.Visible;
+                IsVisibleError = Visibility.Visible;
                 ErrorText = validTour;
             }
         }

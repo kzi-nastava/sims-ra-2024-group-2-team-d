@@ -13,17 +13,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BookingApp.ViewModel.Guide
+namespace BookingApp.WPF.ViewModels.Guide
 {
     public class GuideWindowViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<TourInstance> TourInstances { get; set; }
         private MainService MainService { get; set; }
         private TourInstance tourInstance;
-        public TourInstance SelectedTourInstance { get { return tourInstance; } set {
+        public TourInstance SelectedTourInstance
+        {
+            get { return tourInstance; }
+            set
+            {
                 tourInstance = value;
                 OnPropertyChanged("SelectedTourInstance");
-            } }
+            }
+        }
         public User LoggedInUser;
         public MyCommand ShowCreateTour { get; set; }
         public MyCommand ShowStartTour { get; set; }

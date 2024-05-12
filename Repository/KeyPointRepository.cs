@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class KeyPointRepository : SubjectNotifier
+    public class KeyPointRepository : IKeyPointRepository
     {
         private const string FilePath = "../../../Resources/Data/keyPoints.csv";
 

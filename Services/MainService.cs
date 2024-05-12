@@ -30,17 +30,17 @@ namespace BookingApp.Services
 
         public MainService()
         {
-            TourInstanceService = new TourInstanceService();
-            TourService = new TourService();
-            TourReservationService = new TourReservationService();
+            TourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
+            TourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>());
+            TourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
             GiftCardService = new GiftCardService(Injector.Injector.CreateInstance<IGiftCardRepository>());
             TourReviewService = new TourReviewService(Injector.Injector.CreateInstance<ITourReviewRepository>());
             TouristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
             FollowingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
-            KeyPointService = new KeyPointService();
+            KeyPointService = new KeyPointService(Injector.Injector.CreateInstance<IKeyPointRepository>());
             TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
-            UserService = new UserService();
-            PictureService = new PictureService();
+            UserService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
+            PictureService = new PictureService(Injector.Injector.CreateInstance<IPictureRepository>());
         }
 
         public static MainService GetInstance()

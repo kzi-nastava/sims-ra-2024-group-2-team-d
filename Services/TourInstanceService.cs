@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using BookingApp.Serializer;
 using System;
@@ -12,19 +13,19 @@ namespace BookingApp.Services
 {
     public class TourInstanceService
     {
-        public TourInstanceRepository TourInstanceRepository { get; set; }
-        public TourRepository TourRepository { get; set; }
+        private ITourInstanceRepository TourInstanceRepository { get; set; }
+        private ITourRepository TourRepository { get; set; }
 
-        private KeyPointRepository _keyPointRepository;
+        private IKeyPointRepository _keyPointRepository { get; set; }
 
-        private PictureRepository _pictureRepository;
+        private IPictureRepository _pictureRepository { get; set; }
 
-        public TourInstanceService()
+        public TourInstanceService(ITourInstanceRepository tourInstanceRepository, ITourRepository tourRepository, IKeyPointRepository keyPointRepository, IPictureRepository pictureRepository)
         {
-            TourInstanceRepository = new TourInstanceRepository();
-            TourRepository = new TourRepository();
-            _keyPointRepository = new KeyPointRepository();
-            _pictureRepository = new PictureRepository();
+            TourInstanceRepository = tourInstanceRepository;
+            TourRepository = tourRepository;
+            _keyPointRepository = keyPointRepository;
+            _pictureRepository = pictureRepository;
         }
 
         public List<TourInstance> GetAll()

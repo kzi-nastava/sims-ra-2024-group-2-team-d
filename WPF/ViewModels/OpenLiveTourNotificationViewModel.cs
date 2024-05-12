@@ -21,7 +21,7 @@ namespace BookingApp.WPF.ViewModels
             Notification = LiveTourNotificationService.GetById(notification.NotificationId);
             TouristService touristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
             Tourists = touristService.GetByIds(Notification.TouristsId);
-            TourInstanceService tourInstanceService = new TourInstanceService();
+            TourInstanceService tourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
             LiveTour = tourInstanceService.GetById(Notification.TourInstanceId);
 
         }

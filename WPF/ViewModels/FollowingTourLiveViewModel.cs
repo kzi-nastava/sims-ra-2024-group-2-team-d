@@ -24,7 +24,7 @@ namespace BookingApp.WPF.ViewModels
         {
             FollowingTourLiveService _followingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
             FollowingTourLive currentPosition = _followingTourLiveService.GetByTourInstanceId(ActiveTour.Id).LastOrDefault();
-            KeyPointService _keyPointService = new KeyPointService();
+            KeyPointService _keyPointService = new KeyPointService(Injector.Injector.CreateInstance<IKeyPointRepository>());
             CurrentKeyPoint = _keyPointService.GetById(currentPosition.KeyPointId);
             
         }

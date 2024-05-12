@@ -1,5 +1,7 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
+using BookingApp.Services;
 using BookingApp.WPF.Views;
 using System;
 using System.Collections.Generic;
@@ -30,11 +32,11 @@ namespace BookingApp.WPF.ViewModels
 
         public void FilterTours(ObservableCollection<TourInstance> tourInstances)
         {
-            TourReservationRepository _tourReservationRepository = new TourReservationRepository();
-            List<TourReservation> tourReservations = _tourReservationRepository.GetAll();
+            TourReservationService _tourReservationService = new TourReservationService();
+            List<TourReservation> tourReservations = _tourReservationService.GetAll();
             List<TourInstance> tourInstanceList = tourInstances.ToList();
-            TouristRepository _touristsRepository = new TouristRepository();
-            List<Tourist> tourists = _touristsRepository.GetAll();
+            TouristService _touristsService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
+            List<Tourist> tourists = _touristsService.GetAll();
             foreach(TourReservation tourReservation in tourReservations)
             {
                 AddToCorrespondingTour(tourReservation, tourists, tourInstanceList);

@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository
 {
-    public class FollowingTourLiveRepository
+    public class FollowingTourLiveRepository : IFollowingTourLiveRepository
     {
         private const string FilePath = "../../../Resources/Data/followingToursLive.csv";
 

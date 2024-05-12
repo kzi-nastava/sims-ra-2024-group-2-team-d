@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Services;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace BookingApp.WPF.ViewModels
         public TourInstance LiveTour {  get; set; }
         public LiveTourNotification Notification { get; set; }
         public OpenLiveTourNotificationViewModel(TouristNotifications notification) {
-            LiveTourNotificationService = new LiveTourNotificationService();
+            LiveTourNotificationService = new LiveTourNotificationService(Injector.Injector.CreateInstance<ILiveTourNotificationRepository>());
             Notification = LiveTourNotificationService.GetById(notification.NotificationId);
-            TouristService touristService = new TouristService();
+            TouristService touristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
             Tourists = touristService.GetByIds(Notification.TouristsId);
             TourInstanceService tourInstanceService = new TourInstanceService();
             LiveTour = tourInstanceService.GetById(Notification.TourInstanceId);

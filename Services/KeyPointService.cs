@@ -33,5 +33,10 @@ namespace BookingApp.Services
             return KeyPointRepository.GetKeyPointName(keyPointId);
         }
 
+        public KeyPoint GetById(int Id)
+        {
+            return KeyPointRepository.GetById(Id);
+        }
+
     }
 }

@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository
 {
-    public class TouristNotificationsRepository
+    public class TouristNotificationsRepository: ITouristNotificationsRepository
     {
         private const string FilePath = "../../../Resources/Data/touristNotifications.csv";
 

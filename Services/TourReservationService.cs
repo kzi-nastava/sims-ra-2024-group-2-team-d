@@ -73,5 +73,15 @@ namespace BookingApp.Services
             }
             return tourists;
         }
+
+        public TourReservation? GetByUserAndTourInstanceId(int tourInstanceId, int userId)
+        {
+            return TourReservationRepository.GetByUserAndTourInstanceId(tourInstanceId, userId);
+        }
+
+        public List<TourReservation> GetByUserId(int userId)
+        {
+            return TourReservationRepository.GetByUserId(userId);
+        }
     }
 }

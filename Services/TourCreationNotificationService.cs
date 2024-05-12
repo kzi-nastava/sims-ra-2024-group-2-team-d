@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Services
 {
     public class TourCreationNotificationService
     {
-        private TourCreationNotificationRepository _tourCreationNotificationRepository;
-        public TourCreationNotificationService() {
-            _tourCreationNotificationRepository = new TourCreationNotificationRepository();
+        private ITourCreationNotificationRepository _tourCreationNotificationRepository;
+        public TourCreationNotificationService(ITourCreationNotificationRepository tourCreationNotificationRepository) {
+            _tourCreationNotificationRepository = tourCreationNotificationRepository;
         }
 
         public TourCreationNotification Save(TourCreationNotification tourCreationNotification)

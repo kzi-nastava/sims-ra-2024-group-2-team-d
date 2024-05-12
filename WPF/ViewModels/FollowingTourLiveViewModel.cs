@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Services;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -20,10 +22,10 @@ namespace BookingApp.WPF.ViewModels
 
         public void GetCurrentPosition()
         {
-            FollowingTourLiveRepository _followingTourLiveRepository = new FollowingTourLiveRepository();
-            FollowingTourLive currentPosition = _followingTourLiveRepository.GetByTourInstanceId(ActiveTour.Id).LastOrDefault();
-            KeyPointRepository _keyPointRepository = new KeyPointRepository();
-            CurrentKeyPoint = _keyPointRepository.GetById(currentPosition.KeyPointId);
+            FollowingTourLiveService _followingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
+            FollowingTourLive currentPosition = _followingTourLiveService.GetByTourInstanceId(ActiveTour.Id).LastOrDefault();
+            KeyPointService _keyPointService = new KeyPointService();
+            CurrentKeyPoint = _keyPointService.GetById(currentPosition.KeyPointId);
             
         }
     }

@@ -6,16 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Services
 {
     public class TourReviewService
     {
-        public TourReviewRepository TourReviewRepository { get; set; }
+        public ITourReviewRepository TourReviewRepository { get; set; }
 
-        public TourReviewService()
+        public TourReviewService(ITourReviewRepository tourReviewRepository)
         {
-            TourReviewRepository = new TourReviewRepository();
+            TourReviewRepository = tourReviewRepository;
         }
 
         public TourReview Update(TourReview tourReview)
@@ -26,6 +27,11 @@ namespace BookingApp.Services
         public List<TourReview> GetAllByTourId(int id)
         {
             return TourReviewRepository.GetAllByTourId(id);
+        }
+
+        public TourReview Save(TourReview tourReview)
+        {
+            return TourReviewRepository.Save(tourReview);
         }
     }
 }

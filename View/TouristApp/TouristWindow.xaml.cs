@@ -18,6 +18,7 @@ using BookingApp.WPF.Views;
 using BookingApp.WPF;
 using BookingApp.Services;
 using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.View
 {
@@ -33,27 +34,25 @@ namespace BookingApp.View
         public User LoggedInUser { get; set; }
         public ObservableCollection<GiftCard> UserGiftCards { get; set; }
 
-        private readonly TourRepository _tourRepository;
+        private readonly TourService _tourService;
 
-        private readonly TourInstanceRepository _tourInstanceRepository;
+        private readonly TourInstanceService _tourInstanceService;
 
-        private readonly PictureRepository _pictureRepository;
+        private readonly PictureService _pictureService;
 
-        private readonly KeyPointRepository _keyPointRepository;
+        private readonly KeyPointService _keyPointService;
 
-        private readonly TourReservationRepository _tourReservationRepository;
+        private readonly TourReservationService _tourReservationService;
 
-        private readonly GiftCardRepository _giftCardRepository;
+        private readonly GiftCardService _giftCardService;
 
-        private readonly TouristNotificationsRepository _touristNotificationsRepository;
+        private readonly TouristNotificationsService _touristNotificationsService;
 
         private TourCreationNotificationService _tourCreationNotificationService;
 
         public ObservableCollection<string> UniqueLanguages { get; set; }
 
         public ObservableCollection<TouristNotifications> Notifications { get; set; }
-
-        public TouristNotificationService TouristNotificationService { get; set; }
 
         public ICommand Reserve { get; set; }
 
@@ -75,19 +74,18 @@ namespace BookingApp.View
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
-            _tourRepository = new TourRepository();           
-            _tourInstanceRepository = new TourInstanceRepository();
-            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceRepository.GetAll());
+            _tourService = new TourService();           
+            _tourInstanceService = new TourInstanceService();
+            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceService.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
             UserGiftCards = new ObservableCollection<GiftCard>();
             Notifications = new ObservableCollection<TouristNotifications>();
             SelectedTour = new TourInstance();
-            _pictureRepository = new PictureRepository();
-            _keyPointRepository = new KeyPointRepository();
-            _giftCardRepository = new GiftCardRepository();
-            _tourReservationRepository = new TourReservationRepository();
-            _touristNotificationsRepository = new TouristNotificationsRepository();
-            TouristNotificationService = new TouristNotificationService();
+            _pictureService = new PictureService();
+            _keyPointService = new KeyPointService();
+            _giftCardService = new GiftCardService(Injector.Injector.CreateInstance<IGiftCardRepository>());
+            _tourReservationService = new TourReservationService();
+            _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>());
             Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
             OpenMorePicturesCommand = new RelayCommand(tourInstance => OpenMorePictures((TourInstance)tourInstance));
@@ -95,7 +93,7 @@ namespace BookingApp.View
             MarkAsReadCommand = new RelayCommand(notification => MarkAsRead((TouristNotifications)notification));
             TrackTourLiveCommand = new RelayCommand(tourInstance => TrackTourLive((TourInstance)tourInstance));
             OpenTypeOfMyTourRequestSelectionCommand = new RelayCommand(OpenTypeOfMyTourRequestSelection);
-            _tourCreationNotificationService = new TourCreationNotificationService();
+            _tourCreationNotificationService = new TourCreationNotificationService(Injector.Injector.CreateInstance<ITourCreationNotificationRepository>());
             LinkEntities();
             MoveToActiveTours();
         }
@@ -119,12 +117,12 @@ namespace BookingApp.View
         public void MarkAsRead(TouristNotifications notification)
         {
             notification.IsRead = true;
-            TouristNotificationService.ChangeIsReadStatus(notification);
+            _touristNotificationsService.ChangeIsReadStatus(notification);
         }
 
         public void LinkNotifications()
         {
-            List<TouristNotifications> notifications = _touristNotificationsRepository.GetByUserId(LoggedInUser.Id);
+            List<TouristNotifications> notifications = _touristNotificationsService.GetByUserId(LoggedInUser.Id);
             notifications.Reverse();
             foreach(var notification in notifications)
             {
@@ -148,13 +146,13 @@ namespace BookingApp.View
         {
             foreach(TourInstance tourInstance in TourInstances)
             {
-                tourInstance.BaseTour.KeyPoints = _keyPointRepository.GetByTourInstance(tourInstance);
+                tourInstance.BaseTour.KeyPoints = _keyPointService.GetByTourInstance(tourInstance);
             }
         }
 
         public void LinkGiftCardWithUser()
         {
-            List<GiftCard> giftCards = _giftCardRepository.GetAll();
+            List<GiftCard> giftCards = _giftCardService.GetAll();
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             foreach (GiftCard giftCard in giftCards)
             {
@@ -167,10 +165,10 @@ namespace BookingApp.View
 
        public void MoveToActiveTours()
         {
-            List<TourReservation> userReservations = _tourReservationRepository.GetByUserId(LoggedInUser.Id);
+            List<TourReservation> userReservations = _tourReservationService.GetByUserId(LoggedInUser.Id);
             foreach(TourReservation userReservation in userReservations)
             {
-                TourInstance tourInstance = _tourInstanceRepository.GetById(userReservation.TourInstanceId);
+                TourInstance tourInstance = _tourInstanceService.GetById(userReservation.TourInstanceId);
                 if(tourInstance.Start && !tourInstance.End)
                 {
                     ActiveTours.Add(tourInstance);
@@ -182,7 +180,7 @@ namespace BookingApp.View
         {
             foreach(TourInstance tourInstance in TourInstances)
             {
-                Tour baseTour = _tourRepository.GetById(tourInstance.TourId);
+                Tour baseTour = _tourService.GetById(tourInstance.TourId);
                 if (baseTour != null)
                 {
                     tourInstance.BaseTour = baseTour;
@@ -194,7 +192,7 @@ namespace BookingApp.View
         {
             foreach(var tourInstance in TourInstances)
             {
-                List<string> pictures = _pictureRepository.GetByTourId(tourInstance.TourId);
+                List<string> pictures = _pictureService.GetByTourId(tourInstance.TourId);
                 if (pictures.Count() != 0)
                 {
                     tourInstance.BaseTour.Pictures = pictures;
@@ -231,7 +229,7 @@ namespace BookingApp.View
         private void OnResetClick(object sender, RoutedEventArgs e)
         {
             TourInstances.Clear();
-            List<TourInstance> tourInstances = _tourInstanceRepository.GetAll();
+            List<TourInstance> tourInstances = _tourInstanceService.GetAll();
             foreach (var tour in tourInstances)
             {
                 TourInstances.Add(tour);

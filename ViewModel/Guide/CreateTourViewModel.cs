@@ -129,7 +129,7 @@ namespace BookingApp.ViewModel.Guide
             Lang = lang;
             LocReadOnly = false;
             LangReadOnly = false;
-            _tourCreationNotificationService = new TourCreationNotificationService();
+            _tourCreationNotificationService = new TourCreationNotificationService(Injector.Injector.CreateInstance<ITourCreationNotificationRepository>());
             NewTourCreationNotification = tourCreationNotification;
             _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             CheckLoc();
@@ -216,8 +216,8 @@ namespace BookingApp.ViewModel.Guide
                     NewTourCreationNotification.CreatedTourInstanceId = savedTourInstance.Id;
                     TourCreationNotification savedNotification = _tourCreationNotificationService.Save(NewTourCreationNotification);
                     TouristNotifications notification = new TouristNotifications(savedNotification.Id, "A tour based on a language you requested has been created. Click \"See more\" to see more info about tour", NotificationType.TourCreation, userId);
-                    TouristNotificationsRepository _touristNotificationsRepository = new TouristNotificationsRepository();
-                    _touristNotificationsRepository.Save(notification);
+                    TouristNotificationsService _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>());
+                    _touristNotificationsService.Save(notification);
                 }
             }
             else if (NewTourCreationNotification.IsBasedOnLocation)
@@ -228,8 +228,8 @@ namespace BookingApp.ViewModel.Guide
                     NewTourCreationNotification.CreatedTourInstanceId = savedTourInstance.Id;
                     TourCreationNotification savedNotification = _tourCreationNotificationService.Save(NewTourCreationNotification);
                     TouristNotifications notification = new TouristNotifications(savedNotification.Id, "A tour based on a location you requested has been created. Click \"See more\" to see more info about tour", NotificationType.TourCreation, userId);
-                    TouristNotificationsRepository _touristNotificationsRepository = new TouristNotificationsRepository();
-                    _touristNotificationsRepository.Save(notification);
+                    TouristNotificationsService _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>());
+                    _touristNotificationsService.Save(notification);
                 }
             }
 

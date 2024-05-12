@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace BookingApp.Services
 {
     public class LiveTourNotificationService
     {
-        public LiveTourNotificationRepository LiveTourNotificationRepository { get; set; }
-        public LiveTourNotificationService() { 
-            LiveTourNotificationRepository = new LiveTourNotificationRepository();
+        public ILiveTourNotificationRepository LiveTourNotificationRepository { get; set; }
+        public LiveTourNotificationService(ILiveTourNotificationRepository liveTourNotificationRepository) { 
+            LiveTourNotificationRepository = liveTourNotificationRepository;
         }
 
         public LiveTourNotification Save(LiveTourNotification notification)

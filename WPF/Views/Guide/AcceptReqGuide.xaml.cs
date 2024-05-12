@@ -2,7 +2,7 @@
 using BookingApp.Dto;
 using BookingApp.Repository;
 using BookingApp.Services;
-using BookingApp.ViewModel.Guide;
+using BookingApp.WPF.ViewModels.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -32,7 +32,7 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            <Image Source="../Resources/Images/airplane.png" Grid.Row="2" Margin="33,51,141,190" Grid.RowSpan="3" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+            <Image Source="../../../Resources/Images/airplane.png" Grid.Row="2" Margin="33,51,141,190" Grid.RowSpan="3" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -42,12 +42,12 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Image Source="../Resources/Images/cloud1.png" Grid.Row="2"  Grid.RowSpan="2" Grid.Column="1" Margin="450,10,29,69" Grid.ColumnSpan="2" />
-            <Image Source="../Resources/Images/cloud2.png" Grid.Row="3" Grid.Column="1" Margin="571,0,-55,16" Grid.ColumnSpan="2" />
-            <Image Source="../Resources/Images/cloud2.png" Grid.Row="1"  Grid.RowSpan="2" Margin="-66,95,591,10" Grid.ColumnSpan="2" />
-            <Image Source="../Resources/Images/cloud3.png" Grid.Row="3"  Grid.RowSpan="2" Margin="-23,140,548,100" Grid.ColumnSpan="2" />
-            <Image Source="../Resources/Images/cloud3.png" Grid.Row="2"  Grid.RowSpan="2" Margin="-23,40,548,100" Grid.ColumnSpan="2" />
-            <Image Source="../Resources/Images/cloud1.png" Grid.Row="3"  Grid.RowSpan="2" Margin="414,109,112,145" Grid.Column="1" Grid.ColumnSpan="2" />
+            <Image Source="../../../Resources/Images/cloud1.png" Grid.Row="2"  Grid.RowSpan="2" Grid.Column="1" Margin="450,10,29,69" Grid.ColumnSpan="2" />
+            <Image Source="../../../Resources/Images/cloud2.png" Grid.Row="3" Grid.Column="1" Margin="571,0,-55,16" Grid.ColumnSpan="2" />
+            <Image Source="../../../Resources/Images/cloud2.png" Grid.Row="1"  Grid.RowSpan="2" Margin="-66,95,591,10" Grid.ColumnSpan="2" />
+            <Image Source="../../../Resources/Images/cloud3.png" Grid.Row="3"  Grid.RowSpan="2" Margin="-23,140,548,100" Grid.ColumnSpan="2" />
+            <Image Source="../../../Resources/Images/cloud3.png" Grid.Row="2"  Grid.RowSpan="2" Margin="-23,40,548,100" Grid.ColumnSpan="2" />
+            <Image Source="../../../Resources/Images/cloud1.png" Grid.Row="3"  Grid.RowSpan="2" Margin="414,109,112,145" Grid.Column="1" Grid.ColumnSpan="2" />
 
             <TextBlock Grid.Column="1" Grid.Row="1" Text="BookingApp" FontWeight="Bold" FontSize="25" Foreground="#0F4B7E" Margin="305,0,305,0">
             </TextBlock>

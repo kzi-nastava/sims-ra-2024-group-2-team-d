@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BookingApp.ViewModel.Guide
+namespace BookingApp.WPF.ViewModels.Guide
 {
     public class StatisticsViewModel : INotifyPropertyChanged
     {

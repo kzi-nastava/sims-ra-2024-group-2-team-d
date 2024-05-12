@@ -13,7 +13,7 @@ using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.View.Owner;
-using BookingApp.ViewModel.Guide;
+using BookingApp.WPF.ViewModels.Guide;
 
 namespace BookingApp.ViewModel
 {

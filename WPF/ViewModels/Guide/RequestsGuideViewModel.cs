@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BookingApp.ViewModel.Guide
+namespace BookingApp.WPF.ViewModels.Guide
 {
     public class RequestsGuideViewModel : INotifyPropertyChanged
     {
@@ -20,21 +20,26 @@ namespace BookingApp.ViewModel.Guide
         public User LoggedInUser { get; set; }
 
         private ObservableCollection<TourRequest> tourRequests;
-        public ObservableCollection<TourRequest> TourRequests { get { return tourRequests; } set {
+        public ObservableCollection<TourRequest> TourRequests
+        {
+            get { return tourRequests; }
+            set
+            {
 
-                this.tourRequests = value;
+                tourRequests = value;
                 OnPropertyChanged("TourRequests");
-            } }
+            }
+        }
         private TourRequest TourRequest { get; set; }
         public TourRequest SelectedTourRequest
         {
             get
             {
-                return this.TourRequest;
+                return TourRequest;
             }
             set
             {
-                this.TourRequest = value;
+                TourRequest = value;
                 OnPropertyChanged("SelectedTourRequest");
             }
         }

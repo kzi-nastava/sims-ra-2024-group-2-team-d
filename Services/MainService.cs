@@ -33,10 +33,10 @@ namespace BookingApp.Services
             TourInstanceService = new TourInstanceService();
             TourService = new TourService();
             TourReservationService = new TourReservationService();
-            GiftCardService = new GiftCardService();
-            TourReviewService = new TourReviewService();
-            TouristService = new TouristService();
-            FollowingTourLiveService = new FollowingTourLiveService();
+            GiftCardService = new GiftCardService(Injector.Injector.CreateInstance<IGiftCardRepository>());
+            TourReviewService = new TourReviewService(Injector.Injector.CreateInstance<ITourReviewRepository>());
+            TouristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
+            FollowingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
             KeyPointService = new KeyPointService();
             TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             UserService = new UserService();

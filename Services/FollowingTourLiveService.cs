@@ -6,16 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Services
 {
     public class FollowingTourLiveService
     {
-        public FollowingTourLiveRepository FollowingTourLiveRepository { get; set; }
+        public IFollowingTourLiveRepository FollowingTourLiveRepository { get; set; }
 
-        public FollowingTourLiveService() 
+        public FollowingTourLiveService(IFollowingTourLiveRepository followingTourLiveRepository) 
         {
-            FollowingTourLiveRepository = new FollowingTourLiveRepository();
+            FollowingTourLiveRepository = followingTourLiveRepository;
         }
 
         public FollowingTourLive Update(FollowingTourLive followingTourLive)
@@ -48,6 +49,11 @@ namespace BookingApp.Services
                 }
             }
             return keypoint;
+        }
+
+        public FollowingTourLive? GetByTouristAndTourInstanceId(int touristId, int tourInstanceId)
+        {
+            return FollowingTourLiveRepository.GetByTouristAndTourInstanceId(touristId, tourInstanceId);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class TourRequestAcceptanceNotificationRepository
+    public class TourRequestAcceptanceNotificationRepository : ITourRequestAcceptanceNotificationRepository
     {
         private const string FilePath = "../../../Resources/Data/tourRequestAcceptanceNotifications.csv";
 

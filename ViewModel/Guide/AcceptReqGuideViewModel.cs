@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using BookingApp.Services;
 using System;
@@ -40,7 +41,7 @@ namespace BookingApp.ViewModel.Guide
             TourRequest = tourRequest;
             LoggedInUser = user;
             TourInstances = new ObservableCollection<TourInstance>(MainService.TourInstanceService.GetAll());
-            _tourRequestAcceptanceNotificationService = new TourRequestAcceptanceNotificationService();
+            _tourRequestAcceptanceNotificationService = new TourRequestAcceptanceNotificationService(Injector.Injector.CreateInstance<ITourRequestAcceptanceNotificationRepository>());
             LinkTourInstancesWithTours();
             OkCommand = new MyCommand(Ok);
             CancelCommand = new MyCommand(Cancel);
@@ -103,7 +104,7 @@ namespace BookingApp.ViewModel.Guide
             TourRequestAcceptanceNotification tourRequestAcceptanceNotification = new TourRequestAcceptanceNotification(tourRequest.Id);
             TourRequestAcceptanceNotification savedNotification = _tourRequestAcceptanceNotificationService.Save(tourRequestAcceptanceNotification);
             TouristNotifications notification = new TouristNotifications(savedNotification.Id, "Your request has been accepted. Click \"See more\" to see more info", NotificationType.TourRequestAcceptance, tourRequest.UserTouristId);
-            TouristNotificationService _touristNotificationsService = new TouristNotificationService();
+            TouristNotificationsService _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>());
             _touristNotificationsService.Save(notification);
 
         }

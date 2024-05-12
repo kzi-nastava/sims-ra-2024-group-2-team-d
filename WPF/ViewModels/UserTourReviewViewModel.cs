@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.IO;
 using BookingApp.Domain.Model;
+using BookingApp.Services;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -16,15 +18,13 @@ namespace BookingApp.WPF.ViewModels
     {
         public TourReview UserTourReview { get; set; }
 
-        private TourReviewRepository _tourReviewRepository;
-
         public ICommand ConfirmReviewCommand {  get; set; }
 
         public ObservableCollection<string> ImagePaths { get; }
 
         public ICommand AddImageCommand { get; }
 
-        private PictureRepository _pictureRepository;
+        private PictureService _pictureService;
 
         public ObservableCollection<int> Ratings { get; } = new ObservableCollection<int>() { 1, 2, 3, 4, 5 };
 
@@ -34,7 +34,7 @@ namespace BookingApp.WPF.ViewModels
             UserTourReview.TourInstanceId = tourInstance.Id;
             UserTourReview.GuideId = tourInstance.BaseTour.UserId;
             UserTourReview.UserId = loggedInUser.Id;
-            _pictureRepository = new PictureRepository();
+            _pictureService = new PictureService();
             ConfirmReviewCommand = new RelayCommand(() =>
             {
                 ConfirmReview(tourInstance);
@@ -46,16 +46,17 @@ namespace BookingApp.WPF.ViewModels
 
         public void ConfirmReview(TourInstance tourInstance)
         {          
-            TourReviewRepository _tourReviewRepository = new TourReviewRepository();
-            _tourReviewRepository.Save(UserTourReview);
+            TourReviewService _tourReviewService = new TourReviewService(Injector.Injector.CreateInstance<ITourReviewRepository>());
+            _tourReviewService.Save(UserTourReview);
             foreach(string imagePath in ImagePaths)
             {
                 Picture picture = new Picture(tourInstance.BaseTour.Id,imagePath);
-                _pictureRepository.Save(picture);
+                _pictureService.Save(picture);
             }
+            /*
             tourInstance.IsNotReviewed = false;
-            TourInstanceRepository _tourInstanceRepository = new TourInstanceRepository();
-            _tourInstanceRepository.UpdateReviewStatus(tourInstance);           
+            TourInstanceService _tourInstanceRepository = new TourInstanceService();
+            _tourInstanceRepository.UpdateReviewStatus(tourInstance);      */      
         }
 
         private void AddImageExecute()

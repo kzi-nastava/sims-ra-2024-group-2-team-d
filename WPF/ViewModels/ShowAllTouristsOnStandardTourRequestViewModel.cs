@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModels
 {
@@ -17,7 +18,7 @@ namespace BookingApp.WPF.ViewModels
 
         public int NumberOfTourists {  get; set; }
         public ShowAllTouristsOnStandardTourRequestViewModel(TourRequestDTO tourRequest) {
-            _touristService = new TouristService();
+            _touristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
             Tourists = new ObservableCollection<Tourist>(_touristService.GetByIds(tourRequest.TouristsId));
             NumberOfTourists = tourRequest.NumberOfTourists;
         }

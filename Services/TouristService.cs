@@ -6,14 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Services
 {
     public class TouristService
     {
-        public TouristRepository TouristRepository { get; set; }
-        public TouristService() { 
-            TouristRepository = new TouristRepository();
+        public ITouristRepository TouristRepository { get; set; }
+        public TouristService(ITouristRepository touristRepository) { 
+            TouristRepository = touristRepository;
         }
 
         public Tourist Update(Tourist tourist)
@@ -34,6 +35,11 @@ namespace BookingApp.Services
         public Tourist GetById(int id)
         {
             return TouristRepository.GetById(id);
+        }
+
+        public List<Tourist> GetAll()
+        {
+            return TouristRepository.GetAll();
         }
     }
 }

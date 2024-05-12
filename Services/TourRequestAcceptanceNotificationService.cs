@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Repository;
 using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Services
 {
     public class TourRequestAcceptanceNotificationService
     {
-        private TourRequestAcceptanceNotificationRepository _tourRequestAcceptanceNotificationRepository;
+        private ITourRequestAcceptanceNotificationRepository _tourRequestAcceptanceNotificationRepository;
 
-        public TourRequestAcceptanceNotificationService()
+        public TourRequestAcceptanceNotificationService(ITourRequestAcceptanceNotificationRepository tourRequestAcceptanceNotificationRepository)
         {
-            _tourRequestAcceptanceNotificationRepository = new TourRequestAcceptanceNotificationRepository();
+            _tourRequestAcceptanceNotificationRepository = tourRequestAcceptanceNotificationRepository;
         }
 
         public TourRequestAcceptanceNotification Save(TourRequestAcceptanceNotification notification)

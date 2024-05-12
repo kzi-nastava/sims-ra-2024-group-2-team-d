@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository
 {
-    public class GiftCardRepository
+    public class GiftCardRepository : IGiftCardRepository
     {
         private const string FilePath = "../../../Resources/Data/giftCards.csv";
 

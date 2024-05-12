@@ -35,7 +35,7 @@ namespace BookingApp.WPF.ViewModels
             Tourists = new ObservableCollection<Tourist>();
             NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
             InputTourist = new Tourist();
-            TouristService = new TouristService();
+            TouristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
             TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             AddTouristCommand = new RelayCommand(AddTourist);
             SendRequestCommand = new RelayCommand(() =>

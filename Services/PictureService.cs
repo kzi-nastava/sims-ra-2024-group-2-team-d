@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using BookingApp.Serializer;
 using System;
@@ -11,11 +12,11 @@ namespace BookingApp.Services
 {
     public class PictureService
     {
-        public PictureRepository PictureRepository { get; set; }
+        private IPictureRepository PictureRepository { get; set; }
 
-        public PictureService()
+        public PictureService(IPictureRepository pictureRepository)
         {
-            PictureRepository = new PictureRepository();
+            PictureRepository = pictureRepository;
         }
 
         public Picture Save(Picture picture)

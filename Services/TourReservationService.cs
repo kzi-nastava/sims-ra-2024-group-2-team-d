@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,13 @@ namespace BookingApp.Services
 {
     public class TourReservationService
     {
-        public TourReservationRepository TourReservationRepository { get; set; }
-        public TouristRepository TouristRepository { get; set; }
+        public ITourReservationRepository TourReservationRepository { get; set; }
+        public ITouristRepository TouristRepository { get; set; }
 
-        public TourReservationService()
+        public TourReservationService(ITourReservationRepository tourReservationRepository, ITouristRepository touristRepository)
         {
-            TourReservationRepository = new TourReservationRepository();
-            TouristRepository = new TouristRepository();
+            TourReservationRepository = tourReservationRepository;
+            TouristRepository = touristRepository;
         }
 
         public List<TourReservation> GetAll()

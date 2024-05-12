@@ -34,7 +34,7 @@ namespace BookingApp.WPF.ViewModels
             UserTourReview.TourInstanceId = tourInstance.Id;
             UserTourReview.GuideId = tourInstance.BaseTour.UserId;
             UserTourReview.UserId = loggedInUser.Id;
-            _pictureService = new PictureService();
+            _pictureService = new PictureService(Injector.Injector.CreateInstance<IPictureRepository>());
             ConfirmReviewCommand = new RelayCommand(() =>
             {
                 ConfirmReview(tourInstance);

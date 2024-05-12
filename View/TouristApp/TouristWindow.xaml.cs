@@ -74,17 +74,17 @@ namespace BookingApp.View
             InitializeComponent();
             DataContext = this;
             LoggedInUser = user;
-            _tourService = new TourService();           
-            _tourInstanceService = new TourInstanceService();
+            _tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>());           
+            _tourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceService.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
             UserGiftCards = new ObservableCollection<GiftCard>();
             Notifications = new ObservableCollection<TouristNotifications>();
             SelectedTour = new TourInstance();
-            _pictureService = new PictureService();
-            _keyPointService = new KeyPointService();
+            _pictureService = new PictureService(Injector.Injector.CreateInstance<IPictureRepository>());
+            _keyPointService = new KeyPointService(Injector.Injector.CreateInstance<IKeyPointRepository>());
             _giftCardService = new GiftCardService(Injector.Injector.CreateInstance<IGiftCardRepository>());
-            _tourReservationService = new TourReservationService();
+            _tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
             _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>());
             Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
@@ -305,7 +305,7 @@ namespace BookingApp.View
             else if(notification.Type == NotificationType.TourCreation)
             {
                 TourCreationNotification tourCreationNotification = _tourCreationNotificationService.GetById(notification.NotificationId);
-                TourInstanceService service = new TourInstanceService();
+                TourInstanceService service = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
                 MoreInfoAboutTourView view = new MoreInfoAboutTourView(service.GetById(tourCreationNotification.CreatedTourInstanceId));
                 view.Show();
                 notificationPopup.IsOpen = !notificationPopup.IsOpen;

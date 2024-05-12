@@ -26,7 +26,7 @@ namespace BookingApp.WPF.ViewModels
 
             _touristRepository = new TouristRepository();
             _followingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
-            _tourReservationService = new TourReservationService();
+            _tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
             PresentTourists = new ObservableCollection<List<Tourist>>();
             LoggedInUser = loggedInUser;
             CheckForNotification(activeTours);

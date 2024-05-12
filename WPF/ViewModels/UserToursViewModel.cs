@@ -32,7 +32,7 @@ namespace BookingApp.WPF.ViewModels
 
         public void FilterTours(ObservableCollection<TourInstance> tourInstances)
         {
-            TourReservationService _tourReservationService = new TourReservationService();
+            TourReservationService _tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
             List<TourReservation> tourReservations = _tourReservationService.GetAll();
             List<TourInstance> tourInstanceList = tourInstances.ToList();
             TouristService _touristsService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());

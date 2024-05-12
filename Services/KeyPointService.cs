@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using BookingApp.Serializer;
 using System;
@@ -11,11 +12,11 @@ namespace BookingApp.Services
 {
     public class KeyPointService
     {
-        public KeyPointRepository KeyPointRepository { get; set; }
+        private IKeyPointRepository KeyPointRepository { get; set; }
 
-        public KeyPointService() 
+        public KeyPointService(IKeyPointRepository keyPointRepository) 
         { 
-            KeyPointRepository = new KeyPointRepository();
+            KeyPointRepository = keyPointRepository;
         }
 
         public KeyPoint Save(KeyPoint keyPoint)

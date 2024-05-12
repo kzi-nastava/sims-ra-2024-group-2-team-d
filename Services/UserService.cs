@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace BookingApp.Services
 {
     public class UserService
     {
-        public UserRepository UserRepository { get; set; }
+        public IUserRepository UserRepository { get; set; }
 
-        public UserService() 
+        public UserService(IUserRepository userRepository) 
         { 
-            UserRepository = new UserRepository();
+            UserRepository = userRepository;
         }
 
         public User GetById(int id)

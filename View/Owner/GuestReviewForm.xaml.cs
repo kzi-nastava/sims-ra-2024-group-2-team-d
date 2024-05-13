@@ -50,7 +50,7 @@ namespace BookingApp.View.Owner
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            GuestReview guestReview = new GuestReview(_reservation.AccomodationId, _reservation.UserId, Cleanness, Rules, Comment);
+            GuestReview guestReview = new GuestReview(_reservation.AccomodationId, _reservation.UserId, Cleanness, Rules, Comment, _reservation.Id);
             _guestReviewRepository.Save(guestReview);
             _reservation.ReviewedByOwner = true;
             _reservationRepository.Update(_reservation);

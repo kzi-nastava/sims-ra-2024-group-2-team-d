@@ -47,6 +47,11 @@ namespace BookingApp.View.Guest1
             CheckReviewNotifications(_user.Id);
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GuestRatingsForm guestRatingsForm = new GuestRatingsForm(_user);
+            guestRatingsForm.ShowDialog();
+        }
         private void CheckReviewNotifications(int userId)
         {
             var list = _reservationRepository.GetAllUnreviewedByGuest(userId);

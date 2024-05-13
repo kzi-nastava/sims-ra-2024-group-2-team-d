@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest1"
         mc:Ignorable="d"
-        Title="Guest1Window" Height="300" Width="500"
+        Title="Guest1Window" Height="400" Width="500"
         WindowStartupLocation ="CenterScreen">
     <Grid>
         <Button Content="Accommodation Display" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="AccommodationDisplay_Click"/>
         <Button Content="Owner Rating" HorizontalAlignment="Center" Margin="0,188,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="OwnerRating_Click"/>
         <Button Content="Requests Overview" HorizontalAlignment="Center" Margin="0,124,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="RequestsOverview_Click"/>
-    
+        <Button Content="My Rating" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Center" Height="43" Width="136" Click="Button_Click" />
+
+
     </Grid>
 </Window>

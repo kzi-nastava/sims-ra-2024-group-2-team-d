@@ -20,13 +20,14 @@ namespace BookingApp.Domain.Model
         {
         }
 
-        public GuestReview(int accomodationId, int userId, int cleanness, int rules, string description)
+        public GuestReview(int accomodationId, int userId, int cleanness, int rules, string description,int reservationId )
         {
             AccomodationId = accomodationId;
             UserId = userId;
             Cleanness = cleanness;
             Rules = rules;
             Description = description;
+            ReservationId = reservationId;
         }
 
         public string[] ToCSV()
@@ -38,6 +39,7 @@ namespace BookingApp.Domain.Model
                 Cleanness.ToString(),
                 Rules.ToString(),
                 Description,
+                ReservationId.ToString()
             };
             return csvValues;
         }
@@ -50,6 +52,7 @@ namespace BookingApp.Domain.Model
             Cleanness = Convert.ToInt32(values[3]);
             Rules = Convert.ToInt32(values[4]);
             Description = values[5];
+            ReservationId= Convert.ToInt32(values[6]);
         }
     }
 }

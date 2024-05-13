@@ -17,6 +17,10 @@ namespace BookingApp.Repository
 
         private List<GuestReview> _guestReviews;
 
+        public List<GuestReview> getGuestReviews()
+        {
+            return _guestReviews;
+        }
         public GuestReviewRepository()
         {
             _serializer = new Serializer<GuestReview>();

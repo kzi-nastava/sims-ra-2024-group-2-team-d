@@ -300,7 +300,8 @@ namespace BookingApp.View
             }
             else if(notification.Type == NotificationType.TourRequestAcceptance)
             {
-
+                MyStandardTourRequestsView view = new MyStandardTourRequestsView(LoggedInUser);
+                view.Show();
             }
             else if(notification.Type == NotificationType.TourCreation)
             {

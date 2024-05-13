@@ -77,13 +77,12 @@ namespace BookingApp.View.Owner
         }
         public void Accept()
         {
-            if(!(SelectedRenovation._startDay>=DateTime.Now.AddDays(-5)))
+            if (SelectedRenovation._startDay < DateTime.Now.AddDays(5))
             {
-                MessageBox.Show("Ne mozete otkazati renoviranje");
+                MessageBox.Show("Ne možete otkazati renoviranje jer je preostalo manje od 5 dana do početka renoviranja.");
             }
             else
             {
-                
                 _renovationRepository.Delete(SelectedRenovation);
                 Renovations.Remove(SelectedRenovation);
             }

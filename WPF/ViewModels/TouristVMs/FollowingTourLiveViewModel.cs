@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 using BookingApp.Services;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class FollowingTourLiveViewModel
     {
         public TourInstance ActiveTour { get; set; }
 
         public KeyPoint CurrentKeyPoint { get; set; }
-        public FollowingTourLiveViewModel(TourInstance activeTour) {
+        public FollowingTourLiveViewModel(TourInstance activeTour)
+        {
             ActiveTour = activeTour;
             GetCurrentPosition();
         }
@@ -26,7 +27,7 @@ namespace BookingApp.WPF.ViewModels
             FollowingTourLive currentPosition = _followingTourLiveService.GetByTourInstanceId(ActiveTour.Id).LastOrDefault();
             KeyPointService _keyPointService = new KeyPointService(Injector.Injector.CreateInstance<IKeyPointRepository>());
             CurrentKeyPoint = _keyPointService.GetById(currentPosition.KeyPointId);
-            
+
         }
     }
 }

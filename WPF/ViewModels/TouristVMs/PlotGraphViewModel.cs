@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using LiveCharts.Wpf;
 using LiveCharts;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class PlotGraphViewModel
     {

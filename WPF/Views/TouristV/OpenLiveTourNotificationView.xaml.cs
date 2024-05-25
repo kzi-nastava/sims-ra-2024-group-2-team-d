@@ -11,20 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.WPF.ViewModels.TouristVMs;
 using BookingApp.Domain.Model;
-using BookingApp.WPF.ViewModels;
 
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for MoreInfoAboutTourView.xaml
+    /// Interaction logic for OpenLiveTourNotificationView.xaml
     /// </summary>
-    public partial class MoreInfoAboutTourView : Window
+    public partial class OpenLiveTourNotificationView : Window
     {
-        public MoreInfoAboutTourView(TourInstance tourInstance)
+        public OpenLiveTourNotificationView(TouristNotifications notification)
         {
             InitializeComponent();
-            this.DataContext = new MoreInfoAboutTourViewModel(tourInstance);
+            DataContext = new OpenLiveTourNotificationViewModel(notification);
         }
     }
 }

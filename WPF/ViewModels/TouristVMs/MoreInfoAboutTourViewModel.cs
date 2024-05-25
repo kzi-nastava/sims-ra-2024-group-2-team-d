@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class MoreInfoAboutTourViewModel
     {
         public TourInstance TourInstance { get; set; }
-        public ICommand OpenMorePicturesCommand {  get; set; }
-        public MoreInfoAboutTourViewModel(TourInstance tourInstance) { 
+        public ICommand OpenMorePicturesCommand { get; set; }
+        public MoreInfoAboutTourViewModel(TourInstance tourInstance)
+        {
 
             TourInstance = tourInstance;
             OpenMorePicturesCommand = new RelayCommand(OpenMorePictures);

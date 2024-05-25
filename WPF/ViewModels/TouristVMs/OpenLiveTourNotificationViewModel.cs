@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class OpenLiveTourNotificationViewModel
     {
         public LiveTourNotificationService LiveTourNotificationService { get; set; }
-        public List<Tourist> Tourists {  get; set; }
+        public List<Tourist> Tourists { get; set; }
 
-        public TourInstance LiveTour {  get; set; }
+        public TourInstance LiveTour { get; set; }
         public LiveTourNotification Notification { get; set; }
-        public OpenLiveTourNotificationViewModel(TouristNotifications notification) {
+        public OpenLiveTourNotificationViewModel(TouristNotifications notification)
+        {
             LiveTourNotificationService = new LiveTourNotificationService(Injector.Injector.CreateInstance<ILiveTourNotificationRepository>());
             Notification = LiveTourNotificationService.GetById(notification.NotificationId);
             TouristService touristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());

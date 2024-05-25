@@ -11,19 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookingApp.WPF.ViewModels;
+using BookingApp.Domain.Model;
+using BookingApp.WPF.ViewModels.TouristVMs;
 
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for PlotGraphView.xaml
+    /// Interaction logic for TouristNotificationView.xaml
     /// </summary>
-    public partial class PlotGraphView : Window
+    public partial class TouristNotificationView : Window
     {
-        public PlotGraphView(Dictionary<string,int> keyValuePairs, string xAxisTitle)
+        public TouristNotificationView(List<TourInstance> activeTours, User loggedInUser)
         {
             InitializeComponent();
-            DataContext = new PlotGraphViewModel(keyValuePairs, xAxisTitle);
+            this.DataContext = new TouristNotificationViewModel(activeTours, loggedInUser);
         }
     }
 }

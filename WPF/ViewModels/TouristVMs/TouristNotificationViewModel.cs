@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using BookingApp.Services;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class TouristNotificationViewModel
     {
@@ -18,11 +18,12 @@ namespace BookingApp.WPF.ViewModels
         private FollowingTourLiveService _followingTourLiveService;
         private TourReservationService _tourReservationService;
 
-        public ObservableCollection<List<Tourist>> PresentTourists {  get; set; }
+        public ObservableCollection<List<Tourist>> PresentTourists { get; set; }
         public User LoggedInUser { get; set; }
 
-        public Tourist UserTourist {  get; set; }
-        public TouristNotificationViewModel(List<TourInstance> activeTours, User loggedInUser) {
+        public Tourist UserTourist { get; set; }
+        public TouristNotificationViewModel(List<TourInstance> activeTours, User loggedInUser)
+        {
 
             _touristRepository = new TouristRepository();
             _followingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
@@ -50,14 +51,14 @@ namespace BookingApp.WPF.ViewModels
                     }
                     PresentTourists.Add(tourists);
                 }
-               
+
             }
         }
 
         public List<int> FilterTours()
         {
             List<int> userToursIds = new List<int>();
-            foreach(TourReservation tourReservation in _tourReservationService.GetByUserId(LoggedInUser.Id))
+            foreach (TourReservation tourReservation in _tourReservationService.GetByUserId(LoggedInUser.Id))
             {
                 userToursIds.Add(tourReservation.TourInstanceId);
             }

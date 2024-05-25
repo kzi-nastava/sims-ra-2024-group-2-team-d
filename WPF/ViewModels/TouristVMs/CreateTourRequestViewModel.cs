@@ -11,12 +11,12 @@ using BookingApp.Dto;
 using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class CreateTourRequestViewModel : INotifyPropertyChanged
     {
         public User LoggedInUser { get; set; }
-        public ObservableCollection<Tourist> Tourists {  get; set; }
+        public ObservableCollection<Tourist> Tourists { get; set; }
 
         public Tourist InputTourist { get; set; }
         public TourRequestDTO NewTourRequest { get; set; }
@@ -29,8 +29,9 @@ namespace BookingApp.WPF.ViewModels
 
         public TourRequestService TourRequestService { get; set; }
 
-        public string Start {  get; set; }
-        public CreateTourRequestViewModel(User loggedInUser, Action closeAction) {
+        public string Start { get; set; }
+        public CreateTourRequestViewModel(User loggedInUser, Action closeAction)
+        {
             LoggedInUser = loggedInUser;
             Tourists = new ObservableCollection<Tourist>();
             NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
@@ -59,14 +60,14 @@ namespace BookingApp.WPF.ViewModels
 
         public void SendRequest()
         {
-            foreach(var tourist in Tourists)
+            foreach (var tourist in Tourists)
             {
                 Tourist savedTourist = TouristService.Save(tourist);
                 NewTourRequest.TouristsId.Add(savedTourist.Id);
             }
             TourRequest tourRequest = NewTourRequest.ToTourRequest();
             TourRequestService.Save(tourRequest);
-            
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

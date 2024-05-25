@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.Domain.Model;
-using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.TouristVMs;
 
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for UserGiftCardView.xaml
+    /// Interaction logic for MoreInfoAboutTourView.xaml
     /// </summary>
-    public partial class UserGiftCardView : Window
+    public partial class MoreInfoAboutTourView : Window
     {
-        public UserGiftCardView(ObservableCollection<GiftCard> giftCards)
+        public MoreInfoAboutTourView(TourInstance tourInstance)
         {
             InitializeComponent();
-            this.DataContext = new UserGiftCardViewModel(giftCards);
+            this.DataContext = new MoreInfoAboutTourViewModel(tourInstance);
         }
     }
 }

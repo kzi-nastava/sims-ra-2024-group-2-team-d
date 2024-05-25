@@ -7,14 +7,15 @@ using System.Windows.Input;
 using BookingApp.Domain.Model;
 using BookingApp.WPF.Views;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class TypeOfMyTourRequestSelectionViewModel
     {
         public User LoggedInUser { get; set; }
 
         public ICommand ShowMyStandardTourRequestsCommand { get; set; }
-        public TypeOfMyTourRequestSelectionViewModel(User loggedInUser) { 
+        public TypeOfMyTourRequestSelectionViewModel(User loggedInUser)
+        {
             LoggedInUser = loggedInUser;
             ShowMyStandardTourRequestsCommand = new RelayCommand(ShowMyStandardTourRequests);
         }

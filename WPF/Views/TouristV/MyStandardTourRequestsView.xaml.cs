@@ -12,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.Domain.Model;
-using BookingApp.WPF.ViewModels;
+using BookingApp.WPF.ViewModels.TouristVMs;
 
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for UserTourReviewView.xaml
+    /// Interaction logic for MyStandardTourRequestsView.xaml
     /// </summary>
-    public partial class UserTourReviewView : Window
+    public partial class MyStandardTourRequestsView : Window
     {
-        public UserTourReviewView(User loggedInUser, TourInstance tourInstance)
+        public MyStandardTourRequestsView(User loggedInUser)
         {
             InitializeComponent();
-            this.DataContext = new UserTourReviewViewModel(loggedInUser, tourInstance,Close);
+            DataContext = new MyStandardTourRequestsViewModel(loggedInUser);
         }
     }
 }

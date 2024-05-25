@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class UserToursViewModel
     {
@@ -20,9 +20,10 @@ namespace BookingApp.WPF.ViewModels
         public User LoggedInUser { get; set; }
         public static TourInstance SelectedTour { get; set; }
 
-        public ICommand OpenTourReviewCommand { get; } 
+        public ICommand OpenTourReviewCommand { get; }
 
-       public UserToursViewModel(User loggedInUser, ObservableCollection<TourInstance> tourInstances) {
+        public UserToursViewModel(User loggedInUser, ObservableCollection<TourInstance> tourInstances)
+        {
             ReservedTours = new ObservableCollection<TourInstance>();
             FinishedTours = new ObservableCollection<TourInstance>();
             LoggedInUser = loggedInUser;
@@ -37,7 +38,7 @@ namespace BookingApp.WPF.ViewModels
             List<TourInstance> tourInstanceList = tourInstances.ToList();
             TouristService _touristsService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
             List<Tourist> tourists = _touristsService.GetAll();
-            foreach(TourReservation tourReservation in tourReservations)
+            foreach (TourReservation tourReservation in tourReservations)
             {
                 AddToCorrespondingTour(tourReservation, tourists, tourInstanceList);
             }
@@ -45,18 +46,18 @@ namespace BookingApp.WPF.ViewModels
 
         public void AddToCorrespondingTour(TourReservation tourReservation, List<Tourist> tourists, List<TourInstance> tourInstanceList)
         {
-            if (tourReservation.UserId != LoggedInUser.Id) return;         
-                var matchingTourInstance = tourInstanceList.Find(tourInstance => tourInstance.Id == tourReservation.TourInstanceId && (tourInstance.End || !tourInstance.Start));
-                var matchingTourist = tourists.Find(tourist => tourist.ReservationId == tourReservation.Id && tourist.UserId == LoggedInUser.Id);
-            if (matchingTourist == null || matchingTourInstance == null) return;             
-                    if (matchingTourInstance.End && matchingTourist.ShowedUp)
-                    {
-                        FinishedTours.Add(matchingTourInstance);
-                    }
-                    else if (!matchingTourInstance.Start)
-                    {
-                        ReservedTours.Add(matchingTourInstance);
-                    }                     
+            if (tourReservation.UserId != LoggedInUser.Id) return;
+            var matchingTourInstance = tourInstanceList.Find(tourInstance => tourInstance.Id == tourReservation.TourInstanceId && (tourInstance.End || !tourInstance.Start));
+            var matchingTourist = tourists.Find(tourist => tourist.ReservationId == tourReservation.Id && tourist.UserId == LoggedInUser.Id);
+            if (matchingTourist == null || matchingTourInstance == null) return;
+            if (matchingTourInstance.End && matchingTourist.ShowedUp)
+            {
+                FinishedTours.Add(matchingTourInstance);
+            }
+            else if (!matchingTourInstance.Start)
+            {
+                ReservedTours.Add(matchingTourInstance);
+            }
         }
 
         private void OpenTourReview()

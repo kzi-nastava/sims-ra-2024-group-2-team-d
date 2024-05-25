@@ -44,9 +44,9 @@ namespace BookingApp.View.Owner
             r.AccomodationId = accomo.Id;
             r.UserId = _user.Id;
             baseService.RenovationService.Save(r);
+            
 
 
-            MessageBox.Show("Uspjesno ste zakazali renoviranje");
 
 
         }

@@ -1,6 +1,5 @@
 ﻿using BookingApp.Repository;
 using BookingApp.Services;
-using BookingApp.WPF.ViewModels;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 

@@ -14,16 +14,16 @@ using LiveCharts;
 using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
-    public class MyStandardTourRequestsViewModel: INotifyPropertyChanged
+    public class MyStandardTourRequestsViewModel : INotifyPropertyChanged
     {
-        public User LoggedInUser {  get; set; }
+        public User LoggedInUser { get; set; }
         public ObservableCollection<TourRequest> TourRequests { get; set; }
 
-        public ObservableCollection<TourRequestDTO> MyTourRequests {  get; set; }
+        public ObservableCollection<TourRequestDTO> MyTourRequests { get; set; }
 
-        public TourRequestService _tourRequestService {  get; set; }
+        public TourRequestService _tourRequestService { get; set; }
 
         private double averageNumberOfTourists;
 
@@ -48,15 +48,16 @@ namespace BookingApp.WPF.ViewModels
 
         public List<string> DistinctYears { get; set; }
 
-        public string SelectedYear {  get; set; }
-        public ICommand YearSelectionChangedCommand {  get; set; }
+        public string SelectedYear { get; set; }
+        public ICommand YearSelectionChangedCommand { get; set; }
 
-        public ICommand InfoCommand {  get; set; }
+        public ICommand InfoCommand { get; set; }
 
-        public ICommand ShowLanguageRequestCountGraphCommand {  get; set; }
+        public ICommand ShowLanguageRequestCountGraphCommand { get; set; }
 
         public ICommand ShowLocationRequestCountGraphCommand { get; set; }
-        public MyStandardTourRequestsViewModel(User loggedInUser) {
+        public MyStandardTourRequestsViewModel(User loggedInUser)
+        {
             LoggedInUser = loggedInUser;
             _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             _tourRequestService.InvalidateOutdatedTourRequests();
@@ -73,7 +74,7 @@ namespace BookingApp.WPF.ViewModels
         public void ShowLocationRequestCountGraph()
         {
             Dictionary<string, int> locationRequestCountPair = _tourRequestService.GetLocationRequestCountPair();
-            PlotGraphView view = new PlotGraphView(locationRequestCountPair,"Location");
+            PlotGraphView view = new PlotGraphView(locationRequestCountPair, "Location");
             view.Show();
         }
         public void ShowLanguageRequestCountGraph()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.WPF.ViewModels.TouristVMs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +12,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookingApp.WPF.ViewModels;
 using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for CreateTourRequestView.xaml
+    /// Interaction logic for TypeOfMyTourRequestSelectionView.xaml
     /// </summary>
-    public partial class CreateTourRequestView : Window
+    public partial class TypeOfMyTourRequestSelectionView : Window
     {
-        public CreateTourRequestView(User loggedInUser)
+        public TypeOfMyTourRequestSelectionView(User loggedInUser)
         {
             InitializeComponent();
-            DataContext = new CreateTourRequestViewModel(loggedInUser, Close);
+            DataContext = new TypeOfMyTourRequestSelectionViewModel(loggedInUser);
         }
     }
 }

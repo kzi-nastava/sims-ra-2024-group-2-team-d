@@ -12,13 +12,13 @@ using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.Domain.RepositoryInterfaces;
 
-namespace BookingApp.WPF.ViewModels
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class UserTourReviewViewModel
     {
         public TourReview UserTourReview { get; set; }
 
-        public ICommand ConfirmReviewCommand {  get; set; }
+        public ICommand ConfirmReviewCommand { get; set; }
 
         public ObservableCollection<string> ImagePaths { get; }
 
@@ -45,18 +45,18 @@ namespace BookingApp.WPF.ViewModels
         }
 
         public void ConfirmReview(TourInstance tourInstance)
-        {          
+        {
             TourReviewService _tourReviewService = new TourReviewService(Injector.Injector.CreateInstance<ITourReviewRepository>());
             _tourReviewService.Save(UserTourReview);
-            foreach(string imagePath in ImagePaths)
+            foreach (string imagePath in ImagePaths)
             {
-                Picture picture = new Picture(tourInstance.BaseTour.Id,imagePath);
+                Picture picture = new Picture(tourInstance.BaseTour.Id, imagePath);
                 _pictureService.Save(picture);
             }
             /*
             tourInstance.IsNotReviewed = false;
             TourInstanceService _tourInstanceRepository = new TourInstanceService();
-            _tourInstanceRepository.UpdateReviewStatus(tourInstance);      */      
+            _tourInstanceRepository.UpdateReviewStatus(tourInstance);      */
         }
 
         private void AddImageExecute()

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.Domain.Model;
+using BookingApp.WPF.ViewModels.TouristVMs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +13,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookingApp.Dto;
-using BookingApp.WPF.ViewModels;
 
 namespace BookingApp.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for ShowAllTouristsOnStandardTourRequestView.xaml
+    /// Interaction logic for FollowingTourLiveView.xaml
     /// </summary>
-    public partial class ShowAllTouristsOnStandardTourRequestView : Window
+    public partial class FollowingTourLiveView : Window
     {
-        public ShowAllTouristsOnStandardTourRequestView(TourRequestDTO tourRequest)
+        public FollowingTourLiveView(TourInstance activeTour)
         {
             InitializeComponent();
-            DataContext = new ShowAllTouristsOnStandardTourRequestViewModel(tourRequest);
+            this.DataContext = new FollowingTourLiveViewModel(activeTour);
         }
     }
 }

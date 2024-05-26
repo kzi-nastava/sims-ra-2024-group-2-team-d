@@ -1,13 +1,12 @@
-﻿<Window x:Class="BookingApp.View.TouristWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View"
-        mc:Ignorable="d"
-        Title="Tourist" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Window.Resources>
-        <local:CountToVisibilityConverter x:Key="VisibilityConverter" />
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristV.TouristHomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristV"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <UserControl.Resources>
         <Style x:Key="MyTextStyle" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="10,10,10,10" />
@@ -25,30 +24,41 @@
             <Setter Property="Width" Value="75" />
             <Setter Property="Height" Value="25" />
         </Style>
-    </Window.Resources>
-    
+    </UserControl.Resources>
+
     <!--Gornji meni-->
-    
+
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <DockPanel>
                 <DockPanel DockPanel.Dock="Left">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontWeight="Bold"  FontSize="20" Text="{Binding LoggedInUser.Username, StringFormat='Hello, {0}'}" Margin="20,15,20,15"></TextBlock>
-                        <Button Height="40" Width="80" Margin="20,15,20,15" Click="MyTours_Click">My tours</Button>
+                        <Button Height="40" Width="80" Margin="20,15,20,15" Command="{Binding OpenMyToursCommand}">My tours</Button>
                         <Button Height="40" Width="80" Margin="20,15,20,15" Command="{Binding OpenTypeOfMyTourRequestSelectionCommand}">My requests</Button>
-                        <Button x:Name="NotificationIcon" Height="50" Width="60" Margin="20,15,20,15" Click="Notification_Click">
-                            <Image Source="../../Resources/Images/notification-icon.png" Height="40" Width="40"></Image>
+                        <Button x:Name="NotificationIcon" Height="50" Width="60" Margin="20,15,20,15" Command="{Binding ShowNotificationsCommand}">
+                            <Image Source="../../../Resources/Images/notification-icon.png" Height="40" Width="40"></Image>
                         </Button>
-                        <Popup x:Name="notificationPopup" PlacementTarget="{Binding ElementName=NotificationIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
+                        <Popup x:Name="notificationPopup" PlacementTarget="{Binding ElementName=NotificationIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide" IsOpen="{Binding IsNotificationPopupOpen}">
                             <Border Background="WhiteSmoke" BorderBrush="Black" BorderThickness="1">
                                 <StackPanel>
                                     <TextBlock HorizontalAlignment="Center">
-                                        <Underline>
-                                            Notifications
-                                        </Underline>
+                                    <Underline>
+                                        Notifications
+                                    </Underline>
                                     </TextBlock>
-                                    <TextBlock Text="There are no notifications" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="10" Visibility="{Binding Notifications.Count, Converter={StaticResource ResourceKey=VisibilityConverter}}"></TextBlock>
+                                    <TextBlock Text="There are no notifications" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="10">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasNotifications}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                     <ListBox x:Name="notifications" ItemsSource="{Binding Notifications}">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
@@ -65,13 +75,13 @@
                                 </StackPanel>
                             </Border>
                         </Popup>
-                        <Button x:Name="UserIcon" Height="50" Width="60" Margin="20,15,20,15" Click="UserIcon_Click">
-                            <Image Source="../../Resources/Images/user-icon.png" Height="40" Width="40"></Image>
+                        <Button x:Name="UserIcon" Height="50" Width="60" Margin="20,15,20,15" Command="{Binding UserIconClickCommand}">
+                            <Image Source="../../../Resources/Images/user-icon.png" Height="40" Width="40"></Image>
                         </Button>
-                        <Popup x:Name="menuPopup" PlacementTarget="{Binding ElementName=UserIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
+                        <Popup x:Name="menuPopup" PlacementTarget="{Binding ElementName=UserIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide" IsOpen="{Binding IsMenuPopupOpen}">
                             <Border Background="WhiteSmoke" BorderBrush="Black" BorderThickness="1">
                                 <StackPanel>
-                                    <Button Content="My vouchers" Width="100" Height="30" Click="ShowVouchers_Click" />
+                                    <Button Content="My vouchers" Width="100" Height="30" Command="{Binding ShowToursitVouchersCommand}" />
                                     <Button Content="Opcija 2" Width="100" Height="30" />
                                 </StackPanel>
                             </Border>
@@ -83,9 +93,9 @@
                 <TextBlock FontWeight="Bold"  FontSize="40" Margin="20,15,20,15" HorizontalAlignment="Right">Active tours</TextBlock>
             </DockPanel>
         </DockPanel>
-        
+
         <!--Leva strana-->
-        
+
         <DockPanel DockPanel.Dock="Left">
             <StackPanel>
                 <GroupBox Margin="10">
@@ -94,28 +104,39 @@
                     </GroupBox.Header>
                     <StackPanel >
                         <TextBlock FontSize="16" Text="Location" Margin="10,10,10,10" ></TextBlock>
-                        <TextBox x:Name="locationInput" Width="150" Margin="10,10,10,10"></TextBox>
+                        <TextBox Text="{Binding LocationSearch}" Width="150" Margin="10,10,10,10"></TextBox>
                         <TextBlock FontSize="16" Text="Duration" Margin="10,10,10,10" ></TextBlock>
-                        <TextBox x:Name="durationInput" Width="150" Margin="10,10,10,10"></TextBox>
+                        <TextBox Text="{Binding DurationSearch}" Width="150" Margin="10,10,10,10"></TextBox>
                         <TextBlock FontSize="16" Text="Language" Margin="10,10,10,10" ></TextBlock>
-                        <ComboBox x:Name="languageInput" ItemsSource="{Binding UniqueLanguages}" Width="150" Margin="10,10,10,10"/>
+                        <ComboBox SelectedItem="{Binding LanguageSearch, Mode=TwoWay}" ItemsSource="{Binding UniqueLanguages}" Width="150" Margin="10,10,10,10" />
                         <TextBlock FontSize="16" Text="Num of people" Margin="10,10,10,10" ></TextBlock>
-                        <TextBox x:Name="numberOfPeopleInput" Width="150" Margin="10,10,10,10"></TextBox>
+                        <TextBox Text="{Binding NumberOfPeopleSearch}" Width="150" Margin="10,10,10,10"></TextBox>
                         <StackPanel Orientation="Horizontal">
-                            <Button Height="40" Width="80" Margin="10,10,10,10" Click="OnResetClick">Reset</Button>
-                            <Button Height="40" Width="80" Margin="10,10,10,10" Click="OnSearchClick">Search</Button>
+                            <Button Height="40" Width="80" Margin="10,10,10,10" Command="{Binding ResetSearchResultsCommand}">Reset</Button>
+                            <Button Height="40" Width="80" Margin="10,10,10,10" Command="{Binding SearchCommand}">Search</Button>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
-                <Button Height="40" Width="100" Margin="5,100,10,10" Click="TypeOfTourRequestSelection_Click">Create request</Button>
+                <Button Height="40" Width="100" Margin="5,100,10,10" Command="{Binding TypeOfTourRequestSelectionCommand}">Create request</Button>
             </StackPanel>
         </DockPanel>
-        
+
         <!--Ture-->
-        
+
         <DockPanel DockPanel.Dock="Right">
             <StackPanel>
-                <TextBlock Text="There is no active tour" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="10" Visibility="{Binding ActiveTours.Count, Converter={StaticResource ResourceKey=VisibilityConverter}}" />
+                <TextBlock Text="There is no active tour" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="10">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasActiveTours}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <ListBox Height="200" x:Name="ToursForTracking" ItemsSource="{Binding ActiveTours}" SelectedItem="{Binding SelectedTour}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -142,34 +163,34 @@
                                     </Button>
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Grid.Column="1">
-                                    <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
+                                    <Image Height="40" Width="40" Source="../../../Resources/Images/location-icon.jpg"></Image>
                                     <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding BaseTour.Location}" />
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Grid.Column="2">
-                                    <Image Height="40" Width="40" Source="../../Resources/Images/calendar-icon.png"></Image>
+                                    <Image Height="40" Width="40" Source="../../../Resources/Images/calendar-icon.png"></Image>
                                     <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding Date}" />
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Grid.Column="3">
-                                    <Image Height="40" Width="40" Source="../../Resources/Images/duration-icon.jpg"></Image>
+                                    <Image Height="40" Width="40" Source="../../../Resources/Images/duration-icon.jpg"></Image>
                                     <TextBlock Text="{Binding BaseTour.Duration}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
                                 <StackPanel  Grid.Row="0" Grid.Column="4">
-                                    <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
+                                    <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"></Image>
                                     <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
                                 <Button Content="Track" Command="{Binding ElementName=ToursForTracking, Path=DataContext.TrackTourLiveCommand}" CommandParameter="{Binding}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
 
                                 <StackPanel Grid.Row="1" Grid.Column="4">
                                     <Button Height="40" Width="40" Command="{Binding ElementName=ToursForTracking, Path=DataContext.MoreInfoCommand}" CommandParameter="{Binding}">
-                                        <Image Source="../../Resources/Images/info-icon.png"></Image>
+                                        <Image Source="../../../Resources/Images/info-icon.png"></Image>
                                     </Button>
                                     <TextBlock Text="More info" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
-                           </Grid>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                
+
                 <TextBlock FontWeight="Bold"  FontSize="40" Margin="10,15,10,10" HorizontalAlignment="Right">Tours</TextBlock>
                 <ListBox x:Name="TourReservations" Height="350" Width="780" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
                     <ListBox.ItemTemplate >
@@ -197,25 +218,25 @@
                                     </Button>
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Grid.Column="1">
-                                    <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
+                                    <Image Height="40" Width="40" Source="../../../Resources/Images/location-icon.jpg"></Image>
                                     <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding BaseTour.Location}" />
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Grid.Column="2">
-                                    <Image Height="40" Width="40" Source="../../Resources/Images/calendar-icon.png"></Image>
+                                    <Image Height="40" Width="40" Source="../../../Resources/Images/calendar-icon.png"></Image>
                                     <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding Date}" />
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Grid.Column="3">
-                                    <Image Height="40" Width="40" Source="../../Resources/Images/duration-icon.jpg"></Image>
+                                    <Image Height="40" Width="40" Source="../../../Resources/Images/duration-icon.jpg"></Image>
                                     <TextBlock Text="{Binding BaseTour.Duration}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
                                 <StackPanel  Grid.Row="0" Grid.Column="4">
-                                    <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
+                                    <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"></Image>
                                     <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
-                                <Button Content="Reserve" Command="{Binding ElementName=TourReservations, Path=DataContext.Reserve}" CommandParameter="{Binding}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
+                                <Button Content="Reserve" Command="{Binding ElementName=TourReservations, Path=DataContext.NavigateToReservationCommand}" CommandParameter="{Binding}" Grid.Column="1" Grid.Row="1" Style="{StaticResource MyButtonStyle}" />
                                 <StackPanel Grid.Row="1" Grid.Column="4">
                                     <Button Height="40" Width="40" Command="{Binding ElementName=TourReservations, Path=DataContext.MoreInfoCommand}" CommandParameter="{Binding}">
-                                        <Image Source="../../Resources/Images/info-icon.png"></Image>
+                                        <Image Source="../../../Resources/Images/info-icon.png"></Image>
                                     </Button>
                                     <TextBlock Text="More info" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
@@ -226,4 +247,4 @@
             </StackPanel>
         </DockPanel>
     </DockPanel>
-</Window>
+</UserControl>

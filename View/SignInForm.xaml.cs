@@ -2,6 +2,8 @@
 using BookingApp.Repository;
 using BookingApp.View.Guest1;
 using BookingApp.View.Owner;
+using BookingApp.WPF.ViewModels.TouristVMs;
+using BookingApp.WPF.Views.TouristV;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -84,9 +86,13 @@ namespace BookingApp.View
         }
         public void OpenTouristApplication(User user)
         {
-            TouristWindow touristWindow = new TouristWindow(user);
-            touristWindow.Show();
-            Close();
+            var mainViewModel = new MainViewModel(user);
+            var mainWindow = new MainWindow(user)
+            {
+                DataContext = mainViewModel
+            };
+            mainWindow.Show();
+            Close(); 
         }
 
         public void OpenGuestApplication(User user)

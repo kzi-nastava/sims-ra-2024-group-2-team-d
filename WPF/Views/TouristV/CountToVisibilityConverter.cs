@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace BookingApp.View
+namespace BookingApp.WPF.Views.TouristV
 {
-    public class CountToVisibilityConverter: IValueConverter
+    public class CountToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            
+
             int count = (int)value;
 
             return count == 0 ? Visibility.Visible : Visibility.Collapsed;

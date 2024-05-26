@@ -1,33 +1,23 @@
-﻿using BookingApp.Repository;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services;
+using BookingApp.View.TouristApp;
+using BookingApp.WPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using BookingApp.View.TouristApp;
-using BookingApp.WPF.Views;
-using BookingApp.WPF;
-using BookingApp.Services;
-using BookingApp.Domain.Model;
-using BookingApp.Domain.RepositoryInterfaces;
+using System.Windows;
+using System.ComponentModel;
+using BookingApp.WPF.ViewModels.TouristVMs;
 
-namespace BookingApp.View
+namespace BookingApp.WPF.ViewModels.TouristVMs
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
-    public partial class TouristWindow : Window
+    public class TouristHomeViewModel: INotifyPropertyChanged
     {
-
         public static ObservableCollection<TourInstance> TourInstances { get; set; }
         public static ObservableCollection<TourInstance> ActiveTours { get; set; }
         public TourInstance SelectedTour { get; set; }
@@ -56,25 +46,89 @@ namespace BookingApp.View
 
         public ICommand Reserve { get; set; }
 
-        public ICommand MoreInfoCommand {  get; set; }
+        public ICommand MoreInfoCommand { get; set; }
 
-        public ICommand OpenMorePicturesCommand {  get; set; }
+        public ICommand OpenMorePicturesCommand { get; set; }
 
-        public ICommand OpenNotificationCommand {  get; set; }
+        public ICommand OpenNotificationCommand { get; set; }
 
-        public ICommand MarkAsReadCommand {  get; set; }
+        public ICommand MarkAsReadCommand { get; set; }
 
-        public ICommand TrackTourLiveCommand {  get; set; }
+        public ICommand TrackTourLiveCommand { get; set; }
 
         public ICommand OpenTypeOfMyTourRequestSelectionCommand { get; set; }
 
+        public ICommand OpenMyToursCommand { get; set; }
 
-        public TouristWindow(User user)
+        public ICommand ShowNotificationsCommand {  get; set; }
+
+        public ICommand UserIconClickCommand {  get; set; }
+
+        public ICommand ShowToursitVouchersCommand {  get; set; }
+
+        public ICommand ResetSearchResultsCommand { get; set; }
+
+        public ICommand SearchCommand {  get; set; }
+
+        public ICommand TypeOfTourRequestSelectionCommand { get; set; }
+
+        public ICommand NavigateToReservationCommand { get; }
+
+        public int NumberOfPeopleSearch {  get; set; }
+
+        public string LocationSearch {  get; set; }
+
+        public int DurationSearch {  get; set; }
+
+        public string LanguageSearch {  get; set; }
+
+        private bool _isNotificationPopupOpen;
+        public bool IsNotificationPopupOpen
         {
-            InitializeComponent();
-            DataContext = this;
+            get { return _isNotificationPopupOpen; }
+            set
+            {
+                if (_isNotificationPopupOpen != value)
+                {
+                    _isNotificationPopupOpen = value;
+                    OnPropertyChanged(nameof(IsNotificationPopupOpen));
+                }
+            }
+        }
+
+        private bool _isMenuPopupOpen;
+        public bool IsMenuPopupOpen
+        {
+            get { return _isMenuPopupOpen; }
+            set
+            {
+                if (_isMenuPopupOpen != value)
+                {
+                    _isMenuPopupOpen = value;
+                    OnPropertyChanged(nameof(IsMenuPopupOpen));
+                }
+            }
+        }
+
+        public bool HasNotifications
+        {
+            get { return Notifications.Count > 0; }
+        }
+
+        public bool HasActiveTours
+        {
+            get { return ActiveTours.Count > 0; }
+        }
+
+        private readonly MainViewModel _mainViewModel;
+
+        private readonly IDialogService _dialogService;
+
+        public TouristHomeViewModel(MainViewModel mainViewModel, User user, IDialogService dialogService)
+        {
+            _mainViewModel = mainViewModel;
             LoggedInUser = user;
-            _tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>());           
+            _tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>());
             _tourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceService.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
@@ -86,13 +140,22 @@ namespace BookingApp.View
             _giftCardService = new GiftCardService(Injector.Injector.CreateInstance<IGiftCardRepository>());
             _tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
             _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
-            Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
+            //Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
             OpenMorePicturesCommand = new RelayCommand(tourInstance => OpenMorePictures((TourInstance)tourInstance));
             OpenNotificationCommand = new RelayCommand(notification => OpenNotification((TouristNotifications)notification));
             MarkAsReadCommand = new RelayCommand(notification => MarkAsRead((TouristNotifications)notification));
             TrackTourLiveCommand = new RelayCommand(tourInstance => TrackTourLive((TourInstance)tourInstance));
             OpenTypeOfMyTourRequestSelectionCommand = new RelayCommand(OpenTypeOfMyTourRequestSelection);
+            OpenMyToursCommand = new RelayCommand(ShowTouristTours);
+            ShowNotificationsCommand = new RelayCommand(ShowNotifications);
+            UserIconClickCommand = new RelayCommand(UserIcon_Click);
+            ShowToursitVouchersCommand = new RelayCommand(ShowTouristVouchers);
+            ResetSearchResultsCommand = new RelayCommand(OnResetClick);
+            SearchCommand = new RelayCommand(OnSearchClick);
+            TypeOfTourRequestSelectionCommand = new RelayCommand(OpenTypeOfTourRequestSelection);
+            NavigateToReservationCommand = new RelayCommand(tourInstance => ShowNumberOfTouristsDialog((TourInstance)tourInstance));
+            _dialogService = dialogService;
             _tourCreationNotificationService = new TourCreationNotificationService(Injector.Injector.CreateInstance<ITourCreationNotificationRepository>());
             LinkEntities();
             MoveToActiveTours();
@@ -124,7 +187,7 @@ namespace BookingApp.View
         {
             List<TouristNotifications> notifications = _touristNotificationsService.GetByUserId(LoggedInUser.Id);
             notifications.Reverse();
-            foreach(var notification in notifications)
+            foreach (var notification in notifications)
             {
                 Notifications.Add(notification);
             }
@@ -144,7 +207,7 @@ namespace BookingApp.View
 
         public void LinkKeyPointsWithTourInstances()
         {
-            foreach(TourInstance tourInstance in TourInstances)
+            foreach (TourInstance tourInstance in TourInstances)
             {
                 tourInstance.BaseTour.KeyPoints = _keyPointService.GetByTourInstance(tourInstance);
             }
@@ -156,20 +219,20 @@ namespace BookingApp.View
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             foreach (GiftCard giftCard in giftCards)
             {
-                if(giftCard.UserId == LoggedInUser.Id && giftCard.IsValid && giftCard.ExpirationDate > today)
+                if (giftCard.UserId == LoggedInUser.Id && giftCard.IsValid && giftCard.ExpirationDate > today)
                 {
                     UserGiftCards.Add(giftCard);
                 }
             }
         }
 
-       public void MoveToActiveTours()
+        public void MoveToActiveTours()
         {
             List<TourReservation> userReservations = _tourReservationService.GetByUserId(LoggedInUser.Id);
-            foreach(TourReservation userReservation in userReservations)
+            foreach (TourReservation userReservation in userReservations)
             {
                 TourInstance tourInstance = _tourInstanceService.GetById(userReservation.TourInstanceId);
-                if(tourInstance.Start && !tourInstance.End)
+                if (tourInstance.Start && !tourInstance.End)
                 {
                     ActiveTours.Add(tourInstance);
                 }
@@ -178,7 +241,7 @@ namespace BookingApp.View
 
         public void LinkTourInstancesWithTours()
         {
-            foreach(TourInstance tourInstance in TourInstances)
+            foreach (TourInstance tourInstance in TourInstances)
             {
                 Tour baseTour = _tourService.GetById(tourInstance.TourId);
                 if (baseTour != null)
@@ -190,7 +253,7 @@ namespace BookingApp.View
 
         public void LinkPicturesWithTours()
         {
-            foreach(var tourInstance in TourInstances)
+            foreach (var tourInstance in TourInstances)
             {
                 List<string> pictures = _pictureService.GetByTourId(tourInstance.TourId);
                 if (pictures.Count() != 0)
@@ -200,16 +263,16 @@ namespace BookingApp.View
             }
         }
 
-        private void OnSearchClick(object sender, RoutedEventArgs e)
+        private void OnSearchClick()
         {
-            bool isValidNumber = int.TryParse(numberOfPeopleInput.Text, out int numberOfPeople);
-            if (!isValidNumber) numberOfPeople = 0;
+            //bool isValidNumber = int.TryParse(numberOfPeopleInput.Text, out int numberOfPeople);
+            //if (!isValidNumber) numberOfPeople = 0;
 
             var filteredTours = TourInstances
-                .Where(t => (string.IsNullOrEmpty(locationInput.Text) || t.BaseTour.Location.Contains(locationInput.Text, StringComparison.OrdinalIgnoreCase)) &&                          
-                            (string.IsNullOrEmpty(durationInput.Text) || t.BaseTour.Duration.ToString().Contains(durationInput.Text)) &&
-                            (languageInput.SelectedItem == null || t.BaseTour.Language.Contains(languageInput.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase)) &&
-                            t.BaseTour.MaxTourists >= numberOfPeople)
+                .Where(t => (string.IsNullOrEmpty(LocationSearch) || t.BaseTour.Location.Contains(LocationSearch, StringComparison.OrdinalIgnoreCase)) &&
+                            (t.BaseTour.Duration == DurationSearch) &&
+                            (LanguageSearch == null || t.BaseTour.Language.Contains(LanguageSearch, StringComparison.OrdinalIgnoreCase)) &&
+                            t.BaseTour.MaxTourists >= NumberOfPeopleSearch)
                 .ToList();
 
             TourInstances.Clear();
@@ -219,14 +282,27 @@ namespace BookingApp.View
             }
         }
 
-        private void MakeReservation(TourInstance tourInstance)
+        private void ShowNumberOfTouristsDialog(TourInstance tourInstance)
         {
-            NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(tourInstance, TourInstances, LoggedInUser, UserGiftCards);
-            numberOfTouristInsertion.Show();
+                var viewModel = new NumberOfTouristInsertionViewModel(tourInstance, TourInstances, LoggedInUser, UserGiftCards);
+                bool? result = _dialogService.ShowDialog(viewModel);
+                if(result == true)
+            {
+                if(tourInstance.EmptySpots>=viewModel.InputedTouristNumber)
+                {
+                    _mainViewModel.SwitchView(new ReserveTourViewModel(_mainViewModel,viewModel.InputedTouristNumber, tourInstance.Id, LoggedInUser, UserGiftCards));
+                }
+                else if(tourInstance.EmptySpots == 0)
+                {
+                    _mainViewModel.SwitchView(new RecommendedAlternativeToursViewModel(_mainViewModel, viewModel.TourInstances, LoggedInUser, UserGiftCards, _dialogService));
+                }
+            }
+            //NumberOfTouristInsertion numberOfTouristInsertion = new NumberOfTouristInsertion(tourInstance, TourInstances, LoggedInUser, UserGiftCards);
+            //numberOfTouristInsertion.Show();
 
         }
 
-        private void OnResetClick(object sender, RoutedEventArgs e)
+        private void OnResetClick()
         {
             TourInstances.Clear();
             List<TourInstance> tourInstances = _tourInstanceService.GetAll();
@@ -240,28 +316,28 @@ namespace BookingApp.View
 
         private void EmptyTextBoxes()
         {
-            locationInput.Text = string.Empty;
-            durationInput.Text = string.Empty;
-            languageInput.Text = string.Empty;
-            numberOfPeopleInput.Text = string.Empty;
+            LocationSearch = string.Empty;
+            DurationSearch = 0;
+            LanguageSearch = string.Empty;
+            NumberOfPeopleSearch = 0;
         }
 
-        private void MyTours_Click(object sender, RoutedEventArgs e)
+        private void ShowTouristTours()
         {
             UserToursView userToursView = new UserToursView(LoggedInUser, TourInstances);
             userToursView.Show();
         }
 
-        private void UserIcon_Click(object sender, RoutedEventArgs e)
+        private void UserIcon_Click()
         {
-            menuPopup.IsOpen = !menuPopup.IsOpen;
+            IsMenuPopupOpen = !IsMenuPopupOpen;
         }
 
-        private void ShowVouchers_Click(object sender, RoutedEventArgs e)
+        private void ShowTouristVouchers()
         {
             UserGiftCardView userGiftCardView = new UserGiftCardView(UserGiftCards);
             userGiftCardView.Show();
-            menuPopup.IsOpen = false;
+            IsMenuPopupOpen = false;
         }
 
         private void TrackTourLive(TourInstance tourInstance)
@@ -270,15 +346,15 @@ namespace BookingApp.View
             followingTourLiveView.Show();
         }
 
-        private void Notification_Click(object sender, RoutedEventArgs e)
+        private void ShowNotifications()
         {
-            notificationPopup.IsOpen = !notificationPopup.IsOpen;
+            IsNotificationPopupOpen = !IsNotificationPopupOpen;
             /*
             TouristNotificationView touristNotificationView = new TouristNotificationView(ActiveTours.ToList(), LoggedInUser);
             touristNotificationView.Show(); */
         }
 
-        private void TypeOfTourRequestSelection_Click(object sender, RoutedEventArgs e)
+        private void OpenTypeOfTourRequestSelection()
         {
             TypeOfTourRequestSelectionView typeOfTourRequestSelectionView = new TypeOfTourRequestSelectionView(LoggedInUser);
             typeOfTourRequestSelectionView.ShowDialog();
@@ -292,25 +368,32 @@ namespace BookingApp.View
 
         public void OpenNotification(TouristNotifications notification)
         {
-            if(notification.Type == NotificationType.AddedToLiveTour)
+            if (notification.Type == NotificationType.AddedToLiveTour)
             {
                 OpenLiveTourNotificationView liveTourNotification = new OpenLiveTourNotificationView(notification);
                 liveTourNotification.Show();
-                notificationPopup.IsOpen = !notificationPopup.IsOpen;
+                IsNotificationPopupOpen = !IsNotificationPopupOpen;
             }
-            else if(notification.Type == NotificationType.TourRequestAcceptance)
+            else if (notification.Type == NotificationType.TourRequestAcceptance)
             {
                 MyStandardTourRequestsView view = new MyStandardTourRequestsView(LoggedInUser);
                 view.Show();
             }
-            else if(notification.Type == NotificationType.TourCreation)
+            else if (notification.Type == NotificationType.TourCreation)
             {
                 TourCreationNotification tourCreationNotification = _tourCreationNotificationService.GetById(notification.NotificationId);
                 TourInstanceService service = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
                 MoreInfoAboutTourView view = new MoreInfoAboutTourView(service.GetById(tourCreationNotification.CreatedTourInstanceId));
                 view.Show();
-                notificationPopup.IsOpen = !notificationPopup.IsOpen;
+                IsNotificationPopupOpen = !IsNotificationPopupOpen;
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristV"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024">
+        Title="MainWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        <mahApps:TransitioningContentControl Content="{Binding CurrentViewModel}" Transition="Left" />
     </Grid>
 </Window>

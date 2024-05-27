@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:BookingApp"
              xmlns:vmTourists="clr-namespace:BookingApp.WPF.ViewModels.TouristVMs"
              xmlns:viewTourists="clr-namespace:BookingApp.WPF.Views.TouristV"
+             xmlns:viewTourists2="clr-namespace:BookingApp.WPF.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="View/SignInForm.xaml">
     <Application.Resources>
@@ -19,5 +20,20 @@
         <DataTemplate DataType="{x:Type vmTourists:RecommendedAlternativeToursViewModel}">
             <viewTourists:RecommendedAlternativeToursView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:TypeOfTourRequestSelectionViewModel}">
+            <viewTourists2:TypeOfTourRequestSelectionView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:CreateTourRequestViewModel}">
+            <viewTourists2:CreateTourRequestView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:TypeOfMyTourRequestSelectionViewModel}">
+            <viewTourists2:TypeOfMyTourRequestSelectionView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:MyStandardTourRequestsViewModel}">
+            <viewTourists2:MyStandardTourRequestsView />
+        </DataTemplate>
+        <Storyboard x:Key="SmoothTransition">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
+        </Storyboard>
     </Application.Resources>
 </Application>

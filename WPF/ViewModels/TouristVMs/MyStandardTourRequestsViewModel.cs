@@ -24,6 +24,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public ObservableCollection<TourRequestDTO> MyTourRequests { get; set; }
 
         public TourRequestService _tourRequestService { get; set; }
+        private readonly MainViewModel _mainViewModel;
 
         private double averageNumberOfTourists;
 
@@ -56,7 +57,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public ICommand ShowLanguageRequestCountGraphCommand { get; set; }
 
         public ICommand ShowLocationRequestCountGraphCommand { get; set; }
-        public MyStandardTourRequestsViewModel(User loggedInUser)
+
+        public ICommand GoBackCommand {  get; set; }
+        public MyStandardTourRequestsViewModel(MainViewModel mainViewModel, User loggedInUser)
         {
             LoggedInUser = loggedInUser;
             _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
@@ -70,6 +73,13 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             YearSelectionChangedCommand = new RelayCommand(YearSelectionChanged);
             ShowLanguageRequestCountGraphCommand = new RelayCommand(ShowLanguageRequestCountGraph);
             ShowLocationRequestCountGraphCommand = new RelayCommand(ShowLocationRequestCountGraph);
+            _mainViewModel = mainViewModel;
+            GoBackCommand = new RelayCommand(GoBack);
+        }
+
+        public void GoBack()
+        {
+            _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
         }
         public void ShowLocationRequestCountGraph()
         {

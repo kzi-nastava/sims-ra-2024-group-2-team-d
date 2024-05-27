@@ -19,12 +19,11 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for CreateTourRequestView.xaml
     /// </summary>
-    public partial class CreateTourRequestView : Window
+    public partial class CreateTourRequestView : UserControl
     {
-        public CreateTourRequestView(User loggedInUser)
+        public CreateTourRequestView()
         {
             InitializeComponent();
-            DataContext = new CreateTourRequestViewModel(loggedInUser, Close);
         }
     }
 }

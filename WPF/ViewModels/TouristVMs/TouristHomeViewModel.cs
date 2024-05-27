@@ -173,8 +173,18 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void OpenTypeOfMyTourRequestSelection()
         {
-            TypeOfMyTourRequestSelectionView view = new TypeOfMyTourRequestSelectionView(LoggedInUser);
-            view.Show();
+            //TypeOfMyTourRequestSelectionView view = new TypeOfMyTourRequestSelectionView(LoggedInUser);
+            //view.Show();
+
+            var viewModel = new TypeOfMyTourRequestSelectionViewModel(_mainViewModel,LoggedInUser);
+            bool? result = _dialogService.ShowDialog(viewModel);
+            if (result == true)
+            {
+                if (viewModel.SelectedOption == "Standard")
+                {
+                    _mainViewModel.SwitchView(new MyStandardTourRequestsViewModel(_mainViewModel, LoggedInUser));
+                }
+            }
         }
 
         public void MarkAsRead(TouristNotifications notification)
@@ -356,8 +366,16 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private void OpenTypeOfTourRequestSelection()
         {
-            TypeOfTourRequestSelectionView typeOfTourRequestSelectionView = new TypeOfTourRequestSelectionView(LoggedInUser);
-            typeOfTourRequestSelectionView.ShowDialog();
+            var viewModel = new TypeOfTourRequestSelectionViewModel(LoggedInUser);
+            bool? result = _dialogService.ShowDialog(viewModel);
+            if (result == true)
+            {
+                if (viewModel.SelectedOption == "Standard")
+                {
+                    _mainViewModel.SwitchView(new CreateTourRequestViewModel(_mainViewModel, LoggedInUser));
+                }
+            }
+            //typeOfTourRequestSelectionView.ShowDialog();
         }
 
         public void ShowMoreInfo(TourInstance tourInstance)
@@ -376,8 +394,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             }
             else if (notification.Type == NotificationType.TourRequestAcceptance)
             {
-                MyStandardTourRequestsView view = new MyStandardTourRequestsView(LoggedInUser);
-                view.Show();
+                //MyStandardTourRequestsView view = new MyStandardTourRequestsView(LoggedInUser);
+                //view.Show();
             }
             else if (notification.Type == NotificationType.TourCreation)
             {

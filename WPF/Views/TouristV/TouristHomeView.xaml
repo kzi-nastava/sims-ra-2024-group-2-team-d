@@ -24,6 +24,67 @@
             <Setter Property="Width" Value="75" />
             <Setter Property="Height" Value="25" />
         </Style>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="4" SnapsToDevicePixels="true">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="Bd"
+                                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                 To="1.1"
+                                                                 Duration="0:0:0.1"/>
+                                                <DoubleAnimation Storyboard.TargetName="Bd"
+                                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                 To="1.1"
+                                                                 Duration="0:0:0.1"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Selected"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Bd" Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                                <Setter TargetName="Bd" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="Button.PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Bd"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="Gray" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Bd"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="Transparent" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
 
     <!--Gornji meni-->
@@ -33,7 +94,7 @@
             <DockPanel>
                 <DockPanel DockPanel.Dock="Left">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontWeight="Bold"  FontSize="20" Text="{Binding LoggedInUser.Username, StringFormat='Hello, {0}'}" Margin="20,15,20,15"></TextBlock>
+                        <TextBlock FontWeight="Bold"  FontSize="20" Text="{Binding LoggedInUser.Username, StringFormat='Hello, {0}'}" Margin="20,15,20,15" ></TextBlock>
                         <Button Height="40" Width="80" Margin="20,15,20,15" Command="{Binding OpenMyToursCommand}">My tours</Button>
                         <Button Height="40" Width="80" Margin="20,15,20,15" Command="{Binding OpenTypeOfMyTourRequestSelectionCommand}">My requests</Button>
                         <Button x:Name="NotificationIcon" Height="50" Width="60" Margin="20,15,20,15" Command="{Binding ShowNotificationsCommand}">
@@ -157,7 +218,33 @@
                                     <Button HorizontalAlignment="Left" Command="{Binding ElementName=ToursForTracking, Path=DataContext.OpenMorePicturesCommand}" CommandParameter="{Binding}">
                                         <Button.Template>
                                             <ControlTemplate>
-                                                <Image Source="{Binding BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                                                <Grid RenderTransformOrigin="0.5,0.5">
+                                                    <Grid.RenderTransform>
+                                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                                    </Grid.RenderTransform>
+                                                    <Image Source="{Binding BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal"/>
+                                                            <VisualState x:Name="Pressed">
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                             To="0.9" Duration="0:0:0.1"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                             To="0.9" Duration="0:0:0.1"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                             To="1.1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                             To="1.1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                             To="1" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                             To="1" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                </Grid>
                                             </ControlTemplate>
                                         </Button.Template>
                                     </Button>
@@ -212,7 +299,33 @@
                                     <Button HorizontalAlignment="Left" Command="{Binding ElementName=TourReservations, Path=DataContext.OpenMorePicturesCommand}" CommandParameter="{Binding}">
                                         <Button.Template>
                                             <ControlTemplate>
-                                                <Image Source="{Binding BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                                                <Grid RenderTransformOrigin="0.5,0.5">
+                                                    <Grid.RenderTransform>
+                                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                                    </Grid.RenderTransform>
+                                                    <Image Source="{Binding BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal"/>
+                                                            <VisualState x:Name="Pressed">
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                             To="0.9" Duration="0:0:0.1"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                             To="0.9" Duration="0:0:0.1"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                             To="1.1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                             To="1.1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                             To="1" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                             To="1" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                </Grid>
                                             </ControlTemplate>
                                         </Button.Template>
                                     </Button>

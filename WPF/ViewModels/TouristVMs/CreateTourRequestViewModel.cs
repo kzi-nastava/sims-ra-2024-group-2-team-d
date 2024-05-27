@@ -29,8 +29,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public TourRequestService TourRequestService { get; set; }
 
+        private readonly MainViewModel _mainViewModel;
+        public ICommand BackButtonCommand { get; set; }
         public string Start { get; set; }
-        public CreateTourRequestViewModel(User loggedInUser, Action closeAction)
+        public CreateTourRequestViewModel(MainViewModel mainViewModel, User loggedInUser)
         {
             LoggedInUser = loggedInUser;
             Tourists = new ObservableCollection<Tourist>();
@@ -39,12 +41,18 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             TouristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
             TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             AddTouristCommand = new RelayCommand(AddTourist);
+            _mainViewModel = mainViewModel;
             SendRequestCommand = new RelayCommand(() =>
             {
                 SendRequest();
-                closeAction();
             });
             AddUser();
+            BackButtonCommand = new RelayCommand(GoBack);
+        }
+
+        public void GoBack()
+        {
+            _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
         }
         public void AddUser()
         {

@@ -19,12 +19,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for TypeOfMyTourRequestSelectionView.xaml
     /// </summary>
-    public partial class TypeOfMyTourRequestSelectionView : Window
+    public partial class TypeOfMyTourRequestSelectionView : UserControl
     {
-        public TypeOfMyTourRequestSelectionView(User loggedInUser)
+        public TypeOfMyTourRequestSelectionView()
         {
             InitializeComponent();
-            DataContext = new TypeOfMyTourRequestSelectionViewModel(loggedInUser);
+            //DataContext = new TypeOfMyTourRequestSelectionViewModel(loggedInUser);
         }
     }
 }

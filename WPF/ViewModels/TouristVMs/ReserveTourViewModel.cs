@@ -37,11 +37,47 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private int addedTouristsCounter;
 
-        public bool IsPlusButtonEnabled {  get; set; }
+        private bool isPlusButtonEnabled {  get; set; }
+        public bool IsPlusButtonEnabled
+        {
+            get => isPlusButtonEnabled;
+            set
+            {
+                if(value != isPlusButtonEnabled)
+                {
+                    isPlusButtonEnabled = value;
+                    OnPropertyChanged(nameof(IsPlusButtonEnabled));
+                }
+            }
+        }
 
-        public bool IsReserveButtonEnabled {  get; set; }
+        private bool isReserveButtonEnabled { get; set; }
+        public bool IsReserveButtonEnabled
+        {
+            get => isReserveButtonEnabled;
+            set
+            {
+                if (value != isReserveButtonEnabled)
+                {
+                    isReserveButtonEnabled = value;
+                    OnPropertyChanged(nameof(IsReserveButtonEnabled));
+                }
+            }
+        }
 
-        public TouristDTO TouristToAdd {  get; set; }
+        private TouristDTO touristToAdd {  get; set; }
+        public TouristDTO TouristToAdd
+        {
+            get => touristToAdd;
+            set
+            {
+                if (value != touristToAdd)
+                {
+                    touristToAdd = value;
+                    OnPropertyChanged(nameof(TouristToAdd));
+                }
+            }
+        }
         public ICommand AddTouristCommand {  get; set; }
         public ICommand ReserveTourCommand {  get; set; }
 
@@ -78,6 +114,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             _mainViewModel = mainViewModel;
             BackButtonCommand = new RelayCommand(GoBack);
             TouristToAdd = new TouristDTO();
+            IsPlusButtonEnabled = true;
+            IsReserveButtonEnabled = false;
             AddUserToList();
         }
         public void GoBack()
@@ -90,8 +128,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             Tourists.Add(tourist);
             if (--AddedTouristsCounter == 0)
             {
-                IsPlusButtonEnabled = true;
-                IsReserveButtonEnabled = false;
+                IsPlusButtonEnabled = false;
+                IsReserveButtonEnabled = true;
             }
         }
 
@@ -107,6 +145,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             TouristToAdd.Name = "";
             TouristToAdd.LastName = "";
             TouristToAdd.Age = 0;
+            TouristToAdd = new TouristDTO();
         }
 
 

@@ -1,11 +1,11 @@
-﻿<Window x:Class="BookingApp.WPF.Views.TypeOfMyTourRequestSelectionView"
+﻿<UserControl x:Class="BookingApp.WPF.Views.TypeOfMyTourRequestSelectionView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
-        Title="TypeOfMyTourRequestSelectionView" Height="450" Width="800">
+        Height="450" Width="800">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -14,12 +14,12 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Menu>
-                <Button Grid.Column="0" Width="50" Height="50">
-                    <Image Source="../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
+                <Button Grid.Column="0" Width="50" Height="50" Command="{Binding BackButtonCommand}">
+                    <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
                 </Button>
             </Menu>
             <Button Grid.Column="0" Margin="20,133,20,168" Content="My standard tour requests" Command="{Binding ShowMyStandardTourRequestsCommand}"></Button>
             <Button Grid.Column="2" Margin="20,133,20,168" Content="My complex tour requests"></Button>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

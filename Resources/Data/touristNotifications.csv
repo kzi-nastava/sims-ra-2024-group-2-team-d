@@ -6,3 +6,4 @@
 6|A tour based on a language you requested has been created. Click "See more" to see more info about tour|False|TourCreation|3|6
 7|A tour based on a location you requested has been created. Click "See more" to see more info about tour|True|TourCreation|4|3
 8|A tour based on a location you requested has been created. Click "See more" to see more info about tour|False|TourCreation|5|3
+9|Your request has been accepted. Click "See more" to see more info|False|TourRequestAcceptance|5|3

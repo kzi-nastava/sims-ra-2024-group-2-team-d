@@ -74,7 +74,13 @@
                 </StackPanel>
             </Button>
             <Separator/>
-
+            <Button x:Name="MyProfileButton" Command="{Binding ShowProfile}" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal">
+                    <!--Image Source="../Resources/Images/add.png" Width="20" Height="25"/-->
+                    <TextBlock Text="My Profile" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
+            <Separator/>
 
         </ToolBar>
 

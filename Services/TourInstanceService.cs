@@ -77,6 +77,11 @@ namespace BookingApp.Services
             return tours.Where(c => c.BaseTour.UserId == user.Id).ToList();
         }
 
+        public List<TourInstance> GetByUserInFuture(User user, List<TourInstance> tours)
+        {
+            return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date > DateTime.Today).ToList();
+        }
+
         public List<TourInstance> GetForTheDay1(User user, ObservableCollection<TourInstance> tours)
         {
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today).ToList();

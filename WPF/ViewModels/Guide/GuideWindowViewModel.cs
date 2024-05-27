@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.View;
+using BookingApp.WPF.Views.Guide;
 using InitialProject.Presentation.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace BookingApp.WPF.ViewModels.Guide
         public MyCommand ShowStatistics { get; set; }
         public MyCommand ShowLogOut { get; set; }
         public MyCommand ShowRequests { get; set; }
+        public MyCommand ShowProfile { get; set; }
 
         public GuideWindowViewModel(User loggedInUser, Action closeAction)
         {
@@ -56,6 +58,13 @@ namespace BookingApp.WPF.ViewModels.Guide
                 }
             });
             ShowRequests = new MyCommand(Requests);
+            ShowProfile = new MyCommand(Profile);
+        }
+
+        public void Profile()
+        {
+            MyProfile myProfile = new MyProfile(LoggedInUser);
+            myProfile.Show();
         }
 
         public void LinkTourInstancesWithTours()

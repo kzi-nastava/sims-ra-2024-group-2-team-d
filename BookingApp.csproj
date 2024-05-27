@@ -34,6 +34,7 @@
     <None Remove="Resources\Images\pin-icon.png" />
     <None Remove="Resources\Images\plus-icon.png" />
     <None Remove="Resources\Images\R.jpg" />
+    <None Remove="Resources\Images\status-icon.png" />
     <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Images\voucher-icon.png" />
@@ -85,6 +86,7 @@
     <Resource Include="Resources\Images\pin-icon.png" />
     <Resource Include="Resources\Images\plus-icon.png" />
     <Resource Include="Resources\Images\R.jpg" />
+    <Resource Include="Resources\Images\status-icon.png" />
     <Resource Include="Resources\Images\user-icon.png" />
     <Resource Include="Resources\Images\voucher-icon.png" />
   </ItemGroup>

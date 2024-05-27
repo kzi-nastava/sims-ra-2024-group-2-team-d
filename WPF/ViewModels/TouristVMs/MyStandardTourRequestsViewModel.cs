@@ -69,12 +69,14 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             AverageNumberOfTourists = _tourRequestService.CalculateAverageNumberOfTourists(LoggedInUser.Id);
             DistinctYears = new List<string>();
             DistinctYears.Add("All years");
+            SelectedYear = "All years";
             DistinctYears.AddRange(_tourRequestService.GetDistinctYearsForTourRequests(LoggedInUser.Id));
             YearSelectionChangedCommand = new RelayCommand(YearSelectionChanged);
             ShowLanguageRequestCountGraphCommand = new RelayCommand(ShowLanguageRequestCountGraph);
             ShowLocationRequestCountGraphCommand = new RelayCommand(ShowLocationRequestCountGraph);
             _mainViewModel = mainViewModel;
             GoBackCommand = new RelayCommand(GoBack);
+            YearSelectionChanged();
         }
 
         public void GoBack()

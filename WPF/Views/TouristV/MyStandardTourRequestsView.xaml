@@ -8,6 +8,19 @@
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
          Height="768" Width="1024">
+    <UserControl.Resources>
+        <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="81*"/>
@@ -26,9 +39,9 @@
             </Button>
             <TextBlock Text="My Standard Tour Requests" FontSize="23" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"></TextBlock>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+        <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" >
             <TextBlock Text="Year" VerticalAlignment="Center"></TextBlock>
-            <ComboBox ItemsSource="{Binding DistinctYears}" Height="30" Width="200" VerticalAlignment="Center" SelectedItem="{Binding SelectedYear}">
+            <ComboBox ItemsSource="{Binding DistinctYears}" Height="25" Width="200" VerticalAlignment="Center" SelectedItem="{Binding SelectedYear}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding YearSelectionChangedCommand}" />
@@ -40,31 +53,48 @@
         <Button Content="Graph of number of requests by location" Grid.Column="0" Grid.Row="2" Height="50" Width="300" Command="{Binding ShowLocationRequestCountGraphCommand}" Margin="10,20,202,19"></Button>
         <TextBlock Text="{Binding AverageNumberOfTourists, StringFormat='Average number of tourists in accepted tours {0:F2}'}" Grid.Row="3" Grid.Column="0"></TextBlock>
         <lvc:PieChart Series="{Binding PieSeriesCollection}" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2"></lvc:PieChart>
-        <DataGrid ItemsSource="{Binding MyTourRequests}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" AutoGenerateColumns="False" Margin="0,86,0,0" Grid.RowSpan="2">
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="Background" Value="LightGray"/>
-                    <Setter Property="Foreground" Value="Black"/>
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Chosen date" Binding="{Binding ChosenDateTime}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Binding="{Binding CurrentStatus}" Width="*"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="More info" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Height="30" Width="30" Command="{Binding Path=DataContext.InfoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
-                                <Image Source="../../../Resources/Images/info-icon.png"></Image>
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListBox x:Name="TourRequestsLB"  ItemsSource="{Binding MyTourRequests}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="100" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190" />
+                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="120" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0">
+                                <Image Height="40" Width="40" Source="../../../Resources/Images/location-icon.jpg"></Image>
+                                <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding Location}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <Image Height="40" Width="40" Source="../../../Resources/Images/calendar-icon.png"></Image>
+                                <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding ChosenDateTime}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="2">
+                                <Image Height="40" Width="40" Source="../../../Resources/Images/status-icon.png"></Image>
+                                <TextBlock Text="{Binding CurrentStatus}" Style="{StaticResource MyTextStyle}" />
+                            </StackPanel>
+                            <StackPanel  Grid.Row="0" Grid.Column="3">
+                                <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"></Image>
+                                <TextBlock Text="{Binding Language}" Style="{StaticResource MyTextStyle}" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding Description}" Style="{StaticResource MyTextStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" />
+                            <StackPanel Grid.Column="3" Grid.Row="1">
+                                <Button Height="40" Width="40" Command="{Binding ElementName=TourRequestsLB, Path=DataContext.InfoCommand}" CommandParameter="{Binding}" Grid.Column="3" Grid.Row="1">
+                                    <Image Source="../../../Resources/Images/info-icon.png"></Image>
+                                </Button>
+                                <TextBlock Text="More info" Style="{StaticResource MyTextStyle}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

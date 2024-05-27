@@ -19,12 +19,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for MoreInfoAboutTourView.xaml
     /// </summary>
-    public partial class MoreInfoAboutTourView : Window
+    public partial class MoreInfoAboutTourView : UserControl
     {
-        public MoreInfoAboutTourView(TourInstance tourInstance)
+        public MoreInfoAboutTourView()
         {
             InitializeComponent();
-            this.DataContext = new MoreInfoAboutTourViewModel(tourInstance);
+            //this.DataContext = new MoreInfoAboutTourViewModel(tourInstance);
         }
     }
 }

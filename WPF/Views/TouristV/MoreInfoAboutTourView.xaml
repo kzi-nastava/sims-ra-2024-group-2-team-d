@@ -1,12 +1,12 @@
-﻿<Window x:Class="BookingApp.WPF.Views.MoreInfoAboutTourView"
+﻿<UserControl x:Class="BookingApp.WPF.Views.MoreInfoAboutTourView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
-        Title="MoreInfoAboutTourView" Height="450" Width="780">
-    <Window.Resources>
+        Height="450" Width="880">
+    <UserControl.Resources>
         <Style x:Key="MyTextStyle" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="FontSize" Value="20" />
@@ -17,7 +17,7 @@
             <Setter Property="Width" Value="100" />
             <Setter Property="Height" Value="50" />
         </Style>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="55" />
@@ -27,14 +27,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="205*" />
-            <ColumnDefinition Width="205*" />
-            <ColumnDefinition Width="238*" />
-            <ColumnDefinition Width="172*" />
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
         <Menu>
-            <Button Grid.Column="0" Width="50" Height="50">
-                <Image Source="../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
+            <Button Grid.Column="0" Width="50" Height="50" Command="{Binding CloseCommand}">
+                <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
             </Button>
         </Menu>
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,205,0">
@@ -42,33 +42,59 @@
             <Button Command="{Binding OpenMorePicturesCommand}">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="{Binding TourInstance.BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                        <Grid RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Grid.RenderTransform>
+                            <Image Source="{Binding TourInstance.BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+To="0.9" Duration="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+To="0.9" Duration="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+To="1.1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+To="1.1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+To="1" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+To="1" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Image Height="40" Width="40" Source="../../Resources/Images/location-icon.jpg"></Image>
+            <Image Height="40" Width="40" Source="../../../Resources/Images/location-icon.jpg"></Image>
             <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding TourInstance.BaseTour.Location}" />
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="2">
-            <Image Height="40" Width="40" Source="../../Resources/Images/calendar-icon.png"></Image>
+            <Image Height="40" Width="40" Source="../../../Resources/Images/calendar-icon.png"></Image>
             <TextBlock Style="{StaticResource MyTextStyle}" Text="{Binding TourInstance.Date}" />
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="3" >
-            <Image Height="40" Width="40" Source="../../Resources/Images/duration-icon.jpg"></Image>
+            <Image Height="40" Width="40" Source="../../../Resources/Images/duration-icon.jpg"></Image>
             <TextBlock Text="{Binding TourInstance.BaseTour.Duration}" Style="{StaticResource MyTextStyle}" />
         </StackPanel>
         <StackPanel  Grid.Row="2" Grid.Column="1">
-            <Image Height="40" Width="40" Source="../../Resources/Images/language-icon.png"></Image>
+            <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"></Image>
             <TextBlock Text="{Binding TourInstance.BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
         </StackPanel>
         <StackPanel  Grid.Row="2" Grid.Column="2">
-            <Image Height="40" Width="40" Source="../../Resources/Images/people-icon.jpg"></Image>
+            <Image Height="40" Width="40" Source="../../../Resources/Images/people-icon.jpg"></Image>
             <TextBlock Text="{Binding TourInstance.BaseTour.MaxTourists}" Style="{StaticResource MyTextStyle}" />
         </StackPanel>
         <StackPanel  Grid.Row="2" Grid.Column="3" Grid.RowSpan="2">
-            <Image Height="40" Width="40" Source="../../Resources/Images/pin-icon.png"></Image>
+            <Image Height="40" Width="40" Source="../../../Resources/Images/pin-icon.png"></Image>
             <ItemsControl ItemsSource="{Binding TourInstance.BaseTour.KeyPoints}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -83,4 +109,4 @@
 
 
     </Grid>
-</Window>
+</UserControl>

@@ -380,8 +380,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void ShowMoreInfo(TourInstance tourInstance)
         {
-            MoreInfoAboutTourView moreInfoAboutTourView = new MoreInfoAboutTourView(tourInstance);
-            moreInfoAboutTourView.Show();
+            var viewModel = new MoreInfoAboutTourViewModel(tourInstance);
+            bool? result = _dialogService.ShowDialog(viewModel);
+            //MoreInfoAboutTourView moreInfoAboutTourView = new MoreInfoAboutTourView(tourInstance);
+            //moreInfoAboutTourView.Show();
         }
 
         public void OpenNotification(TouristNotifications notification)
@@ -401,8 +403,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 TourCreationNotification tourCreationNotification = _tourCreationNotificationService.GetById(notification.NotificationId);
                 TourInstanceService service = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
-                MoreInfoAboutTourView view = new MoreInfoAboutTourView(service.GetById(tourCreationNotification.CreatedTourInstanceId));
-                view.Show();
+                var viewModel = new MoreInfoAboutTourViewModel(service.GetById(tourCreationNotification.CreatedTourInstanceId));
+                bool? result = _dialogService.ShowDialog(viewModel);
+                //MoreInfoAboutTourView view = new MoreInfoAboutTourView(service.GetById(tourCreationNotification.CreatedTourInstanceId));
+                //view.Show();
                 IsNotificationPopupOpen = !IsNotificationPopupOpen;
             }
         }

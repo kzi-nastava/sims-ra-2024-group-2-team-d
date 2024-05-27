@@ -32,6 +32,9 @@
         <DataTemplate DataType="{x:Type vmTourists:MyStandardTourRequestsViewModel}">
             <viewTourists2:MyStandardTourRequestsView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:MoreInfoAboutTourViewModel}">
+            <viewTourists2:MoreInfoAboutTourView />
+        </DataTemplate>
         <Storyboard x:Key="SmoothTransition">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>

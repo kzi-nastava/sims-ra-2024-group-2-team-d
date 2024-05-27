@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Media.Animation;
 using BookingApp.WPF.Views.TouristV;
 using BookingApp.WPF.Views;
+using System.Windows.Media;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
@@ -28,8 +29,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 Owner = currentMainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 SizeToContent = SizeToContent.WidthAndHeight,
-                WindowStyle = WindowStyle.ToolWindow,
+                WindowStyle = WindowStyle.None, // Sakriva naslovnu traku i dugme za zatvaranje
+                ResizeMode = ResizeMode.NoResize, // Onemogućava promenu veličine prozora
+                AllowsTransparency = false,
                 ShowInTaskbar = false,
+                BorderBrush = Brushes.Black, // Postavlja crni border
+                BorderThickness = new Thickness(2), // Postavlja debljinu bordera
                 Opacity = 0
             };
 
@@ -79,6 +84,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             if (viewModel is TypeOfMyTourRequestSelectionViewModel)
             {
                 return new TypeOfMyTourRequestSelectionView { DataContext = viewModel };
+            }
+            if (viewModel is MoreInfoAboutTourViewModel)
+            {
+                return new MoreInfoAboutTourView { DataContext = viewModel };
             }
             // Dodajte ostale view modele i odgovarajuće view-ove ovde
             return null;

@@ -28,6 +28,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private readonly TourInstanceService _tourInstanceService;
 
+        private readonly UserService _userService;
+
         private readonly PictureService _pictureService;
 
         private readonly KeyPointService _keyPointService;
@@ -130,6 +132,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             LoggedInUser = user;
             _tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>());
             _tourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
+            _userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>(), Injector.Injector.CreateInstance<ITourReviewRepository>());
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceService.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
             UserGiftCards = new ObservableCollection<GiftCard>();
@@ -159,6 +162,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             _tourCreationNotificationService = new TourCreationNotificationService(Injector.Injector.CreateInstance<ITourCreationNotificationRepository>());
             LinkEntities();
             MoveToActiveTours();
+            SortTourInstances(TourInstances);
         }
         public void LinkEntities()
         {
@@ -404,6 +408,26 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 MoreInfoAboutTourView view = new MoreInfoAboutTourView(service.GetById(tourCreationNotification.CreatedTourInstanceId));
                 view.Show();
                 IsNotificationPopupOpen = !IsNotificationPopupOpen;
+            }
+        }
+
+        public bool CheckIfGuidedBySuperGuide(int id)
+        {
+            TourInstance instance = _tourInstanceService.GetById(id);
+            if(_userService.GetAllSuperGuides(TourInstances.ToList()).Find(c=> c.Id == instance.BaseTour.UserId) == null)
+            {
+                return false;
+            }
+            else { return true; }
+        }
+
+        public void SortTourInstances(ObservableCollection<TourInstance> tourInstances)
+        {
+            var sortedList = tourInstances.OrderByDescending(ti => CheckIfGuidedBySuperGuide(ti.Id)).ToList();
+            tourInstances.Clear();
+            foreach (var instance in sortedList)
+            {
+                tourInstances.Add(instance);
             }
         }
 

@@ -19,7 +19,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="55"/>
             <RowDefinition Height="55"/>
             <RowDefinition Height="35"/>
@@ -30,6 +30,13 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Do you want to quit job?" FontSize="20" Margin="80,0,86,0" />
         <Button Grid.Column="2" Grid.Row="1" Content="Quit job" Name="Quit" Command="{Binding QuitJob}" Height="35" Margin="107,0,192,5"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="Username:" FontSize="20" Margin="261,0,16,0"  />
+        <TextBlock Grid.Column="2" Grid.Row="3" Text="{Binding UsernameText}" FontSize="20" Margin="0,0,235,0" />
+        <TextBlock Grid.Column="1" Grid.Row="4" Text="Title:" FontSize="20" Margin="315,0,16,0"  />
+        <TextBlock Grid.Column="2" Grid.Row="4" Text="{Binding GuideText}" FontSize="20" Margin="0,0,235,0" />
+        <TextBlock Grid.Column="1" Grid.Row="5" Text="You are Super guide for languages:" Visibility="{Binding SuperG}" FontSize="20" Margin="56,0,16,0"  />
+        <TextBlock Grid.Column="2" Grid.Row="5" Text="{Binding SuperLanguages}" Visibility="{Binding SuperG}" FontSize="20" Margin="0,0,10,0" />
+
 
     </Grid>
 </Window>

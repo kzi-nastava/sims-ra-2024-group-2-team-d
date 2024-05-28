@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace BookingApp.Services
         private IKeyPointRepository _keyPointRepository { get; set; }
 
         private IPictureRepository _pictureRepository { get; set; }
-
+        
         public TourInstanceService(ITourInstanceRepository tourInstanceRepository, ITourRepository tourRepository, IKeyPointRepository keyPointRepository, IPictureRepository pictureRepository)
         {
             TourInstanceRepository = tourInstanceRepository;
@@ -77,11 +78,31 @@ namespace BookingApp.Services
             return tours.Where(c => c.BaseTour.UserId == user.Id).ToList();
         }
 
-        public List<TourInstance> GetByUserInFuture(User user, List<TourInstance> tours)
+        public List<TourInstance> GetByUserAndInFuture(User user, List<TourInstance> tours)
         {
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date > DateTime.Today).ToList();
         }
 
+        public Dictionary<string, List<TourInstance>> GetLangsWithInstancesForSuperGuideCheck(User user, List<TourInstance> tourInstances)
+        {            
+            List<TourInstance> tours = tourInstances.Where(c => c.BaseTour.UserId == user.Id && c.End == true && c.Date.Date >= DateTime.Today.AddYears(-1) ).ToList();
+            Dictionary<string, List<TourInstance>> languageCounts = new Dictionary<string, List<TourInstance>>();
+            foreach (var instance in tours)
+            {
+                if (languageCounts.ContainsKey(instance.BaseTour.Language))
+                {
+                    languageCounts[instance.BaseTour.Language].Add(instance);
+                }
+                else
+                {
+                    languageCounts[instance.BaseTour.Language] = new List<TourInstance> { instance };
+                }
+            }
+
+            return languageCounts.Where(kvp => kvp.Value.Count >= 20).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
+
+ 
         public List<TourInstance> GetForTheDay1(User user, ObservableCollection<TourInstance> tours)
         {
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today).ToList();

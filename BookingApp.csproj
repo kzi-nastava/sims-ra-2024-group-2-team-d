@@ -26,6 +26,7 @@
     <None Remove="Resources\Images\kalemegdan.jpg" />
     <None Remove="Resources\Images\language-icon.png" />
     <None Remove="Resources\Images\location-icon.jpg" />
+    <None Remove="Resources\Images\medal.png" />
     <None Remove="Resources\Images\nekaSlika.jpg" />
     <None Remove="Resources\Images\notification-icon.png" />
     <None Remove="Resources\Images\noviSad.jpg" />
@@ -78,6 +79,7 @@
     <Resource Include="Resources\Images\kalemegdan.jpg" />
     <Resource Include="Resources\Images\language-icon.png" />
     <Resource Include="Resources\Images\location-icon.jpg" />
+    <Resource Include="Resources\Images\medal.png" />
     <Resource Include="Resources\Images\nekaSlika.jpg" />
     <Resource Include="Resources\Images\notification-icon.png" />
     <Resource Include="Resources\Images\noviSad.jpg" />

@@ -106,7 +106,10 @@ To="1" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
             </ItemsControl>
         </StackPanel>
         <TextBlock HorizontalAlignment="Left" Text="{Binding TourInstance.BaseTour.Description}" Style="{StaticResource MyTextStyle}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Grid.RowSpan="2" />
-
+        <StackPanel  Grid.Row="3" Grid.Column="3" Margin="0,98,-30,0" Grid.RowSpan="2">
+            <Image Visibility="{Binding SuperG}" Height="40" Width="40" Source="../../../Resources/Images/medal.png"></Image>
+            <TextBlock Text="Guided by Super-guide!" Visibility="{Binding SuperG}" Style="{StaticResource MyTextStyle}" />
+        </StackPanel>
 
     </Grid>
 </UserControl>

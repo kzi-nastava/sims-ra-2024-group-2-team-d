@@ -81,7 +81,7 @@ namespace BookingApp.WPF.ViewModels.Guide
                         //JESTE SUPER GUIDE
                         SuperLanguages.Add(lang);
                         GuideText = "Super-guide";
-                        ////SuperG = Visibility.Visible;
+                        SuperG = Visibility.Visible;
                     }
                 }
             }

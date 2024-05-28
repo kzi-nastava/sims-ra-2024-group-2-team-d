@@ -33,5 +33,32 @@ namespace BookingApp.Services
         {
             return TourReviewRepository.Save(tourReview);
         }
+
+        public double GetAverageGradeForTourInstance(int id)
+        {
+            double averageGrade = 0;
+            List<TourReview> tourReviews = GetAllByTourId(id);
+            foreach(TourReview tourReview in tourReviews)
+            {
+                double avg = tourReview.GuideLanguage + tourReview.GuideKnowledge + tourReview.Enjoyability;
+                avg = avg / 3;
+                averageGrade += avg;
+            }
+            return averageGrade/tourReviews.Count();
+        }
+
+        public bool SuperGuideGradeCheck(List<TourInstance> instances)
+        {
+            double avg = 0;
+            foreach (TourInstance instance in instances)
+            {
+                avg += GetAverageGradeForTourInstance(instance.Id);
+            }
+            if(avg/instances.Count() > 4)
+            {
+                return true;
+            }
+            else return false;
+        }
     }
 }

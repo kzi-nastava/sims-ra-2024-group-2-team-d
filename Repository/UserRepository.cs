@@ -30,5 +30,10 @@ namespace BookingApp.Repository
         {
             return _users.Find(x => x.Id == id);
         }
+
+        public List<User> GetAll()
+        {
+            return _users;
+        }
     }
 }

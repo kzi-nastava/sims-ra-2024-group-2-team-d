@@ -2,6 +2,7 @@
 using BookingApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,6 +17,37 @@ namespace BookingApp.WPF.ViewModels.Guide
         private MainService MainService { get; set; }
         public User LoggedInUser { get; set; }
         public List<TourInstance> TourInstances { get; set; }
+        private string usernameText;
+        public string UsernameText
+        {
+            get { return usernameText; }
+            set
+            {
+                usernameText = value;
+                OnPropertyChanged("UsernameText");
+            }
+        }
+        private string guideText;
+        public string GuideText
+        {
+            get { return guideText; }
+            set
+            {
+                guideText = value;
+                OnPropertyChanged("GuideText");
+            }
+        }
+        private Visibility superG;
+        public Visibility SuperG
+        {
+            get { return superG; }
+            set
+            {
+                superG = value;
+                OnPropertyChanged("SuperG");
+            }
+        }
+        public ObservableCollection<string> SuperLanguages { get; set; }
         public MyCommand QuitJob { get; set; }
 
 
@@ -26,7 +58,33 @@ namespace BookingApp.WPF.ViewModels.Guide
             QuitJob = new MyCommand(Quit);
             TourInstances = new List<TourInstance>(MainService.TourInstanceService.GetAll());
             LinkTourInstancesWithTours();
+            UsernameText = LoggedInUser.Username;
+            GuideText = "Guide";
+            SuperG = Visibility.Hidden;
+            CheckUsernameText(LoggedInUser);
+            
 
+        }
+
+        private void CheckUsernameText(User LoggedInUser)
+        {
+            var langsInstances = MainService.TourInstanceService.GetLangsWithInstancesForSuperGuideCheck(LoggedInUser, TourInstances);
+            SuperLanguages = new ObservableCollection<string>();
+            if (langsInstances.Count != 0)
+            {
+                foreach(var kvp in langsInstances)
+                {
+                    string lang = kvp.Key;
+                    List<TourInstance> instances = kvp.Value;
+                    if (MainService.TourReviewService.SuperGuideGradeCheck(instances))
+                    {
+                        //JESTE SUPER GUIDE
+                        SuperLanguages.Add(lang);
+                        GuideText = "Super-guide";
+                        ////SuperG = Visibility.Visible;
+                    }
+                }
+            }
         }
 
         public void LinkTourInstancesWithTours()
@@ -47,7 +105,7 @@ namespace BookingApp.WPF.ViewModels.Guide
                     MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                List<TourInstance> tourInstances = new List<TourInstance>(MainService.TourInstanceService.GetByUserInFuture(LoggedInUser, TourInstances));
+                List<TourInstance> tourInstances = new List<TourInstance>(MainService.TourInstanceService.GetByUserAndInFuture(LoggedInUser, TourInstances));
                 foreach (TourInstance instance in tourInstances)
                 {
                     if (instance != null)

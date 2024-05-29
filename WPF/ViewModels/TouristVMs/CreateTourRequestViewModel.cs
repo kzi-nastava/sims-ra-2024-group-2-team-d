@@ -64,6 +64,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             Tourist tourist = new Tourist(InputTourist.Name, InputTourist.LastName, InputTourist.Age);
             Tourists.Add(tourist);
             NewTourRequest.NumberOfTouristsCounter--;
+            NewTourRequest.NumberOfTourists++;
         }
 
         public void SendRequest()

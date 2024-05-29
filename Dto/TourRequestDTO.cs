@@ -14,7 +14,6 @@ namespace BookingApp.Dto
     public class TourRequestDTO : INotifyPropertyChanged, IDataErrorInfo
     {
         private int numberOfTourists;
-      
 
         public int NumberOfTourists
         {
@@ -45,23 +44,37 @@ namespace BookingApp.Dto
                 }
             }
         }
+        public bool IsSecondDatePickerEnabled { get; set; }
 
-        private string start;
+        private bool IsFirstTime {  get; set; }
 
-        public string Start
+        private DateTime start;
+
+        public DateTime Start
         {
             get => start;
             set
             {
                 if(value != start) {
+                    if (!IsFirstTime)
+                    {
+                        IsSecondDatePickerEnabled = true;
+                    }
+                    IsFirstTime = false;
                     start = value;
+                    End = start.AddDays(1);
+                    FirstAvailableDateForSecondDatePicker = start.AddDays(1);
                     OnPropertyChanged("Start");
+                    OnPropertyChanged("End");
+                    OnPropertyChanged("IsSecondDatePickerEnabled");
+                    OnPropertyChanged("IsFirstTime");
+                    OnPropertyChanged("FirstAvailableDateForSecondDatePicker");
                 }
             }
         }
-        private string end;
+        private DateTime end;
 
-        public string End
+        public DateTime End
         {
             get => end;
             set
@@ -122,6 +135,21 @@ namespace BookingApp.Dto
             }
         }
 
+        private DateTime firstAvailableDate;
+
+        public DateTime FirstAvailableDate
+        {
+            get => firstAvailableDate;
+            set
+            {
+                if(firstAvailableDate != value)
+                {
+                    firstAvailableDate = value;
+                    OnPropertyChanged("FirstAvailableDate");
+                }
+            }
+        }
+
         public string Error => null;
 
         public string this[string columnName]
@@ -141,10 +169,18 @@ namespace BookingApp.Dto
             }
         }
 
+        public DateTime FirstAvailableDateForSecondDatePicker { get; set; }
+
         public TourRequestDTO(int userTouristId)
         {
+            IsFirstTime = true;
             TouristsId = new List<int>();
             UserTouristId = userTouristId;
+            IsSecondDatePickerEnabled = false;
+            FirstAvailableDate = DateTime.Now.AddDays(3);
+            Start = DateTime.Now.AddDays(3);
+            End = Start.AddDays(1);
+            NumberOfTourists = 1;
         }
 
         public TourRequestDTO(TourRequest tourRequest)
@@ -168,7 +204,7 @@ namespace BookingApp.Dto
 
         public TourRequest ToTourRequest()
         {
-            return new TourRequest(Location, Description, Language, NumberOfTourists, DateOnly.Parse(Start), DateOnly.Parse(End), TouristsId, UserTouristId);
+            return new TourRequest(Location, Description, Language, NumberOfTourists, DateOnly.FromDateTime(Start), DateOnly.FromDateTime(End), TouristsId, UserTouristId);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

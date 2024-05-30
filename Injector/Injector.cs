@@ -34,7 +34,8 @@ namespace BookingApp.Injector
             {typeof(ITourInstanceRepository), new TourInstanceRepository()},
             {typeof(ITourRepository), new TourRepository()},
             {typeof(ITourReservationRepository), new TourReservationRepository()},
-            {typeof(IUserRepository), new UserRepository()}
+            {typeof(IUserRepository), new UserRepository()},
+            {typeof(IComplexTourRequestRepository), new ComplexTourRequestRepository()}
 
         
         // Add more implementations here

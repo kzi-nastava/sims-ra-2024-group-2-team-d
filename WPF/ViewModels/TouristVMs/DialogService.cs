@@ -89,6 +89,14 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 return new MoreInfoAboutTourView { DataContext = viewModel };
             }
+            if (viewModel is ConfirmationDialogViewModel)
+            {
+                return new ConfirmationDialogView { DataContext = viewModel };
+            }
+            if (viewModel is FeedbackDialogViewModel)
+            {
+                return new FeedbackDialogView { DataContext = viewModel };
+            }
             // Dodajte ostale view modele i odgovarajuće view-ove ovde
             return null;
         }

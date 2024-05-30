@@ -31,7 +31,6 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private readonly MainViewModel _mainViewModel;
         public ICommand BackButtonCommand { get; set; }
-        public string Start { get; set; }
         public CreateTourRequestViewModel(MainViewModel mainViewModel, User loggedInUser)
         {
             LoggedInUser = loggedInUser;
@@ -76,7 +75,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             }
             TourRequest tourRequest = NewTourRequest.ToTourRequest();
             TourRequestService.Save(tourRequest);
-
+            _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

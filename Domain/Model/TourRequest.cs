@@ -23,7 +23,10 @@ namespace BookingApp.Domain.Model
         public int GuideId { get; set; }
         public List<int> TouristsId { get; set; }
 
+        public List<Tourist> Tourists { get; set; }
         public int UserTouristId { get; set; }
+
+        public bool IsPartOfComplexRequest {  get; set; }
 
         public TourRequest()
         {
@@ -31,9 +34,11 @@ namespace BookingApp.Domain.Model
             GuideId = -1;
             ChosenDateTime = new DateTime(1900, 1, 1, 0, 0, 0);
             TouristsId = new List<int>();
+            IsPartOfComplexRequest = false;
+            Tourists = new List<Tourist>();
         }
 
-        public TourRequest(string location, string description, string language, int numberOfTourists, DateOnly start, DateOnly end, List<int> touristsId, int userTouristId)
+        public TourRequest(string location, string description, string language, int numberOfTourists, DateOnly start, DateOnly end, List<int> touristsId, int userTouristId, List<Tourist> tourists)
         {
             CurrentStatus = Status.OnHold;
             Location = location;
@@ -47,6 +52,8 @@ namespace BookingApp.Domain.Model
             TouristsId = touristsId;
             CreatedOn = DateOnly.FromDateTime(DateTime.Now);
             UserTouristId = userTouristId;
+            IsPartOfComplexRequest = false;
+            Tourists = tourists;
         }
 
         public string[] ToCSV()
@@ -65,7 +72,8 @@ namespace BookingApp.Domain.Model
                 GuideId.ToString(),
                 ChosenDateTime.ToString("yyyy-MM-dd"),
                 string.Join(",", TouristsForCSV()),
-                UserTouristId.ToString()
+                UserTouristId.ToString(),
+                IsPartOfComplexRequest.ToString()
             };
             return csvValues;
         }
@@ -112,6 +120,7 @@ namespace BookingApp.Domain.Model
                 }
             }
             UserTouristId = int.Parse(values[12]);
+            IsPartOfComplexRequest = bool.Parse(values[13]);
         }
     }
 }

@@ -75,7 +75,6 @@
             <Setter Property="Padding" Value="5"/>
             <Setter Property="Background" Value="#FFF"/>
             <Setter Property="BorderBrush" Value="Black"/>
-            <!-- Promenjeno u crnu boju -->
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>

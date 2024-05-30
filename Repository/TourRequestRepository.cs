@@ -134,7 +134,7 @@ namespace BookingApp.Repository
         }
 
         public List<TourRequest> GetByUserTouristId(int userTouristId) { 
-            return _tourRequest.Where(t => t.UserTouristId == userTouristId).ToList();
+            return _tourRequest.Where(t => t.UserTouristId == userTouristId && t.IsPartOfComplexRequest == false).ToList();
         }
 
         public List<TourRequest> GetByLocation(string location)

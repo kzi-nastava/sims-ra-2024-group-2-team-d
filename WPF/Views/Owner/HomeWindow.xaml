@@ -5,65 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Owner"
         mc:Ignorable="d"
-         WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen"
         Title="HomeWindow" Height="736" Width="414">
-    <Grid  Background="LightSteelBlue">
+    <Grid Background="LightSteelBlue">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Prvi smeštaj -->
-        <Border BorderBrush="Black" BorderThickness="1" Margin="5">
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Image Margin="10,0,0,0" Source="/Resources/Images/R.jpg" Width="150" Height="150" HorizontalAlignment="Left"/>
-                <StackPanel Margin="30,0,0,0" VerticalAlignment="Center">
-                    <TextBlock FontWeight="Bold" Text="LuxuryHotel"/>
-                    <TextBlock FontWeight="Bold" Text="Milano"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-        <!-- Drugi smeštaj -->
-        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Row="1">
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Image Margin="10,0,0,0" Source="/Resources/Images/J.jpg" Width="150" Height="150" HorizontalAlignment="Left"/>
-                <StackPanel Margin="30,0,0,0" VerticalAlignment="Center">
-                    <TextBlock FontWeight="Bold" Text="Costarica"/>
-                    <TextBlock FontWeight="Bold" Text="Iviv"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-        <!-- Treći smeštaj -->
-        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Row="2">
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <Image Margin="10,0,0,0" Source="/Resources/Images/G.jpg" Width="150" Height="150" HorizontalAlignment="Left"/>
-                <StackPanel Margin="30,0,0,0" VerticalAlignment="Center">
-                    <TextBlock FontWeight="Bold" Text="TropicoHotel"/>
-                    <TextBlock FontWeight="Bold" Text="Madrid"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-
-        <!-- Četvrti smeštaj -->
-        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Row="3">
-            <StackPanel Grid.Row="3" Orientation="Horizontal">
-                <Image Margin="10,0,0,0" Source="/Resources/Images/HH.jpg" Width="150" Height="150" HorizontalAlignment="Left"/>
-                <StackPanel Margin="30,0,0,0" VerticalAlignment="Center">
-                    <TextBlock FontWeight="Bold" Text="Vernaza"/>
-                    <TextBlock FontWeight="Bold" Text="Belagio"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-        <!-- Dugmad za registraciju, recenzije, zahtjeve i smestaje -->
-        <StackPanel Grid.Row="4" Height="100" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Background="#003F54" x:Name="Registration" Height="50" Width="70" Click="Registration_Click" Margin="5">Registracija</Button>
-            <Button Background="#003F54" x:Name="Reviews" Height="50" Width="70" Click="Reviews_Click" Margin="5">Prikaz recenzija</Button>
-            <Button Background="#003F54" x:Name="Requests" Height="50" Width="70" Click="Requests_Click" Margin="5">Prikaz zahtjeva za promjenu</Button>
-            <Button Background="#003F54" x:Name="Accommodations" Height="50" Width="70" Click="Accommodations_Click" Margin="5">Smestaji</Button>
-            <Button Background="#003F54" x:Name="Renovations" Height="50" Width="70" Click="Renovations_Click" Margin="5">Renoviranja</Button>
+        <!-- Centered Vertical Buttons -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Center">
+            <Button Background="#003F54" x:Name="Registration" Height="50" Width="150" Click="Registration_Click" Margin="5">Registracija</Button>
+            <Button Background="#003F54" x:Name="Reviews" Height="50" Width="150" Click="Reviews_Click" Margin="5">Prikaz recenzija</Button>
+            <Button Background="#003F54" x:Name="Requests" Height="50" Width="150" Click="Requests_Click" Margin="5">Prikaz zahtjeva za promjenu</Button>
+            <Button Background="#003F54" x:Name="Accommodations" Height="50" Width="150" Click="Accommodations_Click" Margin="5">Smestaji</Button>
+            <Button Background="#003F54" x:Name="Renovations" Height="50" Width="150" Click="Renovations_Click" Margin="5">Renoviranja</Button>
         </StackPanel>
     </Grid>
 </Window>

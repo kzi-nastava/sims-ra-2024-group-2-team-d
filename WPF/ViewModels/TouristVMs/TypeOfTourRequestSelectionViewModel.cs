@@ -14,6 +14,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
     {
         public User LoggedInUser { get; set; }
         public ICommand StandardTourRequestCreationCommand { get; set; }
+        public ICommand ComplexTourRequestCreationCommand { get; set; }
         public event EventHandler<DialogCloseRequestedEventArgs> RequestClose;
         private string _selectedOption;
         public string SelectedOption
@@ -32,6 +33,13 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             StandardTourRequestCreationCommand = new RelayCommand(OpenStandardTourCreationWindow);
             LoggedInUser = loggedInUser;
             BackButtonCommand = new RelayCommand(GoBack);
+            ComplexTourRequestCreationCommand = new RelayCommand(OpenComplexTourCreationWindow);
+        }
+
+        public void OpenComplexTourCreationWindow()
+        {
+            SelectedOption = "Complex";
+            RequestClose?.Invoke(this, new DialogCloseRequestedEventArgs(true, "Complex"));
         }
 
         public void GoBack()

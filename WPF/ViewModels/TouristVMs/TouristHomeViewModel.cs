@@ -378,6 +378,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 {
                     _mainViewModel.SwitchView(new CreateTourRequestViewModel(_mainViewModel, LoggedInUser));
                 }
+                else if(viewModel.SelectedOption == "Complex")
+                {
+                    _mainViewModel.SwitchView(new CreateComplexTourRequestViewModel(_mainViewModel, LoggedInUser,_dialogService));
+                }
             }
             //typeOfTourRequestSelectionView.ShowDialog();
         }

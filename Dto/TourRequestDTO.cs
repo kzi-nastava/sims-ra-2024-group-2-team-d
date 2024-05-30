@@ -150,6 +150,10 @@ namespace BookingApp.Dto
             }
         }
 
+        public string StartEndDate {  get; set; }
+
+        public List<Tourist> Tourists { get; set; }
+
         public string Error => null;
 
         public string this[string columnName]
@@ -181,6 +185,7 @@ namespace BookingApp.Dto
             Start = DateTime.Now.AddDays(3);
             End = Start.AddDays(1);
             NumberOfTourists = 1;
+            Tourists = new List<Tourist>();
         }
 
         public TourRequestDTO(TourRequest tourRequest)
@@ -200,11 +205,12 @@ namespace BookingApp.Dto
                 ChosenDateTime = tourRequest.ChosenDateTime.ToString();
             }
             TouristsId = tourRequest.TouristsId;
+            Tourists = new List<Tourist>();
         }
 
         public TourRequest ToTourRequest()
         {
-            return new TourRequest(Location, Description, Language, NumberOfTourists, DateOnly.FromDateTime(Start), DateOnly.FromDateTime(End), TouristsId, UserTouristId);
+            return new TourRequest(Location, Description, Language, NumberOfTourists, DateOnly.FromDateTime(Start), DateOnly.FromDateTime(End), TouristsId, UserTouristId, Tourists);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -229,7 +235,12 @@ namespace BookingApp.Dto
             }
         }
 
+        public void UpdateStartEndString()
+        {
+            StartEndDate = Start.ToString("dd.MM.yyyy") + "-" + End.ToString("dd.MM.yyyy");
+        }
 
+     
 
 
 

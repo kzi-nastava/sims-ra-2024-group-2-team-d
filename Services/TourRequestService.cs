@@ -32,6 +32,11 @@ namespace BookingApp.Services
             else return true;
         }
 
+        public TourRequest GetById(int id)
+        {
+            return TourRequestRepository.GetById(id);
+        }
+
         public string FindMostWantedLocInLastYear()
         {
             Dictionary<string, int> counts = new Dictionary<string, int>();

@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.View;
+using BookingApp.WPF.Views.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -98,6 +99,7 @@ namespace BookingApp.WPF.ViewModels.Guide
         public MyCommand SearchByNumCommand { get; set; }
         public MyCommand SearchByLanguageCommand { get; set; }
         public MyCommand SearchByDateCommand { get; set; }
+        public MyCommand ComplReqCommand { get; set; }
 
         public RequestsGuideViewModel(User user)
         {
@@ -109,6 +111,13 @@ namespace BookingApp.WPF.ViewModels.Guide
             SearchByNumCommand = new MyCommand(SearchByNum);
             SearchByLanguageCommand = new MyCommand(SearchByLanguage);
             SearchByDateCommand = new MyCommand(SearchByDate);
+            ComplReqCommand = new MyCommand(ShowComplexTourRequests);
+        }
+
+        private void ShowComplexTourRequests()
+        {
+            ComplexTourReq complexTourReq = new ComplexTourReq(LoggedInUser);
+            complexTourReq.ShowDialog();
         }
 
         private void Accept()

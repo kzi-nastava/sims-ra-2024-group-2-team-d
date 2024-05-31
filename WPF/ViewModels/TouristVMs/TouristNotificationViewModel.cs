@@ -1,13 +1,8 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
-using System;
+using BookingApp.Services.IServices;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookingApp.Services;
-using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
@@ -15,8 +10,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
     {
         private TouristRepository _touristRepository;
 
-        private FollowingTourLiveService _followingTourLiveService;
-        private TourReservationService _tourReservationService;
+        private IFollowingTourLiveService _followingTourLiveService;
+        private ITourReservationService _tourReservationService;
 
         public ObservableCollection<List<Tourist>> PresentTourists { get; set; }
         public User LoggedInUser { get; set; }
@@ -26,8 +21,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         {
 
             _touristRepository = new TouristRepository();
-            _followingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
-            _tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
+            _followingTourLiveService = Injector.Injector.CreateInstance<IFollowingTourLiveService>();
+            _tourReservationService = Injector.Injector.CreateInstance<ITourReservationService>();
             PresentTourists = new ObservableCollection<List<Tourist>>();
             LoggedInUser = loggedInUser;
             CheckForNotification(activeTours);

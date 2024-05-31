@@ -14,6 +14,7 @@ using BookingApp.View;
 using System.Security.Cryptography.X509Certificates;
 using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.WPF.ViewModels.Guide
 {
@@ -184,10 +185,10 @@ namespace BookingApp.WPF.ViewModels.Guide
         private void NotifyTouristUser(int userId)
         {
             LiveTourNotification liveTourNotification = new LiveTourNotification(TouristsId, TourInstance.Id);
-            LiveTourNotificationService _liveTourNotificationService = new LiveTourNotificationService(Injector.Injector.CreateInstance<ILiveTourNotificationRepository>());
+            ILiveTourNotificationService _liveTourNotificationService = Injector.Injector.CreateInstance<ILiveTourNotificationService>();
             LiveTourNotification savedNotification = _liveTourNotificationService.Save(liveTourNotification);
             TouristNotifications notification = new TouristNotifications(savedNotification.Id, "You have been added to the tour. Click \"See more\" to see other tourists", NotificationType.AddedToLiveTour, userId);
-            TouristNotificationsService _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
+            ITouristNotificationsService _touristNotificationsService = Injector.Injector.CreateInstance<ITouristNotificationsService>();
             _touristNotificationsService.Save(notification);
         }
 

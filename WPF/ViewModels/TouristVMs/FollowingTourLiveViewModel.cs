@@ -1,12 +1,6 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
-using System;
-using System.Collections.Generic;
+using BookingApp.Services.IServices;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookingApp.Services;
-using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
@@ -23,9 +17,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void GetCurrentPosition()
         {
-            FollowingTourLiveService _followingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
+            IFollowingTourLiveService _followingTourLiveService = Injector.Injector.CreateInstance<IFollowingTourLiveService>();
             FollowingTourLive currentPosition = _followingTourLiveService.GetByTourInstanceId(ActiveTour.Id).LastOrDefault();
-            KeyPointService _keyPointService = new KeyPointService(Injector.Injector.CreateInstance<IKeyPointRepository>());
+            IKeyPointService _keyPointService = Injector.Injector.CreateInstance<IKeyPointService>();
             CurrentKeyPoint = _keyPointService.GetById(currentPosition.KeyPointId);
 
         }

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.WPF.Views.Guest1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,12 @@ namespace BookingApp.View.Guest1
                 }
             }
 
+        }
+
+        private void Forums_Click(object sender, RoutedEventArgs e)
+        {
+            ForumsOverviewWindow overview = new ForumsOverviewWindow();
+            overview.Show();
         }
     }
 }

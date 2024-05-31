@@ -1,23 +1,13 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
-using BookingApp.View.Guest1;
 using InitialProject.CustomClasses;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BookingApp.View.Owner
 {
@@ -161,12 +151,12 @@ namespace BookingApp.View.Owner
 
         private void Reserve_Click(object sender, RoutedEventArgs e)
         {
-            if(rezervacije.SelectedIndex==-1)
+            if (rezervacije.SelectedIndex==-1)
             {
                 MessageBox.Show("Niste izabrali datum");
                 return;
             }
-            RenovationComment rc = new RenovationComment(rezervacije.SelectedItem as DateRange,SelectedAccommodation,_user);
+            RenovationComment rc = new RenovationComment(rezervacije.SelectedItem as DateRange, SelectedAccommodation, _user);
             rc.Show();
         }
 
@@ -184,7 +174,7 @@ namespace BookingApp.View.Owner
                     }
                 }
             }
-            List<Reservation> Reservations = BaseService.ReservationService._repository.GetAll();
+            List<Reservation> Reservations = BaseService.ReservationService.GetAll();
             foreach (Reservation reservation in Reservations)
             {
                 foreach (DateRange range in allDates)

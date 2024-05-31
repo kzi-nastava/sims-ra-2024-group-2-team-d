@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows;
 using System.ComponentModel;
 using BookingApp.WPF.ViewModels.TouristVMs;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
@@ -24,23 +25,23 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public User LoggedInUser { get; set; }
         public ObservableCollection<GiftCard> UserGiftCards { get; set; }
 
-        private readonly TourService _tourService;
+        private readonly ITourService _tourService;
 
-        private readonly TourInstanceService _tourInstanceService;
+        private readonly ITourInstanceService _tourInstanceService;
 
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        private readonly PictureService _pictureService;
+        private readonly IPictureService _pictureService;
 
-        private readonly KeyPointService _keyPointService;
+        private readonly IKeyPointService _keyPointService;
 
-        private readonly TourReservationService _tourReservationService;
+        private readonly ITourReservationService _tourReservationService;
 
-        private readonly GiftCardService _giftCardService;
+        private readonly IGiftCardService _giftCardService;
 
-        private readonly TouristNotificationsService _touristNotificationsService;
+        private readonly ITouristNotificationsService _touristNotificationsService;
 
-        private TourCreationNotificationService _tourCreationNotificationService;
+        private ITourCreationNotificationService _tourCreationNotificationService;
 
         public ObservableCollection<string> UniqueLanguages { get; set; }
 
@@ -130,19 +131,19 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         {
             _mainViewModel = mainViewModel;
             LoggedInUser = user;
-            _tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>());
-            _tourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
-            _userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>(), Injector.Injector.CreateInstance<ITourReviewRepository>());
+            _tourService = Injector.Injector.CreateInstance<ITourService>();
+            _tourInstanceService = Injector.Injector.CreateInstance<ITourInstanceService>();
+            _userService = Injector.Injector.CreateInstance<IUserService>();
             TourInstances = new ObservableCollection<TourInstance>(_tourInstanceService.GetAll());
             ActiveTours = new ObservableCollection<TourInstance>();
             UserGiftCards = new ObservableCollection<GiftCard>();
             Notifications = new ObservableCollection<TouristNotifications>();
             SelectedTour = new TourInstance();
-            _pictureService = new PictureService(Injector.Injector.CreateInstance<IPictureRepository>());
-            _keyPointService = new KeyPointService(Injector.Injector.CreateInstance<IKeyPointRepository>());
-            _giftCardService = new GiftCardService(Injector.Injector.CreateInstance<IGiftCardRepository>());
-            _tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
-            _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
+            _pictureService = Injector.Injector.CreateInstance<IPictureService>();
+            _keyPointService = Injector.Injector.CreateInstance<IKeyPointService>();
+            _giftCardService = Injector.Injector.CreateInstance<IGiftCardService>();
+            _tourReservationService = Injector.Injector.CreateInstance<ITourReservationService>();
+            _touristNotificationsService = Injector.Injector.CreateInstance<ITouristNotificationsService>();
             //Reserve = new RelayCommand(tourInstance => MakeReservation((TourInstance)tourInstance));
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
             OpenMorePicturesCommand = new RelayCommand(tourInstance => OpenMorePictures((TourInstance)tourInstance));
@@ -159,7 +160,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             TypeOfTourRequestSelectionCommand = new RelayCommand(OpenTypeOfTourRequestSelection);
             NavigateToReservationCommand = new RelayCommand(tourInstance => ShowNumberOfTouristsDialog((TourInstance)tourInstance));
             _dialogService = dialogService;
-            _tourCreationNotificationService = new TourCreationNotificationService(Injector.Injector.CreateInstance<ITourCreationNotificationRepository>());
+            _tourCreationNotificationService = Injector.Injector.CreateInstance<ITourCreationNotificationService>();
             LinkEntities();
             MoveToActiveTours();
             SortTourInstances(TourInstances);
@@ -410,7 +411,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             else if (notification.Type == NotificationType.TourCreation)
             {
                 TourCreationNotification tourCreationNotification = _tourCreationNotificationService.GetById(notification.NotificationId);
-                TourInstanceService service = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
+                var service = Injector.Injector.CreateInstance<ITourInstanceService>();
                 var viewModel = new MoreInfoAboutTourViewModel(service.GetById(tourCreationNotification.CreatedTourInstanceId));
                 bool? result = _dialogService.ShowDialog(viewModel);
                 //MoreInfoAboutTourView view = new MoreInfoAboutTourView(service.GetById(tourCreationNotification.CreatedTourInstanceId));

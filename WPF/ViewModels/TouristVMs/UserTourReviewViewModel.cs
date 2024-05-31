@@ -11,6 +11,7 @@ using System.IO;
 using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
@@ -24,7 +25,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public ICommand AddImageCommand { get; }
 
-        private PictureService _pictureService;
+        private IPictureService _pictureService;
 
         public ObservableCollection<int> Ratings { get; } = new ObservableCollection<int>() { 1, 2, 3, 4, 5 };
 
@@ -34,7 +35,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             UserTourReview.TourInstanceId = tourInstance.Id;
             UserTourReview.GuideId = tourInstance.BaseTour.UserId;
             UserTourReview.UserId = loggedInUser.Id;
-            _pictureService = new PictureService(Injector.Injector.CreateInstance<IPictureRepository>());
+            _pictureService = Injector.Injector.CreateInstance<IPictureService>();
             ConfirmReviewCommand = new RelayCommand(() =>
             {
                 ConfirmReview(tourInstance);
@@ -46,7 +47,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void ConfirmReview(TourInstance tourInstance)
         {
-            TourReviewService _tourReviewService = new TourReviewService(Injector.Injector.CreateInstance<ITourReviewRepository>());
+            var _tourReviewService = Injector.Injector.CreateInstance<ITourReviewService>();
             _tourReviewService.Save(UserTourReview);
             foreach (string imagePath in ImagePaths)
             {

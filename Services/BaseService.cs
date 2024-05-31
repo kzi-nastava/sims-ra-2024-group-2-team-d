@@ -1,33 +1,31 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
+using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
     public class BaseService
     {
-        public AccomodationService AccomodationService { get; set; }
+        public IAccommodationService AccomodationService { get; set; }
 
         public RenovationRecommendationService RenovationRecommendationService { get; set; }
 
-        public AccommodationReviewService AccommodationReviewService { get; set; }
+        public IAccommodationReviewService AccommodationReviewService { get; set; }
 
         public ChangeReservationRequestService ChangeReservationService { get; set; }
 
-        public ReservationService ReservationService { get; set; }
+        public IReservationService ReservationService { get; set; }
 
-        public GuestReviewService   GuestReviewService { get; set; }
+        public GuestReviewService GuestReviewService { get; set; }
 
-        public RenovationService RenovationService { get; set; }
+        public IRenovationService RenovationService { get; set; }
 
         private static object lockObject { get; set; } = new object();
 
         private static BaseService instance;
-       
+
 
         public static BaseService getInstance()
         {
@@ -42,15 +40,16 @@ namespace BookingApp.Services
             }
 
         }
-        
-        public BaseService() {
+
+        public BaseService()
+        {
             AccomodationService = new AccomodationService();
             AccommodationReviewService  = new AccommodationReviewService();
             ChangeReservationService = new ChangeReservationRequestService();
             ReservationService = new ReservationService();
             GuestReviewService = new GuestReviewService();
             RenovationService = new RenovationService();
-            RenovationRecommendationService = new RenovationRecommendationService();        
+            RenovationRecommendationService = new RenovationRecommendationService();
 
         }
 

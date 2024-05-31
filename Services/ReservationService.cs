@@ -1,24 +1,29 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class ReservationService
+    public class ReservationService : IReservationService
     {
 
-        public ReservationRepository _repository { get; set; }
+        public IReservationRepository _repository { get; set; }
+        public IAccommodationService _accommodationService{ get; set; }
 
         public ReservationService()
         {
 
-            _repository = new ReservationRepository();
+            _repository = Injector.Injector.CreateInstance<IReservationRepository>();
+            _accommodationService = Injector.Injector.CreateInstance<IAccommodationService>();
         }
 
+        public List<Reservation> GetAll()
+        {
+            return _repository.GetAll();
+        }
 
         public List<Reservation> GetAllUnreviewed(List<int> accomodationId)
         {
@@ -47,17 +52,17 @@ namespace BookingApp.Services
 
         public List<Reservation> GetAllReviewedByBoth()
         {
-            return _repository.getReservation().Where(r => r.ReviewedByOwner == true && r.ReviewedByGuest == true).ToList();
+            return _repository.GetReservation().Where(r => r.ReviewedByOwner == true && r.ReviewedByGuest == true).ToList();
         }
 
         public List<Reservation> GetAllUserReservations(int userId)
         {
-            return _repository.getReservation().Where(r => r.UserId == userId).ToList();
+            return _repository.GetReservation().Where(r => r.UserId == userId).ToList();
         }
 
         public Reservation GetById(int id)
         {
-            return _repository.getReservation().Where(r => r.Id == id).FirstOrDefault();
+            return _repository.GetReservation().Where(r => r.Id == id).FirstOrDefault();
         }
 
         public DateTime GetCheckInDate(int userId, int reservationId)
@@ -71,7 +76,7 @@ namespace BookingApp.Services
             return reservations.Find(r => r.Id == reservationId).ReservationDateRange.EndDate;
         }
 
-       
+
 
         public void ChangeReservationDateRange(DateTime newStartDate, DateTime newEndDate, int reservationId)
         {
@@ -79,6 +84,25 @@ namespace BookingApp.Services
             reservation.ReservationDateRange.StartDate = newStartDate;
             reservation.ReservationDateRange.EndDate = newEndDate;
             _repository.Update(reservation);
+        }
+
+        public bool WasOnLocation(int userId, Location location)
+        {
+            List<Reservation> userReservations = GetAllUserReservations(userId);
+            foreach (Reservation reservation in userReservations)
+            {
+                Accommodation accommodation = _accommodationService.GetAccommodationByReservationId(reservation.Id);
+                if (IsMatchingLocation(accommodation, location))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsMatchingLocation(Accommodation accommodation, Location location)
+        {
+            return accommodation.Location.City == location.City && accommodation.Location.Country == location.Country;
         }
     }
 }

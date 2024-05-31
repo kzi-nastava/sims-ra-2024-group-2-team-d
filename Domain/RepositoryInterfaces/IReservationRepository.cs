@@ -1,41 +1,37 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Domain.RepositoryInterfaces
 {
     public interface IReservationRepository
     {
+        List<Reservation> GetReservation();
+        List<Reservation> GetAll();
 
-        public List<Reservation> GetAll();
+        Reservation Save(Reservation Reservation);
 
-        public Reservation Save(Reservation Reservation);
+        int NextId();
 
-        public int NextId();
+        void Delete(Reservation Reservation);
 
-        public void Delete(Reservation Reservation);
+        Reservation Update(Reservation Reservation);
 
-        public Reservation Update(Reservation Reservation);
+        List<Reservation> GetAllUnreviewed(List<int> accomodationId);
 
-        public List<Reservation> GetAllUnreviewed(List<int> accomodationId);
+        List<Reservation> GetAllUnreviewedByGuest(int userId);
 
-        public List<Reservation> GetAllUnreviewedByGuest(int userId);
+        List<Reservation> GetAllReviewedByBoth();
 
-        public List<Reservation> GetAllReviewedByBoth();
+        List<Reservation> GetAllUserReservations(int userId);
 
-        public List<Reservation> GetAllUserReservations(int userId);
+        Reservation GetById(int id);
 
-        public Reservation GetById(int id);
+        DateTime GetCheckInDate(int userId, int reservationId);
+        DateTime GetCheckOutDate(int userId, int reservationId);
 
-        public DateTime GetCheckInDate(int userId, int reservationId);
-        public DateTime GetCheckOutDate(int userId, int reservationId);
+        Dictionary<int, string> GetReservationsByUserId(int userId);
 
-        public Dictionary<int, string> GetReservationsByUserId(int userId);
-
-        public void ChangeReservationDateRange(DateTime newStartDate, DateTime newEndDate, int reservationId);
+        void ChangeReservationDateRange(DateTime newStartDate, DateTime newEndDate, int reservationId);
     }
 }

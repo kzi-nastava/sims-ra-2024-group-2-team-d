@@ -13,6 +13,7 @@ using System.Collections;
 using LiveCharts;
 using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
@@ -23,7 +24,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public ObservableCollection<TourRequestDTO> MyTourRequests { get; set; }
 
-        public TourRequestService _tourRequestService { get; set; }
+        public ITourRequestService _tourRequestService { get; set; }
         private readonly MainViewModel _mainViewModel;
 
         private double averageNumberOfTourists;
@@ -62,7 +63,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public MyStandardTourRequestsViewModel(MainViewModel mainViewModel, User loggedInUser)
         {
             LoggedInUser = loggedInUser;
-            _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
+            _tourRequestService = Injector.Injector.CreateInstance<ITourRequestService>();
             _tourRequestService.InvalidateOutdatedTourRequests();
             MyTourRequests = new ObservableCollection<TourRequestDTO>(ConvertModelToDTO(_tourRequestService.GetByUserTouristId(LoggedInUser.Id)));
             InfoCommand = new RelayCommand(tourRequest => ShowMoreInfo((TourRequestDTO)tourRequest));

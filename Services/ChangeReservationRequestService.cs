@@ -1,21 +1,19 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
-using System;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class ChangeReservationRequestService
+    public class ChangeReservationRequestService : IChangeReservationRequestService
     {
-        public ChangeReservationRequestRepository _repo { get; set; }
+        public IChangeReservationRequestRepository _repo { get; set; }
 
         public ChangeReservationRequestService()
         {
 
-            _repo = new ChangeReservationRequestRepository();
+            _repo = Injector.Injector.CreateInstance<IChangeReservationRequestRepository>();
         }
 
 

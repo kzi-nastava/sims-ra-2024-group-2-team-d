@@ -1,8 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Serializer;
-using BookingApp.View.Guest1;
-using BookingApp.View.Owner;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +17,7 @@ namespace BookingApp.Repository
 
         private List<Reservation> _reservations;
 
-        public List<Reservation> getReservation()
+        public List<Reservation> GetReservation()
         {
             return _reservations;
         }
@@ -76,7 +74,7 @@ namespace BookingApp.Repository
 
         public List<Reservation> GetAllUnreviewed(List<int> accomodationId)
         {
-            List<Reservation> list = new List<Reservation> ();
+            List<Reservation> list = new List<Reservation>();
             foreach (var id in accomodationId)
             {
                 foreach (var review in GetAll().Where(r => r.AccomodationId == id).Where(r => r.ReservationDateRange.EndDate <= System.DateTime.Today && r.ReservationDateRange.EndDate.AddDays(5) >= System.DateTime.Today).Where(r => r.ReviewedByOwner == false).ToList())
@@ -128,12 +126,12 @@ namespace BookingApp.Repository
         public Dictionary<int, string> GetReservationsByUserId(int userId)
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
-            List<Reservation> usersReservations = GetAllUserReservations(userId).Where(r=> r.ReservationDateRange.StartDate >= DateTime.UtcNow).ToList();
+            List<Reservation> usersReservations = GetAllUserReservations(userId).Where(r => r.ReservationDateRange.StartDate >= DateTime.UtcNow).ToList();
             if (usersReservations.Count > 0)
             {
                 foreach (Reservation reservation in usersReservations)
                 {
-                    
+
                     Reservation founded = GetById(reservation.Id);
                     string value = "";
                     string accommodationName = _accommodationRepository.getNameById(reservation.AccomodationId);

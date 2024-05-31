@@ -21,10 +21,10 @@ namespace BookingApp.WPF.Views.Guide
     /// </summary>
     public partial class AccPartOfComplexRequest : Window
     {
-        public AccPartOfComplexRequest(TourRequest tourRequest, User user)
+        public AccPartOfComplexRequest(TourRequest tourRequest, User user, ComplexTourRequest complexTourRequest)
         {
             InitializeComponent();
-            DataContext = new AccPartOfComplexRequestViewModel(tourRequest, user, Close);
+            DataContext = new AccPartOfComplexRequestViewModel(tourRequest, user, complexTourRequest, Close);
         }
     }
 }

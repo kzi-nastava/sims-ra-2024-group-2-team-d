@@ -1,5 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
+using BookingApp.View;
+using BookingApp.WPF.Views.Guide;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.Guide
 {
@@ -38,8 +41,25 @@ namespace BookingApp.WPF.ViewModels.Guide
             ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAllForGuide(user));
             AllTourRequests = new ObservableCollection<TourRequest>();
             GetAllTourRequests();
-            //AcceptCommand = new MyCommand();
+            AcceptCommand = new MyCommand(Accept);
 
+        }
+
+        private void Accept()
+        {
+            if (SelectedTourRequest == null)
+            {
+                MessageBox.Show("Must select specific tour request");
+                return;
+            }
+            ComplexTourRequest ComplexTourRequest = MainService.ComplexTourRequestService.FindComplexTourRequestByTourRequestId(SelectedTourRequest.Id, ComplexTourRequests);
+            AccPartOfComplexRequest acceptPartReqGuide = new AccPartOfComplexRequest(SelectedTourRequest, LoggedInUser, ComplexTourRequest);
+            acceptPartReqGuide.ShowDialog();
+            ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAll());
+            LinkReqWithComplReq();
+            ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAllForGuide(LoggedInUser));
+            AllTourRequests = new ObservableCollection<TourRequest>();
+            GetAllTourRequests();
         }
 
         public void LinkReqWithComplReq()

@@ -23,11 +23,19 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="Choose between:" Width="286" Height="15" />
         </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <DataGrid ItemsSource="{Binding Slots}" SelectedItem="{Binding SelectedTime}" x:Name="RequestsGrid"     
+IsReadOnly="True" SelectionMode="Single" 
+AutoGenerateColumns="False" Height="200" HeadersVisibility="Column" Width="190" FontSize="13">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Date and Time" Binding="{Binding}" Width="190"/>
+                    </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
 
 
-
-        <Button x:Name="Ok" Grid.Row="5" Grid.Column="1" Width="50" HorizontalAlignment="Left" 
-Command="{Binding OkCommand}" Margin="137,3,0,12">OK</Button>
+        <Button x:Name="Set" Grid.Row="5" Grid.Column="1" Width="50" HorizontalAlignment="Left" 
+Command="{Binding OkCommand}" Margin="137,3,0,12">Set</Button>
         <Button x:Name="Cancel" Grid.Row="5" Grid.Column="1" Width="50" HorizontalAlignment="Left" 
 Command="{Binding CancelCommand}" Margin="207,3,0,12">Cancel</Button>
     </Grid>

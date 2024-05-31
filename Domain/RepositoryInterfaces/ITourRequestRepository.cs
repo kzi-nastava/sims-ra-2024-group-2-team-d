@@ -10,6 +10,8 @@ namespace BookingApp.Domain.RepositoryInterfaces
 {
     public interface ITourRequestRepository
     {
+        public TourRequest GetById(int id);
+
         public List<TourRequest> getByStatus();
 
         public List<TourRequest> FilterByLocation(string location);

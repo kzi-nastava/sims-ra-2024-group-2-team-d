@@ -41,5 +41,12 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _complexTourRequests);
             return complexTourRequest;
         }
+
+        public List<ComplexTourRequest> GetAll()
+        {
+            return _complexTourRequests;
+        }
+
+        
     }
 }

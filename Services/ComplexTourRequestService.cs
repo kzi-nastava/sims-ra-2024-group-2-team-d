@@ -19,5 +19,17 @@ namespace BookingApp.Services
         {
             return ComplexTourRequestReposotry.Save(complexTourRequest);
         }
+
+        public List<ComplexTourRequest> GetAll()
+        {
+            return ComplexTourRequestReposotry.GetAll();
+        }
+
+        public List<ComplexTourRequest> GetAllForGuide(User user)
+        {
+            return GetAll().Where(c => c.TourRequests.All(t => t.GuideId != user.Id)).ToList();
+        }
+
+
     }
 }

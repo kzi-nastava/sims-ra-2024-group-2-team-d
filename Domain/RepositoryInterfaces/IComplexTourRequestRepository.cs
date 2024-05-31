@@ -10,5 +10,8 @@ namespace BookingApp.Domain.RepositoryInterfaces
     public interface IComplexTourRequestRepository
     {
         public ComplexTourRequest Save(ComplexTourRequest complexTourRequest);
+
+        public List<ComplexTourRequest> GetAll();
+       
     }
 }

@@ -34,6 +34,11 @@ namespace BookingApp.Repository
             return _tourRequest.Max(c => c.Id) + 1;
         }
 
+        public TourRequest GetById(int id)
+        {
+            return _tourRequest.Find(x => x.Id == id);
+        }
+
         public List<TourRequest> getByStatus()
         {
             return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold).ToList();

@@ -35,6 +35,9 @@
         </StackPanel>
         <Button x:Name="Accept" Grid.Row="3" Grid.Column="1" Width="122" HorizontalAlignment="Center" 
         Command="{Binding AcceptCommand}" Margin="0,7,0,8" Grid.RowSpan="2">Accept Tour Request</Button>
+        <Button x:Name="Compl" Grid.Row="3" Grid.Column="1" Width="166" HorizontalAlignment="Left" 
+Command="{Binding ComplReqCommand}" Margin="542,7,0,8" Grid.RowSpan="2">Show complex Tour Requests</Button>
+
         <!--Button x:Name="Statistics" Grid.Row="3" Grid.Column="1" Width="122" HorizontalAlignment="Left" 
 Click="Statistics_Click" Margin="575,7,0,8" Grid.RowSpan="2">Show Statistics</Button-->
         <!--TextBox Width="100" Name="SearchTextBox"  Height="30"  Margin="81,2,535,7" Grid.Column="1"/-->

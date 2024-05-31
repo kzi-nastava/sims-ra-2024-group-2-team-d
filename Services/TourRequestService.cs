@@ -32,6 +32,19 @@ namespace BookingApp.Services
             else return true;
         }
 
+        public List<DateTime> FindAllUnavaliableDates(User user)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            foreach(var tourRequest in TourRequestRepository.GetAll())
+            {
+                if(tourRequest.CurrentStatus == Status.Accepted && tourRequest.GuideId == user.Id)
+                {
+                    dates.Add(tourRequest.ChosenDateTime);
+                }
+            }
+            return dates;
+        }
+
         public TourRequest GetById(int id)
         {
             return TourRequestRepository.GetById(id);

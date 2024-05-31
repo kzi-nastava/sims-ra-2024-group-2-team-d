@@ -34,6 +34,19 @@ namespace BookingApp.Services
             return TourInstanceRepository.GetAll();
         }
 
+        public List<DateTime> FindAllUnavaliableDates(User user, ObservableCollection<TourInstance> tours)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            foreach (var tour in tours)
+            {
+                if(tour.BaseTour.UserId == user.Id)
+                {
+                    dates.Add(tour.Date);
+                }
+            }
+            return dates;
+        }
+
         public void Delete(TourInstance tourInstance)
         {
             TourInstanceRepository.Delete(tourInstance);

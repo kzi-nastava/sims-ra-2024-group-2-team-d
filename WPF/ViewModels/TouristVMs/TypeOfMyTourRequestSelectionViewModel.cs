@@ -16,6 +16,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public ICommand ShowMyStandardTourRequestsCommand { get; set; }
 
+        public ICommand ShowMyComplexTourRequestsCommand { get; set; }
+
+
         public event EventHandler<DialogCloseRequestedEventArgs> RequestClose;
 
         private string _selectedOption;
@@ -38,6 +41,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             ShowMyStandardTourRequestsCommand = new RelayCommand(ShowMyStandardTourRequests);
             _mainViewModel = mainViewModel;
             BackButtonCommand = new RelayCommand(GoBack);
+            ShowMyComplexTourRequestsCommand = new RelayCommand(ShowMyComplexTourRequests);
         }
 
         public void GoBack()
@@ -50,6 +54,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             //view.Show();
             SelectedOption = "Standard";
             RequestClose?.Invoke(this, new DialogCloseRequestedEventArgs(true, "Standard"));
+        }
+
+        public void ShowMyComplexTourRequests()
+        {
+            SelectedOption = "Complex";
+            RequestClose?.Invoke(this, new DialogCloseRequestedEventArgs(true, "Complex"));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

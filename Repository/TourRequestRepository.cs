@@ -202,5 +202,22 @@ namespace BookingApp.Repository
             return _tourRequest.Count(t => String.Equals(t.Location, location, StringComparison.OrdinalIgnoreCase));
         }
 
+        public List<TourRequest> GetByIds(List<int> ids)
+        {
+            return _tourRequest.Where(t => ids.Contains(t.Id)).ToList();
+        }
+
+        public bool IsEveryPartOfComplexTourAccepted(List<int> tourRequestIds)
+        {
+            var filteredRequests = _tourRequest.Where(t => tourRequestIds.Contains(t.Id));
+            return !filteredRequests.Any(t => t.CurrentStatus != Status.Accepted);
+        }
+
+        public List<TourRequest> GetAllOutdatedPartsOfComplexTourRequest(List<int> tourRequestIds)
+        {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+            return _tourRequest.Where(t => tourRequestIds.Contains(t.Id) && t.Start <= today.AddDays(2) && t.CurrentStatus != Status.Accepted).ToList();
+        }
+
     }
 }

@@ -42,7 +42,7 @@ namespace BookingApp.Services
             TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
             UserService = new UserService(Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>(), Injector.Injector.CreateInstance<ITourReviewRepository>());
             PictureService = new PictureService(Injector.Injector.CreateInstance<IPictureRepository>());
-            ComplexTourRequestService = new ComplexTourRequestService(Injector.Injector.CreateInstance<IComplexTourRequestRepository>());
+            ComplexTourRequestService = new ComplexTourRequestService(Injector.Injector.CreateInstance<IComplexTourRequestRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
         }
 
         public static MainService GetInstance()

@@ -12,6 +12,10 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public ComplexTourRequest Save(ComplexTourRequest complexTourRequest);
 
         public List<ComplexTourRequest> GetAll();
-       
+
+        public List<ComplexTourRequest> GetByUserId(int userId);
+        public ComplexTourRequest Update(ComplexTourRequest complexTourRequest);
+
+
     }
 }

@@ -188,6 +188,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 {
                     _mainViewModel.SwitchView(new MyStandardTourRequestsViewModel(_mainViewModel, LoggedInUser));
                 }
+                else if (viewModel.SelectedOption == "Complex")
+                {
+                    _mainViewModel.SwitchView(new MyComplexTourRequestsViewModel(_mainViewModel, LoggedInUser));
+                }
             }
         }
 

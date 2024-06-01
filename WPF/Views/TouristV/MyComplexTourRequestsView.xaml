@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristV.MyComplexTourRequestsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristV"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <UserControl.Resources>
+        <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+      BorderBrush="{TemplateBinding BorderBrush}" 
+      BorderThickness="{TemplateBinding BorderThickness}" 
+      CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Grid Height="73">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="47*"></ColumnDefinition>
+                    <ColumnDefinition Width="159*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Width="50" HorizontalAlignment="Left" Style="{StaticResource MyButtonStyle}" Command="{Binding GoBackCommand}">
+                    <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
+                </Button>
+                <TextBlock Text="My Complex Tour Requests" VerticalAlignment="Top" FontSize="23" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,20"></TextBlock>
+            </Grid>
+        </DockPanel>
+        <ListBox x:Name="TourRequestsLB" Height="600" Width="1000" ItemsSource="{Binding MyComplexTourRequests}" 
+Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+BorderBrush="Black" BorderThickness="2" 
+HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190" />
+                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="150" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                                <Image Height="40" Width="40" Source="../../../Resources/Images/location-icon.jpg"/>
+                                <ListBox ItemsSource="{Binding Locations}" IsHitTestVisible="False"
+                 Focusable="False" BorderThickness="0"
+                 Background="Transparent">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" Style="{StaticResource MyTextStyle}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Focusable" Value="False"/>
+                                            <Setter Property="IsHitTestVisible" Value="False"/>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+                                <Image Height="40" Width="40" Source="../../../Resources/Images/status-icon.png"/>
+                                <TextBlock Text="{Binding CurrentStatus}" Style="{StaticResource MyTextStyle}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
+                                <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"/>
+                                <ListBox ItemsSource="{Binding UniqueLanguages}" IsHitTestVisible="False"
+Focusable="False" BorderThickness="0"
+Background="Transparent">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" Style="{StaticResource MyTextStyle}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Focusable" Value="False"/>
+                                            <Setter Property="IsHitTestVisible" Value="False"/>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center">
+                                <Image Height="40" Width="40" Source="../../../Resources/Images/counter-icon.png"/>
+                                <TextBlock Text="{Binding NumberOfRequests}" Style="{StaticResource MyTextStyle}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Description}" Style="{StaticResource MyTextStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
+                            <StackPanel Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center">
+                                <Button Style="{StaticResource MyButtonStyle}" Height="50" Width="50" Command="{Binding ElementName=TourRequestsLB, Path=DataContext.InfoCommand}" CommandParameter="{Binding}">
+                                    <Image Source="../../../Resources/Images/info-icon.png"/>
+                                </Button>
+                                <TextBlock Text="See all tour requests" Style="{StaticResource MyTextStyle}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</UserControl>

@@ -38,6 +38,12 @@
         <DataTemplate DataType="{x:Type vmTourists:CreateComplexTourRequestViewModel}">
             <viewTourists:CreateComplexTourRequestView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:MyComplexTourRequestsViewModel}">
+            <viewTourists:MyComplexTourRequestsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:AllRequestsInComplexTourRequestViewModel}">
+            <viewTourists:AllRequestsInComplexTourRequestView />
+        </DataTemplate>
         <Storyboard x:Key="SmoothTransition">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>

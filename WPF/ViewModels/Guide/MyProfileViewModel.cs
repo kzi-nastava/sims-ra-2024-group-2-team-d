@@ -47,7 +47,16 @@ namespace BookingApp.WPF.ViewModels.Guide
                 OnPropertyChanged("SuperG");
             }
         }
-        public ObservableCollection<string> SuperLanguages { get; set; }
+        private ObservableCollection<string> superLanguages;
+        public ObservableCollection<string> SuperLanguages 
+        {
+            get { return superLanguages; }
+            set
+            {
+                superLanguages = value;
+                OnPropertyChanged("SuperLanguages");
+            }
+        }
         public MyCommand QuitJob { get; set; }
 
 

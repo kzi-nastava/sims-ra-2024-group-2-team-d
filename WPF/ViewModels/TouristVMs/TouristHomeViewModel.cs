@@ -112,6 +112,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             }
         }
 
+        public TourGiftCardAwardRecorderService TourGiftCardAwardRecorderService { get; set; }
+
         public bool HasNotifications
         {
             get { return Notifications.Count > 0; }
@@ -159,7 +161,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             TypeOfTourRequestSelectionCommand = new RelayCommand(OpenTypeOfTourRequestSelection);
             NavigateToReservationCommand = new RelayCommand(tourInstance => ShowNumberOfTouristsDialog((TourInstance)tourInstance));
             _dialogService = dialogService;
+            TourGiftCardAwardRecorderService = new TourGiftCardAwardRecorderService(Injector.Injector.CreateInstance<ITourGiftCardAwardRecorderRepository>(), Injector.Injector.CreateInstance<IGiftCardRepository>(), Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITouristRepository>());
             _tourCreationNotificationService = new TourCreationNotificationService(Injector.Injector.CreateInstance<ITourCreationNotificationRepository>());
+            TourGiftCardAwardRecorderService.GiveGiftCardToEligibleTourist(user);
             LinkEntities();
             MoveToActiveTours();
             SortTourInstances(TourInstances);
@@ -425,12 +429,13 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public bool CheckIfGuidedBySuperGuide(int id)
         {
+            
             TourInstance instance = _tourInstanceService.GetById(id);
             if(_userService.GetAllSuperGuides(TourInstances.ToList()).Find(c=> c.Id == instance.BaseTour.UserId) == null)
             {
                 return false;
             }
-            else { return true; }
+            else { return true; } 
         }
 
         public void SortTourInstances(ObservableCollection<TourInstance> tourInstances)

@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.View;
 using BookingApp.WPF.Views.Guide;
@@ -64,13 +65,14 @@ namespace BookingApp.WPF.ViewModels.Guide
 
         public void LinkReqWithComplReq()
         {
+            
             foreach(var request in ComplexTourRequests)
             {
                 foreach(var id in request.TourRequestIds)
                 {
                     request.TourRequests.Add(MainService.TourRequestService.GetById(id));
                 }
-            }
+            } 
         }
 
         private void GetAllTourRequests()

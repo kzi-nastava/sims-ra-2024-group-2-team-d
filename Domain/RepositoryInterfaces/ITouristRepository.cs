@@ -22,5 +22,7 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public List<Tourist> GetAll();
 
         public Tourist GetById(int id);
+
+        public List<int> GetUserReservations(int userId);
     }
 }

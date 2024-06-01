@@ -44,6 +44,9 @@
         <DataTemplate DataType="{x:Type vmTourists:AllRequestsInComplexTourRequestViewModel}">
             <viewTourists:AllRequestsInComplexTourRequestView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:UserToursViewModel}">
+            <viewTourists2:UserToursView />
+        </DataTemplate>
         <Storyboard x:Key="SmoothTransition">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>

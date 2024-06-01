@@ -19,12 +19,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for FollowingTourLiveView.xaml
     /// </summary>
-    public partial class FollowingTourLiveView : Window
+    public partial class FollowingTourLiveView : UserControl
     {
-        public FollowingTourLiveView(TourInstance activeTour)
+        public FollowingTourLiveView()
         {
             InitializeComponent();
-            this.DataContext = new FollowingTourLiveViewModel(activeTour);
+            //this.DataContext = new FollowingTourLiveViewModel(activeTour);
         }
     }
 }

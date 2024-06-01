@@ -105,6 +105,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 return new ShowMorePicturesView { DataContext = viewModel };
             }
+            if (viewModel is FollowingTourLiveViewModel)
+            {
+                return new FollowingTourLiveView { DataContext = viewModel };
+            }
             // Dodajte ostale view modele i odgovarajuće view-ove ovde
             return null;
         }

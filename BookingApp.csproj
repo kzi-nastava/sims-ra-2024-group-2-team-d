@@ -16,6 +16,7 @@
     <None Remove="Resources\Images\cloud1.png" />
     <None Remove="Resources\Images\cloud2.png" />
     <None Remove="Resources\Images\cloud3.png" />
+    <None Remove="Resources\Images\counter-icon.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\duration-icon.jpg" />
     <None Remove="Resources\Images\edit.png" />
@@ -71,6 +72,7 @@
     <Resource Include="Resources\Images\cloud1.png" />
     <Resource Include="Resources\Images\cloud2.png" />
     <Resource Include="Resources\Images\cloud3.png" />
+    <Resource Include="Resources\Images\counter-icon.png" />
     <Resource Include="Resources\Images\duration-icon.jpg" />
     <Resource Include="Resources\Images\G.jpg" />
     <Resource Include="Resources\Images\HH.jpg" />

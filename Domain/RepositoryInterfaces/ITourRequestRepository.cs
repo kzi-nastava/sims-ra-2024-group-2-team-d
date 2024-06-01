@@ -59,5 +59,10 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public List<string> GetDistinctLocations();
 
         public int CountRequestsByLocation(string location);
+
+        public List<TourRequest> GetByIds(List<int> ids);
+
+        public bool IsEveryPartOfComplexTourAccepted(List<int> tourRequestIds);
+        public List<TourRequest> GetAllOutdatedPartsOfComplexTourRequest(List<int> tourRequestIds);
     }
 }

@@ -69,7 +69,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             InputTourist = new Tourist();
             TouristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
             TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
-            ComplexTourRequestService = new ComplexTourRequestService(Injector.Injector.CreateInstance<IComplexTourRequestRepository>());
+            ComplexTourRequestService = new ComplexTourRequestService(Injector.Injector.CreateInstance<IComplexTourRequestRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
             AddTouristCommand = new RelayCommand(AddTourist);
             AddRequestCommand = new RelayCommand(AddRequest);
             SendRequestCommand = new RelayCommand(SendRequest);

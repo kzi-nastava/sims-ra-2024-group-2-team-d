@@ -26,5 +26,15 @@ namespace BookingApp.WPF.Views
             InitializeComponent();
             //DataContext = new TypeOfMyTourRequestSelectionViewModel(loggedInUser);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

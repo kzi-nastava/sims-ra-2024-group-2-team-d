@@ -95,8 +95,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             }
         }
 
+        public TourInstance TourToReserve { get; set; }
+
         private readonly MainViewModel _mainViewModel;
 
+        public string TourTitle {  get; set; }
+        public DateTime ChosenDate {  get; set; }
 
 
         public ReserveTourViewModel(MainViewModel mainViewModel, int touristNumber, int tourInstanceId, User loggedInUser, ObservableCollection<GiftCard> userGiftCards)
@@ -106,9 +110,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             TourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
             _giftCardRepository = new GiftCardRepository();
             Tourists = new ObservableCollection<Tourist>();
+            TourToReserve = TourInstanceService.GetById(tourInstanceId);
             TouristNumber = touristNumber;
             TourInstanceId = tourInstanceId;
             AddedTouristsCounter = TouristNumber;
+            TourTitle = TourToReserve.BaseTour.Title;
+            ChosenDate = TourToReserve.Date;
             LoggedInUser = loggedInUser;
             UserGiftCards = userGiftCards;
             AddTouristCommand = new RelayCommand(AddTourist);
@@ -169,7 +176,6 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             tourInstance.EmptySpots -= TouristNumber;
             TourInstanceService.UpdateFreeSpots(tourInstance);
             _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
-            //this.Close();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

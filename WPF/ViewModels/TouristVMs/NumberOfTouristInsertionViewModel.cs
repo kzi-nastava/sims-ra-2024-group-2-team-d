@@ -28,9 +28,11 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public ICommand ConfirmCommand { get; }
         public ICommand CancelCommand { get; }
+        private readonly IDialogService _dialogService;
+
 
         public event EventHandler<DialogCloseRequestedEventArgs> RequestClose;
-        public NumberOfTouristInsertionViewModel(TourInstance selectedTour, ObservableCollection<TourInstance> tourInstances, User loggedInUser, ObservableCollection<GiftCard> userGiftCards)
+        public NumberOfTouristInsertionViewModel(TourInstance selectedTour, ObservableCollection<TourInstance> tourInstances, User loggedInUser, ObservableCollection<GiftCard> userGiftCards, IDialogService dialogService)
         {
             SelectedTour = selectedTour;
             TourInstances = new ObservableCollection<TourInstance>();
@@ -39,6 +41,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             UserGiftCards = userGiftCards;
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Close);
+            _dialogService = dialogService;
         }
 
         void FilterToursDependingOnLocation(ObservableCollection<TourInstance> tourInstances)
@@ -73,6 +76,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 //textBox.Text = string.Format("There is only {0} spots left. Please enter a fewer number of tourists or choose a different tour", SelectedTour.EmptySpots);
                 //textBox.Foreground = new SolidColorBrush(Colors.Red);
+                string message = string.Format("There are only {0} empty spots. Please insert lesser number of tourist of choose a different tour", SelectedTour.EmptySpots);
+                var feedbackViewModel = new FeedbackDialogViewModel(message);
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
             }
             else
             {

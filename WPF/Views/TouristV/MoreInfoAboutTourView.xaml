@@ -12,10 +12,36 @@
             <Setter Property="FontSize" Value="20" />
         </Style>
         <Style x:Key="MyButtonStyle" TargetType="Button">
-            <Setter Property="Margin" Value="10,10,10,10" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Width" Value="100" />
             <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -32,8 +58,8 @@
             <ColumnDefinition Width="220" />
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
-        <Menu>
-            <Button Grid.Column="0" Width="50" Height="50" Command="{Binding CloseCommand}">
+        <Menu Background="White">
+            <Button Grid.Column="0" Width="50" Height="50" Command="{Binding CloseCommand}" Style="{StaticResource MyButtonStyle}">
                 <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
             </Button>
         </Menu>

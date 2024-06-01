@@ -15,6 +15,127 @@
             <Setter Property="Margin" Value="10,10,10,10" />
             <Setter Property="FontSize" Value="20" />
         </Style>
+        <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Gray" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListViewStyle" TargetType="ListView">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemStyle}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="Gray" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="LightGray" />
+                                <Setter Property="Foreground" Value="DarkGray" />
+                                <Setter Property="BorderBrush" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="StyledComboBox" TargetType="ComboBox">
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Width" Value="200" />
+        </Style>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background" Value="#FFF"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <!-- Promenjeno u crnu boju -->
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" 
+            BorderBrush="{TemplateBinding BorderBrush}" 
+            BorderThickness="{TemplateBinding BorderThickness}" 
+            CornerRadius="5">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <!-- Podela Grid-a na dve kolone -->
@@ -25,11 +146,11 @@
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="137*"></RowDefinition>
+                <RowDefinition Height="140*"></RowDefinition>
+                <RowDefinition Height="172*"></RowDefinition>
+                <RowDefinition Height="166*"></RowDefinition>
+                <RowDefinition Height="154*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
@@ -37,36 +158,45 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Menu Background="White" Margin="0,0,0,5">
-                <Button Grid.Column="0" Width="50" Height="50" Command="{Binding BackButtonCommand}">
+                <Button Style="{StaticResource MyButtonStyle}" Grid.Column="0" Width="50" Height="50" Command="{Binding BackButtonCommand}">
                     <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
                 </Button>
             </Menu>
-            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Name" Style="{StaticResource MyTextStyle}" Margin="10,0,0,0"/>
-            <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TouristToAdd.Name, Mode=TwoWay}" Width="180" Height="30" Margin="0,0,0,5"/>
-            <ComboBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Height="30" Width="180" Margin="0,0,0,5" ItemsSource="{Binding UserGiftCards}" DisplayMemberPath="ExpirationDate" SelectedItem="{Binding SelectedGiftCard}"></ComboBox>
+            <TextBlock TextWrapping="Wrap" Style="{StaticResource MyTextStyleTB}" FontSize="30" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,10,10,10">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Make reservation for {0} at {1}">
+                        <Binding Path="TourTitle"></Binding>
+                        <Binding Path="ChosenDate"></Binding>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock VerticalAlignment="Bottom" Style="{StaticResource MyTextStyleTB}" Text="{Binding AddedTouristsCounter, StringFormat='Number of people left to reserve for: {0}'}" Grid.Row="3" Grid.ColumnSpan="3" Height="26" Margin="10,0,10,10" />
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Name" Style="{StaticResource MyTextStyle}" Margin="10,0,0,0" Height="37"/>
+            <TextBox Width="170" Style="{StaticResource TextBoxStyle}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TouristToAdd.Name, Mode=TwoWay}" Height="40" Margin="39,0,38,0"/>
+            <ComboBox Style="{StaticResource StyledComboBox}" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Height="30" Margin="39,0,38,0" ItemsSource="{Binding UserGiftCards}" DisplayMemberPath="ExpirationDate" Width="170" SelectedItem="{Binding SelectedGiftCard}"/>
 
-            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Last name" Style="{StaticResource MyTextStyle}"></Label>
-            <TextBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Text="{Binding TouristToAdd.LastName, Mode=TwoWay}" Width="180" Height="30" Margin="00,0,0,5"/>
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="Last name" Style="{StaticResource MyTextStyle}" Height="37" Margin="10,0,10,0"></Label>
+            <TextBox Height="40" Style="{StaticResource TextBoxStyle}" Width="170" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Text="{Binding TouristToAdd.LastName, Mode=TwoWay}" Margin="39,59,38,0"/>
 
-            <Label Grid.Row="3" VerticalAlignment="Center" Grid.Column="0"  Content="Age" Style="{StaticResource MyTextStyle}"></Label>
-            <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TouristToAdd.Age, Mode=TwoWay}" Width="180" Height="30" Margin="0,0,0,5"/>
-            <Button Command="{Binding AddTouristCommand}" x:Name="AddTouristButton" Width="50" Height="50" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" IsEnabled="{Binding IsPlusButtonEnabled}">
-                <Image Source="../../../Resources/Images/plus-icon.png" Height="40" Width="40"></Image>
+            <Label Grid.Row="3" VerticalAlignment="Center" Grid.Column="0"  Content="Age" Style="{StaticResource MyTextStyle}" Height="37" Margin="10,0,10,0"></Label>
+            <TextBox Style="{StaticResource TextBoxStyle}" Width="170" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Text="{Binding TouristToAdd.Age, Mode=TwoWay}" Height="40" Margin="39,60,38,0"/>
+            <Button Style="{StaticResource MyButtonStyle}" Command="{Binding AddTouristCommand}" x:Name="AddTouristButton" Width="50" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" IsEnabled="{Binding IsPlusButtonEnabled}" Grid.ColumnSpan="2" >
+                <Image Source="../../../Resources/Images/plus-icon.png" Height="40" Width="40" RenderTransformOrigin="0.48,0.179"></Image>
             </Button>
-            <TextBlock VerticalAlignment="Bottom" Style="{StaticResource MyTextStyleTB}" Text="{Binding AddedTouristsCounter, StringFormat='Number of people left to reserve for: {0}'}" Grid.Row="3" Grid.ColumnSpan="3" />
-            <Button Content="Reserve" Command="{Binding ReserveTourCommand}" Grid.Column="1" Grid.Row="4" Height="100" Width="150" x:Name="ReserveButton" IsEnabled="{Binding IsReserveButtonEnabled}"></Button>
+            <TextBlock VerticalAlignment="Bottom" Style="{StaticResource MyTextStyleTB}" Text="{Binding AddedTouristsCounter, StringFormat='Number of people left to reserve for: {0}'}" Grid.Row="3" Grid.ColumnSpan="3" Height="26" Margin="10,0,10,10" />
+            <Button Width="NaN" Height="NaN" Style="{StaticResource MyButtonStyle}" Content="Reserve" Command="{Binding ReserveTourCommand}" Grid.Column="1" Grid.Row="4" x:Name="ReserveButton" IsEnabled="{Binding IsReserveButtonEnabled}" Margin="29,27,28,27"/>
         </Grid>
 
         <!-- Lista sa desne strane -->
-        <ListView ItemsSource="{Binding Tourists}" x:Name="itemsList" Grid.Column="1" Margin="10,10,10,10">
+        <ListView ItemsSource="{Binding Tourists}" ItemContainerStyle="{StaticResource ListViewItemStyle}" Style="{StaticResource ListViewStyle}" x:Name="itemsList" Grid.Column="1" Margin="10,10,10,10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding Name}" />
                         <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding LastName}" />
                         <TextBlock Style="{StaticResource MyTextStyleTB}" Text="{Binding Age}" />
-                        <Button Margin="5,5,5,5" Height="30" Width="50">Edit</Button>
-                        <Button Margin="5,5,5,5" Height="30" Width="50">Delete</Button>
+                        <Button Style="{StaticResource MyButtonStyle}" Margin="5,5,5,5" Height="40" Width="50">Edit</Button>
+                        <Button Style="{StaticResource MyButtonStyle}" Margin="5,5,5,5" Height="40" Width="65">Delete</Button>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

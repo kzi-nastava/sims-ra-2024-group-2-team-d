@@ -20,7 +20,16 @@ namespace BookingApp.WPF.ViewModels.Guide
         private MainService MainService { get; set; }
         public User LoggedInUser { get; set; }
         public ObservableCollection<ComplexTourRequest> ComplexTourRequests { get; set; }
-        public ObservableCollection<TourRequest> AllTourRequests { get; set; }
+        private ObservableCollection<TourRequest> allTourRequests;
+        public ObservableCollection<TourRequest> AllTourRequests 
+        {
+            get { return allTourRequests; }
+            set
+            {
+                allTourRequests = value;
+                OnPropertyChanged("AllTourRequests");
+            }
+        }
         private TourRequest selectedTourRequest;
         public TourRequest SelectedTourRequest
         {
@@ -37,8 +46,8 @@ namespace BookingApp.WPF.ViewModels.Guide
         {
             MainService = MainService.GetInstance();
             LoggedInUser = user;
-            ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAll());
-            LinkReqWithComplReq();
+            //ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAll());
+            //LinkReqWithComplReq();
             ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAllForGuide(user));
             AllTourRequests = new ObservableCollection<TourRequest>();
             GetAllTourRequests();
@@ -56,24 +65,24 @@ namespace BookingApp.WPF.ViewModels.Guide
             ComplexTourRequest ComplexTourRequest = MainService.ComplexTourRequestService.FindComplexTourRequestByTourRequestId(SelectedTourRequest.Id, ComplexTourRequests);
             AccPartOfComplexRequest acceptPartReqGuide = new AccPartOfComplexRequest(SelectedTourRequest, LoggedInUser, ComplexTourRequest);
             acceptPartReqGuide.ShowDialog();
-            ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAll());
-            LinkReqWithComplReq();
+            //ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAll());
+            //LinkReqWithComplReq();
             ComplexTourRequests = new ObservableCollection<ComplexTourRequest>(MainService.ComplexTourRequestService.GetAllForGuide(LoggedInUser));
             AllTourRequests = new ObservableCollection<TourRequest>();
             GetAllTourRequests();
         }
 
-        public void LinkReqWithComplReq()
-        {
+        //public void LinkReqWithComplReq()
+        //{
             
-            foreach(var request in ComplexTourRequests)
-            {
-                foreach(var id in request.TourRequestIds)
-                {
-                    request.TourRequests.Add(MainService.TourRequestService.GetById(id));
-                }
-            } 
-        }
+        //    foreach(var request in ComplexTourRequests)
+        //    {
+        //        foreach(var id in request.TourRequestIds)
+        //        {
+        //            request.TourRequests.Add(MainService.TourRequestService.GetById(id));
+        //        }
+        //    } 
+        //}
 
         private void GetAllTourRequests()
         {

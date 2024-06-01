@@ -41,7 +41,7 @@ namespace BookingApp.Repository
 
         public List<TourRequest> getByStatus()
         {
-            return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold).ToList();
+            return _tourRequest.Where(x => x.CurrentStatus == Status.OnHold && x.IsPartOfComplexRequest == false).ToList();
         }
 
         public List<TourRequest> FilterByLocation(string location)

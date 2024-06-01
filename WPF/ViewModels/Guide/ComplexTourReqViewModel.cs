@@ -20,7 +20,16 @@ namespace BookingApp.WPF.ViewModels.Guide
         private MainService MainService { get; set; }
         public User LoggedInUser { get; set; }
         public ObservableCollection<ComplexTourRequest> ComplexTourRequests { get; set; }
-        public ObservableCollection<TourRequest> AllTourRequests { get; set; }
+        private ObservableCollection<TourRequest> allTourRequests;
+        public ObservableCollection<TourRequest> AllTourRequests 
+        {
+            get { return allTourRequests; }
+            set
+            {
+                allTourRequests = value;
+                OnPropertyChanged("AllTourRequests");
+            }
+        }
         private TourRequest selectedTourRequest;
         public TourRequest SelectedTourRequest
         {

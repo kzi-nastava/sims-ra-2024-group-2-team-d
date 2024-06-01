@@ -5,11 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristV"
         mc:Ignorable="d"
-        Height="250" Width="250">
+        Height="300" Width="300">
+    <UserControl.Resources>
+        <Style x:Key="StyledTextBox" TargetType="TextBox">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background" Value="#FFF"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <!-- Promenjeno u crnu boju -->
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" 
+            BorderBrush="{TemplateBinding BorderBrush}" 
+            BorderThickness="{TemplateBinding BorderThickness}" 
+            CornerRadius="5">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock HorizontalAlignment="Center" Margin="0,34,0,0" TextWrapping="Wrap" Text="Please enter number of tourists you want to make a reservation for" VerticalAlignment="Top" Height="63"/>
-        <TextBox Text="{Binding InputedTouristNumber}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Margin="60,0,0,0"/>
-        <Button Content="Cancel" Width="50" Height="30" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="44,178,0,0" VerticalAlignment="Top"/>
-        <Button Content="Confirm" Width="50" Height="30" Command="{Binding ConfirmCommand}" HorizontalAlignment="Left" Margin="130,178,0,0" VerticalAlignment="Top"/>
+        <TextBlock Style="{StaticResource MyTextStyle}" Margin="0,34,0,0" TextWrapping="Wrap" Text="Please enter number of tourists you want to make a reservation for" VerticalAlignment="Top" Height="79"/>
+        <TextBox Style="{StaticResource StyledTextBox}" Text="{Binding InputedTouristNumber}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="186" Margin="44,0,0,0"/>
+        <Button Style="{StaticResource MyButtonStyle}" Content="Cancel" Width="70" Height="40" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="44,178,0,0" VerticalAlignment="Top"/>
+        <Button Style="{StaticResource MyButtonStyle}" Content="Confirm" Width="80" Height="40" Command="{Binding ConfirmCommand}" HorizontalAlignment="Left" Margin="150,178,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

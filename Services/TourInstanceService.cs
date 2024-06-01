@@ -120,5 +120,10 @@ namespace BookingApp.Services
         {
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today).ToList();
         }
+
+        public TourInstance UpdateFreeSpots(TourInstance tourInstance)
+        {
+            return TourInstanceRepository.UpdateFreeSpots(tourInstance);
+        }
     }
 }

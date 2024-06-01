@@ -1,6 +1,8 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Dto;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +23,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private GiftCardRepository _giftCardRepository { get; set; }
 
-        private TourInstanceRepository _tourInstanceRepository { get; set; }
+        private TourInstanceService TourInstanceService { get; set; }
 
         public ObservableCollection<Tourist> Tourists { get; set; }
 
@@ -101,7 +103,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         {
             _touristRepository = new TouristRepository();
             _tourReservationRepository = new TourReservationRepository();
-            _tourInstanceRepository = new TourInstanceRepository();
+            TourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
             _giftCardRepository = new GiftCardRepository();
             Tourists = new ObservableCollection<Tourist>();
             TouristNumber = touristNumber;
@@ -163,9 +165,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 SelectedGiftCard.IsValid = false;
                 _giftCardRepository.UpdateValidStatus(SelectedGiftCard);
             }
-            TourInstance tourInstance = _tourInstanceRepository.GetById(TourInstanceId);
+            TourInstance tourInstance = TourInstanceService.GetById(TourInstanceId);
             tourInstance.EmptySpots -= TouristNumber;
-            _tourInstanceRepository.UpdateFreeSpots(tourInstance);
+            TourInstanceService.UpdateFreeSpots(tourInstance);
             _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
             //this.Close();
         }

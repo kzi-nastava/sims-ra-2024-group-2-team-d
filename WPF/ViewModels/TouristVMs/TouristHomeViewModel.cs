@@ -223,8 +223,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void OpenMorePictures(TourInstance tourInstance)
         {
-            ShowMorePicturesView showMorePicturesView = new ShowMorePicturesView(tourInstance);
-            showMorePicturesView.Show();
+            var viewModel = new ShowMorePicturesViewModel(tourInstance);
+            bool? result = _dialogService.ShowDialog(viewModel);
+            //ShowMorePicturesView showMorePicturesView = new ShowMorePicturesView(tourInstance);
+            //showMorePicturesView.Show();
         }
 
         public void LinkKeyPointsWithTourInstances()
@@ -306,7 +308,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private void ShowNumberOfTouristsDialog(TourInstance tourInstance)
         {
-                var viewModel = new NumberOfTouristInsertionViewModel(tourInstance, TourInstances, LoggedInUser, UserGiftCards);
+                var viewModel = new NumberOfTouristInsertionViewModel(tourInstance, TourInstances, LoggedInUser, UserGiftCards, _dialogService);
                 bool? result = _dialogService.ShowDialog(viewModel);
                 if(result == true)
             {
@@ -357,8 +359,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private void ShowTouristVouchers()
         {
-            UserGiftCardView userGiftCardView = new UserGiftCardView(UserGiftCards);
-            userGiftCardView.Show();
+            //UserGiftCardView userGiftCardView = new UserGiftCardView(UserGiftCards);
+            //userGiftCardView.Show();
+            var viewModel = new UserGiftCardViewModel(UserGiftCards);
+            bool? result = _dialogService.ShowDialog(viewModel);
             IsMenuPopupOpen = false;
         }
 
@@ -391,15 +395,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                     _mainViewModel.SwitchView(new CreateComplexTourRequestViewModel(_mainViewModel, LoggedInUser,_dialogService));
                 }
             }
-            //typeOfTourRequestSelectionView.ShowDialog();
         }
 
         public void ShowMoreInfo(TourInstance tourInstance)
         {
-            var viewModel = new MoreInfoAboutTourViewModel(tourInstance);
+            var viewModel = new MoreInfoAboutTourViewModel(tourInstance, _dialogService);
             bool? result = _dialogService.ShowDialog(viewModel);
-            //MoreInfoAboutTourView moreInfoAboutTourView = new MoreInfoAboutTourView(tourInstance);
-            //moreInfoAboutTourView.Show();
         }
 
         public void OpenNotification(TouristNotifications notification)
@@ -419,7 +420,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 TourCreationNotification tourCreationNotification = _tourCreationNotificationService.GetById(notification.NotificationId);
                 TourInstanceService service = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
-                var viewModel = new MoreInfoAboutTourViewModel(service.GetById(tourCreationNotification.CreatedTourInstanceId));
+                var viewModel = new MoreInfoAboutTourViewModel(service.GetById(tourCreationNotification.CreatedTourInstanceId), _dialogService);
                 bool? result = _dialogService.ShowDialog(viewModel);
                 //MoreInfoAboutTourView view = new MoreInfoAboutTourView(service.GetById(tourCreationNotification.CreatedTourInstanceId));
                 //view.Show();

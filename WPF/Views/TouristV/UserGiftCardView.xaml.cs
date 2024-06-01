@@ -20,12 +20,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for UserGiftCardView.xaml
     /// </summary>
-    public partial class UserGiftCardView : Window
+    public partial class UserGiftCardView : UserControl
     {
-        public UserGiftCardView(ObservableCollection<GiftCard> giftCards)
+        public UserGiftCardView()
         {
             InitializeComponent();
-            this.DataContext = new UserGiftCardViewModel(giftCards);
+            //this.DataContext = new UserGiftCardViewModel(giftCards);
         }
     }
 }

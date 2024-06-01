@@ -38,9 +38,11 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 OnPropertyChanged("SuperG");
             }
         }
+        private readonly IDialogService _dialogService;
+
 
         public event EventHandler<DialogCloseRequestedEventArgs> RequestClose;
-        public MoreInfoAboutTourViewModel(TourInstance tourInstance)
+        public MoreInfoAboutTourViewModel(TourInstance tourInstance, IDialogService dialogService)
         {
             TourInstance = tourInstance;
             _tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>());
@@ -51,6 +53,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             OpenMorePicturesCommand = new RelayCommand(OpenMorePictures);
             CloseCommand = new RelayCommand(Close);
             CheckIfGuidedBySuperGuide();
+            _dialogService = dialogService;
         }
 
         public void LinkTourInstancesWithTours()
@@ -72,8 +75,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void OpenMorePictures()
         {
-            ShowMorePicturesView view = new ShowMorePicturesView(TourInstance);
-            view.Show();
+            var viewModel = new ShowMorePicturesViewModel(TourInstance);
+            bool? result = _dialogService.ShowDialog(viewModel);
         }
 
         public void CheckIfGuidedBySuperGuide()

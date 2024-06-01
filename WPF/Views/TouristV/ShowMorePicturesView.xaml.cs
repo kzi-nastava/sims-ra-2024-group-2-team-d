@@ -19,12 +19,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for ShowMorePicturesView.xaml
     /// </summary>
-    public partial class ShowMorePicturesView : Window
+    public partial class ShowMorePicturesView : UserControl
     {
-        public ShowMorePicturesView(TourInstance tourInstance)
+        public ShowMorePicturesView()
         {
             InitializeComponent();
-            DataContext = new ShowMorePicturesViewModel(tourInstance);
+            //DataContext = new ShowMorePicturesViewModel(tourInstance);
         }
     }
 }

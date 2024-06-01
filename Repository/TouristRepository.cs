@@ -76,5 +76,10 @@ namespace BookingApp.Repository
         {
             return _tourists.Find(x => x.UserId == id);
         }
+
+        public List<int> GetUserReservations(int userId)
+        {
+            return _tourists.FindAll(x => x.UserId == userId && x.ReservationId != -1 && x.ShowedUp).Select(x => x.ReservationId).ToList();
+        }
     }
 }

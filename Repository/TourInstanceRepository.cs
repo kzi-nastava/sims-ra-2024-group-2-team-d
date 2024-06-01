@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Xml.Linq;
 
 namespace BookingApp.Repository
@@ -117,6 +118,22 @@ namespace BookingApp.Repository
                 return false;
             }
             else return true;
+        }
+
+        public List<TourInstance> GetAllByIds(List<int> ids)
+        {
+            return _tourInstance.FindAll(x => ids.Contains(x.Id));
+        }
+
+        public bool HasAtLeastFiveToursInLastYear(List<TourInstance> tourInstances)
+        {
+            DateTime oneYearAgo = DateTime.Now.AddYears(-1);
+
+            int count = _tourInstance
+                .Where(t => t.Date >= oneYearAgo)
+                .Count();
+
+            return count >= 5;
         }
 
     }

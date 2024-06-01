@@ -70,7 +70,7 @@ namespace BookingApp.Domain.Model
                 End.ToString("yyyy-MM-dd"),
                 CreatedOn.ToString("yyyy-MM-dd"),
                 GuideId.ToString(),
-                ChosenDateTime.ToString("yyyy-MM-dd"),
+                ChosenDateTime.ToString("yyyy-MM-dd HH:mm"),
                 string.Join(",", TouristsForCSV()),
                 UserTouristId.ToString(),
                 IsPartOfComplexRequest.ToString()

@@ -1,31 +1,41 @@
-0|OnHold|Novi Sad, Srbija|srpski|Vojvo?anska kuhinja|5|2024-06-12|2024-06-15|2024-03-11|4|2024-06-15||6|False
-1|OnHold|Milano, Italija|srpski|�oping tura|4|2024-06-12|2024-06-15|2024-03-11|4|2024-06-15||6|False
-2|OnHold|Kragujevac, Srbija|srpski|Istorija|5|2024-07-12|2024-08-25|2024-03-09|4|1900-01-01||6|False
-3|OnHold|Kragujevac, Srbija|srpski|Istorija|6|2024-07-12|2024-08-25|2024-03-09|-1|2024-06-15||6|False
-4|OnHold|Nis, Srbija|engleski|Istorija|6|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15||6|False
-5|OnHold|Uzice, Srbija|engleski|Istorija|5|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15||6|False
-6|Accepted|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2024-03-09|4|2024-10-15||6|False
-7|Accepted|dsadsa|dsa|daa|2|2024-11-11|2024-12-12|2024-05-07|4|2024-11-12|36,37|3|False
-8|Accepted|sda|das|dasda|2|2024-11-11|2024-12-12|2024-05-07|4|2024-11-18|38,39|3|False
-9|OnHold|ew|dsa|dwaaa|2|2024-11-11|2024-12-12|2024-05-07|-1|1900-01-01|40,41|3|False
-10|OnHold|dsa|da|daaa|2|2024-11-11|2024-12-12|2024-05-07|-1|1900-01-01|42,43|3|False
-11|Accepted|Tokyo, Japan|srpski|Enjoy!|3|2023-05-05|2023-10-10|2023-05-07|4|2023-06-06|44,45,46|3|False
-12|Invalid|Srbija, ns|srpski|uzivaj|1|2024-05-05|2024-05-10|2024-05-09|-1|1900-01-01|47,48,49|3|False
-13|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15||6|False
-14|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2024-02-09|-1|2024-06-15||6|False
-15|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2023-08-09|-1|2024-06-15||6|False
-16|OnHold|Novi Sad, Srbija|engleski|Istorija|4|2024-10-12|2024-10-25|2024-11-09|-1|2024-06-15||6|False
-17|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2022-03-09|-1|2024-06-15||6|False
-18|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2023-03-09|-1|2024-06-15||6|False
-19|OnHold|Novi Sad, Srbija|engleski|Istorija|4|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15||6|False
-20|Accepted|srpski|srpski|gaaaaaaaaaaaa|6|2024-10-10|2024-12-12|2024-05-11|-1|2024-06-15|57,58,59,60,61,62|3|False
-21|OnHold|ns|srb|woww|2|2024-10-10|2024-12-12|2024-05-11|-1|1900-01-01|63,64|3|False
-22|OnHold|dsasa|dsadsa|ewew|2|2024-10-10|2024-10-19|2024-05-13|-1|1900-01-01|65,66|3|False
-23|OnHold|Novi Sad, Srbija|srb|dsasad|3|2024-10-10|2024-10-15|2024-05-13|-1|1900-01-01|67,68,69|3|False
-24|Accepted|Novi Sad, Srbija|English|Enjoy this breathaking city!|1|2024-08-03|2024-09-07|2024-05-30|4|0001-01-01|72|3|True
-25|OnHold|Tokyo, Japan|Serbian|Uzivajte u Japanu|1|2024-06-29|2024-07-06|2024-05-30|-1|1900-01-01|73|3|True
-26|Accepted|da|da|da|1|2024-06-06|2024-06-07|2024-05-30|4|2024-06-06|74|3|True
-27|Accepted|Rome, Italy|Serbian|Uzivajte u ovom predivnom gradu!!!|2|2024-07-13|2024-08-10|2024-05-30|4|2024-07-13|75,76|3|True
-28|OnHold|NYC, USA|ENGLISH|ENJOY NYC|1|2024-07-20|2024-08-10|2024-05-30|-1|1900-01-01|77|3|True
-29|Accepted|AAAAAAAAAAA|WWWWWWWWWWWW|WWWWWWWWWWWW|1|2024-06-15|2024-06-16|2024-05-30|4|2024-06-15|78|3|True
-30|Invalid|WWWWWWWWW|WWWWWWWWWW|WWWWWWWWWWWWWW|1|2024-06-02|2024-06-28|2024-05-30|-1|1900-01-01|79|3|True
+0|OnHold|Novi Sad, Srbija|srpski|Vojvo?anska kuhinja|5|2024-06-12|2024-06-15|2024-03-11|4|2024-06-15 15:00||6|False
+1|OnHold|Milano, Italija|srpski|�oping tura|4|2024-06-12|2024-06-15|2024-03-11|4|2024-06-15 15:00||6|False
+2|OnHold|Kragujevac, Srbija|srpski|Istorija|5|2024-07-12|2024-08-25|2024-03-09|4|1900-01-01 15:00||6|False
+3|OnHold|Kragujevac, Srbija|srpski|Istorija|6|2024-07-12|2024-08-25|2024-03-09|-1|2024-06-15 15:00||6|False
+4|OnHold|Nis, Srbija|engleski|Istorija|6|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15 15:00||6|False
+5|OnHold|Uzice, Srbija|engleski|Istorija|5|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15 15:00||6|False
+6|Accepted|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2024-03-09|4|2024-10-15 15:00||6|False
+7|Accepted|dsadsa|dsa|daa|2|2024-11-11|2024-12-12|2024-05-07|4|2024-11-12 15:00|36,37|3|False
+8|Accepted|sda|das|dasda|2|2024-11-11|2024-12-12|2024-05-07|4|2024-11-18 15:00|38,39|3|False
+9|OnHold|ew|dsa|dwaaa|2|2024-11-11|2024-12-12|2024-05-07|-1|1900-01-01 15:00|40,41|3|False
+10|OnHold|dsa|da|daaa|2|2024-11-11|2024-12-12|2024-05-07|-1|1900-01-01 15:00|42,43|3|False
+11|Accepted|Tokyo, Japan|srpski|Enjoy!|3|2023-05-05|2023-10-10|2023-05-07|4|2023-06-06 15:00|44,45,46|3|False
+12|Invalid|Srbija, ns|srpski|uzivaj|1|2024-05-05|2024-05-10|2024-05-09|-1|1900-01-01 15:00|47,48,49|3|False
+13|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15 15:00||6|False
+14|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2024-02-09|-1|2024-06-15 15:00||6|False
+15|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2023-08-09|-1|2024-06-15 15:00||6|False
+16|OnHold|Novi Sad, Srbija|engleski|Istorija|4|2024-10-12|2024-10-25|2024-11-09|-1|2024-06-15 15:00||6|False
+17|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2022-03-09|-1|2024-06-15 15:00||6|False
+18|OnHold|Novi Sad, Srbija|srpski|Istorija|4|2024-10-12|2024-10-25|2023-03-09|-1|2024-06-15 15:00||6|False
+19|OnHold|Novi Sad, Srbija|engleski|Istorija|4|2024-10-12|2024-10-25|2024-03-09|-1|2024-06-15 15:00||6|False
+20|Accepted|srpski|srpski|gaaaaaaaaaaaa|6|2024-10-10|2024-12-12|2024-05-11|-1|2024-06-15 15:00|57,58,59,60,61,62|3|False
+21|OnHold|ns|srb|woww|2|2024-10-10|2024-12-12|2024-05-11|-1|1900-01-01 15:00|63,64|3|False
+22|OnHold|dsasa|dsadsa|ewew|2|2024-10-10|2024-10-19|2024-05-13|-1|1900-01-01 15:00|65,66|3|False
+23|OnHold|Novi Sad, Srbija|srb|dsasad|3|2024-10-10|2024-10-15|2024-05-13|-1|1900-01-01 15:00|67,68,69|3|False
+24|Accepted|Novi Sad, Srbija|English|Enjoy this breathaking city!|1|2024-08-03|2024-09-07|2024-05-30|4|0001-01-01 15:00|72|3|True
+25|OnHold|Tokyo, Japan|Serbian|Uzivajte u Japanu|1|2024-06-29|2024-07-06|2024-05-30|-1|1900-01-01 15:00|73|3|True
+26|Accepted|da|da|da|1|2024-06-06|2024-06-07|2024-05-30|4|2024-06-06 15:00|74|3|True
+27|Accepted|Rome, Italy|Serbian|Uzivajte u ovom predivnom gradu!!!|2|2024-07-13|2024-08-10|2024-05-30|4|2024-07-13 15:00|75,76|3|True
+28|OnHold|NYC, USA|ENGLISH|ENJOY NYC|1|2024-07-20|2024-08-10|2024-05-30|-1|1900-01-01 15:00|77|3|True
+29|Accepted|AAAAAAAAAAA|WWWWWWWWWWWW|WWWWWWWWWWWW|1|2024-06-15|2024-06-16|2024-05-30|4|2024-06-15 15:00|78|3|True
+30|Invalid|WWWWWWWWW|WWWWWWWWWW|WWWWWWWWWWWWWW|1|2024-06-02|2024-06-28|2024-05-30|-1|1900-01-01 15:00|79|3|True
+31|Accepted|NDSAS|SDADSA|DSADSSAD|2|2024-06-22|2024-08-09|2024-06-01|4|2024-06-22 04:00|80,81|3|True
+32|OnHold|EWEWE|RRRRR|TTTTTTTTTTT|2|2024-06-07|2024-10-05|2024-06-01|-1|1900-01-01 15:00|82,83|3|True
+33|OnHold|trtrtr|wqqwqw|wwwwwwwwwwwwwwwwwwwww|2|2024-08-03|2024-08-10|2024-06-01|-1|1900-01-01 00:00|84,85|3|True
+34|OnHold|qqqqqqqqq|wwwwww|eeeeeeeeeeeeeee|2|2024-06-15|2024-06-29|2024-06-01|4|1900-01-01 00:00|86,87|3|True
+35|Accepted|ddddd|wwwww|www|1|2024-06-14|2024-06-21|2024-06-01|4|2024-06-14 03:00|88|3|True
+36|Accepted|dsdas|sdasad|ddd|1|2024-06-21|2024-07-06|2024-06-01|4|2024-06-21 06:00|89|3|True
+37|Accepted|dasad|sadasd|sdads|1|2024-06-22|2024-07-06|2024-06-01|4|2024-06-22 07:00|90|3|True
+38|OnHold|aaaaaaaaaaaaaaa|wwwwwwwwww|weewwew|1|2024-06-21|2024-07-06|2024-06-01|-1|1900-01-01 00:00|91|3|True
+39|Accepted|ddd|www|qqqqqq|1|2024-06-15|2024-07-06|2024-06-01|4|2024-06-15 06:00|92|3|True
+40|OnHold|fefef|www|aaaa|1|2024-06-15|2024-07-06|2024-06-01|-1|1900-01-01 00:00|93|3|True

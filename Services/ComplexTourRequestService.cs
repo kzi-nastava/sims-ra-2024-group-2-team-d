@@ -26,7 +26,12 @@ namespace BookingApp.Services
 
         public List<ComplexTourRequest> GetAll()
         {
-            return ComplexTourRequestReposotry.GetAll();
+            List<ComplexTourRequest> complexTourRequests = ComplexTourRequestReposotry.GetAll();
+            foreach (var complexTourRequest in complexTourRequests)
+            {
+                complexTourRequest.TourRequests = TourRequestRepository.GetByIds(complexTourRequest.TourRequestIds);
+            }
+            return complexTourRequests;
         }
 
         public List<ComplexTourRequest> GetByUserId(int userId)
@@ -38,6 +43,7 @@ namespace BookingApp.Services
             }
             return complexTourRequests;
         }
+
 
         public List<ComplexTourRequest> GetAllForGuide(User user)
         {

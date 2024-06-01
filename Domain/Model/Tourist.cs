@@ -37,6 +37,7 @@ namespace BookingApp.Domain.Model
             UserId = -1;
             ShowedUp = false;
             IsNotified = false;
+            ReservationId = -1;
         }
 
         public Tourist(string name, string lastName, int age, int userId)
@@ -47,6 +48,7 @@ namespace BookingApp.Domain.Model
             UserId = userId;
             ShowedUp = false;
             IsNotified = false;
+            ReservationId = -1;
         }
 
         public string[] ToCSV()

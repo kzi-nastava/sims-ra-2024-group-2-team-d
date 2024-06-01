@@ -34,5 +34,9 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public List<TourInstance> GetAllFinishedByUser(User user, ObservableCollection<TourInstance> tours);
 
         public bool CheckIfUserIsAvaliable(User user, DateTime dateTime, ObservableCollection<TourInstance> tourInstances);
+
+        public List<TourInstance> GetAllByIds(List<int> ids);
+
+        public bool HasAtLeastFiveToursInLastYear(List<TourInstance> tourInstances);
     }
 }

@@ -348,8 +348,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private void ShowTouristTours()
         {
-            UserToursView userToursView = new UserToursView(LoggedInUser, TourInstances);
-            userToursView.Show();
+            _mainViewModel.SwitchView(new UserToursViewModel(LoggedInUser, TourInstances, _dialogService, _mainViewModel));
         }
 
         private void UserIcon_Click()
@@ -368,8 +367,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private void TrackTourLive(TourInstance tourInstance)
         {
-            FollowingTourLiveView followingTourLiveView = new FollowingTourLiveView(tourInstance);
-            followingTourLiveView.Show();
+            //FollowingTourLiveView followingTourLiveView = new FollowingTourLiveView(tourInstance);
+            //followingTourLiveView.Show();
+            var viewModel = new FollowingTourLiveViewModel(tourInstance);
+            bool? result = _dialogService.ShowDialog(viewModel);
         }
 
         private void ShowNotifications()

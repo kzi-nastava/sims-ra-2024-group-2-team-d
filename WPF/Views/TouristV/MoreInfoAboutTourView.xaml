@@ -72,7 +72,7 @@
                             <Grid.RenderTransform>
                                 <ScaleTransform ScaleX="1" ScaleY="1"/>
                             </Grid.RenderTransform>
-                            <Image Source="{Binding TourInstance.BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="100" Margin="5" HorizontalAlignment="Right"/>
+                            <Image Source="{Binding TourInstance.BaseTour.Pictures[0], FallbackValue='/path/to/default/image'}" Height="120" Margin="5" HorizontalAlignment="Right"/>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal"/>

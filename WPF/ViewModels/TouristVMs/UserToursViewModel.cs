@@ -19,16 +19,43 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public static ObservableCollection<TourInstance> FinishedTours { get; set; }
         public User LoggedInUser { get; set; }
         public static TourInstance SelectedTour { get; set; }
+        public RelayCommand OpenMorePicturesCommand {  get; set; }
+        public ICommand OpenTourReviewCommand { get; set; }
+        public IDialogService _dialogService {  get; set; }
+        public RelayCommand GoBackCommand {  get; set; }
+        public RelayCommand MoreInfoCommand {  get; set; }
 
-        public ICommand OpenTourReviewCommand { get; }
+        private readonly MainViewModel MainViewModel;
 
-        public UserToursViewModel(User loggedInUser, ObservableCollection<TourInstance> tourInstances)
+        public UserToursViewModel(User loggedInUser, ObservableCollection<TourInstance> tourInstances, IDialogService dialogService, MainViewModel mainViewModel)
         {
             ReservedTours = new ObservableCollection<TourInstance>();
             FinishedTours = new ObservableCollection<TourInstance>();
             LoggedInUser = loggedInUser;
-            OpenTourReviewCommand = new RelayCommand(OpenTourReview);
+            OpenTourReviewCommand = new RelayCommand(tourInstance => OpenTourReview((TourInstance)tourInstance));
             FilterTours(tourInstances);
+            OpenMorePicturesCommand = new RelayCommand(tourInstance =>OpenMorePictures((TourInstance)tourInstance));
+            _dialogService = dialogService;
+            MainViewModel = mainViewModel;
+            MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
+            GoBackCommand = new RelayCommand(GoBack);
+        }
+        
+        public void ShowMoreInfo(TourInstance tourInstance)
+        {
+            var viewModel = new MoreInfoAboutTourViewModel(tourInstance, _dialogService);
+            bool? result = _dialogService.ShowDialog(viewModel);
+        }
+
+        public void GoBack()
+        {
+            MainViewModel.SwitchView(new TouristHomeViewModel(MainViewModel, LoggedInUser, new DialogService()));
+        }
+
+        public void OpenMorePictures(TourInstance tourInstance)
+        {
+            var viewModel = new ShowMorePicturesViewModel(tourInstance);
+            bool? result = _dialogService.ShowDialog(viewModel);
         }
 
         public void FilterTours(ObservableCollection<TourInstance> tourInstances)
@@ -60,9 +87,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             }
         }
 
-        private void OpenTourReview()
+        private void OpenTourReview(TourInstance tourInstance)
         {
-            UserTourReviewView userTourReviewView = new UserTourReviewView(LoggedInUser, SelectedTour);
+            UserTourReviewView userTourReviewView = new UserTourReviewView(LoggedInUser, tourInstance);
             userTourReviewView.Show();
         }
     }

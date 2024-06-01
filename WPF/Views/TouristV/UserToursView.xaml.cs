@@ -20,12 +20,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for UserToursView.xaml
     /// </summary>
-    public partial class UserToursView : Window
+    public partial class UserToursView : UserControl
     {
-        public UserToursView(User loggedInUser,ObservableCollection<TourInstance> tourInstances)
+        public UserToursView()
         {
             InitializeComponent();
-            this.DataContext = new UserToursViewModel(loggedInUser, tourInstances);
+            //this.DataContext = new UserToursViewModel(loggedInUser, tourInstances);
         }
     }
 }

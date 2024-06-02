@@ -91,14 +91,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         {
             Dictionary<string, int> locationRequestCountPair = _tourRequestService.GetLocationRequestCountPair();
             _mainViewModel.SwitchView(new PlotGraphViewModel(locationRequestCountPair, "Location",_mainViewModel, LoggedInUser, _dialogService));
-            //PlotGraphView view = new PlotGraphView(locationRequestCountPair, "Location");
-            //view.Show();
         }
         public void ShowLanguageRequestCountGraph()
         {
             Dictionary<string, int> languageRequestCountPair = _tourRequestService.GetLanguageRequestCountPair();
-            //PlotGraphView view = new PlotGraphView(languageRequestCountPair, "Language");
-            //view.Show();
             _mainViewModel.SwitchView(new PlotGraphViewModel(languageRequestCountPair, "Language", _mainViewModel, LoggedInUser, _dialogService));
         }
         public void YearSelectionChanged()
@@ -118,8 +114,6 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void ShowMoreInfo(TourRequestDTO tourRequest)
         {
-            //ShowAllTouristsOnStandardTourRequestView view = new ShowAllTouristsOnStandardTourRequestView(tourRequest);
-            //view.Show();
             var viewModel = new ShowAllTouristsOnStandardTourRequestViewModel(tourRequest);
             bool? result = _dialogService.ShowDialog(viewModel);
         }

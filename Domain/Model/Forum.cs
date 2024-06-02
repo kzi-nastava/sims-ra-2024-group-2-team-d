@@ -34,7 +34,6 @@ namespace BookingApp.Domain.Model
             Comments = new List<Comment>();
             Status = ForumStatus.Open;
             VeryUseful = false;
-            ForumTopic = string.Empty;
         }
         public Forum()
         {

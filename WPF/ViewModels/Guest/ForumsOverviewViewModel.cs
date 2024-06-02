@@ -19,7 +19,7 @@ namespace BookingApp.WPF.ViewModels.Guest
         private readonly IForumService _forumService;
         private readonly IForumCommentService _forumCommentService;
         private readonly IUserService _userService;
-        //  private readonly IForumIdService _forumIdService;
+        private readonly IForumIdService _forumIdService;
         private readonly IForumUtilityService _forumUtilityService;
         public RelayCommand CreateForumCommand { get; set; }
         public RelayCommand CloseForumCommand { get; set; }
@@ -70,7 +70,7 @@ namespace BookingApp.WPF.ViewModels.Guest
             _forumService = Injector.Injector.CreateInstance<IForumService>();
             _forumCommentService = Injector.Injector.CreateInstance<IForumCommentService>();
             _userService = Injector.Injector.CreateInstance<IUserService>();
-            //   _forumIdService = Injector.Injector.CreateInstance<IForumIdService>();
+            _forumIdService = Injector.Injector.CreateInstance<IForumIdService>();
             _forumUtilityService = Injector.Injector.CreateInstance<IForumUtilityService>();
             CreateForumCommand = new RelayCommand(OpenCreateForumForm);
             CloseForumCommand = new RelayCommand(CloseForum);
@@ -82,10 +82,10 @@ namespace BookingApp.WPF.ViewModels.Guest
         }
         private void OpenCreateForumForm(object parameter)
         {
-            //CreatingForumForm creatingForumForm = new CreatingForumForm();
-            //creatingForumForm.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
-            //creatingForumForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            //creatingForumForm.ShowDialog();
+            CreatingForumForm creatingForumForm = new CreatingForumForm();
+            creatingForumForm.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
+            creatingForumForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            creatingForumForm.ShowDialog();
             InitializeAllForums();
             InitializeMyForums();
         }
@@ -124,22 +124,22 @@ namespace BookingApp.WPF.ViewModels.Guest
         }
         private void CloseForum(object parameter)
         {
-           // CloseForumWindow closeForumWindow = new CloseForumWindow();
-         // //  SetWindowsProperties(closeForumWindow);
-          //  closeForumWindow.ShowDialog();
+            CloseForumWindow closeForumWindow = new CloseForumWindow();
+            SetWindowsProperties(closeForumWindow);
+            closeForumWindow.ShowDialog();
             InitializeAllForums();
             InitializeMyForums();
         }
         private void OpenForum(object parameter)
         {
-            //if (SelectedForum != null)
-            //{
-            //    _forumIdService.ForumId = SelectedForum.ForumId;
+            if (SelectedForum != null)
+            {
+                _forumIdService.ForumId = SelectedForum.ForumId;
 
-            //}
-            //ForumCommentsOverview forumCommentsOverview = new ForumCommentsOverview();
-            //SetWindowsProperties(forumCommentsOverview);
-            //forumCommentsOverview.ShowDialog();
+            }
+            ForumCommentsOverview forumCommentsOverview = new ForumCommentsOverview();
+            SetWindowsProperties(forumCommentsOverview);
+            forumCommentsOverview.ShowDialog();
             InitializeAllForums();
             InitializeMyForums();
 

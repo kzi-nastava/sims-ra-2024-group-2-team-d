@@ -37,6 +37,7 @@ namespace BookingApp.Injector
         { typeof(IComplexTourRequestRepository), new Lazy<object>(() => new   ComplexTourRequestRepository()) },
         { typeof(IForumRepository), new Lazy<object>(() => new   ForumRepository()) },
         { typeof(IForumCommentRepository), new Lazy<object>(() => new   ForumCommentRepository()) },
+        { typeof(ILocationRepository), new Lazy<object>(() => new   LocationRepository()) },
 
         
         // Service implementations are here
@@ -68,6 +69,8 @@ namespace BookingApp.Injector
 
              {typeof(ITourService), new Lazy < object > (() => new TourService()) },
              {typeof(IUserService), new Lazy < object > (() => new UserService()) },
+             {typeof(IForumIdService), new Lazy < object > (() => new ForumIdService()) },
+             {typeof(ILocationService), new Lazy < object > (() => new LocationService()) },
           
     };
 

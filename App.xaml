@@ -47,6 +47,12 @@
         <DataTemplate DataType="{x:Type vmTourists:UserToursViewModel}">
             <viewTourists2:UserToursView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:UserTourReviewViewModel}">
+            <viewTourists2:UserTourReviewView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmTourists:PlotGraphViewModel}">
+            <viewTourists2:PlotGraphView />
+        </DataTemplate>
         <Storyboard x:Key="SmoothTransition">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>

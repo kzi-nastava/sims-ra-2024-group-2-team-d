@@ -196,7 +196,8 @@ namespace BookingApp.Dto
             Language = tourRequest.Language;
             NumberOfTourists = tourRequest.NumberOfTourists;
             DateTime dateForComparison = new DateTime(1900, 1, 1, 0, 0, 0);
-            if(dateForComparison == tourRequest.ChosenDateTime )
+            DateTime secondDateForComparison = new DateTime(1900, 1, 1, 15, 0, 0);
+            if (dateForComparison == tourRequest.ChosenDateTime || secondDateForComparison == tourRequest.ChosenDateTime)
             {
                 ChosenDateTime = "Not decided";
             }

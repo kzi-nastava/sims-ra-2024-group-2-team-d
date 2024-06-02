@@ -19,12 +19,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for UserTourReviewView.xaml
     /// </summary>
-    public partial class UserTourReviewView : Window
+    public partial class UserTourReviewView : UserControl
     {
-        public UserTourReviewView(User loggedInUser, TourInstance tourInstance)
+        public UserTourReviewView()
         {
             InitializeComponent();
-            this.DataContext = new UserTourReviewViewModel(loggedInUser, tourInstance,Close);
+            //this.DataContext = new UserTourReviewViewModel(loggedInUser, tourInstance,Close);
         }
     }
 }

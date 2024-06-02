@@ -18,12 +18,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for PlotGraphView.xaml
     /// </summary>
-    public partial class PlotGraphView : Window
+    public partial class PlotGraphView : UserControl
     {
-        public PlotGraphView(Dictionary<string,int> keyValuePairs, string xAxisTitle)
+        public PlotGraphView()
         {
             InitializeComponent();
-            DataContext = new PlotGraphViewModel(keyValuePairs, xAxisTitle);
+            //DataContext = new PlotGraphViewModel(keyValuePairs, xAxisTitle);
         }
     }
 }

@@ -26,24 +26,53 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private PictureService _pictureService;
 
+        public string TourTitle {  get; set; }
+
+        public DateTime ChosenDate {  get; set; }
+        public ICommand GoBackCommand {  get; set; }
+
         public ObservableCollection<int> Ratings { get; } = new ObservableCollection<int>() { 1, 2, 3, 4, 5 };
 
-        public UserTourReviewViewModel(User loggedInUser, TourInstance tourInstance, Action closeAction)
+        private readonly MainViewModel MainViewModel;
+        public IDialogService _dialogService { get; set; }
+        public User LoggedInUser {  get; set; }
+
+        public ObservableCollection<TourInstance> TourInstances { get; set; }
+
+        public ICommand ShowAllAddedPicturesCommand {  get; set; }
+
+        public UserTourReviewViewModel(User loggedInUser, TourInstance tourInstance, MainViewModel mainViewModel, IDialogService dialogService, ObservableCollection<TourInstance> tourInstances)
         {
             UserTourReview = new TourReview();
             UserTourReview.TourInstanceId = tourInstance.Id;
             UserTourReview.GuideId = tourInstance.BaseTour.UserId;
             UserTourReview.UserId = loggedInUser.Id;
+            LoggedInUser = loggedInUser;
             _pictureService = new PictureService(Injector.Injector.CreateInstance<IPictureRepository>());
             ConfirmReviewCommand = new RelayCommand(() =>
             {
                 ConfirmReview(tourInstance);
-                closeAction();
             });
             ImagePaths = new ObservableCollection<string>();
             AddImageCommand = new RelayCommand(AddImageExecute);
+            TourTitle = tourInstance.BaseTour.Title;
+            ChosenDate = tourInstance.Date;
+            MainViewModel = mainViewModel;
+            _dialogService = dialogService;
+            GoBackCommand = new RelayCommand(GoBack);
+            TourInstances = tourInstances;
+            ShowAllAddedPicturesCommand = new RelayCommand(ShowAllAddedPictures);
         }
 
+        public void ShowAllAddedPictures()
+        {
+            var viewModel = new ShowAllAddedPicturesForTourReviewViewModel(ImagePaths);
+            bool? result = _dialogService.ShowDialog(viewModel);
+        }
+        public void GoBack()
+        {
+            MainViewModel.SwitchView(new UserToursViewModel(LoggedInUser, TourInstances, _dialogService, MainViewModel));
+        }
         public void ConfirmReview(TourInstance tourInstance)
         {
             TourReviewService _tourReviewService = new TourReviewService(Injector.Injector.CreateInstance<ITourReviewRepository>());

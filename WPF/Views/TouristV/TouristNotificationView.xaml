@@ -1,11 +1,11 @@
-﻿<Window x:Class="BookingApp.WPF.Views.TouristNotificationView"
+﻿<UserControl x:Class="BookingApp.WPF.Views.TouristNotificationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
-        Title="TouristNotificationView" Height="450" Width="800">
+        Height="450" Width="800">
     <StackPanel>
         <ListView ItemsSource="{Binding PresentTourists}" SelectedItem="{Binding SelectedTouristList}" SelectionMode="Single" x:Name="itemsList" Grid.Column="1" Margin="10">
             <ListView.ItemTemplate>
@@ -28,4 +28,4 @@
             </ListView.ItemTemplate>
         </ListView>
     </StackPanel>
-</Window>
+</UserControl>

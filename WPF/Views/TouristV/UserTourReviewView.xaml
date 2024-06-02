@@ -1,29 +1,140 @@
-﻿<Window x:Class="BookingApp.WPF.Views.UserTourReviewView"
+﻿<UserControl x:Class="BookingApp.WPF.Views.UserTourReviewView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         mc:Ignorable="d"
-        Title="UserTourReviewView" Height="450" Width="800">
+        Height="768" Width="1024">
+    <UserControl.Resources>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background" Value="#FFF"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <!-- Promenjeno u crnu boju -->
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" 
+            BorderBrush="{TemplateBinding BorderBrush}" 
+            BorderThickness="{TemplateBinding BorderThickness}" 
+            CornerRadius="5">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="StyledComboBox" TargetType="ComboBox">
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Width" Value="200" />
+        </Style>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <StackPanel>
-        <TextBlock Text="Znanje"></TextBlock>
-        <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding UserTourReview.GuideKnowledge}" Width="120" Height="30" />
-        <TextBlock Text="Jezik"></TextBlock>
-        <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding  UserTourReview.GuideLanguage}" Width="120" Height="30" />
-        <TextBlock Text="Zanimljivost"></TextBlock>
-        <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding  UserTourReview.Enjoyability}" Width="120" Height="30" />
-        <TextBlock Text="Komentar"></TextBlock>
-        <TextBox Text="{Binding UserTourReview.Comment}"></TextBox>
-        <Button Content="Add Image" Command="{Binding AddImageCommand}"/>
-        <ListBox ItemsSource="{Binding ImagePaths}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Image Source="{Binding}" Stretch="UniformToFill" Width="200" Height="150"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button HorizontalAlignment="Right" Command="{Binding ConfirmReviewCommand}" Content="Confirm"></Button>
-        <Button HorizontalAlignment="Left" Content="Cancel"></Button>
+        <Grid Height="75">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230*"></ColumnDefinition>
+                <ColumnDefinition Width="453*"></ColumnDefinition>
+                <ColumnDefinition Width="341*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Column="0" Grid.Row="0" Width="50" Height="NaN" HorizontalAlignment="Left" Command="{Binding GoBackCommand}" Style="{StaticResource MyButtonStyle}" Margin="10,10,0,10">
+                <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
+            </Button>
+            <TextBlock HorizontalAlignment="Left" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" TextWrapping="Wrap" Style="{StaticResource MyTextStyle}" FontSize="30" FontWeight="Bold" >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Rate tour {0} at {1}">
+                        <Binding Path="TourTitle"></Binding>
+                        <Binding Path="ChosenDate"></Binding>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </Grid>
+       
+        <TextBlock Style="{StaticResource MyTextStyle}" Text="Guide's knowledge" HorizontalAlignment="Center"></TextBlock>
+        <ComboBox Style="{StaticResource StyledComboBox}" ItemsSource="{Binding Ratings}" SelectedItem="{Binding UserTourReview.GuideKnowledge}" Width="120" Height="30" />
+        <TextBlock Style="{StaticResource MyTextStyle}" Text="Guide's language" HorizontalAlignment="Center"></TextBlock>
+        <ComboBox Style="{StaticResource StyledComboBox}" ItemsSource="{Binding Ratings}" SelectedItem="{Binding  UserTourReview.GuideLanguage}" Width="120" Height="30" />
+        <TextBlock Style="{StaticResource MyTextStyle}" Text="Tour enjoyability" HorizontalAlignment="Center"></TextBlock>
+        <ComboBox Style="{StaticResource StyledComboBox}" ItemsSource="{Binding Ratings}" SelectedItem="{Binding  UserTourReview.Enjoyability}" Width="120" Height="30" />
+        <TextBlock Style="{StaticResource MyTextStyle}" Text="Additional comment" HorizontalAlignment="Center"></TextBlock>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="264*"></ColumnDefinition>
+                <ColumnDefinition Width="419*"></ColumnDefinition>
+                <ColumnDefinition Width="341*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Command="{Binding ShowAllAddedPicturesCommand}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Content="See all added pictures" Style="{StaticResource MyButtonStyle}" Width="223" Margin="10,55,0,55"/>
+            <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource TextBoxStyle}" Width="500" Height="NaN" Text="{Binding UserTourReview.Comment}" Margin="5,5,0,5" />
+        </Grid>
+
+        <Button Content="Add Image" Command="{Binding AddImageCommand}" Style="{StaticResource MyButtonStyle}" Width="116"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource MyButtonStyle}" Command="{Binding ConfirmReviewCommand}" Content="Confirm"></Button>
+            <Button HorizontalAlignment="Left" Style="{StaticResource MyButtonStyle}" Content="Cancel"></Button>
+        </Grid>
     </StackPanel>
-</Window>
+</UserControl>

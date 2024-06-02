@@ -26,12 +26,16 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public RelayCommand MoreInfoCommand {  get; set; }
 
         private readonly MainViewModel MainViewModel;
+        public static ObservableCollection<TourInstance> TourInstances { get; set; }
+
+
 
         public UserToursViewModel(User loggedInUser, ObservableCollection<TourInstance> tourInstances, IDialogService dialogService, MainViewModel mainViewModel)
         {
             ReservedTours = new ObservableCollection<TourInstance>();
             FinishedTours = new ObservableCollection<TourInstance>();
             LoggedInUser = loggedInUser;
+            TourInstances = tourInstances;
             OpenTourReviewCommand = new RelayCommand(tourInstance => OpenTourReview((TourInstance)tourInstance));
             FilterTours(tourInstances);
             OpenMorePicturesCommand = new RelayCommand(tourInstance =>OpenMorePictures((TourInstance)tourInstance));
@@ -39,8 +43,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             MainViewModel = mainViewModel;
             MoreInfoCommand = new RelayCommand(tourInstance => ShowMoreInfo((TourInstance)tourInstance));
             GoBackCommand = new RelayCommand(GoBack);
+
         }
-        
+
+
+
+
         public void ShowMoreInfo(TourInstance tourInstance)
         {
             var viewModel = new MoreInfoAboutTourViewModel(tourInstance, _dialogService);
@@ -89,8 +97,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private void OpenTourReview(TourInstance tourInstance)
         {
-            UserTourReviewView userTourReviewView = new UserTourReviewView(LoggedInUser, tourInstance);
-            userTourReviewView.Show();
+            //UserTourReviewView userTourReviewView = new UserTourReviewView(LoggedInUser, tourInstance);
+            //userTourReviewView.Show();
+            MainViewModel.SwitchView(new UserTourReviewViewModel(LoggedInUser, tourInstance, MainViewModel, _dialogService, TourInstances));
         }
     }
 }

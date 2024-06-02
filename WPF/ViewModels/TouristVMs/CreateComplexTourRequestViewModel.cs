@@ -1,22 +1,17 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Dto;
-using BookingApp.Services;
-using System;
-using System.Collections.Generic;
+using BookingApp.Services.IServices;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
-    public class CreateComplexTourRequestViewModel: INotifyPropertyChanged
+    public class CreateComplexTourRequestViewModel : INotifyPropertyChanged
     {
         public MainViewModel MainViewModel { get; set; }
-        public User LoggedInUser {  get; set; }
+        public User LoggedInUser { get; set; }
 
         private ObservableCollection<Tourist> tourists;
         public ObservableCollection<Tourist> Tourists
@@ -66,23 +61,24 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public ICommand AddRequestCommand { get; set; }
         public ICommand BackButtonCommand { get; set; }
 
-        public TouristService TouristService { get; set; }
-        public ObservableCollection<TourRequestDTO> AddedTourRequests {  get; set; }
+        public ITouristService TouristService { get; set; }
+        public ObservableCollection<TourRequestDTO> AddedTourRequests { get; set; }
         private readonly IDialogService _dialogService;
         public ICommand ShowAllAddedRequestsCommand { get; set; }
 
         public ComplexTourRequest NewComplexTourRequest { get; set; }
-        public ComplexTourRequestService ComplexTourRequestService {  get; set; }
-        public TourRequestService TourRequestService { get; set; }
-        public CreateComplexTourRequestViewModel(MainViewModel _mainViewModel, User loggedInUser, IDialogService dialogService) { 
+        public IComplexTourRequestService ComplexTourRequestService { get; set; }
+        public ITourRequestService TourRequestService { get; set; }
+        public CreateComplexTourRequestViewModel(MainViewModel _mainViewModel, User loggedInUser, IDialogService dialogService)
+        {
             MainViewModel = _mainViewModel;
             LoggedInUser = loggedInUser;
             Tourists = new ObservableCollection<Tourist>();
             NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
-            InputTourist = new TouristDTO();
-            TouristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
-            TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
-            ComplexTourRequestService = new ComplexTourRequestService(Injector.Injector.CreateInstance<IComplexTourRequestRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
+            InputTourist = new TouristDTO();            
+            TouristService = Injector.Injector.CreateInstance<ITouristService>();
+            TourRequestService = Injector.Injector.CreateInstance<ITourRequestService>();
+            ComplexTourRequestService = Injector.Injector.CreateInstance<IComplexTourRequestService>();
             AddTouristCommand = new RelayCommand(AddTourist);
             AddRequestCommand = new RelayCommand(AddRequest);
             SendRequestCommand = new RelayCommand(SendRequest);
@@ -108,7 +104,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         {
             var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to create a complex tour request?");
             bool? result = _dialogService.ShowDialog(confirmationViewModel);
-            if(result == true)
+            if (result == true)
             {
                 foreach (var tourRequest in NewComplexTourRequest.TourRequests)
                 {
@@ -123,11 +119,11 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 ComplexTourRequestService.Save(NewComplexTourRequest);
                 var feedbackViewModel = new FeedbackDialogViewModel("Complex tour request has been created!");
                 bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
-                if(feedbackResult==true)
+                if (feedbackResult==true)
                 {
                     MainViewModel.SwitchView(new TouristHomeViewModel(MainViewModel, LoggedInUser, new DialogService()));
-                }               
-            }           
+                }
+            }
         }
         public void AddUser()
         {

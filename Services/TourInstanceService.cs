@@ -1,18 +1,14 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repository;
-using BookingApp.Serializer;
+using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.RightsManagement;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class TourInstanceService
+    public class TourInstanceService : ITourInstanceService
     {
         private ITourInstanceRepository TourInstanceRepository { get; set; }
         private ITourRepository TourRepository { get; set; }
@@ -20,13 +16,13 @@ namespace BookingApp.Services
         private IKeyPointRepository _keyPointRepository { get; set; }
 
         private IPictureRepository _pictureRepository { get; set; }
-        
-        public TourInstanceService(ITourInstanceRepository tourInstanceRepository, ITourRepository tourRepository, IKeyPointRepository keyPointRepository, IPictureRepository pictureRepository)
+
+        public TourInstanceService()
         {
-            TourInstanceRepository = tourInstanceRepository;
-            TourRepository = tourRepository;
-            _keyPointRepository = keyPointRepository;
-            _pictureRepository = pictureRepository;
+            TourInstanceRepository = Injector.Injector.CreateInstance<ITourInstanceRepository>();
+            TourRepository = Injector.Injector.CreateInstance<ITourRepository>();
+            _keyPointRepository = Injector.Injector.CreateInstance<IKeyPointRepository>();
+            _pictureRepository = Injector.Injector.CreateInstance<IPictureRepository>();
         }
 
         public List<TourInstance> GetAll()
@@ -97,8 +93,8 @@ namespace BookingApp.Services
         }
 
         public Dictionary<string, List<TourInstance>> GetLangsWithInstancesForSuperGuideCheck(User user, List<TourInstance> tourInstances)
-        {            
-            List<TourInstance> tours = tourInstances.Where(c => c.BaseTour.UserId == user.Id && c.End == true && c.Date.Date >= DateTime.Today.AddYears(-1) ).ToList();
+        {
+            List<TourInstance> tours = tourInstances.Where(c => c.BaseTour.UserId == user.Id && c.End == true && c.Date.Date >= DateTime.Today.AddYears(-1)).ToList();
             Dictionary<string, List<TourInstance>> languageCounts = new Dictionary<string, List<TourInstance>>();
             foreach (var instance in tours)
             {
@@ -115,7 +111,7 @@ namespace BookingApp.Services
             return languageCounts.Where(kvp => kvp.Value.Count >= 20).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 
- 
+
         public List<TourInstance> GetForTheDay1(User user, ObservableCollection<TourInstance> tours)
         {
             return tours.Where(c => c.BaseTour.UserId == user.Id && c.Date.Date == DateTime.Today).ToList();

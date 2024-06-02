@@ -1,21 +1,21 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Injector;
 using BookingApp.Repository;
-using System;
+using BookingApp.Services.IServices;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class AccommodationReviewService
+    public class AccommodationReviewService : IAccommodationReviewService
     {
-        public AccommodationReviewRepository _repository { get; set; }
+        public IAccommodationReviewRepository _repository { get; set; }
 
         public AccommodationReviewService()
         {
 
-            _repository = new AccommodationReviewRepository();
+            _repository = Injector.Injector.CreateInstance<IAccommodationReviewRepository>();
         }
 
         public List<AccommodationReview> GetAccommodationReviews(List<Accommodation> accomodations, List<Reservation> reservations)

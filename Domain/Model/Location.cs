@@ -1,14 +1,11 @@
 ﻿using BookingApp.Serializer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Domain.Model
 {
-    public class Location
+    public class Location : ISerializable
     {
+        public int Id { get; set; } 
         public string City { get; set; }
         public string Country { get; set; }
 
@@ -34,6 +31,23 @@ namespace BookingApp.Domain.Model
             string[] locations = new string[2];
             locations = s.Split(';');
             return new Location(locations[0], locations[1]);
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues = {
+                Id.ToString(),
+                City,
+                Country};
+
+            return csvValues;
+        }
+
+        public void FromCSV(string[] values)
+        {
+            Id = Convert.ToInt32(values[0]);
+            City = values[1];
+            Country = values[2];
         }
     }
 }

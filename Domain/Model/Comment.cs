@@ -19,6 +19,13 @@ namespace BookingApp.Domain.Model
             User = user;
         }
 
+        public Comment(DateTime creationTime, string text, int userId)
+        {
+            CreationTime = creationTime;
+            Text = text;
+            User = new User() { Id=userId };
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), CreationTime.ToString(), Text, User.Id.ToString() };

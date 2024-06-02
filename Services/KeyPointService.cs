@@ -1,22 +1,17 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repository;
-using BookingApp.Serializer;
-using System;
+using BookingApp.Services.IServices;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class KeyPointService
+    public class KeyPointService : IKeyPointService
     {
         private IKeyPointRepository KeyPointRepository { get; set; }
 
-        public KeyPointService(IKeyPointRepository keyPointRepository) 
-        { 
-            KeyPointRepository = keyPointRepository;
+        public KeyPointService()
+        {
+            KeyPointRepository = Injector.Injector.CreateInstance<IKeyPointRepository>();
         }
 
         public KeyPoint Save(KeyPoint keyPoint)

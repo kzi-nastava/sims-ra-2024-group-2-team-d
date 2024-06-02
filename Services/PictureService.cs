@@ -1,22 +1,17 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repository;
-using BookingApp.Serializer;
-using System;
+using BookingApp.Services.IServices;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class PictureService
+    public class PictureService : IPictureService
     {
         private IPictureRepository PictureRepository { get; set; }
 
-        public PictureService(IPictureRepository pictureRepository)
+        public PictureService()
         {
-            PictureRepository = pictureRepository;
+            PictureRepository =  Injector.Injector.CreateInstance<IPictureRepository>();
         }
 
         public Picture Save(Picture picture)

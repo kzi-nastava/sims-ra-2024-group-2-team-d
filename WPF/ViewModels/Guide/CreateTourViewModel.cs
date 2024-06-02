@@ -1,18 +1,12 @@
+using BookingApp.Domain.Model;
 using BookingApp.Dto;
-using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Security.Cryptography.X509Certificates;
-using BookingApp.Domain.Model;
-using BookingApp.Domain.RepositoryInterfaces;
-using System.ComponentModel.DataAnnotations;
 
 namespace BookingApp.WPF.ViewModels.Guide
 {
@@ -20,16 +14,16 @@ namespace BookingApp.WPF.ViewModels.Guide
     {
         private MainService MainService { get; set; }
 
-        private TourCreationNotificationService _tourCreationNotificationService;
+        private ITourCreationNotificationService _tourCreationNotificationService;
 
-        private TourRequestService _tourRequestService;
+        private ITourRequestService _tourRequestService;
         public User LoggedInUser { get; set; }
         public TourDto Tour { get; set; }
         public TourInstance TourInstance { get; set; }
         public KeyPoint KeyPoint { get; set; }
         public Picture Picture { get; set; }
 
-        public TouristNotificationsService _touristNotificationsService { get; set; }
+        public ITouristNotificationsService _touristNotificationsService { get; set; }
 
         public TourCreationNotification NewTourCreationNotification { get; set; }
         public MyCommand CreateNewTourCommand { get; set; }
@@ -95,21 +89,21 @@ namespace BookingApp.WPF.ViewModels.Guide
                 }
             });
             CancelCommand = new MyCommand(() =>
-            {               
-                    closeAction();                
+            {
+                closeAction();
             });
             IsVisibleError = Visibility.Hidden;
             Loc = location;
             Lang = lang;
             LocReadOnly = false;
             LangReadOnly = false;
-            _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
-            _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
+            _tourRequestService = Injector.Injector.CreateInstance<ITourRequestService>();
+            _touristNotificationsService = Injector.Injector.CreateInstance<TouristNotificationsService>();
             CheckLoc();
             CheckLang();
         }
 
-        public CreateTourViewModel(User user, string location, string lang, TourCreationNotification tourCreationNotification, Action closeAction)
+        public CreateTourViewModel(User user, string location,  string lang, TourCreationNotification tourCreationNotification, Action closeAction)
         {
             MainService = MainService.GetInstance();
             LoggedInUser = user;
@@ -135,10 +129,10 @@ namespace BookingApp.WPF.ViewModels.Guide
             Lang = lang;
             LocReadOnly = false;
             LangReadOnly = false;
-            _tourCreationNotificationService = new TourCreationNotificationService(Injector.Injector.CreateInstance<ITourCreationNotificationRepository>());
+            _tourCreationNotificationService = Injector.Injector.CreateInstance<ITourCreationNotificationService>();
             NewTourCreationNotification = tourCreationNotification;
-            _tourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
-            _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
+            _tourRequestService = Injector.Injector.CreateInstance<ITourRequestService>();
+            _touristNotificationsService = Injector.Injector.CreateInstance<ITouristNotificationsService>();
             CheckLoc();
             CheckLang();
         }

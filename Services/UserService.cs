@@ -1,29 +1,25 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repository;
-using System;
+using BookingApp.Services.IServices;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         public IUserRepository UserRepository { get; set; }
         private ITourInstanceRepository TourInstanceRepository { get; set; }
         private ITourReviewRepository TourReviewRepository { get; set; }
-        public TourInstanceService TourInstanceService { get; set; }
-        public TourReviewService TourReviewService { get; set; }
+        public ITourInstanceService TourInstanceService { get; set; }
+        public ITourReviewService TourReviewService { get; set; }
 
-        public UserService(IUserRepository userRepository, ITourInstanceRepository tourInstanceRepository, ITourRepository tourRepository, IKeyPointRepository keyPointRepository, IPictureRepository pictureRepository, ITourReviewRepository tourReviewRepository) 
-        { 
-            UserRepository = userRepository;
+        public UserService()
+        {
+            UserRepository = Injector.Injector.CreateInstance<IUserRepository>(); ;
             //TourInstanceRepository = tourInstanceRepository;
             //TourReviewRepository = tourReviewRepository;
-            TourInstanceService = new TourInstanceService(tourInstanceRepository, tourRepository, keyPointRepository, pictureRepository);
-            TourReviewService = new TourReviewService(tourReviewRepository);
+            TourInstanceService = Injector.Injector.CreateInstance<ITourInstanceService>(); ;
+            TourReviewService = Injector.Injector.CreateInstance<ITourReviewService>(); ;
         }
 
         public User GetById(int id)
@@ -48,7 +44,7 @@ namespace BookingApp.Services
                     List<TourInstance> instances = kvp.Value;
                     if (TourReviewService.SuperGuideGradeCheck(instances))
                     {
-                        superGuide = true;                      
+                        superGuide = true;
                     }
                 }
             }
@@ -61,7 +57,7 @@ namespace BookingApp.Services
             List<User> superGuides = new List<User>();
             foreach (var user in users)
             {
-                if(CheckSuperGuide(user, TourInstances))
+                if (CheckSuperGuide(user, TourInstances))
                 {
                     superGuides.Add(user);
                 }

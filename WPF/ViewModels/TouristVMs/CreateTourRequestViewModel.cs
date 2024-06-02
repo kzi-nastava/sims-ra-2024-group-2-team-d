@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Dto;
+using BookingApp.Services.IServices;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using BookingApp.Services;
-using BookingApp.Dto;
-using BookingApp.Domain.Model;
-using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
@@ -25,9 +19,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public ICommand SendRequestCommand { get; set; }
 
-        public TouristService TouristService { get; set; }
+        public ITouristService TouristService { get; set; }
 
-        public TourRequestService TourRequestService { get; set; }
+        public ITourRequestService TourRequestService { get; set; }
 
         private readonly MainViewModel _mainViewModel;
         public ICommand BackButtonCommand { get; set; }
@@ -37,8 +31,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             Tourists = new ObservableCollection<Tourist>();
             NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
             InputTourist = new Tourist();
-            TouristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
-            TourRequestService = new TourRequestService(Injector.Injector.CreateInstance<ITourRequestRepository>());
+            TouristService = Injector.Injector.CreateInstance<ITouristService>();
+            TourRequestService = Injector.Injector.CreateInstance<ITourRequestService>();
             AddTouristCommand = new RelayCommand(AddTourist);
             _mainViewModel = mainViewModel;
             SendRequestCommand = new RelayCommand(() =>

@@ -1,12 +1,7 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
+using BookingApp.Services.IServices;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookingApp.Services;
-using BookingApp.Domain.RepositoryInterfaces;
 using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
@@ -25,6 +20,19 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             CloseCommand = new RelayCommand(Close);
         }
 
+        event EventHandler<DialogCloseRequestedEventArgs> IRequestClose.RequestClose
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void Close()
         {
             RequestClose?.Invoke(this, new DialogCloseRequestedEventArgs(false));
@@ -32,9 +40,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void GetCurrentPosition()
         {
-            FollowingTourLiveService _followingTourLiveService = new FollowingTourLiveService(Injector.Injector.CreateInstance<IFollowingTourLiveRepository>());
+            IFollowingTourLiveService _followingTourLiveService = Injector.Injector.CreateInstance<IFollowingTourLiveService>();
             FollowingTourLive currentPosition = _followingTourLiveService.GetByTourInstanceId(ActiveTour.Id).LastOrDefault();
-            KeyPointService _keyPointService = new KeyPointService(Injector.Injector.CreateInstance<IKeyPointRepository>());
+            IKeyPointService _keyPointService = Injector.Injector.CreateInstance<IKeyPointService>();
             CurrentKeyPoint = _keyPointService.GetById(currentPosition.KeyPointId);
 
         }

@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Dto;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,13 +18,13 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class ReserveTourViewModel: INotifyPropertyChanged
     {
-        private TouristRepository _touristRepository { get; set; }
+        private ITouristRepository _touristRepository { get; set; }
 
-        private TourReservationRepository _tourReservationRepository { get; set; }
+        private ITourReservationRepository _tourReservationRepository { get; set; }
 
-        private GiftCardRepository _giftCardRepository { get; set; }
+        private IGiftCardRepository _giftCardRepository { get; set; }
 
-        private TourInstanceService TourInstanceService { get; set; }
+        private ITourInstanceService TourInstanceService { get; set; }
 
         public ObservableCollection<Tourist> Tourists { get; set; }
 
@@ -105,10 +106,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public ReserveTourViewModel(MainViewModel mainViewModel, int touristNumber, int tourInstanceId, User loggedInUser, ObservableCollection<GiftCard> userGiftCards)
         {
-            _touristRepository = new TouristRepository();
-            _tourReservationRepository = new TourReservationRepository();
-            TourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
-            _giftCardRepository = new GiftCardRepository();
+            _touristRepository = Injector.Injector.CreateInstance<ITouristRepository>();
+            _tourReservationRepository = Injector.Injector.CreateInstance<ITourReservationRepository>();
+            TourInstanceService = Injector.Injector.CreateInstance<ITourInstanceService>();
+            _giftCardRepository = Injector.Injector.CreateInstance<IGiftCardRepository>();
             Tourists = new ObservableCollection<Tourist>();
             TourToReserve = TourInstanceService.GetById(tourInstanceId);
             TouristNumber = touristNumber;

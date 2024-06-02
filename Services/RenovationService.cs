@@ -1,14 +1,12 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class RenovationService
+    public class RenovationService : IRenovationService
     {
         public RenovationRepository _repository { get; set; }
 
@@ -31,7 +29,7 @@ namespace BookingApp.Services
 
         public Renovation Save(Renovation Renovation)
         {
-           return _repository.Save(Renovation);
+            return _repository.Save(Renovation);
         }
         //obrisati
 

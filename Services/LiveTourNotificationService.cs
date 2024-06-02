@@ -1,24 +1,20 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.Services
 {
-    public class LiveTourNotificationService
+    public class LiveTourNotificationService: ILiveTourNotificationService
     {
         public ILiveTourNotificationRepository LiveTourNotificationRepository { get; set; }
-        public LiveTourNotificationService(ILiveTourNotificationRepository liveTourNotificationRepository) { 
-            LiveTourNotificationRepository = liveTourNotificationRepository;
+        public LiveTourNotificationService()
+        {
+            LiveTourNotificationRepository =  Injector.Injector.CreateInstance<ILiveTourNotificationRepository>();
         }
 
         public LiveTourNotification Save(LiveTourNotification notification)
         {
-           return LiveTourNotificationRepository.Save(notification);
+            return LiveTourNotificationRepository.Save(notification);
         }
 
         public LiveTourNotification GetById(int id)

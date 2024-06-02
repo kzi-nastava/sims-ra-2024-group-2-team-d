@@ -1,24 +1,20 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.Services
 {
-    public class TourCreationNotificationService
+    public class TourCreationNotificationService : ITourCreationNotificationService
     {
         private ITourCreationNotificationRepository _tourCreationNotificationRepository;
-        public TourCreationNotificationService(ITourCreationNotificationRepository tourCreationNotificationRepository) {
-            _tourCreationNotificationRepository = tourCreationNotificationRepository;
+        public TourCreationNotificationService()
+        {
+            _tourCreationNotificationRepository = Injector.Injector.CreateInstance<ITourCreationNotificationRepository>();
         }
 
         public TourCreationNotification Save(TourCreationNotification tourCreationNotification)
         {
-           return _tourCreationNotificationRepository.Save(tourCreationNotification);
+            return _tourCreationNotificationRepository.Save(tourCreationNotification);
         }
 
         public TourCreationNotification GetById(int id)

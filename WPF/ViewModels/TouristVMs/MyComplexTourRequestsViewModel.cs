@@ -9,6 +9,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using System.Collections.ObjectModel;
 using BookingApp.Dto;
 using System.Windows.Input;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
@@ -16,7 +17,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
     {
         public User LoggedInUser {  get; set; }
         public MainViewModel MainViewModel { get; set; }
-        public ComplexTourRequestService ComplexTourRequestService { get; set; }
+        public IComplexTourRequestService ComplexTourRequestService { get; set; }
         public ObservableCollection<ComplexTourRequestDTO> MyComplexTourRequests {  get; set; }
         public ICommand InfoCommand {  get; set; }
         public ICommand GoBackCommand {  get; set; }
@@ -24,7 +25,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public MyComplexTourRequestsViewModel(MainViewModel mainViewModel, User loggedInUser, IDialogService dialogService) { 
             MainViewModel = mainViewModel;
             LoggedInUser = loggedInUser;
-            ComplexTourRequestService = new ComplexTourRequestService(Injector.Injector.CreateInstance<IComplexTourRequestRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
+            ComplexTourRequestService = Injector.Injector.CreateInstance<IComplexTourRequestService>();
             ComplexTourRequestService.ChangeStatusOfComplexTourRequest();
             MyComplexTourRequests = new ObservableCollection<ComplexTourRequestDTO>();
             InfoCommand = new RelayCommand(complexTourRequestDTO => ShowAllPartsOfComplexTourRequest((ComplexTourRequestDTO)complexTourRequestDTO));

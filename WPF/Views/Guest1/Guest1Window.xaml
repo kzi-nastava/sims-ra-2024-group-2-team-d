@@ -12,7 +12,7 @@
         <Button Content="Owner Rating" HorizontalAlignment="Center" Margin="0,188,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="OwnerRating_Click"/>
         <Button Content="Requests Overview" HorizontalAlignment="Center" Margin="0,124,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="RequestsOverview_Click"/>
         <Button Content="My Rating" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Center" Height="43" Width="136" Click="Button_Click" />
-
+        <Button Content="Forums" HorizontalAlignment="Center" Margin="0,317,0,0" VerticalAlignment="Top" Height="43" Width="136" Click="Forums_Click" />
 
     </Grid>
 </Window>

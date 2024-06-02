@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookingApp.Domain.Model;
-using BookingApp.Repository;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.Services
 {
-    public class RenovationRecommendationService
+    public class RenovationRecommendationService : IRenovationRecommendationService
     {
-        public RenovationRecommendationRepository _repository { get; set; }
+        public IRenovationRecommendationRepository _repository { get; set; }
 
         public RenovationRecommendationService()
         {
 
-            _repository = new RenovationRecommendationRepository();
+            _repository = Injector.Injector.CreateInstance<IRenovationRecommendationRepository>();
         }
 
         public void Save(RenovationRecommendation renovationRecommendation)

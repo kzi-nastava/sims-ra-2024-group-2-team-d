@@ -1,22 +1,16 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repository;
-using BookingApp.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.Services
 {
-    public class TourService
+    public class TourService : ITourService
     {
         public ITourRepository TourRepository { get; set; }
 
-        public TourService(ITourRepository tourRepository)
+        public TourService()
         {
-            TourRepository = tourRepository;
+            TourRepository = Injector.Injector.CreateInstance<ITourRepository>();
         }
 
         public Tour JustSave(Tour tour)

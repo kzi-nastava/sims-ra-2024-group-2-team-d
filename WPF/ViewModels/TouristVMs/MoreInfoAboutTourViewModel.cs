@@ -1,32 +1,28 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Services;
+using BookingApp.Services.IServices;
 using BookingApp.WPF.Views;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
-    public class MoreInfoAboutTourViewModel: IRequestClose, INotifyPropertyChanged
+    public class MoreInfoAboutTourViewModel : IRequestClose, INotifyPropertyChanged
     {
         public TourInstance TourInstance { get; set; }
 
-        private readonly TourService _tourService;
-        private readonly TourInstanceService _tourInstanceService;
-        private readonly UserService _userService;
+        private readonly ITourService _tourService;
+        private readonly ITourInstanceService _tourInstanceService;
+        private readonly IUserService _userService;
         public List<TourInstance> TourInstances { get; set; }
 
         public ICommand OpenMorePicturesCommand { get; set; }
 
-        public ICommand CloseCommand {  get; set; }
+        public ICommand CloseCommand { get; set; }
 
         private Visibility superG;
         public Visibility SuperG
@@ -45,9 +41,9 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public MoreInfoAboutTourViewModel(TourInstance tourInstance, IDialogService dialogService)
         {
             TourInstance = tourInstance;
-            _tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>());
-            _tourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
-            _userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>(), Injector.Injector.CreateInstance<ITourReviewRepository>());
+            _tourService = Injector.Injector.CreateInstance<ITourService>();
+            _tourInstanceService = Injector.Injector.CreateInstance<ITourInstanceService>();
+            _userService =  Injector.Injector.CreateInstance<IUserService>();
             TourInstances = new List<TourInstance>(_tourInstanceService.GetAll());
             LinkTourInstancesWithTours();
             OpenMorePicturesCommand = new RelayCommand(OpenMorePictures);

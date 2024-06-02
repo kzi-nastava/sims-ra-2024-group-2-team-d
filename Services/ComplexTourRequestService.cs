@@ -1,22 +1,21 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Services
 {
-    public class ComplexTourRequestService
+    public class ComplexTourRequestService : IComplexTourRequestService
     {
-        public IComplexTourRequestRepository ComplexTourRequestReposotry {  get; set; }
-
+        public IComplexTourRequestRepository ComplexTourRequestReposotry { get; set; }
         public ITourRequestRepository TourRequestRepository { get; set; }
-        public ComplexTourRequestService(IComplexTourRequestRepository complexTourRequestRepository, ITourRequestRepository tourRequestRepository) {
-            ComplexTourRequestReposotry = complexTourRequestRepository;
-            TourRequestRepository = tourRequestRepository;
+        public ComplexTourRequestService()
+        {
+            ComplexTourRequestReposotry = Injector.Injector.CreateInstance<IComplexTourRequestRepository>();
+            TourRequestRepository = Injector.Injector.CreateInstance<ITourRequestRepository>();
         }
 
         public ComplexTourRequest Save(ComplexTourRequest complexTourRequest)

@@ -64,10 +64,10 @@ namespace BookingApp.Repository
             return comment;
         }
 
-        public List<Comment> GetByUser(User user)
+        public List<Comment> GetByUser(int userID)
         {
             _comments = _serializer.FromCSV(FilePath);
-            return _comments.FindAll(c => c.User.Id == user.Id);
+            return _comments.FindAll(c => c.User.Id == userID);
         }
     }
 }

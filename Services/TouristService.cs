@@ -1,20 +1,16 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
-using BookingApp.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
+using System.Collections.Generic;
 
 namespace BookingApp.Services
 {
-    public class TouristService
+    public class TouristService : ITouristService
     {
         public ITouristRepository TouristRepository { get; set; }
-        public TouristService(ITouristRepository touristRepository) { 
-            TouristRepository = touristRepository;
+        public TouristService()
+        {
+            TouristRepository = Injector.Injector.CreateInstance<ITouristRepository>();
         }
 
         public Tourist Update(Tourist tourist)
@@ -24,7 +20,7 @@ namespace BookingApp.Services
 
         public Tourist Save(Tourist tourist)
         {
-           return TouristRepository.Save(tourist);
+            return TouristRepository.Save(tourist);
         }
 
         public List<Tourist> GetByIds(List<int> ids)

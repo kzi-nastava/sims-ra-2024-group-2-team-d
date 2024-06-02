@@ -1,18 +1,14 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Services;
+using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModels.TouristVMs
 {
     public class OpenLiveTourNotificationViewModel: IRequestClose
     {
-        public LiveTourNotificationService LiveTourNotificationService { get; set; }
+        public ILiveTourNotificationService LiveTourNotificationService { get; set; }
         public List<Tourist> Tourists { get; set; }
 
         public TourInstance LiveTour { get; set; }
@@ -22,13 +18,26 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public OpenLiveTourNotificationViewModel(TouristNotifications notification)
         {
-            LiveTourNotificationService = new LiveTourNotificationService(Injector.Injector.CreateInstance<ILiveTourNotificationRepository>());
+            LiveTourNotificationService = Injector.Injector.CreateInstance<ILiveTourNotificationService>();
             Notification = LiveTourNotificationService.GetById(notification.NotificationId);
-            TouristService touristService = new TouristService(Injector.Injector.CreateInstance<ITouristRepository>());
+            ITouristService touristService = Injector.Injector.CreateInstance<ITouristService>();
             Tourists = touristService.GetByIds(Notification.TouristsId);
-            TourInstanceService tourInstanceService = new TourInstanceService(Injector.Injector.CreateInstance<ITourInstanceRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<IKeyPointRepository>(), Injector.Injector.CreateInstance<IPictureRepository>());
+            var tourInstanceService = Injector.Injector.CreateInstance<ITourInstanceService>();
             LiveTour = tourInstanceService.GetById(Notification.TourInstanceId);
             GoBackCommand = new RelayCommand(Close);
+        }
+
+        event EventHandler<DialogCloseRequestedEventArgs> IRequestClose.RequestClose
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public void Close()

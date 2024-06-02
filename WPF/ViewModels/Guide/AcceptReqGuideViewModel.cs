@@ -1,16 +1,11 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.Services.IServices;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookingApp.WPF.ViewModels.Guide
@@ -21,7 +16,7 @@ namespace BookingApp.WPF.ViewModels.Guide
         public TourRequest TourRequest { get; set; }
         public User LoggedInUser { get; set; }
         public ObservableCollection<TourInstance> TourInstances { get; set; }
-        public TourRequestAcceptanceNotificationService _tourRequestAcceptanceNotificationService { get; set; }
+        public ITourRequestAcceptanceNotificationService _tourRequestAcceptanceNotificationService { get; set; }
         public MyCommand OkCommand { get; set; }
         public MyCommand CancelCommand { get; set; }
         private string dateText;
@@ -43,12 +38,12 @@ namespace BookingApp.WPF.ViewModels.Guide
             TourRequest = tourRequest;
             LoggedInUser = user;
             TourInstances = new ObservableCollection<TourInstance>(MainService.TourInstanceService.GetAll());
-            _tourRequestAcceptanceNotificationService = new TourRequestAcceptanceNotificationService(Injector.Injector.CreateInstance<ITourRequestAcceptanceNotificationRepository>());
+            _tourRequestAcceptanceNotificationService = Injector.Injector.CreateInstance<ITourRequestAcceptanceNotificationService>();
             LinkTourInstancesWithTours();
             OkCommand = new MyCommand(() =>
             {
                 Ok();
-                if(Check == true) { closeAction(); }
+                if (Check == true) { closeAction(); }
             });
             CancelCommand = new MyCommand(() =>
             {
@@ -93,7 +88,7 @@ namespace BookingApp.WPF.ViewModels.Guide
                         NotifyTouristUser(tourRequest);
                         //CreateTourInstanceFromRequest(TourRequest, parsedDate);
                         MessageBoxResult result = MessageBox.Show("You have succesfully accepted this request!", "OK", MessageBoxButton.OK, MessageBoxImage.Question);
-                        if(result == MessageBoxResult.OK)
+                        if (result == MessageBoxResult.OK)
                         {
                             Check = true;
                         }
@@ -116,7 +111,7 @@ namespace BookingApp.WPF.ViewModels.Guide
             TourRequestAcceptanceNotification tourRequestAcceptanceNotification = new TourRequestAcceptanceNotification(tourRequest.Id);
             TourRequestAcceptanceNotification savedNotification = _tourRequestAcceptanceNotificationService.Save(tourRequestAcceptanceNotification);
             TouristNotifications notification = new TouristNotifications(savedNotification.Id, "Your request has been accepted. Click \"See more\" to see more info", NotificationType.TourRequestAcceptance, tourRequest.UserTouristId);
-            TouristNotificationsService _touristNotificationsService = new TouristNotificationsService(Injector.Injector.CreateInstance<ITouristNotificationsRepository>(), Injector.Injector.CreateInstance<ITourCreationNotificationRepository>(), Injector.Injector.CreateInstance<ITourRequestRepository>());
+            ITouristNotificationsService _touristNotificationsService = Injector.Injector.CreateInstance<ITouristNotificationsService>();
             _touristNotificationsService.Save(notification);
 
         }

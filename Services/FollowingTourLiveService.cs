@@ -1,22 +1,18 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
-using BookingApp.Serializer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Repository;
+using BookingApp.Services.IServices;
+using System.Collections.Generic;
 
 namespace BookingApp.Services
 {
-    public class FollowingTourLiveService
+    public class FollowingTourLiveService : IFollowingTourLiveService
     {
         public IFollowingTourLiveRepository FollowingTourLiveRepository { get; set; }
 
-        public FollowingTourLiveService(IFollowingTourLiveRepository followingTourLiveRepository) 
+        public FollowingTourLiveService()
         {
-            FollowingTourLiveRepository = followingTourLiveRepository;
+            FollowingTourLiveRepository = Injector.Injector.CreateInstance<IFollowingTourLiveRepository>();
         }
 
         public FollowingTourLive Update(FollowingTourLive followingTourLive)

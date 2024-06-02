@@ -11,16 +11,17 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services.IServices;
 
 namespace BookingApp.Services
 {
-    public class TourRequestService
+    public class TourRequestService : ITourRequestService
     {
         private ITourRequestRepository TourRequestRepository { get; set; }
 
-        public TourRequestService(ITourRequestRepository tourRequestRepository) 
-        { 
-            TourRequestRepository = tourRequestRepository;
+        public TourRequestService() 
+        {
+            TourRequestRepository  = Injector.Injector.CreateInstance<ITourRequestRepository>();
         }
 
         public bool CheckUserIsAvaliable(User user, DateTime dateTime)

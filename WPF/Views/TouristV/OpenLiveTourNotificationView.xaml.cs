@@ -19,12 +19,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for OpenLiveTourNotificationView.xaml
     /// </summary>
-    public partial class OpenLiveTourNotificationView : Window
+    public partial class OpenLiveTourNotificationView : UserControl
     {
-        public OpenLiveTourNotificationView(TouristNotifications notification)
+        public OpenLiveTourNotificationView()
         {
             InitializeComponent();
-            DataContext = new OpenLiveTourNotificationViewModel(notification);
+            //DataContext = new OpenLiveTourNotificationViewModel(notification);
         }
     }
 }

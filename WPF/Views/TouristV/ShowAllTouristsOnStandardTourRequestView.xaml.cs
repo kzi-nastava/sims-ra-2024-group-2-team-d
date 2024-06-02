@@ -19,12 +19,12 @@ namespace BookingApp.WPF.Views
     /// <summary>
     /// Interaction logic for ShowAllTouristsOnStandardTourRequestView.xaml
     /// </summary>
-    public partial class ShowAllTouristsOnStandardTourRequestView : Window
+    public partial class ShowAllTouristsOnStandardTourRequestView : UserControl
     {
-        public ShowAllTouristsOnStandardTourRequestView(TourRequestDTO tourRequest)
+        public ShowAllTouristsOnStandardTourRequestView()
         {
             InitializeComponent();
-            DataContext = new ShowAllTouristsOnStandardTourRequestViewModel(tourRequest);
+            //DataContext = new ShowAllTouristsOnStandardTourRequestViewModel(tourRequest);
         }
     }
 }

@@ -190,11 +190,11 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 if (viewModel.SelectedOption == "Standard")
                 {
-                    _mainViewModel.SwitchView(new MyStandardTourRequestsViewModel(_mainViewModel, LoggedInUser));
+                    _mainViewModel.SwitchView(new MyStandardTourRequestsViewModel(_mainViewModel, LoggedInUser,_dialogService));
                 }
                 else if (viewModel.SelectedOption == "Complex")
                 {
-                    _mainViewModel.SwitchView(new MyComplexTourRequestsViewModel(_mainViewModel, LoggedInUser));
+                    _mainViewModel.SwitchView(new MyComplexTourRequestsViewModel(_mainViewModel, LoggedInUser, _dialogService));
                 }
             }
         }
@@ -408,8 +408,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         {
             if (notification.Type == NotificationType.AddedToLiveTour)
             {
-                OpenLiveTourNotificationView liveTourNotification = new OpenLiveTourNotificationView(notification);
-                liveTourNotification.Show();
+                var viewModel = new OpenLiveTourNotificationViewModel(notification);
+                bool? result = _dialogService.ShowDialog(viewModel);
+                //OpenLiveTourNotificationView liveTourNotification = new OpenLiveTourNotificationView(notification);
+                //liveTourNotification.Show();
                 IsNotificationPopupOpen = !IsNotificationPopupOpen;
             }
             else if (notification.Type == NotificationType.TourRequestAcceptance)

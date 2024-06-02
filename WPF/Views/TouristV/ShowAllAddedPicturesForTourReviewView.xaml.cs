@@ -10,21 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BookingApp.Domain.Model;
-using BookingApp.WPF.ViewModels.TouristVMs;
 
-namespace BookingApp.WPF.Views
+namespace BookingApp.WPF.Views.TouristV
 {
     /// <summary>
-    /// Interaction logic for TouristNotificationView.xaml
+    /// Interaction logic for ShowAllAddedPicturesForTourReviewView.xaml
     /// </summary>
-    public partial class TouristNotificationView : UserControl
+    public partial class ShowAllAddedPicturesForTourReviewView : UserControl
     {
-        public TouristNotificationView()
+        public ShowAllAddedPicturesForTourReviewView()
         {
             InitializeComponent();
-            //this.DataContext = new TouristNotificationViewModel(activeTours, loggedInUser);
         }
     }
 }

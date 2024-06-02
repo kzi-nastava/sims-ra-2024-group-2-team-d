@@ -16,7 +16,6 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Width" Value="200" />
         </Style>
-
         <!-- Stil za ComboBox -->
         <Style x:Key="StyledComboBox" TargetType="ComboBox">
             <Setter Property="Margin" Value="10" />
@@ -74,6 +73,21 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="NotificationButtonStyle" TargetType="Button" BasedOn="{StaticResource MyButtonStyle}">
+            <Setter Property="Width" Value="75" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style x:Key="NotificationTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
         <Style x:Key="NotificationsButtons" TargetType="Button">
             <Setter Property="Margin" Value="10,10,10,10" />
             <Setter Property="FontSize" Value="15" />
@@ -160,15 +174,14 @@
                         <Button Height="40" Width="100" Margin="20,15,20,15" Command="{Binding OpenMyToursCommand}" Style="{StaticResource MyButtonStyle}">My tours</Button>
                         <Button Height="40" Width="120" Margin="20,15,20,15" Command="{Binding OpenTypeOfMyTourRequestSelectionCommand}" Style="{StaticResource MyButtonStyle}">My requests</Button>
                         <Button x:Name="NotificationIcon" Height="50" Width="60" Margin="20,15,20,15" Style="{StaticResource MyButtonStyle}" Command="{Binding ShowNotificationsCommand}">
-                            <Image Source="../../../Resources/Images/notification-icon.png" Height="40" Width="40"></Image>
+                            <Image Source="../../../Resources/Images/notification-icon.png" Height="40" Width="40"/>
                         </Button>
-                        <Popup x:Name="notificationPopup" PlacementTarget="{Binding ElementName=NotificationIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide" IsOpen="{Binding IsNotificationPopupOpen}">
-                            <Border Background="WhiteSmoke" BorderBrush="Black" BorderThickness="1">
+
+                        <Popup x:Name="notificationPopup" PlacementTarget="{Binding ElementName=NotificationIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide" IsOpen="{Binding IsNotificationPopupOpen}" VerticalOffset="10" HorizontalOffset="-150">
+                            <Border Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="10" Padding="10" Width="400" MaxHeight="600">
                                 <StackPanel>
-                                    <TextBlock HorizontalAlignment="Center">
-                                    <Underline>
-                                        Notifications
-                                    </Underline>
+                                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="0,0,0,10">
+                <Underline>Notifications</Underline>
                                     </TextBlock>
                                     <TextBlock Text="There are no notifications" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="10">
                                         <TextBlock.Style>
@@ -182,16 +195,16 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-                                    <ListBox x:Name="notifications" ItemsSource="{Binding Notifications}">
+                                    <ListBox x:Name="notifications" ItemsSource="{Binding Notifications}" BorderThickness="0" MaxHeight="500">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <WrapPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Message}" FontSize="15" HorizontalAlignment="Center" Width="150" TextWrapping="Wrap"></TextBlock>
-                                                    <StackPanel>
-                                                        <Button Content="See more" Command="{Binding ElementName=notifications, Path=DataContext.OpenNotificationCommand}" CommandParameter="{Binding}" Style="{StaticResource NotificationsButtons}" ></Button>
-                                                        <Button Content="Mark as read" Command="{Binding ElementName=notifications, Path=DataContext.MarkAsReadCommand}" CommandParameter="{Binding}" Height="25" Width="75" FontSize="12" Margin="10,10,10,10"></Button>
+                                                <StackPanel Orientation="Vertical" Margin="5">
+                                                    <TextBlock Text="{Binding Message}" Style="{StaticResource NotificationTextBlockStyle}" Width="300"/>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <Button Content="See more" Command="{Binding ElementName=notifications, Path=DataContext.OpenNotificationCommand}" CommandParameter="{Binding}" Style="{StaticResource NotificationButtonStyle}"/>
+                                                        <Button Content="Mark as read" Command="{Binding ElementName=notifications, Path=DataContext.MarkAsReadCommand}" CommandParameter="{Binding}" Style="{StaticResource NotificationButtonStyle}"/>
                                                     </StackPanel>
-                                                </WrapPanel>
+                                                </StackPanel>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>
@@ -199,13 +212,14 @@
                             </Border>
                         </Popup>
                         <Button x:Name="UserIcon" Height="50" Width="60" Margin="20,15,20,15" Command="{Binding UserIconClickCommand}" Style="{StaticResource MyButtonStyle}">
-                            <Image Source="../../../Resources/Images/user-icon.png" Height="40" Width="40"></Image>
+                            <Image Source="../../../Resources/Images/user-icon.png" Height="40" Width="40"/>
                         </Button>
+
                         <Popup x:Name="menuPopup" PlacementTarget="{Binding ElementName=UserIcon}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide" IsOpen="{Binding IsMenuPopupOpen}">
-                            <Border Background="WhiteSmoke" BorderBrush="Black" BorderThickness="1">
+                            <Border Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="10" Padding="10" Width="250">
                                 <StackPanel>
-                                    <Button Content="My vouchers" Width="100" Height="30" Command="{Binding ShowToursitVouchersCommand}" />
-                                    <Button Content="Opcija 2" Width="100" Height="30" />
+                                    <Button Content="My vouchers" Command="{Binding ShowToursitVouchersCommand}" Style="{StaticResource MyButtonStyle}" Width="180" Height="40"/>
+                                    <Button Content="Opcija 2" Style="{StaticResource MyButtonStyle}" Width="180" Height="40"/>
                                 </StackPanel>
                             </Border>
                         </Popup>

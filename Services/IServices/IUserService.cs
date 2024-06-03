@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Repository;
 using System.Collections.Generic;
 
 namespace BookingApp.Services.IServices
@@ -11,5 +12,8 @@ namespace BookingApp.Services.IServices
         bool CheckSuperGuide(User user, List<TourInstance> TourInstances);
 
         List<User> GetAllSuperGuides(List<TourInstance> TourInstances);
+
+        public void Delete(User user);
+        
     }
 }

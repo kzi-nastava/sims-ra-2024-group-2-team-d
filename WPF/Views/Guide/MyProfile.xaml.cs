@@ -24,7 +24,7 @@ namespace BookingApp.WPF.Views.Guide
         public MyProfile(User user)
         {
             InitializeComponent();
-            DataContext = new MyProfileViewModel(user);
+            DataContext = new MyProfileViewModel(user, Close);
         }
     }
 }

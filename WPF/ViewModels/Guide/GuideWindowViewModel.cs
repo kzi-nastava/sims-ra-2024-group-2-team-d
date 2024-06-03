@@ -38,6 +38,7 @@ namespace BookingApp.WPF.ViewModels.Guide
         public MyCommand ShowLogOut { get; set; }
         public MyCommand ShowRequests { get; set; }
         public MyCommand ShowProfile { get; set; }
+        
 
         public GuideWindowViewModel(User loggedInUser, Action closeAction)
         {
@@ -58,7 +59,11 @@ namespace BookingApp.WPF.ViewModels.Guide
                 }
             });
             ShowRequests = new MyCommand(Requests);
-            ShowProfile = new MyCommand(Profile);
+            ShowProfile = new MyCommand(() =>
+            {
+                Profile();
+                closeAction();              
+            });
         }
 
         public void Profile()

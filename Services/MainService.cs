@@ -22,6 +22,7 @@ namespace BookingApp.Services
         public IUserService UserService { get; set; }
         public IPictureService PictureService { get; set; }
         public IComplexTourRequestService ComplexTourRequestService{ get; set; }
+        public ITouristNotificationsService TouristNotificationsService { get; set; }
 
         public MainService()
         {
@@ -37,6 +38,7 @@ namespace BookingApp.Services
             UserService = Injector.Injector.CreateInstance<IUserService>();
             PictureService = Injector.Injector.CreateInstance<IPictureService>();
             ComplexTourRequestService = Injector.Injector.CreateInstance<IComplexTourRequestService>();
+            TouristNotificationsService = Injector.Injector.CreateInstance<ITouristNotificationsService>();
         }
 
         public static MainService GetInstance()

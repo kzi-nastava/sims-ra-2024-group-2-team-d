@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Serializer;
 using BookingApp.Services.IServices;
 using System.Collections.Generic;
 
@@ -67,6 +68,12 @@ namespace BookingApp.Services
             return superGuides;
         }
 
+
+        public void Delete(User user)
+        {
+            UserRepository.Delete(user);
+        }
+
         public int GetUserId()
         {
             return _userId;
@@ -75,6 +82,7 @@ namespace BookingApp.Services
         public void UpdateUserId(int newUserId)
         {
             _userId = newUserId;
+
         }
 
     }

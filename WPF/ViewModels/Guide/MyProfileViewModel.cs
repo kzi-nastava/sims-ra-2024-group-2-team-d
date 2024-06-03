@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
+using BookingApp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -58,13 +59,19 @@ namespace BookingApp.WPF.ViewModels.Guide
             }
         }
         public MyCommand QuitJob { get; set; }
+        public bool Check {  get; set; }
 
 
-        public MyProfileViewModel(User user)
+        public MyProfileViewModel(User user, Action closeAction)
         {
             MainService = MainService.GetInstance();
             LoggedInUser = user;
-            QuitJob = new MyCommand(Quit);
+            Check = false;
+            QuitJob = new MyCommand(() =>
+            {
+                Quit();
+                if (Check == true) { closeAction(); }
+            });
             TourInstances = new List<TourInstance>(MainService.TourInstanceService.GetAll());
             LinkTourInstancesWithTours();
             UsernameText = LoggedInUser.Username;
@@ -130,7 +137,10 @@ namespace BookingApp.WPF.ViewModels.Guide
                         TourInstances.Remove(instance);
                     }
                 }
-
+                MainService.UserService.Delete(LoggedInUser);
+                Check = true;
+                SignInForm signInForm = new SignInForm();
+                signInForm.Show();
             }
         }
 

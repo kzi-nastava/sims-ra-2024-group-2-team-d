@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.Model;
+using BookingApp.Repository;
 using System.Collections.Generic;
 
 namespace BookingApp.Services.IServices
@@ -12,8 +13,13 @@ namespace BookingApp.Services.IServices
 
         List<User> GetAllSuperGuides(List<TourInstance> TourInstances);
 
+
+        public void Delete(User user);
+        
+
         public int GetUserId();
 
         public void UpdateUserId(int newUserId);
+
     }
 }

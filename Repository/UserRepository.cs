@@ -35,5 +35,13 @@ namespace BookingApp.Repository
         {
             return _users;
         }
+
+        public void Delete(User user)
+        {
+            _users = _serializer.FromCSV(FilePath);
+            User founded = _users.Find(c => c.Id == user.Id);
+            _users.Remove(founded);
+            _serializer.ToCSV(FilePath, _users);
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Dto;
-using BookingApp.Services;
 using BookingApp.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -8,10 +7,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace BookingApp.WPF.ViewModels.Guest
+namespace BookingApp.WPF.ViewModels.Owner
 {
-    public class ForumCommentsOverviewViewModel : INotifyPropertyChanged
+    public class ForumCommentsViewModel : INotifyPropertyChanged
     {
         private bool _canLeaveComment;
         private string _topic;
@@ -19,14 +19,15 @@ namespace BookingApp.WPF.ViewModels.Guest
         private string _newComment;
         private ObservableCollection<CommentDTO> _comments;
         public event PropertyChangedEventHandler? PropertyChanged;
-        private readonly IAccommodationService _accommodationService;
         private readonly IForumCommentService _forumCommentService;
         private readonly IForumIdService _forumIdService;
         private readonly IForumService _forumService;
         private readonly IUserService _userService;
         private readonly ICommentService _commentService;
+        private readonly IAccommodationService _accommodationService;
         private readonly IReservationService _reservationService;
         public RelayCommand SubmitCommentCommand { get; set; }
+        public RelayCommand ReportCommentCommand { get; set; }
         public ObservableCollection<CommentDTO> Comments
         {
             get => _comments;
@@ -87,11 +88,10 @@ namespace BookingApp.WPF.ViewModels.Guest
                 }
             }
         }
-        public ForumCommentsOverviewViewModel()
+        public ForumCommentsViewModel()
         {
-
-            _accommodationService = Injector.Injector.CreateInstance<IAccommodationService>();
             _forumService = Injector.Injector.CreateInstance<IForumService>();
+            _accommodationService = Injector.Injector.CreateInstance<IAccommodationService>();
             _forumCommentService = Injector.Injector.CreateInstance<IForumCommentService>();
             _userService = Injector.Injector.CreateInstance<IUserService>();
             _commentService = Injector.Injector.CreateInstance<ICommentService>();
@@ -99,6 +99,7 @@ namespace BookingApp.WPF.ViewModels.Guest
             _reservationService = Injector.Injector.CreateInstance<IReservationService>();
             Comments = new ObservableCollection<CommentDTO>();
             SubmitCommentCommand = new RelayCommand(SubmitComment);
+            ReportCommentCommand = new RelayCommand(ReportComment);
             InitializeForumComments();
             InitializeTopic();
             InitializeLocation();
@@ -117,7 +118,7 @@ namespace BookingApp.WPF.ViewModels.Guest
                 Comment com = _commentService.GetByCommentId(commentId);
                 User user = _userService.GetById(com.User.Id);
                 bool highlight = CheckForHighlight(user);
-                CommentDTO commentDTO = new CommentDTO(user.Username, com.Text, com.CreationTime, highlight) { NumberOfReports = com.NumberOfReports };
+                CommentDTO commentDTO = new CommentDTO(user.Username, com.Text, com.CreationTime, highlight) { Id = com.Id, UserId = com.User.Id, NumberOfReports = com.NumberOfReports };
                 Comments.Add(commentDTO);
             }
             Comments = new ObservableCollection<CommentDTO>(Comments.OrderByDescending(c => c.PostedDate).ToList());
@@ -144,6 +145,24 @@ namespace BookingApp.WPF.ViewModels.Guest
                 InitializeForumComments();
             }
         }
+
+        private void ReportComment(object parameter)
+        {
+            if (parameter is CommentDTO c)
+            {
+                c.NumberOfReports += 1;
+                _commentService.Update(new Comment()
+                {
+                    Id = c.Id,
+                    CreationTime = c.PostedDate,
+                    Text = c.Comment,
+                    User = new User() { Id = c.UserId },
+                    NumberOfReports = c.NumberOfReports
+            });
+                InitializeForumComments();
+            }
+        }
+
         private bool CheckForHighlight(User user)
         {
             Location location = _forumService.GetLocation(_forumIdService.ForumId);
@@ -152,8 +171,9 @@ namespace BookingApp.WPF.ViewModels.Guest
         private void InitializeCanLeaveComment()
         {
             Forum forum = _forumService.GetForumById(_forumIdService.ForumId);
-            CanLeaveComment = forum.Status == ForumStatus.Open;
+            CanLeaveComment = forum.Status == ForumStatus.Open && _accommodationService.HasAccommodationOnLocation(_userService.GetUserId(),forum.Location);
         }
+
     }
 }
 

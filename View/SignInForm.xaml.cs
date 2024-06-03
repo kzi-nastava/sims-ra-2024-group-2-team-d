@@ -1,5 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
+using BookingApp.Services.IServices;
 using BookingApp.View.Guest1;
 using BookingApp.View.Owner;
 using BookingApp.WPF.ViewModels.TouristVMs;
@@ -18,6 +20,7 @@ namespace BookingApp.View
     {
 
         private readonly UserRepository _repository;
+        private readonly IUserService _service;
 
         private string _username;
         public string Username
@@ -45,6 +48,7 @@ namespace BookingApp.View
             InitializeComponent();
             DataContext = this;
             _repository = new UserRepository();
+            _service = Injector.Injector.CreateInstance<IUserService>();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -70,6 +74,8 @@ namespace BookingApp.View
                     {
                         OpenGuideApplication(user);
                     }
+
+                    _service.UpdateUserId(user.Id);
                 }  
             }
             else

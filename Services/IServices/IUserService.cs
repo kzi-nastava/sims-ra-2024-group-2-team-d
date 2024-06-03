@@ -11,5 +11,9 @@ namespace BookingApp.Services.IServices
         bool CheckSuperGuide(User user, List<TourInstance> TourInstances);
 
         List<User> GetAllSuperGuides(List<TourInstance> TourInstances);
+
+        public int GetUserId();
+
+        public void UpdateUserId(int newUserId);
     }
 }

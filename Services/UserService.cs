@@ -13,6 +13,8 @@ namespace BookingApp.Services
         public ITourInstanceService TourInstanceService { get; set; }
         public ITourReviewService TourReviewService { get; set; }
 
+        private int _userId;
+
         public UserService()
         {
             UserRepository = Injector.Injector.CreateInstance<IUserRepository>(); ;
@@ -63,6 +65,16 @@ namespace BookingApp.Services
                 }
             }
             return superGuides;
+        }
+
+        public int GetUserId()
+        {
+            return _userId;
+        }
+
+        public void UpdateUserId(int newUserId)
+        {
+            _userId = newUserId;
         }
 
     }

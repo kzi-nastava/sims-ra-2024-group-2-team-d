@@ -60,7 +60,7 @@ namespace BookingApp.WPF.ViewModels.Guest
         private void InitializeUserForums()
         {
             //TODO: user id maybe from userService?
-            int userId = 1;
+            int userId = _userService.GetUserId();
             Forums = new ObservableCollection<KeyValuePair<int, string>>(_forumService.GetForumsByUserKeyValue(userId));
         }
         private void CloseForum(object parameter)

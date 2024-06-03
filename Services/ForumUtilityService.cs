@@ -1,12 +1,14 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services.IServices;
 using System.Collections.Generic;
+using System.Xml.XPath;
 
 namespace BookingApp.Services
 {
     internal class ForumUtilityService : IForumUtilityService
     {
         private readonly IForumCommentService _forumCommentService;
+        private readonly IForumService _forumService;
         private readonly ICommentService _commentService;
         private readonly IUserService _userService;
         private readonly IReservationService _accommodationReservationService;
@@ -15,6 +17,7 @@ namespace BookingApp.Services
         public ForumUtilityService()
         {
             _forumCommentService = Injector.Injector.CreateInstance<IForumCommentService>();
+            _forumService = Injector.Injector.CreateInstance<IForumService>();
             _commentService = Injector.Injector.CreateInstance<ICommentService>();
             _userService = Injector.Injector.CreateInstance<IUserService>();
             _accommodationReservationService = Injector.Injector.CreateInstance<IReservationService>();
@@ -34,7 +37,7 @@ namespace BookingApp.Services
                     guestCommentCounter++;
 
                 }
-                else if (HasAccommodationOnLocation(comment.User, forum))
+                else if (HasAccommodationOnLocation(comment.User.Id, forum))
                 {
 
                     ownerCommentCounter++;
@@ -49,13 +52,28 @@ namespace BookingApp.Services
                 return "No";
             }
         }
+
+        public List<Forum> GetForumsWhereOwnerHasAccommodation()
+        {
+            var forums = _forumService.GetAll();
+            var result = new List<Forum>();
+
+            foreach (var forum in forums)
+            {
+                if (HasAccommodationOnLocation(_userService.GetUserId(),forum))
+                    result.Add(forum);
+
+            }
+
+            return result;
+        }
         private bool WasOnLocation(User user, Forum forum)
         {
             return  _accommodationReservationService.WasOnLocation(user.Id, forum.Location);
         }
-        private bool HasAccommodationOnLocation(User user, Forum forum)
+        private bool HasAccommodationOnLocation(int userID, Forum forum)
         {
-            return  _accommodationService.HasAccommodationOnLocation(user.Id, forum.Location);
+            return  _accommodationService.HasAccommodationOnLocation(userID, forum.Location);
         }
     }
 }

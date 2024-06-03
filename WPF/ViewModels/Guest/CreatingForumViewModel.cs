@@ -125,7 +125,7 @@ namespace BookingApp.WPF.ViewModels.Guest
         private void CreateForum(object parameter)
         {
             //TODO: userId
-            int userId = 1;
+            int userId = _userService.GetUserId();
             Location location = new Location(SelectedCity, SelectedCountry);
             Comment comment = CreateComment(userId);
             Forum forum = CreateForum(userId, location);
@@ -136,7 +136,7 @@ namespace BookingApp.WPF.ViewModels.Guest
 
         private Comment CreateComment(int userId)
         {
-            Comment comment = new Comment(DateTime.Now, Text, userId);
+            Comment comment = new Comment(DateTime.Now, Text, userId,0);
             return _commentRepository.Save(comment);
         }
         private Forum CreateForum(int userId, Location location)

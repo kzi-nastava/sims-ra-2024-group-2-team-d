@@ -256,17 +256,26 @@ CornerRadius="10">
         </Button>
         <TextBlock FontWeight="Bold" FontSize="26" TextWrapping="Wrap" Text="Create complex tour request" Grid.Column="1" Grid.Row="0" Style="{StaticResource MyTextStyle}" Margin="0,10,0,10" Width="190"/>
         <StackPanel  Grid.Row="1" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="260" Margin="0,0,0,5">
-            <TextBlock Text="Location" Style="{StaticResource MyTextStyle}"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Location" Style="{StaticResource MyTextStyle}"></TextBlock>
+                <Image Source="../../../Resources/Images/location-icon.jpg" Height="40" Width="40"></Image>
+            </StackPanel>
             <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding NewTourRequest.Location}" RenderTransformOrigin="0.499,1.049" Height="36" />
         </StackPanel>
         <StackPanel Margin="0,19,0,14" Grid.Row="2" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="260">
-            <TextBlock Text="Language" Style="{StaticResource MyTextStyle}"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Language" Style="{StaticResource MyTextStyle}"></TextBlock>
+                <Image Source="../../../Resources/Images/language-icon.png" Height="40" Width="40"></Image>
+            </StackPanel>
             <TextBox Text="{Binding NewTourRequest.Language}" Style="{StaticResource TextBoxStyle}" Height="42"></TextBox>
         </StackPanel>
         <StackPanel  Grid.Row="3" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="260" Margin="0,5,0,0">
             <GroupBox BorderBrush="Black" Height="174">
                 <GroupBox.Header>
-                    <TextBlock Text="Date range (Start - End)" Style="{StaticResource MyTextStyle}"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Date (Start - End)" Style="{StaticResource MyTextStyle}"></TextBlock>
+                        <Image Height="40" Width="40" HorizontalAlignment="Center" Source="../../../Resources/Images/calendar-icon.png"/>
+                    </StackPanel>
                 </GroupBox.Header>
                 <StackPanel Height="110">
                     <DatePicker Style="{StaticResource DatePickerStyle}" Margin="0,10,0,10" SelectedDate="{Binding NewTourRequest.Start}" Width="150" Height="30" DisplayDateStart="{Binding NewTourRequest.FirstAvailableDate}"></DatePicker>
@@ -275,7 +284,10 @@ CornerRadius="10">
             </GroupBox>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="0">
-            <TextBlock Text="Description" Style="{StaticResource MyTextStyle}"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Description" Style="{StaticResource MyTextStyle}"></TextBlock>
+                <Image Source="../../../Resources/Images/description-icon.png" Height="40" Width="40" Margin="5"/>
+            </StackPanel>
             <TextBox Text="{Binding NewTourRequest.Description}" Style="{StaticResource TextBoxStyle}" Height="101" Width="314"></TextBox>
         </StackPanel>
         <StackPanel Grid.RowSpan="3" Grid.Row="1" Margin="0,0,9,0" Grid.Column="1" >
@@ -284,8 +296,6 @@ CornerRadius="10">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Tourist information" FontSize="20" Margin="0,10"  FontWeight="Bold"></TextBlock>
                         <Image Source="../../../Resources/Images/traveler-icon.png" Height="40" Width="40" Margin="5"/>
-
-
                     </StackPanel>
                 </GroupBox.Header>
                 <StackPanel Height="340">
@@ -314,8 +324,8 @@ CornerRadius="10">
                                 <TextBlock Style="{StaticResource MyTextStyleTB}" Margin="7,12,0,0" Text="{Binding Age}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Button Margin="5,5,5,5" Height="40" Width="50" Style="{StaticResource MyButtonStyle}">Edit</Button>
-                                <Button Margin="5,5,5,5" Height="40" Width="70" Style="{StaticResource MyButtonStyle}">Delete</Button>
+                                <Button Margin="5,5,5,5" Command="{Binding ElementName=itemsList, Path=DataContext.EditTouristCommand}" CommandParameter="{Binding}" Height="40" Width="50" Style="{StaticResource MyButtonStyle}">Edit</Button>
+                                <Button Margin="5,5,5,5" Height="40" Command="{Binding ElementName=itemsList, Path=DataContext.DeleteTouristCommand}" CommandParameter="{Binding}" Width="70" Style="{StaticResource MyButtonStyle}">Delete</Button>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>

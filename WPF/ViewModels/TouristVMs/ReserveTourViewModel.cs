@@ -103,8 +103,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public string TourTitle {  get; set; }
         public DateTime ChosenDate {  get; set; }
 
+        public IDialogService _dialogService {  get; set; }
+        public ICommand DeleteTouristCommand { get; set; }
+        public ICommand EditTouristCommand { get; set; }
 
-        public ReserveTourViewModel(MainViewModel mainViewModel, int touristNumber, int tourInstanceId, User loggedInUser, ObservableCollection<GiftCard> userGiftCards)
+
+        public ReserveTourViewModel(MainViewModel mainViewModel, int touristNumber, int tourInstanceId, User loggedInUser, ObservableCollection<GiftCard> userGiftCards, IDialogService dialogService)
         {
             _touristRepository = Injector.Injector.CreateInstance<ITouristRepository>();
             _tourReservationRepository = Injector.Injector.CreateInstance<ITourReservationRepository>();
@@ -127,10 +131,52 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             IsPlusButtonEnabled = true;
             IsReserveButtonEnabled = false;
             AddUserToList();
+            _dialogService = dialogService;
+            DeleteTouristCommand = new RelayCommand(tourist => DeleteTourist((Tourist)tourist));
+            EditTouristCommand = new RelayCommand(tourist => EditTourist((Tourist)tourist));
+        }
+
+        public void EditTourist(Tourist tourist)
+        {
+            if(tourist.UserId == -1)
+            {
+                TouristToAdd = new TouristDTO(tourist);
+                Tourists.Remove(tourist);
+                AddedTouristsCounter++;
+            }
+            else
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("You can't edit yourself!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+            }          
+        }
+
+        public void DeleteTourist(Tourist tourist)
+        {
+            if(tourist.UserId == -1)
+            {
+                var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to delete this tourist?");
+                bool? result = _dialogService.ShowDialog(confirmationViewModel);
+                if (result == true)
+                {                                         
+                        Tourists.Remove(tourist);
+                        AddedTouristsCounter++;                  
+                }
+            }
+            else
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("You can't delete yourself!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+            }         
         }
         public void GoBack()
         {
-            _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
+            var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to exit?");
+            bool? result = _dialogService.ShowDialog(confirmationViewModel);
+            if(result == true)
+            {
+                _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, _dialogService));
+            }
         }
         private void AddUserToList()
         {
@@ -161,22 +207,30 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private void ReserveTour()
         {
-            TourReservation tourReservation = new TourReservation(TourInstanceId, LoggedInUser.Id);
-            tourReservation = _tourReservationRepository.Save(tourReservation);
-            foreach (var tourist in Tourists)
+            var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to make a reservation?");
+            bool? result = _dialogService.ShowDialog(confirmationViewModel);
+            if(result == true)
             {
-                tourist.ReservationId = tourReservation.Id;
-                _touristRepository.Save(tourist);
+                var feedbackViewModel = new FeedbackDialogViewModel("Tour reservation has been created!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+                TourReservation tourReservation = new TourReservation(TourInstanceId, LoggedInUser.Id);
+                tourReservation = _tourReservationRepository.Save(tourReservation);
+                foreach (var tourist in Tourists)
+                {
+                    tourist.ReservationId = tourReservation.Id;
+                    _touristRepository.Save(tourist);
+                }
+                if (SelectedGiftCard != null)
+                {
+                    SelectedGiftCard.IsValid = false;
+                    _giftCardRepository.UpdateValidStatus(SelectedGiftCard);
+                }
+                TourInstance tourInstance = TourInstanceService.GetById(TourInstanceId);
+                tourInstance.EmptySpots -= TouristNumber;
+                TourInstanceService.UpdateFreeSpots(tourInstance);
+                _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
             }
-            if (SelectedGiftCard != null)
-            {
-                SelectedGiftCard.IsValid = false;
-                _giftCardRepository.UpdateValidStatus(SelectedGiftCard);
-            }
-            TourInstance tourInstance = TourInstanceService.GetById(TourInstanceId);
-            tourInstance.EmptySpots -= TouristNumber;
-            TourInstanceService.UpdateFreeSpots(tourInstance);
-            _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

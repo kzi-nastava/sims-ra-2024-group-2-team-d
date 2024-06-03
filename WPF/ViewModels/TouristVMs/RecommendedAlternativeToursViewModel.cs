@@ -62,7 +62,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             bool? result = _dialogService.ShowDialog(viewModel);
             if (result == true)
             {
-                _mainViewModel.SwitchView(new ReserveTourViewModel(_mainViewModel, viewModel.InputedTouristNumber, tourInstance.Id, LoggedInUser, UserGiftCards));
+                _mainViewModel.SwitchView(new ReserveTourViewModel(_mainViewModel, viewModel.InputedTouristNumber, tourInstance.Id, LoggedInUser, UserGiftCards, _dialogService));
             }
         }
     }

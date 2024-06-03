@@ -26,7 +26,7 @@ namespace BookingApp.Domain.Model
 
         public Tourist()
         {
-
+            UserId = -1;
         }
 
         public Tourist(string name, string lastName, int age)

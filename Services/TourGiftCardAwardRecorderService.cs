@@ -35,7 +35,9 @@ namespace BookingApp.Services
                 if (TourInstanceRepository.HasAtLeastFiveToursInLastYear(tours))
                 {
                     GiftCard newGiftCard = new GiftCard(user.Id);
-                    newGiftCard.ExpirationDate.AddMonths(-6);
+                    //newGiftCard.ExpirationDate.AddMonths(-6);
+                    newGiftCard.ExpirationDate = DateOnly.FromDateTime(DateTime.Now.AddMonths(6));
+                    newGiftCard.ExpirationDate.AddMonths(6);
                     GiftCardRepository.Save(newGiftCard);
                     if(recorder == null)
                     {

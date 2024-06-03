@@ -146,7 +146,7 @@
         </Style>
         <Style x:Key="TouristsTB" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
-            
+
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="ListViewStyle" TargetType="ListView">
@@ -198,7 +198,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="MySpecialButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10,10,10,10" />
             <Setter Property="FontSize" Value="20" />
@@ -246,8 +246,8 @@ CornerRadius="10">
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="110*"></RowDefinition>
-            <RowDefinition Height="106*"></RowDefinition>
-            <RowDefinition Height="139*"></RowDefinition>
+            <RowDefinition Height="105*"></RowDefinition>
+            <RowDefinition Height="140*"></RowDefinition>
             <RowDefinition Height="220*"></RowDefinition>
             <RowDefinition Height="193*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -276,14 +276,19 @@ CornerRadius="10">
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="0">
             <TextBlock Text="Description" Style="{StaticResource MyTextStyle}"></TextBlock>
-            <TextBox Text="{Binding NewTourRequest.Description}" Style="{StaticResource TextBoxStyle}" Height="130"></TextBox>
+            <TextBox Text="{Binding NewTourRequest.Description}" Style="{StaticResource TextBoxStyle}" Height="101" Width="314"></TextBox>
         </StackPanel>
         <StackPanel Grid.RowSpan="3" Grid.Row="1" Margin="0,0,9,0" Grid.Column="1" >
             <GroupBox Margin="10" BorderBrush="Black">
                 <GroupBox.Header>
-                    <TextBlock Text="Tourist information" FontSize="20" FontWeight="Bold"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Tourist information" FontSize="20" Margin="0,10"  FontWeight="Bold"></TextBlock>
+                        <Image Source="../../../Resources/Images/traveler-icon.png" Height="40" Width="40" Margin="5"/>
+
+
+                    </StackPanel>
                 </GroupBox.Header>
-                <StackPanel Height="346">
+                <StackPanel Height="340">
                     <TextBlock Text="Name" Style="{StaticResource MyTextStyle}"></TextBlock>
                     <TextBox Text="{Binding InputTourist.Name}" Style="{StaticResource TextBoxStyle}" Height="36"></TextBox>
                     <TextBlock Text="Last name" Style="{StaticResource MyTextStyle}"></TextBlock>
@@ -295,10 +300,10 @@ CornerRadius="10">
                     </Button>
                 </StackPanel>
             </GroupBox>
-            <TextBlock Text="{Binding NewTourRequest.NumberOfTourists, StringFormat=Number of tourists inserted: \{0\}, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MyTextStyle}" Width="308" Height="35"/>
+            <TextBlock Margin="0,0,0,0" Text="{Binding NewTourRequest.NumberOfTourists, StringFormat=Number of tourists inserted: \{0\}, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MyTextStyle}" Width="308" Height="35"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" Height="400">
-            <ListView  ItemsSource="{Binding Tourists}" x:Name="itemsList" Height="390" Width="290" Style="{StaticResource ListViewStyle}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+        <StackPanel Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" Margin="0,32,0,23" >
+            <ListView  ItemsSource="{Binding Tourists}" x:Name="itemsList" Height="380" Width="290" Style="{StaticResource ListViewStyle}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>

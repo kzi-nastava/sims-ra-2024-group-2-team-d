@@ -37,6 +37,7 @@
     <None Remove="Resources\Images\plus-icon.png" />
     <None Remove="Resources\Images\R.jpg" />
     <None Remove="Resources\Images\status-icon.png" />
+    <None Remove="Resources\Images\tourist-logo.jpg" />
     <None Remove="Resources\Images\traveler-icon.png" />
     <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
@@ -59,6 +60,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="itext7" Version="8.0.4" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.4" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
@@ -92,6 +95,7 @@
     <Resource Include="Resources\Images\plus-icon.png" />
     <Resource Include="Resources\Images\R.jpg" />
     <Resource Include="Resources\Images\status-icon.png" />
+    <Resource Include="Resources\Images\tourist-logo.jpg" />
     <Resource Include="Resources\Images\traveler-icon.png" />
     <Resource Include="Resources\Images\user-icon.png" />
     <Resource Include="Resources\Images\voucher-icon.png" />

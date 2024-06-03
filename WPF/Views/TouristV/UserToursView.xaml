@@ -197,7 +197,7 @@
                             <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"></Image>
                             <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                         </StackPanel>
-                        <Button Width="220" Height="80" Command="{Binding ElementName=TourReservations, Path=DataContext.NavigateToReservationCommand}" CommandParameter="{Binding}" Grid.Column="4" Grid.Row="0" Style="{StaticResource MyButtonStyle}">
+                        <Button Width="220" Height="80" Command="{Binding ElementName=TourReservations, Path=DataContext.GenerateReservationReportCommand}" CommandParameter="{Binding}" Grid.Column="4" Grid.Row="0" Style="{StaticResource MyButtonStyle}">
                             <TextBlock Text="Generate reservation report"
                        TextWrapping="Wrap" 
                        TextAlignment="Center"/>

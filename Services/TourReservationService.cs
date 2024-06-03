@@ -78,7 +78,9 @@ namespace BookingApp.Services
 
         public TourReservation? GetByUserAndTourInstanceId(int tourInstanceId, int userId)
         {
-            return TourReservationRepository.GetByUserAndTourInstanceId(tourInstanceId, userId);
+            TourReservation reservation = TourReservationRepository.GetByUserAndTourInstanceId(tourInstanceId, userId);
+            reservation.Tourists = TouristRepository.GetAllByTourReservationId(reservation.Id);
+            return reservation;
         }
 
         public List<TourReservation> GetByUserId(int userId)

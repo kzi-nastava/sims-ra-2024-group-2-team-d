@@ -62,6 +62,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             GoBackCommand = new RelayCommand(GoBack);
             TourInstances = tourInstances;
             ShowAllAddedPicturesCommand = new RelayCommand(ShowAllAddedPictures);
+            LoggedInUser = loggedInUser;
         }
 
         public void ShowAllAddedPictures()

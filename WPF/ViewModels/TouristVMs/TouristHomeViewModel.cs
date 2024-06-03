@@ -315,7 +315,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 if(tourInstance.EmptySpots>=viewModel.InputedTouristNumber)
                 {
-                    _mainViewModel.SwitchView(new ReserveTourViewModel(_mainViewModel,viewModel.InputedTouristNumber, tourInstance.Id, LoggedInUser, UserGiftCards));
+                    _mainViewModel.SwitchView(new ReserveTourViewModel(_mainViewModel,viewModel.InputedTouristNumber, tourInstance.Id, LoggedInUser, UserGiftCards, _dialogService));
                 }
                 else if(tourInstance.EmptySpots == 0)
                 {
@@ -390,7 +390,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 if (viewModel.SelectedOption == "Standard")
                 {
-                    _mainViewModel.SwitchView(new CreateTourRequestViewModel(_mainViewModel, LoggedInUser));
+                    _mainViewModel.SwitchView(new CreateTourRequestViewModel(_mainViewModel, LoggedInUser, _dialogService));
                 }
                 else if(viewModel.SelectedOption == "Complex")
                 {

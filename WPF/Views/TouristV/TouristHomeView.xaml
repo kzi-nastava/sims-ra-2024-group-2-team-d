@@ -240,13 +240,27 @@
                         <TextBlock Text="Search" FontSize="26" FontWeight="Bold"></TextBlock>
                     </GroupBox.Header>
                     <StackPanel >
-                        <TextBlock FontSize="16" Text="Location" Margin="10,10,10,10" ></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock FontSize="16" Text="Location" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" ></TextBlock>
+                            <Image Height="40" Width="40" Source="../../../Resources/Images/location-icon.jpg"></Image>
+                        </StackPanel>
                         <TextBox Text="{Binding LocationSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}"></TextBox>
-                        <TextBlock FontSize="16" Text="Duration" Margin="10,10,10,10" ></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock FontSize="16" Text="Duration" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" ></TextBlock>
+                            <Image Height="40" Width="40" Source="../../../Resources/Images/duration-icon.jpg"></Image>
+                        </StackPanel>
+                        
                         <TextBox Text="{Binding DurationSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}"></TextBox>
-                        <TextBlock FontSize="16" Text="Language" Margin="10,10,10,10" ></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock FontSize="16" Text="Language" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" ></TextBlock>
+                            <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"></Image>
+
+                        </StackPanel>
                         <ComboBox SelectedItem="{Binding LanguageSearch, Mode=TwoWay}" ItemsSource="{Binding UniqueLanguages}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledComboBox}" />
-                        <TextBlock FontSize="16" Text="Num of people" Margin="10,10,10,10" ></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock FontSize="16" Text="Num of people" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}"></TextBlock>
+                            <Image Height="40" Width="40" Source="../../../Resources/Images/people-icon.jpg"></Image>
+                        </StackPanel>
                         <TextBox Text="{Binding NumberOfPeopleSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}"></TextBox>
                         <StackPanel Orientation="Horizontal">
                             <Button Height="40" Width="80" Margin="10,10,10,10" Command="{Binding ResetSearchResultsCommand}" Style="{StaticResource MyButtonStyle}">Reset</Button>

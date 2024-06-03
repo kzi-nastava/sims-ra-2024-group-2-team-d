@@ -58,6 +58,13 @@ namespace BookingApp.Dto
 
         }
 
+        public TouristDTO(Tourist tourist)
+        {
+            Name = tourist.Name;
+            LastName = tourist.LastName;
+            Age = tourist.Age;
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

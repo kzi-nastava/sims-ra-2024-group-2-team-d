@@ -11,8 +11,20 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
     {
         public User LoggedInUser { get; set; }
         public ObservableCollection<Tourist> Tourists { get; set; }
+        private Tourist inputTourist;
 
-        public Tourist InputTourist { get; set; }
+        public Tourist InputTourist
+        {
+            get => inputTourist;
+            set
+            {
+                if (value != inputTourist)
+                {
+                    inputTourist = value;
+                    OnPropertyChanged("InputTourist");
+                }
+            }
+        }
         public TourRequestDTO NewTourRequest { get; set; }
 
         public ICommand AddTouristCommand { get; set; }
@@ -25,7 +37,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private readonly MainViewModel _mainViewModel;
         public ICommand BackButtonCommand { get; set; }
-        public CreateTourRequestViewModel(MainViewModel mainViewModel, User loggedInUser)
+        public IDialogService DialogService { get; set; }
+        public ICommand DeleteTouristCommand { get; set; }
+        public ICommand EditTouristCommand { get; set; }
+        public CreateTourRequestViewModel(MainViewModel mainViewModel, User loggedInUser, IDialogService dialogService)
         {
             LoggedInUser = loggedInUser;
             Tourists = new ObservableCollection<Tourist>();
@@ -41,11 +56,55 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             });
             AddUser();
             BackButtonCommand = new RelayCommand(GoBack);
+            DialogService = dialogService;
+            DeleteTouristCommand = new RelayCommand(tourist => DeleteTourist((Tourist)tourist));
+            EditTouristCommand = new RelayCommand(tourist => EditTourist((Tourist)tourist));
+        }
+
+        public void EditTourist(Tourist tourist)
+        {
+            if (tourist.UserId == -1)
+            {
+                InputTourist = new Tourist(tourist.Name, tourist.LastName, tourist.Age, tourist.UserId);
+                Tourists.Remove(tourist);
+                NewTourRequest.NumberOfTourists--;
+            }
+            else
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("You can't edit yourself!");
+                bool? feedbackResult = DialogService.ShowDialog(feedbackViewModel);
+            }
+        }
+
+        public void DeleteTourist(Tourist tourist)
+        {
+            if (tourist.UserId == -1)
+            {
+                var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to delete this tourist?");
+                bool? result = DialogService.ShowDialog(confirmationViewModel);
+                if (result == true)
+                {
+                    Tourists.Remove(tourist);
+                    NewTourRequest.NumberOfTourists--;
+                }
+            }
+            else
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("You can't delete yourself!");
+                bool? feedbackResult = DialogService.ShowDialog(feedbackViewModel);
+            }
+
+
         }
 
         public void GoBack()
         {
-            _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
+            var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to exit?");
+            bool? result = DialogService.ShowDialog(confirmationViewModel);
+            if(result == true)
+            {
+                _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
+            }        
         }
         public void AddUser()
         {
@@ -58,18 +117,25 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             Tourists.Add(tourist);
             NewTourRequest.NumberOfTouristsCounter--;
             NewTourRequest.NumberOfTourists++;
+            InputTourist = new Tourist();
         }
 
         public void SendRequest()
         {
-            foreach (var tourist in Tourists)
-            {
-                Tourist savedTourist = TouristService.Save(tourist);
-                NewTourRequest.TouristsId.Add(savedTourist.Id);
-            }
-            TourRequest tourRequest = NewTourRequest.ToTourRequest();
-            TourRequestService.Save(tourRequest);
-            _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
+            var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to create a tour request?");          
+            bool? result = DialogService.ShowDialog(confirmationViewModel);
+            if(result == true) {
+                var feedbackViewModel = new FeedbackDialogViewModel("Tour request has been created!");
+                bool? feedbackResult = DialogService.ShowDialog(feedbackViewModel);
+                foreach (var tourist in Tourists)
+                {
+                    Tourist savedTourist = TouristService.Save(tourist);
+                    NewTourRequest.TouristsId.Add(savedTourist.Id);
+                }
+                TourRequest tourRequest = NewTourRequest.ToTourRequest();
+                TourRequestService.Save(tourRequest);
+                _mainViewModel.SwitchView(new TouristHomeViewModel(_mainViewModel, LoggedInUser, new DialogService()));
+            }           
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

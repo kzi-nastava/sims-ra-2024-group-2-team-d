@@ -69,6 +69,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public ComplexTourRequest NewComplexTourRequest { get; set; }
         public IComplexTourRequestService ComplexTourRequestService { get; set; }
         public ITourRequestService TourRequestService { get; set; }
+        public ICommand DeleteTouristCommand { get; set; }
+        public ICommand EditTouristCommand { get; set; }
         public CreateComplexTourRequestViewModel(MainViewModel _mainViewModel, User loggedInUser, IDialogService dialogService)
         {
             MainViewModel = _mainViewModel;
@@ -88,6 +90,42 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             _dialogService = dialogService;
             BackButtonCommand = new RelayCommand(GoBack);
             ShowAllAddedRequestsCommand = new RelayCommand(ShowAllAddedRequests);
+            DeleteTouristCommand = new RelayCommand(tourist => DeleteTourist((Tourist)tourist));
+            EditTouristCommand = new RelayCommand(tourist => EditTourist((Tourist)tourist));
+        }
+
+        public void EditTourist(Tourist tourist)
+        {
+            if (tourist.UserId == -1)
+            {
+                InputTourist = new TouristDTO(tourist);
+                Tourists.Remove(tourist);
+                NewTourRequest.NumberOfTourists++;
+            }
+            else
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("You can't edit yourself!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+            }
+        }
+
+        public void DeleteTourist(Tourist tourist)
+        {
+            if (tourist.UserId == -1)
+            {
+                var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to delete this tourist?");
+                bool? result = _dialogService.ShowDialog(confirmationViewModel);
+                if (result == true)
+                {
+                    Tourists.Remove(tourist);
+                    NewTourRequest.NumberOfTourists++;
+                }
+            }
+            else
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("You can't delete yourself!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+            }
         }
 
         public void ShowAllAddedRequests()
@@ -98,7 +136,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void GoBack()
         {
-            MainViewModel.SwitchView(new TouristHomeViewModel(MainViewModel, LoggedInUser, new DialogService()));
+            var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to exit?");
+            bool? result = _dialogService.ShowDialog(confirmationViewModel);
+            if(result == true)
+            {
+                MainViewModel.SwitchView(new TouristHomeViewModel(MainViewModel, LoggedInUser, new DialogService()));
+            }                     
         }
         public void SendRequest()
         {
@@ -150,6 +193,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
             Tourists = new ObservableCollection<Tourist>();
             AddUser();
+            var feedbackViewModel = new FeedbackDialogViewModel("Request added to the complex tour request!");
+            bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

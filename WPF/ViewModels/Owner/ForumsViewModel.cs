@@ -2,6 +2,7 @@
 using BookingApp.Dto;
 using BookingApp.Services.IServices;
 using BookingApp.WPF.Views.Guest1;
+using BookingApp.WPF.Views.Owner;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,9 +10,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
-namespace BookingApp.WPF.ViewModels.Guest
+namespace BookingApp.WPF.ViewModels.Owner
 {
-    public class ForumsOverviewViewModel : INotifyPropertyChanged
+    public class ForumsViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<ForumOverviewDTO> _myForums;
         private ObservableCollection<ForumOverviewDTO> _allForums;
@@ -21,22 +22,8 @@ namespace BookingApp.WPF.ViewModels.Guest
         private readonly IUserService _userService;
         private readonly IForumIdService _forumIdService;
         private readonly IForumUtilityService _forumUtilityService;
-        public RelayCommand CreateForumCommand { get; set; }
-        public RelayCommand CloseForumCommand { get; set; }
         public RelayCommand OpenForumCommand { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
-        public ObservableCollection<ForumOverviewDTO> MyForums
-        {
-            get => _myForums;
-            set
-            {
-                if (value != _myForums)
-                {
-                    _myForums = value;
-                    OnPropertyChanged("MyForums");
-                }
-            }
-        }
         public ObservableCollection<ForumOverviewDTO> AllForums
         {
             get => _allForums;
@@ -65,49 +52,21 @@ namespace BookingApp.WPF.ViewModels.Guest
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ForumsOverviewViewModel()
+        public ForumsViewModel()
         {
             _forumService = Injector.Injector.CreateInstance<IForumService>();
             _forumCommentService = Injector.Injector.CreateInstance<IForumCommentService>();
             _userService = Injector.Injector.CreateInstance<IUserService>();
             _forumIdService = Injector.Injector.CreateInstance<IForumIdService>();
             _forumUtilityService = Injector.Injector.CreateInstance<IForumUtilityService>();
-            CreateForumCommand = new RelayCommand(OpenCreateForumForm);
-            CloseForumCommand = new RelayCommand(CloseForum);
             OpenForumCommand = new RelayCommand(OpenForum);
-            MyForums = new ObservableCollection<ForumOverviewDTO>();
             AllForums = new ObservableCollection<ForumOverviewDTO>();
-            InitializeMyForums();
             InitializeAllForums();
         }
-        private void OpenCreateForumForm(object parameter)
-        {
-            CreatingForumForm creatingForumForm = new CreatingForumForm();
-            creatingForumForm.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
-            creatingForumForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            creatingForumForm.ShowDialog();
-            InitializeAllForums();
-            InitializeMyForums();
-        }
-        private void InitializeMyForums()
-        {
-            //TODO FIND LOGGED IN USER
-            var userID = _userService.GetUserId();
-            List<Forum> myForums = _forumService.GetForumsByCreatorId(userID);
-            string useful;
-            MyForums.Clear();
-            foreach (Forum myForum in myForums)
-            {
-                useful = CheckUseful(myForum);
-                int commentsNumber = _forumCommentService.GetCommentsNumberByForum(myForum.ForumId);
-                ForumOverviewDTO forum = new(myForum.ForumId, myForum.ForumTopic, myForum.Location, myForum.DateCreated, commentsNumber, myForum.Status, useful);
-                MyForums.Add(forum);
-            }
-            OnPropertyChanged(nameof(MyForums));
-        }
+
         private void InitializeAllForums()
         {
-            List<Forum> forums = _forumService.GetAll();
+            List<Forum> forums = _forumUtilityService.GetForumsWhereOwnerHasAccommodation();
             string useful;
             AllForums.Clear();
             foreach (Forum f in forums)
@@ -123,14 +82,13 @@ namespace BookingApp.WPF.ViewModels.Guest
         {
             return _forumUtilityService.CheckUseful(forum);
         }
-        private void CloseForum(object parameter)
+
+        private void SetWindowsProperties(Window window)
         {
-            CloseForumWindow closeForumWindow = new CloseForumWindow();
-            SetWindowsProperties(closeForumWindow);
-            closeForumWindow.ShowDialog();
-            InitializeAllForums();
-            InitializeMyForums();
+            window.Owner = App.Current.Windows.OfType<ForumsWindow>().FirstOrDefault();
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
+
         private void OpenForum(object parameter)
         {
             if (SelectedForum != null)
@@ -138,17 +96,11 @@ namespace BookingApp.WPF.ViewModels.Guest
                 _forumIdService.ForumId = SelectedForum.ForumId;
 
             }
-            ForumCommentsOverview forumCommentsOverview = new ForumCommentsOverview();
+            ForumCommentsWindow forumCommentsOverview = new ForumCommentsWindow();
             SetWindowsProperties(forumCommentsOverview);
             forumCommentsOverview.ShowDialog();
             InitializeAllForums();
-            InitializeMyForums();
 
-        }
-        private void SetWindowsProperties(Window window)
-        {
-            window.Owner = App.Current.Windows.OfType<ForumsOverviewWindow>().FirstOrDefault();
-            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
     }
 }

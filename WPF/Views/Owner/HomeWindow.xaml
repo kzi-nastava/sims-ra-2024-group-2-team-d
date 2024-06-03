@@ -21,6 +21,7 @@
             <Button Background="#003F54" x:Name="Requests" Height="50" Width="150" Click="Requests_Click" Margin="5">Prikaz zahtjeva za promjenu</Button>
             <Button Background="#003F54" x:Name="Accommodations" Height="50" Width="150" Click="Accommodations_Click" Margin="5">Smestaji</Button>
             <Button Background="#003F54" x:Name="Renovations" Height="50" Width="150" Click="Renovations_Click" Margin="5">Renoviranja</Button>
+            <Button Background="#003F54" x:Name="Forums" Height="50" Width="150" Click="Forums_Click" Margin="5">Forumi</Button>
         </StackPanel>
     </Grid>
 </Window>

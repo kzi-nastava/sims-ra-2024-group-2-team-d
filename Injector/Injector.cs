@@ -72,6 +72,7 @@ namespace BookingApp.Injector
              {typeof(IUserService), new Lazy < object > (() => new UserService()) },
              {typeof(IForumIdService), new Lazy < object > (() => new ForumIdService()) },
              {typeof(ILocationService), new Lazy < object > (() => new LocationService()) },
+            
           
     };
 

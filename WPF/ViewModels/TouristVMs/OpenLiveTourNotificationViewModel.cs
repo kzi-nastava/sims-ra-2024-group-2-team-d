@@ -27,18 +27,6 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             GoBackCommand = new RelayCommand(Close);
         }
 
-        event EventHandler<DialogCloseRequestedEventArgs> IRequestClose.RequestClose
-        {
-            add
-            {
-                throw new NotImplementedException();
-            }
-
-            remove
-            {
-                throw new NotImplementedException();
-            }
-        }
 
         public void Close()
         {

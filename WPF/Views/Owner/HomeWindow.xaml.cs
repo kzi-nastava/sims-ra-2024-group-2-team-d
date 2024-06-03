@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.View.Owner;
+using BookingApp.WPF.Views.Owner;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
@@ -75,6 +76,12 @@ namespace BookingApp.View.Guest1
         {
             RenovationReview renovationReview = new RenovationReview(_user);
             renovationReview.Show();
+        }
+
+        private void Forums_Click(object sender, RoutedEventArgs e)
+        {
+            ForumsWindow forums= new();
+            forums.Show();
         }
     }
 }

@@ -27,7 +27,19 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             }
         }
 
-        public Tourist InputTourist { get; set; }
+        private TouristDTO inputTourist { get; set; }
+        public TouristDTO InputTourist
+        {
+            get => inputTourist;
+            set
+            {
+                if (value != inputTourist)
+                {
+                    inputTourist = value;
+                    OnPropertyChanged("InputTourist");
+                }
+            }
+        }
 
         private TourRequestDTO newTourRequest;
         public TourRequestDTO NewTourRequest
@@ -52,6 +64,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public ITouristService TouristService { get; set; }
         public ObservableCollection<TourRequestDTO> AddedTourRequests { get; set; }
         private readonly IDialogService _dialogService;
+        public ICommand ShowAllAddedRequestsCommand { get; set; }
 
         public ComplexTourRequest NewComplexTourRequest { get; set; }
         public IComplexTourRequestService ComplexTourRequestService { get; set; }
@@ -62,7 +75,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             LoggedInUser = loggedInUser;
             Tourists = new ObservableCollection<Tourist>();
             NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
-            InputTourist = new Tourist();
+            InputTourist = new TouristDTO();            
             TouristService = Injector.Injector.CreateInstance<ITouristService>();
             TourRequestService = Injector.Injector.CreateInstance<ITourRequestService>();
             ComplexTourRequestService = Injector.Injector.CreateInstance<IComplexTourRequestService>();
@@ -74,6 +87,13 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             AddedTourRequests = new ObservableCollection<TourRequestDTO>();
             _dialogService = dialogService;
             BackButtonCommand = new RelayCommand(GoBack);
+            ShowAllAddedRequestsCommand = new RelayCommand(ShowAllAddedRequests);
+        }
+
+        public void ShowAllAddedRequests()
+        {
+            var confirmationViewModel = new ShowAllAddedRequestsToComplexTourRequestViewModel(AddedTourRequests);
+            bool? result = _dialogService.ShowDialog(confirmationViewModel);
         }
 
         public void GoBack()
@@ -116,6 +136,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             Tourists.Add(tourist);
             NewTourRequest.NumberOfTouristsCounter--;
             NewTourRequest.NumberOfTourists++;
+            InputTourist = new TouristDTO();
         }
 
         public void AddRequest()

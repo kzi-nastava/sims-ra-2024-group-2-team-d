@@ -125,6 +125,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 return new ShowAllTouristsOnStandardTourRequestView { DataContext = viewModel };
             }
+            if (viewModel is ShowAllAddedRequestsToComplexTourRequestViewModel)
+            {
+                return new ShowAllAddedRequestsToComplexTourRequestView { DataContext = viewModel };
+            }
 
             // Dodajte ostale view modele i odgovarajuće view-ove ovde
             return null;

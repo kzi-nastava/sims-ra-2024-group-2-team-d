@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristV"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:BookingApp.WPF.Views.TouristV"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
@@ -246,11 +248,16 @@
                         </StackPanel>
                         <TextBox Text="{Binding LocationSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}"></TextBox>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock FontSize="16" Text="Duration" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" ></TextBlock>
+                            <TextBlock FontSize="16" Text="Duration" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" >
+                            </TextBlock>
                             <Image Height="40" Width="40" Source="../../../Resources/Images/duration-icon.jpg"></Image>
                         </StackPanel>
                         
-                        <TextBox Text="{Binding DurationSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}"></TextBox>
+                        <TextBox Text="{Binding DurationSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:NumericInputBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock FontSize="16" Text="Language" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" ></TextBlock>
                             <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"></Image>
@@ -261,10 +268,15 @@
                             <TextBlock FontSize="16" Text="Num of people" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}"></TextBlock>
                             <Image Height="40" Width="40" Source="../../../Resources/Images/people-icon.jpg"></Image>
                         </StackPanel>
-                        <TextBox Text="{Binding NumberOfPeopleSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}"></TextBox>
+                        <TextBox Text="{Binding NumberOfPeopleSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:NumericInputBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
                         <StackPanel Orientation="Horizontal">
                             <Button Height="40" Width="80" Margin="10,10,10,10" Command="{Binding ResetSearchResultsCommand}" Style="{StaticResource MyButtonStyle}">Reset</Button>
-                            <Button Height="40" Width="80" Margin="10,10,10,10" Command="{Binding SearchCommand}" Style="{StaticResource MyButtonStyle}">Search</Button>
+                            <Button Height="40" Width="80" Margin="10,10,10,10" Command="{Binding SearchCommand}" Style="{StaticResource MyButtonStyle}" Content="Search">
+                            </Button>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>

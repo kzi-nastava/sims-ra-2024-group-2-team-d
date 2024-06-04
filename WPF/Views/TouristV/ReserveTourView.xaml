@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristV"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
@@ -202,7 +203,11 @@
                         <TextBlock Text="Last name" HorizontalAlignment="Center" Style="{StaticResource MyTextStyle}"></TextBlock>
                         <TextBox Height="40" Style="{StaticResource TextBoxStyle}" Width="NaN" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Text="{Binding TouristToAdd.LastName, Mode=TwoWay}" />
                         <TextBlock Text="Age" HorizontalAlignment="Center" Style="{StaticResource MyTextStyle}"></TextBlock>
-                        <TextBox Style="{StaticResource TextBoxStyle}" Width="NaN" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Text="{Binding TouristToAdd.Age, Mode=TwoWay}" Height="40" />
+                        <TextBox Style="{StaticResource TextBoxStyle}" Width="NaN" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Text="{Binding TouristToAdd.Age, Mode=TwoWay}" Height="40">
+                            <i:Interaction.Behaviors>
+                                <local:NumericInputBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
                         <Button Command="{Binding AddTouristCommand}" Height="60" Width="60" Margin="5,5,5,5" IsEnabled="{Binding IsPlusButtonEnabled}" Style="{StaticResource MyButtonStyle}">
                             <Image Source="../../../Resources/Images/plus-icon.png" Height="40" Width="40"></Image>
                         </Button>

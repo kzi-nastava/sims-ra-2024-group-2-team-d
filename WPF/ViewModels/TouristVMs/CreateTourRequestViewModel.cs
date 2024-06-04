@@ -113,6 +113,14 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         }
         public void AddTourist()
         {
+            if (string.IsNullOrWhiteSpace(InputTourist?.Name) ||
+                              string.IsNullOrWhiteSpace(InputTourist?.LastName) ||
+                              InputTourist?.Age <= 0)
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("All fields for tourist information are required!");
+                bool? feedbackResult = DialogService.ShowDialog(feedbackViewModel);
+                return;
+            }
             Tourist tourist = new Tourist(InputTourist.Name, InputTourist.LastName, InputTourist.Age);
             Tourists.Add(tourist);
             NewTourRequest.NumberOfTouristsCounter--;
@@ -122,6 +130,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void SendRequest()
         {
+            if(string.IsNullOrWhiteSpace(NewTourRequest?.Location) || string.IsNullOrWhiteSpace(NewTourRequest?.Description) || string.IsNullOrWhiteSpace(NewTourRequest?.Language))
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("All fields for tour request information are required!");
+                bool? feedbackResult = DialogService.ShowDialog(feedbackViewModel);
+                return;
+            }
             var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to create a tour request?");          
             bool? result = DialogService.ShowDialog(confirmationViewModel);
             if(result == true) {

@@ -191,6 +191,14 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         private void AddTourist()
         {
+            if (string.IsNullOrWhiteSpace(TouristToAdd?.Name) ||
+                              string.IsNullOrWhiteSpace(TouristToAdd?.LastName) ||
+                              TouristToAdd?.Age <= 0)
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("All fields for tourist information are required!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+                return;
+            }
             Tourist tourist = new Tourist(TouristToAdd.Name, TouristToAdd.LastName, TouristToAdd.Age);
             Tourists.Add(tourist);
             if (--AddedTouristsCounter == 0)

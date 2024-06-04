@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Views.TouristV"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
@@ -288,7 +289,7 @@ CornerRadius="10">
                 <TextBlock Text="Description" Style="{StaticResource MyTextStyle}"></TextBlock>
                 <Image Source="../../../Resources/Images/description-icon.png" Height="40" Width="40" Margin="5"/>
             </StackPanel>
-            <TextBox Text="{Binding NewTourRequest.Description}" Style="{StaticResource TextBoxStyle}" Height="101" Width="314"></TextBox>
+            <TextBox Text="{Binding NewTourRequest.Description}" Style="{StaticResource TextBoxStyle}" Height="101" TextWrapping="Wrap" Width="314"></TextBox>
         </StackPanel>
         <StackPanel Grid.RowSpan="3" Grid.Row="1" Margin="0,0,9,0" Grid.Column="1" >
             <GroupBox Margin="10" BorderBrush="Black">
@@ -304,8 +305,12 @@ CornerRadius="10">
                     <TextBlock Text="Last name" Style="{StaticResource MyTextStyle}"></TextBlock>
                     <TextBox Text="{Binding InputTourist.LastName}" Style="{StaticResource TextBoxStyle}" Height="39"></TextBox>
                     <TextBlock Text="Age" Style="{StaticResource MyTextStyle}"></TextBlock>
-                    <TextBox Text="{Binding InputTourist.Age}" Style="{StaticResource TextBoxStyle}"></TextBox>
-                    <Button Command="{Binding AddTouristCommand}" Height="60" Width="60" Margin="5,5,5,5" Style="{StaticResource MyButtonStyle}">
+                    <TextBox Text="{Binding InputTourist.Age}" Style="{StaticResource TextBoxStyle}">
+                        <i:Interaction.Behaviors>
+                            <local:NumericInputBehavior />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Button Command="{Binding AddTouristCommand}" Height="60" Width="60" Margin="5,5,5,5" Style="{StaticResource MyButtonStyle}" >
                         <Image Source="../../../Resources/Images/plus-icon.png" Height="40" Width="40"></Image>
                     </Button>
                 </StackPanel>

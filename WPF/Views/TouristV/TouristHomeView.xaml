@@ -221,7 +221,7 @@
                             <Border Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="10" Padding="10" Width="250">
                                 <StackPanel>
                                     <Button Content="My vouchers" Command="{Binding ShowToursitVouchersCommand}" Style="{StaticResource MyButtonStyle}" Width="180" Height="40"/>
-                                    <Button Content="Opcija 2" Style="{StaticResource MyButtonStyle}" Width="180" Height="40"/>
+                                    <Button Content="Show tutorial" Command="{Binding PlayVideoCommand}" Style="{StaticResource MyButtonStyle}" Width="180" Height="40"/>
                                 </StackPanel>
                             </Border>
                         </Popup>

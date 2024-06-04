@@ -115,7 +115,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             {
                 InputTourist = new TouristDTO(tourist);
                 Tourists.Remove(tourist);
-                NewTourRequest.NumberOfTourists++;
+                NewTourRequest.NumberOfTourists--;
             }
             else
             {
@@ -133,7 +133,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 if (result == true)
                 {
                     Tourists.Remove(tourist);
-                    NewTourRequest.NumberOfTourists++;
+                    NewTourRequest.NumberOfTourists--;
                 }
             }
             else

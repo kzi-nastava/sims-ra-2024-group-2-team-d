@@ -45,7 +45,19 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public ObservableCollection<string> UniqueLanguages { get; set; }
 
-        public ObservableCollection<TouristNotifications> Notifications { get; set; }
+        private ObservableCollection<TouristNotifications> notifications;
+        public ObservableCollection<TouristNotifications> Notifications
+        {
+            get => notifications;
+            set
+            {
+                if(notifications != value)
+                {
+                    notifications = value;
+                    OnPropertyChanged(nameof(Notifications));
+                }
+            }
+        }
 
         public ICommand Reserve { get; set; }
 
@@ -77,13 +89,61 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public ICommand NavigateToReservationCommand { get; }
 
-        public int NumberOfPeopleSearch {  get; set; }
+        private int numberOfPeopleSearch;
+        public int NumberOfPeopleSearch
+        {
+            get => numberOfPeopleSearch;
+            set
+            {
+                if (numberOfPeopleSearch != value)
+                {
+                    numberOfPeopleSearch = value;
+                    OnPropertyChanged(nameof(NumberOfPeopleSearch));
+                }
+            }
+        }
 
-        public string LocationSearch {  get; set; }
+        public string locationSearch;
+        public string LocationSearch
+        {
+            get => locationSearch;
+            set
+            {
+                if (locationSearch != value)
+                {
+                    locationSearch = value;
+                    OnPropertyChanged(nameof(LocationSearch));
+                }
+            }
+        }
 
-        public int DurationSearch {  get; set; }
+        private int durationSearch;
+        public int DurationSearch
+        {
+            get => durationSearch;
+            set
+            {
+                if (durationSearch != value)
+                {
+                    durationSearch = value;
+                    OnPropertyChanged(nameof(DurationSearch));
+                }
+            }
+        }
 
-        public string LanguageSearch {  get; set; }
+        private string languageSearch;
+        public string LanguageSearch
+        {
+            get => languageSearch;
+            set
+            {
+                if (languageSearch != value)
+                {
+                    languageSearch = value;
+                    OnPropertyChanged(nameof(LanguageSearch));
+                }
+            }
+        }
 
         private bool _isNotificationPopupOpen;
         public bool IsNotificationPopupOpen
@@ -136,7 +196,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             _tourService = Injector.Injector.CreateInstance<ITourService>();
             _tourInstanceService = Injector.Injector.CreateInstance<ITourInstanceService>();
             _userService = Injector.Injector.CreateInstance<IUserService>();
-            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceService.GetAll());
+            TourInstances = new ObservableCollection<TourInstance>(_tourInstanceService.GetAllForReservation());
             ActiveTours = new ObservableCollection<TourInstance>();
             UserGiftCards = new ObservableCollection<GiftCard>();
             Notifications = new ObservableCollection<TouristNotifications>();
@@ -204,6 +264,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         {
             notification.IsRead = true;
             _touristNotificationsService.ChangeIsReadStatus(notification);
+            Notifications.Remove(notification);
         }
 
         public void LinkNotifications()
@@ -337,6 +398,10 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             }
             LinkEntities();
             EmptyTextBoxes();
+            LocationSearch = new string("");
+            DurationSearch = 0;
+            LanguageSearch = new string("");
+            NumberOfPeopleSearch = 0;
         }
 
         private void EmptyTextBoxes()

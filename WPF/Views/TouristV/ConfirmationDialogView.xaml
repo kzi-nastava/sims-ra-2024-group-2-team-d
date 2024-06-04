@@ -44,9 +44,9 @@
     <StackPanel>
         <TextBlock Text="{Binding Message}" Margin="10" FontSize="20" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            
-            <Button Content="Yes" Command="{Binding ConfirmCommand}" Margin="10" Style="{StaticResource MyButtonStyle}" />
+                       
             <Button Content="No" Command="{Binding CancelCommand}" Margin="10" Style="{StaticResource MyButtonStyle}" />
+            <Button Content="Yes" Command="{Binding ConfirmCommand}" Margin="10" Style="{StaticResource MyButtonStyle}" />
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -41,6 +41,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public ObservableCollection<TourInstance> TourInstances { get; set; }
 
         public ICommand ShowAllAddedPicturesCommand {  get; set; }
+        public TourInstance TourInstanceForReview { get; set; }
 
         public UserTourReviewViewModel(User loggedInUser, TourInstance tourInstance, MainViewModel mainViewModel, IDialogService dialogService, ObservableCollection<TourInstance> tourInstances)
         {
@@ -49,10 +50,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             UserTourReview.GuideId = tourInstance.BaseTour.UserId;
             UserTourReview.UserId = loggedInUser.Id;
             _pictureService = Injector.Injector.CreateInstance<IPictureService>();
-            ConfirmReviewCommand = new RelayCommand(() =>
-            {
-                ConfirmReview(tourInstance);
-            });
+            ConfirmReviewCommand = new RelayCommand(ConfirmReview);
             ImagePaths = new ObservableCollection<string>();
             AddImageCommand = new RelayCommand(AddImageExecute);
             TourTitle = tourInstance.BaseTour.Title;
@@ -63,6 +61,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             TourInstances = tourInstances;
             ShowAllAddedPicturesCommand = new RelayCommand(ShowAllAddedPictures);
             LoggedInUser = loggedInUser;
+            TourInstanceForReview = tourInstance;
         }
 
         public void ShowAllAddedPictures()
@@ -72,21 +71,41 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         }
         public void GoBack()
         {
-            MainViewModel.SwitchView(new UserToursViewModel(LoggedInUser, TourInstances, _dialogService, MainViewModel));
-        }
-        public void ConfirmReview(TourInstance tourInstance)
-        {
-            var _tourReviewService = Injector.Injector.CreateInstance<ITourReviewService>();
-            _tourReviewService.Save(UserTourReview);
-            foreach (string imagePath in ImagePaths)
+            var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to exit?");
+            bool? result = _dialogService.ShowDialog(confirmationViewModel);
+            if (result == true)
             {
-                Picture picture = new Picture(tourInstance.BaseTour.Id, imagePath);
-                _pictureService.Save(picture);
+                MainViewModel.SwitchView(new UserToursViewModel(LoggedInUser, TourInstances, _dialogService, MainViewModel));
             }
-            /*
-            tourInstance.IsNotReviewed = false;
-            TourInstanceService _tourInstanceRepository = new TourInstanceService();
-            _tourInstanceRepository.UpdateReviewStatus(tourInstance);      */
+        }
+        public void ConfirmReview()
+        {
+            if(UserTourReview.Enjoyability == 0 || UserTourReview.GuideKnowledge == 0 || UserTourReview.GuideLanguage == 0)
+            {
+                var viewModel = new FeedbackDialogViewModel("All scores are required!");
+                bool? feedbackResult = _dialogService.ShowDialog(viewModel);
+                return;
+            }
+            var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to submit this review?");
+            bool? result = _dialogService.ShowDialog(confirmationViewModel);
+            if(result == true)
+            {              
+                var _tourReviewService = Injector.Injector.CreateInstance<ITourReviewService>();
+                _tourReviewService.Save(UserTourReview);
+                foreach (string imagePath in ImagePaths)
+                {
+                    Picture picture = new Picture(TourInstanceForReview.BaseTour.Id, imagePath);
+                    _pictureService.Save(picture);
+                }
+
+                TourInstanceForReview.IsNotReviewed = false;
+                TourInstanceService _tourInstanceRepository = new TourInstanceService();
+                _tourInstanceRepository.UpdateReviewStatus(TourInstanceForReview);
+                var feedbackViewModel = new FeedbackDialogViewModel("Review has been sumbited!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+                MainViewModel.SwitchView(new UserToursViewModel(LoggedInUser, TourInstances, _dialogService, MainViewModel));
+            }
+            
         }
 
         private void AddImageExecute()

@@ -164,12 +164,12 @@ namespace BookingApp.Repository
 
         public List<TourRequest> GetAcceptedRequestsByUserId(int userId)
         {
-            return _tourRequest.Where(t => t.CurrentStatus == Status.Accepted && t.UserTouristId == userId).ToList();
+            return _tourRequest.Where(t => t.CurrentStatus == Status.Accepted && t.UserTouristId == userId && t.IsPartOfComplexRequest != true).ToList();
         }
 
         public List<TourRequest> GetAcceptedRequestsByUserIdAndYear(int userId, int year)
         {
-            return _tourRequest.Where(t => t.CurrentStatus == Status.Accepted && t.UserTouristId == userId && t.ChosenDateTime.Year == year).ToList();
+            return _tourRequest.Where(t => t.CurrentStatus == Status.Accepted && t.UserTouristId == userId && t.ChosenDateTime.Year == year && t.IsPartOfComplexRequest != true).ToList();
         }
 
         public List<TourRequest> GetByUserId(int userId)
@@ -184,22 +184,22 @@ namespace BookingApp.Repository
 
         public List<string> GetDistinctLanguages()
         {
-            return _tourRequest.Select(t => t.Language).Distinct().ToList();
+            return _tourRequest.Where(t => t.IsPartOfComplexRequest != true).Select(t => t.Language).Distinct().ToList();
         }
 
         public int CountRequestsByLanguage(string language)
         {
-            return _tourRequest.Count(t => String.Equals(t.Language, language, StringComparison.OrdinalIgnoreCase));
+            return _tourRequest.Count(t => String.Equals(t.Language, language, StringComparison.OrdinalIgnoreCase) && t.IsPartOfComplexRequest != true);
         }
 
         public List<string> GetDistinctLocations()
         {
-            return _tourRequest.Select(t => t.Location).Distinct().ToList();
+            return _tourRequest.Where(t => t.IsPartOfComplexRequest != true).Select(t => t.Location).Distinct().ToList();
         }
 
         public int CountRequestsByLocation(string location)
         {
-            return _tourRequest.Count(t => String.Equals(t.Location, location, StringComparison.OrdinalIgnoreCase));
+            return _tourRequest.Count(t => String.Equals(t.Location, location, StringComparison.OrdinalIgnoreCase) && t.IsPartOfComplexRequest != true);
         }
 
         public List<TourRequest> GetByIds(List<int> ids)

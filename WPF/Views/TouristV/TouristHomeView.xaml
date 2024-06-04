@@ -381,7 +381,7 @@
                 </ListBox>
 
                 <TextBlock FontWeight="Bold"  FontSize="40" Margin="10,15,10,10" HorizontalAlignment="Right">Tours</TextBlock>
-                <ListBox x:Name="TourReservations" Height="350" Width="768" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
+                <ListBox x:Name="TourReservations" Height="394" Width="768" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
                     <ListBox.ItemTemplate >
                         <DataTemplate>
                             <Grid>

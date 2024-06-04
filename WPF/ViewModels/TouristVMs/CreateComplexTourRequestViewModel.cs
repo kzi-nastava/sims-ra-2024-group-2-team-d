@@ -36,6 +36,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 if (value != inputTourist)
                 {
                     inputTourist = value;
+                    
                     OnPropertyChanged("InputTourist");
                 }
             }
@@ -71,6 +72,19 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public ITourRequestService TourRequestService { get; set; }
         public ICommand DeleteTouristCommand { get; set; }
         public ICommand EditTouristCommand { get; set; }
+        private bool isPlusButtonEnabled;
+        public bool IsPlusButtonEnabled
+        {
+            get => isPlusButtonEnabled;
+            set
+            {
+                if(isPlusButtonEnabled != value)
+                {
+                    isPlusButtonEnabled = value;
+                    OnPropertyChanged(nameof(IsPlusButtonEnabled));
+                }
+            }
+        }
         public CreateComplexTourRequestViewModel(MainViewModel _mainViewModel, User loggedInUser, IDialogService dialogService)
         {
             MainViewModel = _mainViewModel;
@@ -92,6 +106,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             ShowAllAddedRequestsCommand = new RelayCommand(ShowAllAddedRequests);
             DeleteTouristCommand = new RelayCommand(tourist => DeleteTourist((Tourist)tourist));
             EditTouristCommand = new RelayCommand(tourist => EditTourist((Tourist)tourist));
+            IsPlusButtonEnabled = false;
         }
 
         public void EditTourist(Tourist tourist)
@@ -130,8 +145,21 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void ShowAllAddedRequests()
         {
-            var confirmationViewModel = new ShowAllAddedRequestsToComplexTourRequestViewModel(AddedTourRequests);
+            var confirmationViewModel = new ShowAllAddedRequestsToComplexTourRequestViewModel(AddedTourRequests, _dialogService);
             bool? result = _dialogService.ShowDialog(confirmationViewModel);
+            if(result == true)
+            {
+               
+                    AddedTourRequests = confirmationViewModel.AddedTourRequests;
+                    TourRequest tourRequestForRemoval = NewComplexTourRequest.TourRequests.Find(t => t.Description == confirmationViewModel.SelectedRequest.Description && t.Language == confirmationViewModel.SelectedRequest.Language && t.Location == confirmationViewModel.SelectedRequest.Location);
+                    NewComplexTourRequest.TourRequests.Remove(tourRequestForRemoval);
+                if (confirmationViewModel.DeleteOrEdit == "Edit")
+                {
+                    NewTourRequest = confirmationViewModel.SelectedRequest;
+                    Tourists =  new ObservableCollection<Tourist>(confirmationViewModel.SelectedRequest.Tourists);
+                }
+                
+            }
         }
 
         public void GoBack()
@@ -145,6 +173,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         }
         public void SendRequest()
         {
+            if(NewComplexTourRequest.TourRequests.Count == 0)
+            {
+                var vm = new FeedbackDialogViewModel("Complex tour request must have at least one request!");
+                bool? resultFB = _dialogService.ShowDialog(vm);
+                return;
+            }
             var confirmationViewModel = new ConfirmationDialogViewModel("Are you sure you want to create a complex tour request?");
             bool? result = _dialogService.ShowDialog(confirmationViewModel);
             if (result == true)
@@ -175,6 +209,14 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         }
         public void AddTourist()
         {
+            if(string.IsNullOrWhiteSpace(InputTourist?.Name) ||
+                              string.IsNullOrWhiteSpace(InputTourist?.LastName) ||
+                              InputTourist?.Age <= 0)
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("All fields for tourist information are required!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+                return;
+            }
             Tourist tourist = new Tourist(InputTourist.Name, InputTourist.LastName, InputTourist.Age);
             Tourists.Add(tourist);
             NewTourRequest.NumberOfTouristsCounter--;
@@ -184,6 +226,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
 
         public void AddRequest()
         {
+            if (string.IsNullOrWhiteSpace(NewTourRequest?.Location) || string.IsNullOrWhiteSpace(NewTourRequest?.Description) || string.IsNullOrWhiteSpace(NewTourRequest?.Language))
+            {
+                var feedbackViewModel = new FeedbackDialogViewModel("All fields for tour request information are required!");
+                bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+                return;
+            }
             NewTourRequest.Tourists = Tourists.ToList();
             NewTourRequest.UpdateStartEndString();
             TourRequest newTourRequest = NewTourRequest.ToTourRequest();
@@ -193,8 +241,8 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             NewTourRequest = new TourRequestDTO(LoggedInUser.Id);
             Tourists = new ObservableCollection<Tourist>();
             AddUser();
-            var feedbackViewModel = new FeedbackDialogViewModel("Request added to the complex tour request!");
-            bool? feedbackResult = _dialogService.ShowDialog(feedbackViewModel);
+            var feedbackVM = new FeedbackDialogViewModel("Request added to the complex tour request!");
+            bool? result = _dialogService.ShowDialog(feedbackVM);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

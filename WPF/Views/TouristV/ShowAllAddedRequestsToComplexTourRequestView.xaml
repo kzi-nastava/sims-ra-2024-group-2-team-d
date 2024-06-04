@@ -128,44 +128,47 @@
             </Button>
             <TextBlock Grid.Column="1" Text="All added tour requests" FontSize="23" FontWeight="Bold" />
         </Grid>
-        <ListBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Width="700" Height="450" ItemsSource="{Binding AddedTourRequests}">
+        <ListBox x:Name="itemsContainer" Grid.Row="1" Grid.Column="1" Width="700" Height="450" ItemsSource="{Binding AddedTourRequests}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
                             <Image Height="40" Width="40" Source="../../../Resources/Images/location-icon.jpg" HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding Location}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap" Width="100"/>
+                            <TextBlock Text="{Binding Location}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
                             <Image Height="40" Width="40" HorizontalAlignment="Center" Source="../../../Resources/Images/language-icon.png"/>
-                            <TextBlock Text="{Binding Language}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap" Width="100"/>
+                            <TextBlock Text="{Binding Language}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap" />
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2">
                             <Image Height="40" Width="40" HorizontalAlignment="Center" Source="../../../Resources/Images/people-icon.jpg"/>
-                            <TextBlock Text="{Binding NumberOfTourists}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap" Width="50"/>
+                            <TextBlock Text="{Binding NumberOfTourists}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="3">
                             <Image Height="40" Width="40" HorizontalAlignment="Center" Source="../../../Resources/Images/calendar-icon.png"/>
-                            <TextBlock Text="{Binding StartEndDate}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap" Width="100"/>
+                            <TextBlock Text="{Binding StartEndDate}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap"/>
                         </StackPanel>
                         <!-- Add a StackPanel with full width for Description to ensure it stays on a separate line -->
-                        <StackPanel Orientation="Vertical" Width="280"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Width="280" Margin="0,20,0,0"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                             <TextBlock Text="{Binding Description}" Style="{StaticResource MyTextStyle}" TextWrapping="Wrap"/>
                         </StackPanel>
                         <!-- Add another StackPanel for buttons to ensure they stay together -->
-                        
-                            <Button Margin="5,5,5,5" Height="40" Grid.Column="2" Grid.Row="1" Width="50" Style="{StaticResource MyButtonStyle}">Edit</Button>
-                        <Button Margin="5,5,5,5" Height="40" Grid.Column="3" Grid.Row="1" Width="70" Style="{StaticResource MyButtonStyle}">Delete</Button>
+
+                        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <Button Command="{Binding ElementName=itemsContainer, Path=DataContext.EditCommand}" CommandParameter="{Binding}" Margin="5,5,5,5" Height="40" Grid.Column="2" Grid.Row="1" Width="50" Style="{StaticResource MyButtonStyle}">Edit</Button>
+                            <Button Command="{Binding ElementName=itemsContainer, Path=DataContext.DeleteCommand}" CommandParameter="{Binding}" Margin="5,5,5,5" Height="40" Grid.Column="3" Grid.Row="1" Width="70" Style="{StaticResource MyButtonStyle}">Delete</Button>
+                        </StackPanel>
+                            
                         
                     </Grid>
                 </DataTemplate>

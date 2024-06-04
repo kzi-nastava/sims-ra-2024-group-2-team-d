@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:BookingApp.WPF.Views.TouristV"
         mc:Ignorable="d"
         Height="768" Width="1024">
     <UserControl.Resources>
@@ -177,7 +179,11 @@
                     <TextBlock Text="Last name" Style="{StaticResource MyTextStyle}"/>
                     <TextBox Text="{Binding InputTourist.LastName}" Style="{StaticResource TextBoxStyle}" Height="39"/>
                     <TextBlock Text="Age" Style="{StaticResource MyTextStyle}"/>
-                    <TextBox Text="{Binding InputTourist.Age}" Style="{StaticResource TextBoxStyle}"/>
+                    <TextBox Text="{Binding InputTourist.Age}" Style="{StaticResource TextBoxStyle}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:NumericInputBehavior />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                     <Button Command="{Binding AddTouristCommand}" Height="60" Width="60" Margin="5,5,5,5" Style="{StaticResource MyButtonStyle}">
                         <Image Source="../../../Resources/Images/plus-icon.png" Height="40" Width="40"/>
                     </Button>
@@ -232,7 +238,7 @@
         </StackPanel>
 
         <StackPanel  Grid.Row="4" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Width="574">
-            <TextBox Text="{Binding NewTourRequest.Description}" Style="{StaticResource TextBoxStyle}" Height="104" Width="564"/>
+            <TextBox Text="{Binding NewTourRequest.Description}" Style="{StaticResource TextBoxStyle}" TextWrapping="Wrap" Height="104" Width="564"/>
         </StackPanel>
         <Button Command="{Binding SendRequestCommand}" Height="NaN" Width="NaN" Grid.Row="4" Grid.Column="2" Content="Send request" Style="{StaticResource MyButtonStyle}" Margin="79,10,79,8"/>
     </Grid>

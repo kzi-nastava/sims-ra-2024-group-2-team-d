@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Dto
 {
-    public class TouristDTO
+    public class TouristDTO: INotifyPropertyChanged
     {
         private string name;
         public string Name
@@ -18,6 +18,11 @@ namespace BookingApp.Dto
             {
                 if (value != name)
                 {
+                    if (Name != null && LastName != null && Age > 0)
+                    {
+                        IsPlusButtonEnabled = true;
+                        OnPropertyChanged("IsPlusButtonEnabled");
+                    }
                     name = value;
                     OnPropertyChanged("Name");
                 }
@@ -32,6 +37,11 @@ namespace BookingApp.Dto
             {
                 if (value != lastName)
                 {
+                    if(Name != null && LastName != null && Age > 0)
+                    {
+                        IsPlusButtonEnabled = true;
+                        OnPropertyChanged("IsPlusButtonEnabled");
+                    }
                     lastName = value;
                     OnPropertyChanged("LastName");
                 }
@@ -39,6 +49,25 @@ namespace BookingApp.Dto
         }
 
         private int age;
+
+        private bool isPlusButtonEnabled;
+        public bool IsPlusButtonEnabled
+        {
+            get => isPlusButtonEnabled;
+            set
+            {
+                if (isPlusButtonEnabled != value)
+                {
+                    if (Name != null && LastName != null && Age > 0)
+                    {
+                        IsPlusButtonEnabled = true;
+                        OnPropertyChanged("IsPlusButtonEnabled");
+                    }
+                    isPlusButtonEnabled = value;
+                    OnPropertyChanged(nameof(IsPlusButtonEnabled));
+                }
+            }
+        }
 
         public int Age
         {
@@ -55,7 +84,7 @@ namespace BookingApp.Dto
 
         public TouristDTO()
         {
-
+            isPlusButtonEnabled = false;
         }
 
         public TouristDTO(Tourist tourist)
@@ -63,6 +92,7 @@ namespace BookingApp.Dto
             Name = tourist.Name;
             LastName = tourist.LastName;
             Age = tourist.Age;
+            isPlusButtonEnabled = false;
         }
 
 

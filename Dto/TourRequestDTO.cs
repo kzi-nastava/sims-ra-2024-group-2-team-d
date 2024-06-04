@@ -175,6 +175,11 @@ namespace BookingApp.Dto
 
         public DateTime FirstAvailableDateForSecondDatePicker { get; set; }
 
+        public TourRequestDTO()
+        {
+
+        }
+
         public TourRequestDTO(int userTouristId)
         {
             IsFirstTime = true;

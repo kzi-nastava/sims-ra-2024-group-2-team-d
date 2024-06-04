@@ -37,5 +37,8 @@ namespace BookingApp.Services.IServices
         List<DateTime> FindAllUnavaliableDates(User user, ObservableCollection<TourInstance> tours);
 
         public TourInstance UpdateFreeSpots(TourInstance tourInstance);
+        public List<TourInstance> GetAllForReservation();
+
+
     }
 }

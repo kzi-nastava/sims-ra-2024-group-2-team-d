@@ -90,7 +90,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         {
             get { return addedTouristsCounter; }
             set
-            {
+            {                
                 addedTouristsCounter = value;
                 OnPropertyChanged(nameof(AddedTouristsCounter));
             }
@@ -143,6 +143,11 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 TouristToAdd = new TouristDTO(tourist);
                 Tourists.Remove(tourist);
                 AddedTouristsCounter++;
+                if(AddedTouristsCounter != 0)
+                {
+                    IsPlusButtonEnabled = true;
+                    IsReserveButtonEnabled = false;
+                }
             }
             else
             {
@@ -160,7 +165,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
                 if (result == true)
                 {                                         
                         Tourists.Remove(tourist);
-                        AddedTouristsCounter++;                  
+                        AddedTouristsCounter++;
+                    if (AddedTouristsCounter != 0)
+                    {
+                        IsPlusButtonEnabled = true;
+                        IsReserveButtonEnabled = false;
+                    }
                 }
             }
             else

@@ -46,15 +46,17 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         private string _logoPath = "../../../Resources/Images/tourist-logo.jpg";
         private string _appName = "Milan's app for tourism";
         public ITourReservationService TourReservationService { get; set; }
+        public ITourInstanceService TourInstanceService { get; set; }
 
         public UserToursViewModel(User loggedInUser, ObservableCollection<TourInstance> tourInstances, IDialogService dialogService, MainViewModel mainViewModel)
         {
             ReservedTours = new ObservableCollection<TourInstance>();
             FinishedTours = new ObservableCollection<TourInstance>();
+            TourInstanceService = Injector.Injector.CreateInstance<ITourInstanceService>();
             LoggedInUser = loggedInUser;
-            TourInstances = tourInstances;
+            TourInstances = new ObservableCollection<TourInstance>(TourInstanceService.GetAll());
             OpenTourReviewCommand = new RelayCommand(tourInstance => OpenTourReview((TourInstance)tourInstance));
-            FilterTours(tourInstances);
+            FilterTours(TourInstances);
             OpenMorePicturesCommand = new RelayCommand(tourInstance =>OpenMorePictures((TourInstance)tourInstance));
             _dialogService = dialogService;
             MainViewModel = mainViewModel;

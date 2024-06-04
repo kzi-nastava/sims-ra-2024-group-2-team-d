@@ -72,6 +72,12 @@ namespace BookingApp.Services
             else return true;
         }
 
+        public List<TourInstance> GetAllForReservation()
+        {
+            List<TourInstance> tourInstances = GetAll();
+            return tourInstances.FindAll(t => t.Start != true && t.End != true);
+        }
+
         public TourInstance GetById(int id)
         {
             TourInstance tourInstance = TourInstanceRepository.GetById(id);
@@ -121,5 +127,13 @@ namespace BookingApp.Services
         {
             return TourInstanceRepository.UpdateFreeSpots(tourInstance);
         }
+
+        public TourInstance UpdateReviewStatus(TourInstance tourInstance)
+        {
+            return TourInstanceRepository.UpdateReviewStatus(tourInstance);
+        }
+
+        
+
     }
 }

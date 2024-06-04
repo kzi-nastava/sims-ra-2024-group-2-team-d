@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Height="768" Width="1024">
     <UserControl.Resources>
+        <local:BooleanInverterConverter x:Key="BooleanInverterConverter" />
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="Width" Value="250"/>
             <Setter Property="Margin" Value="5"/>
@@ -78,12 +79,45 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="MySpecialButton" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+         BorderBrush="{TemplateBinding BorderBrush}" 
+         BorderThickness="{TemplateBinding BorderThickness}" 
+         CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="LightGray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <StackPanel>
         <Grid Height="75">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="230*"></ColumnDefinition>
-                <ColumnDefinition Width="453*"></ColumnDefinition>
+                <ColumnDefinition Width="97*"></ColumnDefinition>
+                <ColumnDefinition Width="586*"></ColumnDefinition>
                 <ColumnDefinition Width="341*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -92,7 +126,7 @@
             <Button Grid.Column="0" Grid.Row="0" Width="50" Height="NaN" HorizontalAlignment="Left" Command="{Binding GoBackCommand}" Style="{StaticResource MyButtonStyle}" Margin="10,10,0,10">
                 <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
             </Button>
-            <TextBlock HorizontalAlignment="Left" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" TextWrapping="Wrap" Style="{StaticResource MyTextStyle}" FontSize="30" FontWeight="Bold" >
+            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" TextWrapping="Wrap" Style="{StaticResource MyTextStyle}" FontSize="30" FontWeight="Bold" Margin="10,10,0,10" >
                 <TextBlock.Text>
                     <MultiBinding StringFormat="Rate tour {0} at {1}">
                         <Binding Path="TourTitle"></Binding>
@@ -102,11 +136,21 @@
             </TextBlock>
         </Grid>
 
-        <TextBlock Style="{StaticResource MyTextStyle}" Text="Guide's knowledge" HorizontalAlignment="Center"></TextBlock>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource MyTextStyle}" Text="Guide's knowledge" HorizontalAlignment="Center"></TextBlock>
+            <Image Source="../../../Resources/Images/star.png" Height="40" Width="40"></Image>
+        </StackPanel>
         <ComboBox Style="{StaticResource StyledComboBox}" ItemsSource="{Binding Ratings}" SelectedItem="{Binding UserTourReview.GuideKnowledge}" Width="120" Height="30" />
-        <TextBlock Style="{StaticResource MyTextStyle}" Text="Guide's language" HorizontalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource MyTextStyle}" Text="Guide's language" HorizontalAlignment="Center"></TextBlock>
+            <Image Source="../../../Resources/Images/star.png" Height="40" Width="40"></Image>
+        </StackPanel>
         <ComboBox Style="{StaticResource StyledComboBox}" ItemsSource="{Binding Ratings}" SelectedItem="{Binding  UserTourReview.GuideLanguage}" Width="120" Height="30" />
-        <TextBlock Style="{StaticResource MyTextStyle}" Text="Tour enjoyability" HorizontalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource MyTextStyle}" Text="Tour enjoyability" HorizontalAlignment="Center"></TextBlock>
+            <Image Source="../../../Resources/Images/star.png" Height="40" Width="40"></Image>
+        </StackPanel>
         <ComboBox Style="{StaticResource StyledComboBox}" ItemsSource="{Binding Ratings}" SelectedItem="{Binding  UserTourReview.Enjoyability}" Width="120" Height="30" />
         <TextBlock Style="{StaticResource MyTextStyle}" Text="Additional comment" HorizontalAlignment="Center"></TextBlock>
         <Grid>
@@ -118,8 +162,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Command="{Binding ShowAllAddedPicturesCommand}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Content="See all added pictures" Style="{StaticResource MyButtonStyle}" Width="223" Margin="10,55,0,55"/>
-            <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource TextBoxStyle}" Width="500" Height="NaN" Text="{Binding UserTourReview.Comment}" Margin="5,5,0,5" />
+            <Button Command="{Binding ShowAllAddedPicturesCommand}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Content="See all added pictures" Style="{StaticResource MySpecialButton}" Width="223" Margin="10,55,0,55"/>
+            <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.ColumnSpan="2" TextWrapping="Wrap" Grid.Row="0" Style="{StaticResource TextBoxStyle}" Width="500" Height="NaN" Text="{Binding UserTourReview.Comment}" Margin="5,5,0,5" />
         </Grid>
 
         <Button Content="Add Image" Command="{Binding AddImageCommand}" Style="{StaticResource MyButtonStyle}" Width="116"/>

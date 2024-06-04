@@ -188,6 +188,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         private readonly MainViewModel _mainViewModel;
 
         private readonly IDialogService _dialogService;
+        public ICommand PlayVideoCommand {  get; set; }
 
         public TouristHomeViewModel(MainViewModel mainViewModel, User user, IDialogService dialogService)
         {
@@ -228,6 +229,12 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
             LinkEntities();
             MoveToActiveTours();
             SortTourInstances(TourInstances);
+            PlayVideoCommand = new RelayCommand(PlayVideo);
+        }
+
+        public void PlayVideo()
+        {
+            _mainViewModel.SwitchView(new VideoPlayerViewModel(_mainViewModel, LoggedInUser, _dialogService));
         }
         public void LinkEntities()
         {

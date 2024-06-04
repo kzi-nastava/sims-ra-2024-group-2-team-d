@@ -174,12 +174,12 @@ namespace BookingApp.Repository
 
         public List<TourRequest> GetByUserId(int userId)
         {
-            return _tourRequest.Where(t =>t.UserTouristId == userId).ToList();
+            return _tourRequest.Where(t =>t.UserTouristId == userId && t.IsPartOfComplexRequest != true).ToList();
         }
 
         public List<TourRequest> GetByUserTouristIdAndYear(int userTouristId, int year)
         {
-            return _tourRequest.Where(t => t.UserTouristId == userTouristId && (t.Start.Year == year || t.End.Year == year)).ToList();
+            return _tourRequest.Where(t => t.UserTouristId == userTouristId && (t.Start.Year == year || t.End.Year == year) && t.IsPartOfComplexRequest != true).ToList();
         }
 
         public List<string> GetDistinctLanguages()

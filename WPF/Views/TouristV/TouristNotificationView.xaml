@@ -10,15 +10,15 @@
         <ListView ItemsSource="{Binding PresentTourists}" SelectedItem="{Binding SelectedTouristList}" SelectionMode="Single" x:Name="itemsList" Grid.Column="1" Margin="10">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Expander Header="{Binding Path=Count, StringFormat='{}{0} tourists'}">
+                    <Expander FontFamily="Arial" Header="{Binding Path=Count, StringFormat='{}{0} tourists'}">
                         <!-- Ugnježdeni ItemsControl za prikaz svih turista unutar jedne liste -->
                         <ItemsControl ItemsSource="{Binding}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <TextBlock Text="{Binding Name}" />
-                                        <TextBlock Text="{Binding LastName}" />
-                                        <TextBlock Text="{Binding Age}" />
+                                        <TextBlock FontFamily="Arial" Text="{Binding Name}" />
+                                        <TextBlock FontFamily="Arial" Text="{Binding LastName}" />
+                                        <TextBlock FontFamily="Arial" Text="{Binding Age}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

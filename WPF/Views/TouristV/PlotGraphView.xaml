@@ -10,8 +10,10 @@
         Height="768" Width="1024">
     <UserControl.Resources>
         <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Width" Value="100" />
+            <Setter Property="FontFamily" Value="Arial" />
             <Setter Property="Height" Value="50" />
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
@@ -20,21 +22,44 @@
             <Setter Property="Padding" Value="5" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" BlurRadius="10" />
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-BorderBrush="{TemplateBinding BorderBrush}" 
-BorderThickness="{TemplateBinding BorderThickness}" 
-CornerRadius="10">
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="White" />
-                            </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="Gray" />
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="White" Offset="0.0" />
+                                            <GradientStop Color="Gray" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="LightGray" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" Value="DarkGray" />
+                                <Setter Property="BorderBrush" Value="DarkGray" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Transparent" />
+                                    </Setter.Value>
+                                </Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -44,13 +69,13 @@ CornerRadius="10">
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="62"></RowDefinition>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Style="{StaticResource MyButtonStyle}" Grid.Row="0" Width="50" Height="50" HorizontalAlignment="Left" Command="{Binding GoBackCommand}">
+        <Button Style="{StaticResource MyButtonStyle}" Grid.Row="0" Width="50" Height="NaN" HorizontalAlignment="Left" Command="{Binding GoBackCommand}" Margin="10,10,0,1">
             <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
         </Button>
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" Grid.Row="1" Margin="0,0,0,36">
+        <lvc:CartesianChart Series="{Binding SeriesCollection}" Grid.Row="1" Margin="0,10,0,36">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="{Binding XAxisTitle}" Labels="{Binding Labels}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>

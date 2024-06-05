@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Views"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+       
              xmlns:behaviors="clr-namespace:BookingApp.WPF.Views.TouristV"
         mc:Ignorable="d"
         Height="768" Width="1024">
@@ -191,7 +192,11 @@
                 <TextBlock Text="Location" Style="{StaticResource MyTextStyle}"></TextBlock>
                 <Image Source="../../../Resources/Images/location-icon.jpg" Height="40" Width="40"></Image>
             </StackPanel>
-            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding NewTourRequest.Location}" RenderTransformOrigin="0.499,1.049" Height="36"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding NewTourRequest.Location}" RenderTransformOrigin="0.499,1.049" Height="36">
+                <i:Interaction.Behaviors>
+                    <behaviors:TextBoxInputBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
         </StackPanel>
         <StackPanel Grid.RowSpan="3" Grid.Row="1" Grid.Column="1" >
             <GroupBox BorderBrush="Black" Margin="0,30,0,0">
@@ -203,9 +208,17 @@
                 </GroupBox.Header>
                 <StackPanel Height="346">
                     <TextBlock Text="Name" Style="{StaticResource MyTextStyle}"/>
-                    <TextBox Text="{Binding InputTourist.Name}" Style="{StaticResource TextBoxStyle}" Height="36"/>
+                    <TextBox Text="{Binding InputTourist.Name}" Style="{StaticResource TextBoxStyle}" Height="36">
+                        <i:Interaction.Behaviors>
+                            <behaviors:TextBoxInputBehavior />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                     <TextBlock Text="Last name" Style="{StaticResource MyTextStyle}"/>
-                    <TextBox Text="{Binding InputTourist.LastName}" Style="{StaticResource TextBoxStyle}" Height="39"/>
+                    <TextBox Text="{Binding InputTourist.LastName}" Style="{StaticResource TextBoxStyle}" Height="39">
+                        <i:Interaction.Behaviors>
+                            <behaviors:TextBoxInputBehavior />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                     <TextBlock Text="Age" Style="{StaticResource MyTextStyle}"/>
                     <TextBox Text="{Binding InputTourist.Age}" Style="{StaticResource TextBoxStyle}">
                         <i:Interaction.Behaviors>
@@ -223,7 +236,11 @@
                 <TextBlock Text="Language" Style="{StaticResource MyTextStyle}"></TextBlock>
                 <Image Source="../../../Resources/Images/language-icon.png" Height="40" Width="40"></Image>
             </StackPanel>
-            <TextBox Text="{Binding NewTourRequest.Language}" Style="{StaticResource TextBoxStyle}" Height="36"></TextBox>
+            <TextBox Text="{Binding NewTourRequest.Language}" Style="{StaticResource TextBoxStyle}" Height="36">
+                <i:Interaction.Behaviors>
+                    <behaviors:TextBoxInputBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
         </StackPanel>
         <TextBlock VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Text="{Binding NewTourRequest.NumberOfTourists, StringFormat='Number of tourists inserted: {0}', UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MyTextStyle}" Width="308" Height="34" Margin="0,10,0,0"/>
         <StackPanel Grid.Row="1" Grid.RowSpan="3" Margin="0,65,0,65" Grid.Column="2">

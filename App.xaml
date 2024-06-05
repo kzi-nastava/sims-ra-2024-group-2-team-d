@@ -7,6 +7,7 @@
              xmlns:viewTourists2="clr-namespace:BookingApp.WPF.Views"
               xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="View/SignInForm.xaml">
     <Application.Resources>
         <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
@@ -213,6 +214,7 @@
         <DataTemplate DataType="{x:Type vmTourists:VideoPlayerViewModel}">
             <viewTourists:VideoPlayerView />
         </DataTemplate>
+
         <Storyboard x:Key="SmoothTransition">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>

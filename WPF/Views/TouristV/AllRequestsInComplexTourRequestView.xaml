@@ -149,7 +149,7 @@ HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100" />
-                                <RowDefinition Height="100" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="190" />
@@ -173,7 +173,7 @@ HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                                 <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"/>
                                 <TextBlock Text="{Binding Language}" Style="{StaticResource MyTextStyle}" HorizontalAlignment="Center"/>
                             </StackPanel>
-                            <TextBlock Text="{Binding Description}" Style="{StaticResource MyTextStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
+                            <TextBlock Width="570" TextWrapping="Wrap" Text="{Binding Description}" Style="{StaticResource MyTextStyle}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
                             <StackPanel Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center">
                                 <Button Style="{StaticResource MyButtonStyle}" Height="50" Width="50" Command="{Binding ElementName=TourRequestsLB, Path=DataContext.ShowAllTouristsCommand}" CommandParameter="{Binding}">
                                     <Image Source="../../../Resources/Images/info-icon.png"/>

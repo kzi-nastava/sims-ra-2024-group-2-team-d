@@ -43,7 +43,7 @@ namespace BookingApp.WPF.ViewModels.TouristVMs
         public static ObservableCollection<TourInstance> TourInstances { get; set; }
         public ICommand GenerateReservationReportCommand {  get; set; }
 
-        private string _logoPath = "../../../Resources/Images/tourist-logo.jpg";
+        private string _logoPath = "../../../Resources/Images/tourist-logo.png";
         private string _appName = "Milan's app for tourism";
         public ITourReservationService TourReservationService { get; set; }
         public ITourInstanceService TourInstanceService { get; set; }

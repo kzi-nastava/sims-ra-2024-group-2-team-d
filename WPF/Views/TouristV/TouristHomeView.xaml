@@ -248,6 +248,7 @@
                                 <StackPanel>
                                     <Button Content="My vouchers" Command="{Binding ShowToursitVouchersCommand}" Style="{StaticResource MyButtonStyle}" Width="180" Height="40"/>
                                     <Button Content="Show tutorial" Command="{Binding PlayVideoCommand}" Style="{StaticResource MyButtonStyle}" Width="180" Height="40"/>
+                                    
                                 </StackPanel>
                             </Border>
                         </Popup>
@@ -269,10 +270,16 @@
                     </GroupBox.Header>
                     <StackPanel >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock FontSize="16" Text="Location" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" ></TextBlock>
+                            <TextBlock FontSize="16" Text="Location" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" >
+                                
+                            </TextBlock>
                             <Image Height="40" Width="40" Source="../../../Resources/Images/location-icon.jpg"></Image>
                         </StackPanel>
-                        <TextBox Text="{Binding LocationSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}"></TextBox>
+                        <TextBox Text="{Binding LocationSearch}" Width="150" Margin="10,10,10,10" Style="{StaticResource StyledTextBox}">
+                            <i:Interaction.Behaviors>
+                                <local:TextBoxInputBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock FontSize="16" Text="Duration" Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" >
                             </TextBlock>
@@ -326,7 +333,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <ListBox Height="200" x:Name="ToursForTracking" ItemsSource="{Binding ActiveTours}" SelectedItem="{Binding SelectedTour}">
+                <ListBox Height="200" x:Name="ToursForTracking" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.IsDeferredScrollingEnabled="True" ItemsSource="{Binding ActiveTours}" SelectedItem="{Binding SelectedTour}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -407,7 +414,7 @@
                 </ListBox>
 
                 <TextBlock FontWeight="Bold"  FontSize="40" Margin="10,15,10,10" HorizontalAlignment="Right">Tours</TextBlock>
-                <ListBox x:Name="TourReservations" Height="394" Width="768" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
+                <ListBox x:Name="TourReservations"  Height="394" Width="768" ItemsSource="{Binding TourInstances}" SelectedItem="{Binding SelectedTour}">
                     <ListBox.ItemTemplate >
                         <DataTemplate>
                             <Grid>

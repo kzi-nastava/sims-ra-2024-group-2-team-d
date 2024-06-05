@@ -11,6 +11,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="10,10,10,10" />
             <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
         <Style TargetType="ListBox">
             <Setter Property="BorderBrush" Value="Black" />
@@ -23,24 +24,23 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="4" SnapsToDevicePixels="true">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="4" SnapsToDevicePixels="true"
+                RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
                             <Grid>
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal"/>
-                                        <VisualState x:Name="MouseOver">
+                                        <VisualState x:Name="MouseOver"/>
+                                        <VisualState x:Name="Selected">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="Bd"
-                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                 To="1.1"
-                                                 Duration="0:0:0.1"/>
-                                                <DoubleAnimation Storyboard.TargetName="Bd"
-                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                 To="1.1"
-                                                 Duration="0:0:0.1"/>
+                                                <ColorAnimation Storyboard.TargetName="Bd"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="LightGray" Duration="0:0:0.1"/>
                                             </Storyboard>
                                         </VisualState>
-                                        <VisualState x:Name="Selected"/>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -58,18 +58,30 @@
                             <EventTrigger RoutedEvent="Button.PreviewMouseDown">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetName="Bd"
-                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                        To="Gray" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                         To="0.9" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                         To="0.9" Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="Button.PreviewMouseUp">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetName="Bd"
-                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                        To="Transparent" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                         To="1.1" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                         To="1.1" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                         To="1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                         To="1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -79,9 +91,10 @@
             </Setter>
         </Style>
         <Style x:Key="MyButtonStyle" TargetType="Button">
-            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="Margin" Value="10" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Width" Value="100" />
+            <Setter Property="FontFamily" Value="Arial" />
             <Setter Property="Height" Value="50" />
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
@@ -90,6 +103,11 @@
             <Setter Property="Padding" Value="5" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" BlurRadius="10" />
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -100,11 +118,29 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="White" />
-                            </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="Gray" />
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="White" Offset="0.0" />
+                                            <GradientStop Color="Gray" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="LightGray" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" Value="DarkGray" />
+                                <Setter Property="BorderBrush" Value="DarkGray" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Transparent" />
+                                    </Setter.Value>
+                                </Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

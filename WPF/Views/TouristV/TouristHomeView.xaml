@@ -17,6 +17,7 @@
             <Setter Property="BorderBrush" Value="Gray" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Width" Value="200" />
+            <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
         <!-- Stil za ComboBox -->
         <Style x:Key="StyledComboBox" TargetType="ComboBox">
@@ -26,6 +27,7 @@
             <Setter Property="BorderBrush" Value="Gray" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Width" Value="200" />
+            <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
 
         <!-- Stil za GroupBox -->
@@ -41,40 +43,53 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="10,10,10,10" />
             <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
+        
         <Style x:Key="MyButtonStyle" TargetType="Button">
-            <Setter Property="Margin" Value="10,10,10,10" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="Width" Value="100" />
-            <Setter Property="Height" Value="50" />
-            <Setter Property="Background" Value="White" />
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
+    <Setter Property="Margin" Value="10" />
+    <Setter Property="FontSize" Value="20" />
+    <Setter Property="Width" Value="100" />
+    <Setter Property="FontFamily" Value="Arial" />
+    <Setter Property="Height" Value="50" />
+    <Setter Property="Background" Value="White" />
+    <Setter Property="Foreground" Value="Black" />
+    <Setter Property="BorderBrush" Value="Black" />
+    <Setter Property="BorderThickness" Value="2" />
+    <Setter Property="Padding" Value="5" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Effect">
+        <Setter.Value>
+            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" BlurRadius="10" />
+        </Setter.Value>
+    </Setter>
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="Button">
+                <Border Background="{TemplateBinding Background}" 
                         BorderBrush="{TemplateBinding BorderBrush}" 
                         BorderThickness="{TemplateBinding BorderThickness}" 
                         CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="White" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="Gray" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="White" Offset="0.0" />
+                                    <GradientStop Color="Gray" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+       
 
         <Style x:Key="NotificationButtonStyle" TargetType="Button" BasedOn="{StaticResource MyButtonStyle}">
             <Setter Property="Width" Value="75" />
@@ -88,6 +103,7 @@
             <Setter Property="TextWrapping" Value="Wrap" />
             <Setter Property="Margin" Value="5" />
             <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
 
         <Style x:Key="NotificationsButtons" TargetType="Button">
@@ -96,10 +112,6 @@
             <Setter Property="Width" Value="75" />
             <Setter Property="Height" Value="25" />
         </Style>
-        <Style TargetType="ListBox">
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="2" />
-        </Style>
         <Style TargetType="ListBoxItem">
             <Setter Property="SnapsToDevicePixels" Value="true"/>
             <Setter Property="BorderBrush" Value="Black" />
@@ -107,24 +119,23 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="4" SnapsToDevicePixels="true">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="4" SnapsToDevicePixels="true"
+                        RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
                             <Grid>
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal"/>
-                                        <VisualState x:Name="MouseOver">
+                                        <VisualState x:Name="MouseOver"/>
+                                        <VisualState x:Name="Selected">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="Bd"
-                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                         To="1.1"
-                                                         Duration="0:0:0.1"/>
-                                                <DoubleAnimation Storyboard.TargetName="Bd"
-                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                         To="1.1"
-                                                         Duration="0:0:0.1"/>
+                                                <ColorAnimation Storyboard.TargetName="Bd"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="LightGray" Duration="0:0:0.1"/>
                                             </Storyboard>
                                         </VisualState>
-                                        <VisualState x:Name="Selected"/>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -142,18 +153,30 @@
                             <EventTrigger RoutedEvent="Button.PreviewMouseDown">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetName="Bd"
-                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                To="Gray" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                 To="0.9" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                 To="0.9" Duration="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="Button.PreviewMouseUp">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetName="Bd"
-                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                To="Transparent" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                 To="1.1" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                 To="1.1" Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                 To="1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="Bd"
+                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                 To="1" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -162,6 +185,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Stil za dugmad unutar ListBoxItem -->
+        
 
     </UserControl.Resources>
 
@@ -275,7 +301,7 @@
                         </TextBox>
                         <StackPanel Orientation="Horizontal">
                             <Button Height="40" Width="80" Margin="10,10,10,10" Command="{Binding ResetSearchResultsCommand}" Style="{StaticResource MyButtonStyle}">Reset</Button>
-                            <Button Height="40" Width="80" Margin="10,10,10,10" Command="{Binding SearchCommand}" Style="{StaticResource MyButtonStyle}" Content="Search">
+                            <Button Height="40" Width="75" Margin="10,10,10,10" Command="{Binding SearchCommand}" Style="{StaticResource MyButtonStyle}" Content="Search" RenderTransformOrigin="0.366,0.495">
                             </Button>
                         </StackPanel>
                     </StackPanel>
@@ -448,7 +474,9 @@
                                     <Image Height="40" Width="40" Source="../../../Resources/Images/language-icon.png"></Image>
                                     <TextBlock Text="{Binding BaseTour.Language}" Style="{StaticResource MyTextStyle}" />
                                 </StackPanel>
-                                <Button Content="Reserve" Command="{Binding ElementName=TourReservations, Path=DataContext.NavigateToReservationCommand}" CommandParameter="{Binding}" Grid.Column="4" Grid.Row="0" Style="{StaticResource MyButtonStyle}" />
+                                <Button Content="Reserve" Command="{Binding ElementName=TourReservations, Path=DataContext.NavigateToReservationCommand}" CommandParameter="{Binding}" Grid.Column="4" Grid.Row="0" Style="{StaticResource MyButtonStyle}">
+                                    
+                                </Button>
                                 <StackPanel Grid.Row="1" Grid.Column="4">
                                     <Button Height="50" Width="50" Margin="0,0,0,0" Command="{Binding ElementName=TourReservations, Path=DataContext.MoreInfoCommand}" CommandParameter="{Binding}" Style="{StaticResource MyButtonStyle}">
                                         <Image Source="../../../Resources/Images/info-icon.png"></Image>

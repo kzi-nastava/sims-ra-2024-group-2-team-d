@@ -84,8 +84,10 @@
             <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemStyle}"/>
         </Style>
         <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Width" Value="100" />
+            <Setter Property="FontFamily" Value="Arial" />
             <Setter Property="Height" Value="50" />
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
@@ -94,6 +96,11 @@
             <Setter Property="Padding" Value="5" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" BlurRadius="10" />
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -104,16 +111,40 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="White" />
-                            </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="Gray" />
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="White" Offset="0.0" />
+                                            <GradientStop Color="Gray" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="LightGray" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" Value="DarkGray" />
+                                <Setter Property="BorderBrush" Value="DarkGray" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Transparent" />
+                                    </Setter.Value>
+                                </Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style x:Key="MyTextStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
     </UserControl.Resources>
     <DockPanel>
@@ -127,7 +158,7 @@
                 <Button Width="50" Height="50" HorizontalAlignment="Left" Grid.Column="0" Command="{Binding GoBackCommand}" Style="{StaticResource MyButtonStyle}">
                     <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
                 </Button>
-                <TextBlock Text="My vouchers" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="1"></TextBlock>
+                <TextBlock Text="My vouchers" Style="{StaticResource MyTextStyle}" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="1"></TextBlock>
             </Grid>
         </DockPanel>
         <ListBox ItemsSource="{Binding GiftCards}" Style="{StaticResource ListBoxStyle}">
@@ -138,8 +169,8 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="../../../Resources/Images/voucher-icon.png" Height="40" Width="40"></Image>
-                        <TextBlock Margin="10,10,10,10" Text="{Binding ReceiveDate, StringFormat='Receive Date: {0:yyyy-MM-dd}'}"/>
-                        <TextBlock Margin="10,10,10,10" Text="{Binding ExpirationDate, StringFormat='Expiration Date: {0:yyyy-MM-dd}'}"/>
+                        <TextBlock Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" Text="{Binding ReceiveDate, StringFormat='Receive Date: {0:yyyy-MM-dd}'}"/>
+                        <TextBlock Margin="10,10,10,10" Style="{StaticResource MyTextStyle}" Text="{Binding ExpirationDate, StringFormat='Expiration Date: {0:yyyy-MM-dd}'}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -221,9 +221,17 @@
                     </GroupBox.Header>
                     <StackPanel Height="367">
                         <TextBlock Text="Name" HorizontalAlignment="Center" Style="{StaticResource MyTextStyle}"></TextBlock>
-                        <TextBox Width="NaN" Style="{StaticResource TextBoxStyle}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TouristToAdd.Name, Mode=TwoWay}" Height="40" />
+                        <TextBox Width="NaN" Style="{StaticResource TextBoxStyle}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TouristToAdd.Name, Mode=TwoWay}" Height="40">
+                            <i:Interaction.Behaviors>
+                                <local:TextBoxInputBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
                         <TextBlock Text="Last name" HorizontalAlignment="Center" Style="{StaticResource MyTextStyle}"></TextBlock>
-                        <TextBox Height="40" Style="{StaticResource TextBoxStyle}" Width="NaN" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Text="{Binding TouristToAdd.LastName, Mode=TwoWay}" />
+                        <TextBox Height="40" Style="{StaticResource TextBoxStyle}" Width="NaN" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Text="{Binding TouristToAdd.LastName, Mode=TwoWay}">
+                            <i:Interaction.Behaviors>
+                                <local:TextBoxInputBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
                         <TextBlock Text="Age" HorizontalAlignment="Center" Style="{StaticResource MyTextStyle}"></TextBlock>
                         <TextBox Style="{StaticResource TextBoxStyle}" Width="NaN" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Text="{Binding TouristToAdd.Age, Mode=TwoWay}" Height="40">
                             <i:Interaction.Behaviors>

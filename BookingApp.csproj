@@ -13,6 +13,7 @@
     <None Remove="Resources\Images\back_icon.png" />
     <None Remove="Resources\Images\beograd.jpg" />
     <None Remove="Resources\Images\calendar-icon.png" />
+    <None Remove="Resources\Images\calle-akihabara-tokio.png" />
     <None Remove="Resources\Images\cloud1.png" />
     <None Remove="Resources\Images\cloud2.png" />
     <None Remove="Resources\Images\cloud3.png" />
@@ -37,9 +38,12 @@
     <None Remove="Resources\Images\pin-icon.png" />
     <None Remove="Resources\Images\plus-icon.png" />
     <None Remove="Resources\Images\R.jpg" />
+    <None Remove="Resources\Images\rome1.jpg" />
+    <None Remove="Resources\Images\rome2.jpg" />
+    <None Remove="Resources\Images\rome3.jpg" />
     <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\status-icon.png" />
-    <None Remove="Resources\Images\tourist-logo.jpg" />
+    <None Remove="Resources\Images\tourist-logo.png" />
     <None Remove="Resources\Images\traveler-icon.png" />
     <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
@@ -76,6 +80,7 @@
     <Resource Include="Resources\Images\back_icon.png" />
     <Resource Include="Resources\Images\beograd.jpg" />
     <Resource Include="Resources\Images\calendar-icon.png" />
+    <Resource Include="Resources\Images\calle-akihabara-tokio.png" />
     <Resource Include="Resources\Images\cloud1.png" />
     <Resource Include="Resources\Images\cloud2.png" />
     <Resource Include="Resources\Images\cloud3.png" />
@@ -98,9 +103,12 @@
     <Resource Include="Resources\Images\pin-icon.png" />
     <Resource Include="Resources\Images\plus-icon.png" />
     <Resource Include="Resources\Images\R.jpg" />
+    <Resource Include="Resources\Images\rome1.jpg" />
+    <Resource Include="Resources\Images\rome2.jpg" />
+    <Resource Include="Resources\Images\rome3.jpg" />
     <Resource Include="Resources\Images\star.png" />
     <Resource Include="Resources\Images\status-icon.png" />
-    <Resource Include="Resources\Images\tourist-logo.jpg" />
+    <Resource Include="Resources\Images\tourist-logo.png" />
     <Resource Include="Resources\Images\traveler-icon.png" />
     <Resource Include="Resources\Images\user-icon.png" />
     <Resource Include="Resources\Images\voucher-icon.png" />

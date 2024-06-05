@@ -71,11 +71,11 @@
             <ColumnDefinition Width="135*"></ColumnDefinition>
             <ColumnDefinition Width="343*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Menu Background="White">
-            <Button Grid.Column="0" Width="50" Height="50" Command="{Binding BackButtonCommand}" Style="{StaticResource MyButtonStyle}" Focusable="False">
+        
+            <Button VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0" Width="50" Height="50" Command="{Binding BackButtonCommand}" Style="{StaticResource MyButtonStyle}" Focusable="False">
                 <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
             </Button>
-        </Menu>
+        
         <Button Grid.Column="0" Margin="33,133,19,167" Content="Create standard tour request" Height="NaN" Width="NaN" Command="{Binding StandardTourRequestCreationCommand}" Style="{StaticResource MyButtonStyle}"></Button>
         <Button Grid.Column="2" Margin="20,133,0,167" Content="Create complex tour request" Height="NaN" Width="262" Command="{Binding ComplexTourRequestCreationCommand}" Style="{StaticResource MyButtonStyle}" HorizontalAlignment="Left"></Button>
     </Grid>

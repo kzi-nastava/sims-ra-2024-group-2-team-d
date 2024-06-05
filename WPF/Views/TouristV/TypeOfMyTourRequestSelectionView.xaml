@@ -72,11 +72,11 @@
                 <ColumnDefinition Width="46*"></ColumnDefinition>
                 <ColumnDefinition Width="189*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Menu Background="White">
-                <Button Grid.Column="0" Width="50" Height="50" Command="{Binding BackButtonCommand}" Style="{StaticResource MyButtonStyle}">
+            
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0" Width="50" Height="50" Command="{Binding BackButtonCommand}" Style="{StaticResource MyButtonStyle}">
                     <Image Source="../../../Resources/Images/back_icon.png" Height="40" Width="40"></Image>
                 </Button>
-            </Menu>
+           
             <Button Style="{StaticResource MyButtonStyle}" Grid.Column="0" Height="NaN" Width="NaN" Margin="15,150,10,150" Content="My standard tour requests" Command="{Binding ShowMyStandardTourRequestsCommand}" Click="Button_Click" RenderTransformOrigin="0.56,-0.371"></Button>
             <Button Style="{StaticResource MyButtonStyle}" Grid.Column="2" Height="NaN" Width="NaN" Margin="46,150,10,150" Content="My complex tour requests" Command="{Binding ShowMyComplexTourRequestsCommand}" Click="Button_Click_1"></Button>
         </Grid>

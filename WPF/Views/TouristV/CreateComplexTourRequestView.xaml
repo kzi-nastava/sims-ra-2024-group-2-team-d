@@ -300,14 +300,22 @@ CornerRadius="10">
                 <TextBlock Text="Location" Style="{StaticResource MyTextStyle}"></TextBlock>
                 <Image Source="../../../Resources/Images/location-icon.jpg" Height="40" Width="40"></Image>
             </StackPanel>
-            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding NewTourRequest.Location}" RenderTransformOrigin="0.499,1.049" Height="36" />
+            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding NewTourRequest.Location}" RenderTransformOrigin="0.499,1.049" Height="36">
+                <i:Interaction.Behaviors>
+                    <local:TextBoxInputBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
         </StackPanel>
         <StackPanel Margin="0,19,0,14" Grid.Row="2" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="260">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Language" Style="{StaticResource MyTextStyle}"></TextBlock>
                 <Image Source="../../../Resources/Images/language-icon.png" Height="40" Width="40"></Image>
             </StackPanel>
-            <TextBox Text="{Binding NewTourRequest.Language}" Style="{StaticResource TextBoxStyle}" Height="42"></TextBox>
+            <TextBox Text="{Binding NewTourRequest.Language}" Style="{StaticResource TextBoxStyle}" Height="42">
+                <i:Interaction.Behaviors>
+                    <local:TextBoxInputBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
         </StackPanel>
         <StackPanel  Grid.Row="3" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="260" Margin="0,5,0,0">
             <GroupBox BorderBrush="Black" Height="174">
@@ -340,9 +348,17 @@ CornerRadius="10">
                 </GroupBox.Header>
                 <StackPanel Height="340">
                     <TextBlock Text="Name" Style="{StaticResource MyTextStyle}"></TextBlock>
-                    <TextBox Text="{Binding InputTourist.Name}" Style="{StaticResource TextBoxStyle}" Height="36"></TextBox>
+                    <TextBox Text="{Binding InputTourist.Name}" Style="{StaticResource TextBoxStyle}" Height="36">
+                        <i:Interaction.Behaviors>
+                            <local:TextBoxInputBehavior />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                     <TextBlock Text="Last name" Style="{StaticResource MyTextStyle}"></TextBlock>
-                    <TextBox Text="{Binding InputTourist.LastName}" Style="{StaticResource TextBoxStyle}" Height="39"></TextBox>
+                    <TextBox Text="{Binding InputTourist.LastName}" Style="{StaticResource TextBoxStyle}" Height="39">
+                        <i:Interaction.Behaviors>
+                            <local:TextBoxInputBehavior />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                     <TextBlock Text="Age" Style="{StaticResource MyTextStyle}"></TextBlock>
                     <TextBox Text="{Binding InputTourist.Age}" Style="{StaticResource TextBoxStyle}">
                         <i:Interaction.Behaviors>

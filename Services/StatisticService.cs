@@ -3,6 +3,7 @@ using BookingApp.Services.IServices;
 using System.Collections.Generic;
 using System;
 using BookingApp.Dto;
+using System.Linq;
 
 namespace BookingApp.Services
 {
@@ -199,7 +200,10 @@ namespace BookingApp.Services
             MonthDaysOccupied(monthlyStatistics, reservations, year);
 
 
-            return FilterListByYear(monthlyStatistics, year);
+            var filteredStatistics =  FilterListByYear(monthlyStatistics, year);
+            var fullStatistics = AddMissingMonthsStatistics(filteredStatistics, accommodationId,year);
+
+            return fullStatistics;
 
         }
 
@@ -215,6 +219,19 @@ namespace BookingApp.Services
             }
 
             return statistics;
+        }
+
+        public List<MonthStatisticDto> AddMissingMonthsStatistics(List<MonthStatisticDto> statisticsByMonthDTOs, int accommodationId, int year)
+        {
+            for (int i = 1; i<=12; i++)
+            {
+                if (!statisticsByMonthDTOs.Any(s =>s.Month == i))
+                {
+                    statisticsByMonthDTOs.Add(new MonthStatisticDto(accommodationId, year,i,0,0,0,0));
+                }
+            }
+
+            return statisticsByMonthDTOs.OrderBy(s=>s.Month).ToList();
         }
 
         public MonthStatisticDto Month(List<MonthStatisticDto> statisticsByMonth, int month, int year)

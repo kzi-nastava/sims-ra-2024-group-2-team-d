@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Services.IServices;
+using BookingApp.View.Guest1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,6 +104,20 @@ namespace BookingApp.Services
         private bool IsMatchingLocation(Accommodation accommodation, Location location)
         {
             return accommodation.Location.City == location.City && accommodation.Location.Country == location.Country;
+        }
+
+        public List<int> GetReservationsIdsByAccommodationId(int accommodationId)
+        {
+            List<int> reservationIds = new List<int>();
+            List<Reservation> reservations = _repository.GetAll();
+            foreach (Reservation ar in reservations)
+            {
+                if (ar.AccomodationId == accommodationId)
+                {
+                    reservationIds.Add(ar.Id);
+                }
+            }
+            return reservationIds;
         }
     }
 }

@@ -83,5 +83,9 @@ namespace BookingApp.View.Guest1
             ForumsWindow forums= new();
             forums.Show();
         }
+
+       
+
+
     }
 }

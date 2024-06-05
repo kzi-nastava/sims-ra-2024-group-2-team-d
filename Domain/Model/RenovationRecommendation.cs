@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BookingApp.Serializer;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookingApp.Serializer;
+using System;
 
 namespace BookingApp.Domain.Model
 {
@@ -16,6 +12,7 @@ namespace BookingApp.Domain.Model
         public int UserId { get; set; }
         public string Condition { get; set; }
         public int RenovationUrgency { get; set; }
+        public DateTime RecommendationDate { get; set; }
 
 
         public RenovationRecommendation()
@@ -29,7 +26,9 @@ namespace BookingApp.Domain.Model
             UserId = userId;
             Condition = condition;
             RenovationUrgency = revovur;
+            RecommendationDate = DateTime.Now;
         }
+
 
 
         public string[] ToCSV()
@@ -41,6 +40,7 @@ namespace BookingApp.Domain.Model
                 UserId.ToString(),
                 Condition,
                 RenovationUrgency.ToString(),
+                      RecommendationDate.ToString(),
             };
             return csvValues;
         }
@@ -53,6 +53,7 @@ namespace BookingApp.Domain.Model
             UserId = Convert.ToInt32(values[3]);
             Condition = values[4];
             RenovationUrgency = Convert.ToInt32(values[5]);
+            RecommendationDate = Convert.ToDateTime(values[6]);
         }
 
 

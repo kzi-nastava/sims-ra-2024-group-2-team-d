@@ -38,7 +38,8 @@ namespace BookingApp.Injector
         { typeof(IForumRepository), new Lazy<object>(() => new   ForumRepository()) },
         { typeof(IForumCommentRepository), new Lazy<object>(() => new   ForumCommentRepository()) },
         { typeof(ILocationRepository), new Lazy<object>(() => new   LocationRepository()) },
-            {typeof(ITourGiftCardAwardRecorderRepository), new Lazy<object>(() => new TourGiftCardAwardRecorderRepository())},
+        {typeof(ITourGiftCardAwardRecorderRepository), new Lazy<object>(() => new TourGiftCardAwardRecorderRepository())},
+        {typeof(INotificationRepository), new Lazy<object>(() => new NotificationRespository())},
 
         
         // Service implementations are here
@@ -72,6 +73,8 @@ namespace BookingApp.Injector
              {typeof(IUserService), new Lazy < object > (() => new UserService()) },
              {typeof(IForumIdService), new Lazy < object > (() => new ForumIdService()) },
              {typeof(ILocationService), new Lazy < object > (() => new LocationService()) },
+             {typeof(INotificationService), new Lazy < object > (() => new NotificationService()) },
+             {typeof(IStatisticService), new Lazy < object > (() => new StatisticService()) },
             
           
     };

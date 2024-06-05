@@ -1,15 +1,12 @@
 ﻿using BookingApp.Serializer;
 using InitialProject.CustomClasses;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BookingApp.Domain.Model
 {
+
+    public enum ReservationStatus { Reserved, CheckedIn, Finished }
     public class Reservation : ISerializable
     {
 
@@ -23,9 +20,12 @@ namespace BookingApp.Domain.Model
 
         public bool ReviewedByGuest { get; set; } = false;
 
+        public ReservationStatus Status { get; set; }
+
 
         public Reservation()
         {
+            Status = ReservationStatus.Reserved;
         }
 
         public Reservation(int accomodationId, int userId, DateRange reservationDateRange, int numberOfGuests)
@@ -34,6 +34,7 @@ namespace BookingApp.Domain.Model
             UserId = userId;
             ReservationDateRange = reservationDateRange;
             NumberOfGuests = numberOfGuests;
+            Status = ReservationStatus.Reserved;
         }
 
         public void FromCSV(string[] values)
@@ -45,6 +46,7 @@ namespace BookingApp.Domain.Model
             NumberOfGuests = Convert.ToInt32(values[4]);
             ReviewedByOwner = bool.Parse(values[5]);
             ReviewedByGuest = bool.Parse(values[6]);
+            Status = (ReservationStatus)Enum.Parse(typeof(ReservationStatus), values[7]);
 
         }
 
@@ -58,6 +60,7 @@ namespace BookingApp.Domain.Model
                 NumberOfGuests.ToString(),
                 ReviewedByOwner.ToString(),
                 ReviewedByGuest.ToString(),
+                Status.ToString(),
             };
             return csvValues;
 

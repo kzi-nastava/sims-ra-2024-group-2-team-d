@@ -23,5 +23,6 @@ namespace BookingApp.Services.IServices
 
         void ChangeReservationDateRange(DateTime newStartDate, DateTime newEndDate, int reservationId);
         bool WasOnLocation(int userId, Location location);
+        List<int> GetReservationsIdsByAccommodationId(int accommodationId);
     }
 }

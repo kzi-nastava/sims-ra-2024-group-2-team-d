@@ -20,5 +20,6 @@ namespace BookingApp.Services.IServices
         bool HasAccommodationOnLocation(int ownerId, Location location);
 
         List<Accommodation> GetAccommodationsByOwnerId(int ownerId);
+        Accommodation GetById(int accommodationId);
     }
 }

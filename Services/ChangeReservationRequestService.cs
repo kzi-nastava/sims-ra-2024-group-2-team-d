@@ -9,11 +9,13 @@ namespace BookingApp.Services
     public class ChangeReservationRequestService : IChangeReservationRequestService
     {
         public IChangeReservationRequestRepository _repo { get; set; }
+        public IReservationService _reservationService { get; set; }
 
         public ChangeReservationRequestService()
         {
 
             _repo = Injector.Injector.CreateInstance<IChangeReservationRequestRepository>();
+            _reservationService = Injector.Injector.CreateInstance<IReservationService>();
         }
 
 
@@ -41,6 +43,23 @@ namespace BookingApp.Services
                 request.OwnerComment = comment;
                 _repo.Update(request);
             }
+        }
+
+        public List<ChangeReservationRequest> GetRequestsByAccommodationId(int accommodationId)
+        {
+            List<ChangeReservationRequest> request = new List<ChangeReservationRequest>();
+            foreach (ChangeReservationRequest c in _repo.GetAll())
+            {
+                Reservation reservation = _reservationService.GetById(c.ReservationId);
+                foreach (int reservationId in _reservationService.GetReservationsIdsByAccommodationId(accommodationId))
+                {
+                    if (reservation.Id == reservationId)
+                    {
+                        request.Add(c);
+                    }
+                }
+            }
+            return request;
         }
 
     }

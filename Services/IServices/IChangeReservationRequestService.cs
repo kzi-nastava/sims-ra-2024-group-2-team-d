@@ -10,5 +10,6 @@ namespace BookingApp.Services.IServices
         public void AcceptRequest(int requestId);
 
         public void DeclineRequest(int requestId, string comment);
+        List<ChangeReservationRequest> GetRequestsByAccommodationId(int accommodationId);
     }
 }

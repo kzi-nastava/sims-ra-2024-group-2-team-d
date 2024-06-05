@@ -3,14 +3,10 @@ using BookingApp.Repository;
 using BookingApp.View.Owner;
 using BookingApp.WPF.ViewModels.Guide;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace BookingApp.ViewModel
 {
@@ -28,6 +24,7 @@ namespace BookingApp.ViewModel
         public string AccommodationCity { get; set; }
 
         public MyCommand onAccept { get; set; }
+        public MyCommand onStatistics { get; set; }
 
         public int NumberOfGuests { get; set; }
         private string _strNumberOfGuests;
@@ -113,13 +110,14 @@ namespace BookingApp.ViewModel
 
         public RenovationViewModel(User user)
         {
-            
-            
+
+
             _user = user;
             _accommodationRepository = new AccommodationRepository();
             _renovationRepository = new RenovationRepository();
             Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetAll());
             onAccept = new MyCommand(Reservation_Click);
+            onStatistics = new MyCommand(Statistics_Click);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -135,6 +133,12 @@ namespace BookingApp.ViewModel
             SelectedAccommodation.Renovations = _renovationRepository.GetAll().Where(a => a.AccomodationId == SelectedAccommodation.Id).ToList();
             AccommodationRenovation accomodationRenovation = new AccommodationRenovation(_user, SelectedAccommodation);
             accomodationRenovation.Show();
+        }
+
+        private void Statistics_Click()
+        {
+            BookingApp.WPF.Views.Owner.Statistics view = new(SelectedAccommodation.Id);
+            view.Show();
         }
     }
 }

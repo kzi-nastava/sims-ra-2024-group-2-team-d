@@ -76,5 +76,17 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _renovationRecommendations);
             return renovationRecommendation;
         }
+
+        public List<RenovationRecommendation> GetAllRecommendationByOwnerId(int ownerId)
+        {
+            _renovationRecommendations = GetAll();
+            return _renovationRecommendations.Where(r => r.UserId == ownerId).ToList();
+        }
+
+        public List<RenovationRecommendation> GetAllRecommendationsByAccommodationId(int accommodationId)
+        {
+            _renovationRecommendations = GetAll();
+            return _renovationRecommendations.Where(r => r.AccomodationId == accommodationId).ToList();
+        }
     }
 }

@@ -81,7 +81,7 @@ namespace InitialProject.CustomClasses
         }
         public override string ToString()
         {
-            return StartDate.ToString() + "," + EndDate.ToString();
+            return StartDate.ToString("dd.MM.yyyy. HH:mm:ss") + "," + EndDate.ToString("dd.MM.yyyy. HH:mm:ss");
         }
         public DateRange fromStringToDateRange(string value)
         {

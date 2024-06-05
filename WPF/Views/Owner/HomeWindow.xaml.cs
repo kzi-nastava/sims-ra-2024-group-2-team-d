@@ -84,7 +84,14 @@ namespace BookingApp.View.Guest1
             forums.Show();
         }
 
-       
+        private void Reccommmendations_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationProposition propositions = new();
+            propositions.Show();
+        }
+
+
+
 
 
     }

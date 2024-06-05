@@ -75,6 +75,7 @@ namespace BookingApp.Injector
              {typeof(ILocationService), new Lazy < object > (() => new LocationService()) },
              {typeof(INotificationService), new Lazy < object > (() => new NotificationService()) },
              {typeof(IStatisticService), new Lazy < object > (() => new StatisticService()) },
+             {typeof(IAccommodationPropositionService), new Lazy < object > (() => new AccommodationPropositionService()) },
             
           
     };

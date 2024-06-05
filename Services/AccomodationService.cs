@@ -40,6 +40,11 @@ namespace BookingApp.Services
             return _repo.getAccommodation().Find(a => a.Id == accommodationId).Name;
         }
 
+        public Accommodation GetById(int accommodationId)
+        {
+            return _repo.GetById(accommodationId);
+        }
+
         public int GetAccommodationIdByReservationId(int reservationId)
         {
             return _reservationRepository.GetById(reservationId).AccomodationId;
